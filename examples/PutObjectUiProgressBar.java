@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
-import io.minio.errors.MinioException;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.PutObjectArgs;
+import com.ionoscloud.s3.errors.MinioException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;

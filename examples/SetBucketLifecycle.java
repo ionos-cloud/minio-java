@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import io.minio.MinioClient;
-import io.minio.SetBucketLifecycleArgs;
-import io.minio.errors.MinioException;
-import io.minio.messages.Expiration;
-import io.minio.messages.LifecycleConfiguration;
-import io.minio.messages.LifecycleRule;
-import io.minio.messages.RuleFilter;
-import io.minio.messages.Status;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.SetBucketLifecycleArgs;
+import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.messages.Expiration;
+import com.ionoscloud.s3.messages.LifecycleConfiguration;
+import com.ionoscloud.s3.messages.LifecycleRule;
+import com.ionoscloud.s3.messages.RuleFilter;
+import com.ionoscloud.s3.messages.Status;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

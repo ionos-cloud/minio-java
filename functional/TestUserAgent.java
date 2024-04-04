@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-import io.minio.BucketExistsArgs;
-import io.minio.MinioClient;
+import com.ionoscloud.s3.BucketExistsArgs;
+import com.ionoscloud.s3.MinioClient;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;

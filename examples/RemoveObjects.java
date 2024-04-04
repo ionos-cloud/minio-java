@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import io.minio.MinioClient;
-import io.minio.RemoveObjectsArgs;
-import io.minio.Result;
-import io.minio.errors.MinioException;
-import io.minio.messages.DeleteError;
-import io.minio.messages.DeleteObject;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.RemoveObjectsArgs;
+import com.ionoscloud.s3.Result;
+import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.messages.DeleteError;
+import com.ionoscloud.s3.messages.DeleteObject;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

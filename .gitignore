@@ -27,6 +27,7 @@ target/
 .metadata/
 .project
 .settings/
+.vscode/
 api/.classpath
 api/.gitignore
 api/.project

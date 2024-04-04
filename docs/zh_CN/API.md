@@ -497,7 +497,7 @@ try {
 
 给一个存储桶+对象前缀设置策略。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#setBucketPolicy-java.lang.String-java.lang.String-io.minio.BucketPolicy-)
+[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#setBucketPolicy-java.lang.String-java.lang.String-com.ionoscloud.s3.BucketPolicy-)
 
 __参数__
 
@@ -1148,7 +1148,7 @@ try {
 
 从objectName指定的对象中将数据拷贝到destObjectName指定的对象。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#copyObject-java.lang.String-java.lang.String-java.lang.String-java.lang.String-io.minio.CopyConditions-)
+[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#copyObject-java.lang.String-java.lang.String-java.lang.String-java.lang.String-com.ionoscloud.s3.CopyConditions-)
 
 __参数__
 
@@ -1403,7 +1403,7 @@ try {
 
 允许给POST请求的presigned URL设置策略，比如接收对象上传的存储桶名称的策略，key名称前缀，过期策略。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#presignedPostPolicy-io.minio.PostPolicy-)
+[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#presignedPostPolicy-com.ionoscloud.s3.PostPolicy-)
 
 __参数__
 

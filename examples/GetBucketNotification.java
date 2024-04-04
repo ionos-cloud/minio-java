@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import io.minio.GetBucketNotificationArgs;
-import io.minio.MinioClient;
-import io.minio.errors.MinioException;
-import io.minio.messages.NotificationConfiguration;
+import com.ionoscloud.s3.GetBucketNotificationArgs;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.messages.NotificationConfiguration;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

@@ -15,7 +15,7 @@
  */
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import io.minio.*;
+import com.ionoscloud.s3.*;
 import java.nio.file.*;
 
 @SuppressFBWarnings(

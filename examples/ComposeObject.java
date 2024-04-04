@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import io.minio.ComposeObjectArgs;
-import io.minio.ComposeSource;
-import io.minio.MinioClient;
-import io.minio.ServerSideEncryption;
-import io.minio.ServerSideEncryptionCustomerKey;
-import io.minio.errors.MinioException;
+import com.ionoscloud.s3.ComposeObjectArgs;
+import com.ionoscloud.s3.ComposeSource;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ServerSideEncryption;
+import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
+import com.ionoscloud.s3.errors.MinioException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;

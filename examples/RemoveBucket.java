@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import io.minio.BucketExistsArgs;
-import io.minio.MinioClient;
-import io.minio.RemoveBucketArgs;
-import io.minio.errors.MinioException;
+import com.ionoscloud.s3.BucketExistsArgs;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.RemoveBucketArgs;
+import com.ionoscloud.s3.errors.MinioException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

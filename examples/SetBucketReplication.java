@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import io.minio.MinioClient;
-import io.minio.SetBucketReplicationArgs;
-import io.minio.errors.MinioException;
-import io.minio.messages.AndOperator;
-import io.minio.messages.DeleteMarkerReplication;
-import io.minio.messages.ReplicationConfiguration;
-import io.minio.messages.ReplicationDestination;
-import io.minio.messages.ReplicationRule;
-import io.minio.messages.RuleFilter;
-import io.minio.messages.Status;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.SetBucketReplicationArgs;
+import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.messages.AndOperator;
+import com.ionoscloud.s3.messages.DeleteMarkerReplication;
+import com.ionoscloud.s3.messages.ReplicationConfiguration;
+import com.ionoscloud.s3.messages.ReplicationDestination;
+import com.ionoscloud.s3.messages.ReplicationRule;
+import com.ionoscloud.s3.messages.RuleFilter;
+import com.ionoscloud.s3.messages.Status;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

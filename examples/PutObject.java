@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
-import io.minio.ServerSideEncryption;
-import io.minio.ServerSideEncryptionCustomerKey;
-import io.minio.ServerSideEncryptionKms;
-import io.minio.ServerSideEncryptionS3;
-import io.minio.errors.MinioException;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.PutObjectArgs;
+import com.ionoscloud.s3.ServerSideEncryption;
+import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
+import com.ionoscloud.s3.ServerSideEncryptionKms;
+import com.ionoscloud.s3.ServerSideEncryptionS3;
+import com.ionoscloud.s3.errors.MinioException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.InvalidKeyException;

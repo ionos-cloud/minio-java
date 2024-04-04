@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import io.minio.CloseableIterator;
-import io.minio.ListenBucketNotificationArgs;
-import io.minio.MinioClient;
-import io.minio.Result;
-import io.minio.errors.MinioException;
-import io.minio.messages.Event;
-import io.minio.messages.NotificationRecords;
+import com.ionoscloud.s3.CloseableIterator;
+import com.ionoscloud.s3.ListenBucketNotificationArgs;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.Result;
+import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.messages.Event;
+import com.ionoscloud.s3.messages.NotificationRecords;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

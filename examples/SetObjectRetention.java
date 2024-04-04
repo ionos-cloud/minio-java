@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import io.minio.MinioClient;
-import io.minio.SetObjectRetentionArgs;
-import io.minio.Time;
-import io.minio.errors.MinioException;
-import io.minio.messages.Retention;
-import io.minio.messages.RetentionMode;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.SetObjectRetentionArgs;
+import com.ionoscloud.s3.Time;
+import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.messages.Retention;
+import com.ionoscloud.s3.messages.RetentionMode;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

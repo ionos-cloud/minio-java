@@ -32,13 +32,13 @@ EOF
 ```
 
 #### Upload to maven
-Upload all artifacts belonging to `io.minio` artifact repository, additionally this step requires you to have access to MinIO's trusted private key.
+Upload all artifacts belonging to `com.ionoscloud.s3` artifact repository, additionally this step requires you to have access to MinIO's trusted private key.
 ```sh
 $ ./gradlew uploadArchives
 ```
 
 #### Release
-Closes and releases `io.minio` artifacts repository in Nexus to maven.
+Closes and releases `com.ionoscloud.s3` artifacts repository in Nexus to maven.
 ```sh
 $ ./gradlew closeAndReleaseRepository
 ```

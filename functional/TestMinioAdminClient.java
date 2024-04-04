@@ -16,7 +16,7 @@
  */
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import io.minio.admin.*;
+import com.ionoscloud.s3.admin.*;
 import java.util.Map;
 import org.junit.Assert;
 

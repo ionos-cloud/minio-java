@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import io.minio.MinioClient;
-import io.minio.SetBucketVersioningArgs;
-import io.minio.errors.MinioException;
-import io.minio.messages.VersioningConfiguration;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.SetBucketVersioningArgs;
+import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.messages.VersioningConfiguration;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

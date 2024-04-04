@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import io.minio.EnableObjectLegalHoldArgs;
-import io.minio.MinioClient;
-import io.minio.errors.MinioException;
+import com.ionoscloud.s3.EnableObjectLegalHoldArgs;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.errors.MinioException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

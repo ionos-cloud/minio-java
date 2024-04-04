@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import io.minio.MinioClient;
-import io.minio.ServerSideEncryptionCustomerKey;
-import io.minio.StatObjectArgs;
-import io.minio.StatObjectResponse;
-import io.minio.errors.MinioException;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
+import com.ionoscloud.s3.StatObjectArgs;
+import com.ionoscloud.s3.StatObjectResponse;
+import com.ionoscloud.s3.errors.MinioException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

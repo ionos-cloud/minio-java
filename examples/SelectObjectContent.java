@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
-import io.minio.SelectObjectContentArgs;
-import io.minio.SelectResponseStream;
-import io.minio.errors.MinioException;
-import io.minio.messages.FileHeaderInfo;
-import io.minio.messages.InputSerialization;
-import io.minio.messages.OutputSerialization;
-import io.minio.messages.QuoteFields;
-import io.minio.messages.Stats;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.PutObjectArgs;
+import com.ionoscloud.s3.SelectObjectContentArgs;
+import com.ionoscloud.s3.SelectResponseStream;
+import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.messages.FileHeaderInfo;
+import com.ionoscloud.s3.messages.InputSerialization;
+import com.ionoscloud.s3.messages.OutputSerialization;
+import com.ionoscloud.s3.messages.QuoteFields;
+import com.ionoscloud.s3.messages.Stats;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

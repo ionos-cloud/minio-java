@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import io.minio.MinioClient;
-import io.minio.PostPolicy;
-import io.minio.errors.MinioException;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.PostPolicy;
+import com.ionoscloud.s3.errors.MinioException;
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;

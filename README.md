@@ -10,7 +10,7 @@ Java 1.8 or above.
 ## Maven usage
 ```xml
 <dependency>
-    <groupId>io.minio</groupId>
+    <groupId>com.ionoscloud.s3</groupId>
     <artifactId>minio</artifactId>
     <version>8.5.9</version>
 </dependency>
@@ -19,7 +19,7 @@ Java 1.8 or above.
 ## Gradle usage
 ```
 dependencies {
-    implementation("io.minio:minio:8.5.9")
+    implementation("com.ionoscloud.s3:minio:8.5.9")
 }
 ```
 
@@ -41,11 +41,11 @@ This example uses MinIO server playground [https://play.min.io](https://play.min
 
 ### FileUploader.java
 ```java
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.UploadObjectArgs;
-import io.minio.errors.MinioException;
+import com.ionoscloud.s3.BucketExistsArgs;
+import com.ionoscloud.s3.MakeBucketArgs;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.UploadObjectArgs;
+import com.ionoscloud.s3.errors.MinioException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

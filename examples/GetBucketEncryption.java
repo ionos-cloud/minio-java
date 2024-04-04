@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import io.minio.GetBucketEncryptionArgs;
-import io.minio.MinioClient;
-import io.minio.errors.MinioException;
-import io.minio.messages.SseAlgorithm;
-import io.minio.messages.SseConfiguration;
+import com.ionoscloud.s3.GetBucketEncryptionArgs;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.messages.SseAlgorithm;
+import com.ionoscloud.s3.messages.SseConfiguration;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

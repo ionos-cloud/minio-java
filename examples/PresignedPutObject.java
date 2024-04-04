@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import io.minio.GetPresignedObjectUrlArgs;
-import io.minio.MinioClient;
-import io.minio.errors.MinioException;
-import io.minio.http.Method;
+import com.ionoscloud.s3.GetPresignedObjectUrlArgs;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.http.Method;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

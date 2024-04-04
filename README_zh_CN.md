@@ -13,7 +13,7 @@ Java 1.8或更高版本:
 ## 使用maven
 ```xml
 <dependency>
-    <groupId>io.minio</groupId>
+    <groupId>com.ionoscloud.s3</groupId>
     <artifactId>minio</artifactId>
     <version>3.0.10</version>
 </dependency>
@@ -22,7 +22,7 @@ Java 1.8或更高版本:
 ## 使用gradle
 ```
 dependencies {
-    implementation("io.minio:minio:3.0.10")
+    implementation("com.ionoscloud.s3:minio:3.0.10")
 }
 ```
 
@@ -52,8 +52,8 @@ import java.security.InvalidKeyException;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import io.minio.MinioClient;
-import io.minio.errors.MinioException;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.errors.MinioException;
 
 public class FileUploader {
   public static void main(String[] args) throws NoSuchAlgorithmException, IOException, InvalidKeyException, XmlPullParserException {

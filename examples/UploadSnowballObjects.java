@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import io.minio.MinioClient;
-import io.minio.SnowballObject;
-import io.minio.UploadSnowballObjectsArgs;
-import io.minio.errors.MinioException;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.SnowballObject;
+import com.ionoscloud.s3.UploadSnowballObjectsArgs;
+import com.ionoscloud.s3.errors.MinioException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

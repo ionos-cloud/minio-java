@@ -15,11 +15,11 @@
  */
 
 import com.google.common.io.ByteStreams;
-import io.minio.GetObjectArgs;
-import io.minio.MinioClient;
-import io.minio.StatObjectArgs;
-import io.minio.StatObjectResponse;
-import io.minio.errors.MinioException;
+import com.ionoscloud.s3.GetObjectArgs;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.StatObjectArgs;
+import com.ionoscloud.s3.StatObjectResponse;
+import com.ionoscloud.s3.errors.MinioException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

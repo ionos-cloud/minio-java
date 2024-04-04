@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import io.minio.MinioClient;
-import io.minio.StatObjectArgs;
-import io.minio.StatObjectResponse;
-import io.minio.credentials.CertificateIdentityProvider;
-import io.minio.credentials.Provider;
+import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.StatObjectArgs;
+import com.ionoscloud.s3.StatObjectResponse;
+import com.ionoscloud.s3.credentials.CertificateIdentityProvider;
+import com.ionoscloud.s3.credentials.Provider;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 
