@@ -15,40 +15,40 @@
  */
 
 import com.ionoscloud.s3.BucketExistsArgs;
-import com.ionoscloud.s3.MinioClient;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class BucketExists {
-  /** MinioClient.bucketExists() example. */
+  /** ApiClient.bucketExists() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
 
       // Check whether 'my-bucketname' exist or not.
       boolean found =
-          minioClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
+          apiClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
       if (found) {
         System.out.println("my-bucketname exists");
       } else {
         System.out.println("my-bucketname does not exist");
       }
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

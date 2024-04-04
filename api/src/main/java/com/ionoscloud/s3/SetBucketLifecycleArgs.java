@@ -20,8 +20,8 @@ import com.ionoscloud.s3.messages.LifecycleConfiguration;
 import java.util.Objects;
 
 /**
- * Argument class of {@link MinioAsyncClient#setBucketLifecycle} and {@link
- * MinioClient#setBucketLifecycle}.
+ * Argument class of {@link ApiAsyncClient#setBucketLifecycle} and {@link
+ * ApiClient#setBucketLifecycle}.
  */
 public class SetBucketLifecycleArgs extends BucketArgs {
   private LifecycleConfiguration config;

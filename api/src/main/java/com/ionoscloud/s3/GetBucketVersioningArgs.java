@@ -17,8 +17,8 @@
 package com.ionoscloud.s3;
 
 /**
- * Argument class of {@link MinioAsyncClient#getBucketVersioning} and {@link
- * MinioClient#getBucketVersioning}.
+ * Argument class of {@link ApiAsyncClient#getBucketVersioning} and {@link
+ * ApiClient#getBucketVersioning}.
  */
 public class GetBucketVersioningArgs extends BucketArgs {
   public static Builder builder() {

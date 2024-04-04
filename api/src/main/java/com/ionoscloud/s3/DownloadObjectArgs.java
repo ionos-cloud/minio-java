@@ -19,7 +19,7 @@ package com.ionoscloud.s3;
 import java.util.Objects;
 
 /**
- * Argument class of {@link MinioAsyncClient#downloadObject} and {@link MinioClient#downloadObject}.
+ * Argument class of {@link ApiAsyncClient#downloadObject} and {@link ApiClient#downloadObject}.
  */
 public class DownloadObjectArgs extends ObjectReadArgs {
   private String filename;

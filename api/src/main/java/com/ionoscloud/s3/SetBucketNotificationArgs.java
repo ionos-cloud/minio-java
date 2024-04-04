@@ -20,8 +20,8 @@ import com.ionoscloud.s3.messages.NotificationConfiguration;
 import java.util.Objects;
 
 /**
- * Argument class of {@link MinioAsyncClient#setBucketNotification} and {@link
- * MinioClient#setBucketNotification}.
+ * Argument class of {@link ApiAsyncClient#setBucketNotification} and {@link
+ * ApiClient#setBucketNotification}.
  */
 public class SetBucketNotificationArgs extends BucketArgs {
   private NotificationConfiguration config;

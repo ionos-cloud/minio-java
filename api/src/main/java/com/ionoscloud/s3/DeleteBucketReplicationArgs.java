@@ -17,8 +17,8 @@
 package com.ionoscloud.s3;
 
 /**
- * Argument class of {@link MinioAsyncClient#deleteBucketReplication} and {@link
- * MinioClient#deleteBucketReplication}.
+ * Argument class of {@link ApiAsyncClient#deleteBucketReplication} and {@link
+ * ApiClient#deleteBucketReplication}.
  */
 public class DeleteBucketReplicationArgs extends BucketArgs {
   public static Builder builder() {

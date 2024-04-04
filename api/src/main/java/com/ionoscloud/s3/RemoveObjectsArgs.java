@@ -21,7 +21,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 /**
- * Argument class of {@link MinioAsyncClient#removeObjects} and {@link MinioClient#removeObjects}.
+ * Argument class of {@link ApiAsyncClient#removeObjects} and {@link ApiClient#removeObjects}.
  */
 public class RemoveObjectsArgs extends BucketArgs {
   private boolean bypassGovernanceMode;

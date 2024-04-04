@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.SetBucketLifecycleArgs;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.Expiration;
 import com.ionoscloud.s3.messages.LifecycleConfiguration;
 import com.ionoscloud.s3.messages.LifecycleRule;
@@ -30,20 +30,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SetBucketLifecycle {
-  /** MinioClient.SetBucketLifecycle() example. */
+  /** ApiClient.SetBucketLifecycle() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -61,9 +61,9 @@ public class SetBucketLifecycle {
               null));
       LifecycleConfiguration config = new LifecycleConfiguration(rules);
 
-      minioClient.setBucketLifecycle(
+      apiClient.setBucketLifecycle(
           SetBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import com.ionoscloud.s3.Digest;
-import com.ionoscloud.s3.MinioProperties;
+import com.ionoscloud.s3.SdkProperties;
 import com.ionoscloud.s3.S3Escaper;
 import com.ionoscloud.s3.Signer;
 import com.ionoscloud.s3.Time;
@@ -67,7 +67,7 @@ import okhttp3.ResponseBody;
 import org.bouncycastle.crypto.InvalidCipherTextException;
 
 /** Client to perform MinIO administration operations. */
-public class MinioAdminClient {
+public class ApiAdminClient {
   private enum Command {
     ADD_USER("add-user"),
     USER_INFO("user-info"),
@@ -111,7 +111,7 @@ public class MinioAdminClient {
     OBJECT_MAPPER.registerModule(new JavaTimeModule());
   }
 
-  private String userAgent = MinioProperties.INSTANCE.getDefaultUserAgent();
+  private String userAgent = SdkProperties.INSTANCE.getDefaultUserAgent();
   private PrintWriter traceStream;
 
   private HttpUrl baseUrl;
@@ -119,7 +119,7 @@ public class MinioAdminClient {
   private Provider provider;
   private OkHttpClient httpClient;
 
-  private MinioAdminClient(
+  private ApiAdminClient(
       HttpUrl baseUrl, String region, Provider provider, OkHttpClient httpClient) {
     this.baseUrl = baseUrl;
     this.region = region;
@@ -842,7 +842,7 @@ public class MinioAdminClient {
    * must be between 1 and Integer.MAX_VALUE when converted to milliseconds.
    *
    * <pre>Example:{@code
-   * minioClient.setTimeout(TimeUnit.SECONDS.toMillis(10), TimeUnit.SECONDS.toMillis(10),
+   * apiClient.setTimeout(TimeUnit.SECONDS.toMillis(10), TimeUnit.SECONDS.toMillis(10),
    *     TimeUnit.SECONDS.toMillis(30));
    * }</pre>
    *
@@ -880,7 +880,7 @@ public class MinioAdminClient {
   public void setAppInfo(String name, String version) {
     if (name == null || version == null) return;
     this.userAgent =
-        MinioProperties.INSTANCE.getDefaultUserAgent() + " " + name.trim() + "/" + version.trim();
+        SdkProperties.INSTANCE.getDefaultUserAgent() + " " + name.trim() + "/" + version.trim();
   }
 
   /**
@@ -909,7 +909,7 @@ public class MinioAdminClient {
     return new Builder();
   }
 
-  /** Argument builder of {@link MinioAdminClient}. */
+  /** Argument builder of {@link ApiAdminClient}. */
   public static final class Builder {
     private HttpUrl baseUrl;
     private String region = "";
@@ -967,7 +967,7 @@ public class MinioAdminClient {
       return this;
     }
 
-    public MinioAdminClient build() {
+    public ApiAdminClient build() {
       HttpUtils.validateNotNull(baseUrl, "base url");
       HttpUtils.validateNotNull(provider, "credential provider");
       if (httpClient == null) {
@@ -975,7 +975,7 @@ public class MinioAdminClient {
             HttpUtils.newDefaultHttpClient(
                 DEFAULT_CONNECTION_TIMEOUT, DEFAULT_CONNECTION_TIMEOUT, DEFAULT_CONNECTION_TIMEOUT);
       }
-      return new MinioAdminClient(baseUrl, region, provider, httpClient);
+      return new ApiAdminClient(baseUrl, region, provider, httpClient);
     }
   }
 }

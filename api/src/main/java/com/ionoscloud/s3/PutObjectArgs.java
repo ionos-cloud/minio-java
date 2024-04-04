@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
-/** Argument class of {@link MinioAsyncClient#putObject} and {@link MinioClient#putObject}. */
+/** Argument class of {@link ApiAsyncClient#putObject} and {@link ApiClient#putObject}. */
 public class PutObjectArgs extends PutObjectBaseArgs {
   private BufferedInputStream stream;
 

@@ -19,7 +19,7 @@ package com.ionoscloud.s3;
 import com.ionoscloud.s3.messages.RestoreRequest;
 import java.util.Objects;
 
-/** Argument class of {@link MinioClient#restoreObject}. */
+/** Argument class of {@link ApiClient#restoreObject}. */
 public class RestoreObjectArgs extends ObjectVersionArgs {
   private RestoreRequest request;
 

@@ -16,7 +16,7 @@
 
 package com.ionoscloud.s3;
 
-/** Argument class of {@link MinioAsyncClient#statObject} and {@link MinioClient#statObject}. */
+/** Argument class of {@link ApiAsyncClient#statObject} and {@link ApiClient#statObject}. */
 public class StatObjectArgs extends ObjectConditionalReadArgs {
   protected StatObjectArgs() {}
 

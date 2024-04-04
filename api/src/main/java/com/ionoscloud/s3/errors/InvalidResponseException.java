@@ -17,7 +17,7 @@
 package com.ionoscloud.s3.errors;
 
 /** Thrown to indicate that non-xml response thrown from server. */
-public class InvalidResponseException extends MinioException {
+public class InvalidResponseException extends ApiException {
   private static final long serialVersionUID = -4793742105569629274L;
 
   public InvalidResponseException(

@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.SetBucketPolicyArgs;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class SetBucketPolicy {
-  /** MinioClient.setBucketPolicy() example. */
+  /** ApiClient.setBucketPolicy() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -61,9 +61,9 @@ public class SetBucketPolicy {
       builder.append("    ],\n");
       builder.append("    \"Version\": \"2012-10-17\"\n");
       builder.append("}\n");
-      minioClient.setBucketPolicy(
+      apiClient.setBucketPolicy(
           SetBucketPolicyArgs.builder().bucket("my-bucketname").config(builder.toString()).build());
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

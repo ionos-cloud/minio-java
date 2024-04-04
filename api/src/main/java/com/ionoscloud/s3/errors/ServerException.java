@@ -17,7 +17,7 @@
 package com.ionoscloud.s3.errors;
 
 /** Thrown to indicate that S3 service returning HTTP server error. */
-public class ServerException extends MinioException {
+public class ServerException extends ApiException {
   private static final long serialVersionUID = 6395201577368980633L;
 
   private int statusCode;

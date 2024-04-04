@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.PutObjectArgs;
 import com.ionoscloud.s3.ServerSideEncryption;
 import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
 import com.ionoscloud.s3.ServerSideEncryptionKms;
 import com.ionoscloud.s3.ServerSideEncryptionS3;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -30,20 +30,20 @@ import java.util.Map;
 import javax.crypto.KeyGenerator;
 
 public class PutObject {
-  /** MinioClient.putObject() example. */
+  /** ApiClient.putObject() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -80,7 +80,7 @@ public class PutObject {
         ByteArrayInputStream bais = new ByteArrayInputStream(builder.toString().getBytes("UTF-8"));
 
         // Create object 'my-objectname' in 'my-bucketname' with content from the input stream.
-        minioClient.putObject(
+        apiClient.putObject(
             PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
                     bais, bais.available(), -1)
                 .build());
@@ -100,7 +100,7 @@ public class PutObject {
 
         // Create encrypted object 'my-objectname' using SSE-C in 'my-bucketname' with content from
         // the input stream.
-        minioClient.putObject(
+        apiClient.putObject(
             PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
                     bais, bais.available(), -1)
                 .sse(ssec)
@@ -119,7 +119,7 @@ public class PutObject {
 
         // Create encrypted object 'my-objectname' using SSE-KMS in 'my-bucketname' with content
         // from the input stream.
-        minioClient.putObject(
+        apiClient.putObject(
             PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
                     bais, bais.available(), -1)
                 .sse(sseKms)
@@ -136,7 +136,7 @@ public class PutObject {
 
         // Create encrypted object 'my-objectname' using SSE-S3 in 'my-bucketname' with content
         // from the input stream.
-        minioClient.putObject(
+        apiClient.putObject(
             PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
                     bais, bais.available(), -1)
                 .sse(sseS3)
@@ -163,7 +163,7 @@ public class PutObject {
         // Create object 'my-objectname' with user metadata and other properties in 'my-bucketname'
         // with content
         // from the input stream.
-        minioClient.putObject(
+        apiClient.putObject(
             PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
                     bais, bais.available(), -1)
                 .headers(headers)
@@ -175,13 +175,13 @@ public class PutObject {
 
       {
         // Create object name ending with '/' (mostly called folder or directory).
-        minioClient.putObject(
+        apiClient.putObject(
             PutObjectArgs.builder().bucket("my-bucketname").object("path/to/").stream(
                     new ByteArrayInputStream(new byte[] {}), 1, -1)
                 .build());
         System.out.println("path/to/ is created successfully");
       }
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

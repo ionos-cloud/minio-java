@@ -15,29 +15,29 @@
  */
 
 import com.ionoscloud.s3.ListObjectsArgs;
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.Result;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.Item;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class ListObjects {
-  /** MinioClient.listObjects() example. */
+  /** ApiClient.listObjects() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -45,7 +45,7 @@ public class ListObjects {
       {
         // Lists objects information.
         Iterable<Result<Item>> results =
-            minioClient.listObjects(ListObjectsArgs.builder().bucket("my-bucketname").build());
+            apiClient.listObjects(ListObjectsArgs.builder().bucket("my-bucketname").build());
 
         for (Result<Item> result : results) {
           Item item = result.get();
@@ -56,7 +56,7 @@ public class ListObjects {
       {
         // Lists objects information recursively.
         Iterable<Result<Item>> results =
-            minioClient.listObjects(
+            apiClient.listObjects(
                 ListObjectsArgs.builder().bucket("my-bucketname").recursive(true).build());
 
         for (Result<Item> result : results) {
@@ -69,7 +69,7 @@ public class ListObjects {
         // Lists maximum 100 objects information those names starts with 'E' and after
         // 'ExampleGuide.pdf'.
         Iterable<Result<Item>> results =
-            minioClient.listObjects(
+            apiClient.listObjects(
                 ListObjectsArgs.builder()
                     .bucket("my-bucketname")
                     .startAfter("ExampleGuide.pdf")
@@ -87,7 +87,7 @@ public class ListObjects {
         // Lists maximum 100 objects information with version those names starts with 'E' and after
         // 'ExampleGuide.pdf'.
         Iterable<Result<Item>> results =
-            minioClient.listObjects(
+            apiClient.listObjects(
                 ListObjectsArgs.builder()
                     .bucket("my-bucketname")
                     .startAfter("ExampleGuide.pdf")
@@ -109,7 +109,7 @@ public class ListObjects {
                   + "]");
         }
       }
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

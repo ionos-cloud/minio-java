@@ -21,8 +21,8 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Argument class of {@link MinioAsyncClient#getPresignedObjectUrl} and {@link
- * MinioClient#getPresignedObjectUrl}.
+ * Argument class of {@link ApiAsyncClient#getPresignedObjectUrl} and {@link
+ * ApiClient#getPresignedObjectUrl}.
  */
 public class GetPresignedObjectUrlArgs extends ObjectVersionArgs {
   // default expiration for a presigned URL is 7 days in seconds

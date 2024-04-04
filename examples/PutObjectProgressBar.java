@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.PutObjectArgs;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,19 +26,19 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class PutObjectProgressBar {
-  /** MinioClient.putObjectProgressBar() example. */
+  /** ApiClient.putObjectProgressBar() example. */
   public static void main(String[] args)
-      throws IOException, NoSuchAlgorithmException, InvalidKeyException, MinioException {
+      throws IOException, NoSuchAlgorithmException, InvalidKeyException, ApiException {
     /* play.min.io for test and development. */
-    MinioClient minioClient =
-        MinioClient.builder()
+    ApiClient apiClient =
+        ApiClient.builder()
             .endpoint("https://play.min.io")
             .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
             .build();
 
     /* Amazon S3: */
-    // MinioClient minioClient =
-    //     MinioClient.builder()
+    // ApiClient apiClient =
+    //     ApiClient.builder()
     //         .endpoint("https://s3.amazonaws.com")
     //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
     //         .build();
@@ -49,7 +49,7 @@ public class PutObjectProgressBar {
     File file = new File("my-filename");
     InputStream pis =
         new BufferedInputStream(new ProgressStream("Uploading... ", new FileInputStream(file)));
-    minioClient.putObject(
+    apiClient.putObject(
         PutObjectArgs.builder().bucket(bucketName).object(objectName).stream(
                 pis, pis.available(), -1)
             .build());

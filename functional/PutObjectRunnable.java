@@ -22,11 +22,11 @@ import java.nio.file.*;
     value = "REC",
     justification = "Allow catching super class Exception since it's tests")
 class PutObjectRunnable implements Runnable {
-  MinioClient client;
+  ApiClient client;
   String bucketName;
   String filename;
 
-  public PutObjectRunnable(MinioClient client, String bucketName, String filename) {
+  public PutObjectRunnable(ApiClient client, String bucketName, String filename) {
     this.client = client;
     this.bucketName = bucketName;
     this.filename = filename;

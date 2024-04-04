@@ -17,8 +17,8 @@
 package com.ionoscloud.s3;
 
 /**
- * Argument class of {@link MinioAsyncClient#deleteBucketEncryption} and {@link
- * MinioClient#deleteBucketEncryption}.
+ * Argument class of {@link ApiAsyncClient#deleteBucketEncryption} and {@link
+ * ApiClient#deleteBucketEncryption}.
  */
 public class DeleteBucketEncryptionArgs extends BucketArgs {
   public static Builder builder() {

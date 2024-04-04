@@ -17,8 +17,8 @@
 package com.ionoscloud.s3;
 
 /**
- * Argument class of {@link MinioAsyncClient#deleteObjectTags} and {@link
- * MinioClient#deleteObjectTags}.
+ * Argument class of {@link ApiAsyncClient#deleteObjectTags} and {@link
+ * ApiClient#deleteObjectTags}.
  */
 public class DeleteObjectTagsArgs extends ObjectVersionArgs {
   public static Builder builder() {

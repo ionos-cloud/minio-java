@@ -20,8 +20,8 @@ import com.ionoscloud.s3.messages.ReplicationConfiguration;
 import java.util.Objects;
 
 /**
- * Argument class of {@link MinioAsyncClient#setBucketReplication} and {@link
- * MinioClient#setBucketReplication}.
+ * Argument class of {@link ApiAsyncClient#setBucketReplication} and {@link
+ * ApiClient#setBucketReplication}.
  */
 public class SetBucketReplicationArgs extends BucketArgs {
   private ReplicationConfiguration config;

@@ -15,36 +15,36 @@
  */
 
 import com.ionoscloud.s3.DownloadObjectArgs;
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.KeyGenerator;
 
 public class DownloadObject {
-  /** MinioClient.getObject() example. */
+  /** ApiClient.getObject() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
 
       {
         // Download 'my-objectname' from 'my-bucketname' to 'my-filename'
-        minioClient.downloadObject(
+        apiClient.downloadObject(
             DownloadObjectArgs.builder()
                 .bucket("my-bucketname")
                 .object("my-objectname")
@@ -60,7 +60,7 @@ public class DownloadObject {
             new ServerSideEncryptionCustomerKey(keyGen.generateKey());
 
         // Download SSE-C encrypted 'my-objectname' from 'my-bucketname' to 'my-filename'
-        minioClient.downloadObject(
+        apiClient.downloadObject(
             DownloadObjectArgs.builder()
                 .bucket("my-bucketname")
                 .object("my-objectname")
@@ -69,7 +69,7 @@ public class DownloadObject {
                 .build());
         System.out.println("my-objectname is successfully downloaded to my-filename");
       }
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

@@ -17,8 +17,8 @@
 package com.ionoscloud.s3;
 
 /**
- * Argument class of {@link MinioAsyncClient#deleteObjectLockConfiguration} and {@link
- * MinioClient#deleteObjectLockConfiguration}.
+ * Argument class of {@link ApiAsyncClient#deleteObjectLockConfiguration} and {@link
+ * ApiClient#deleteObjectLockConfiguration}.
  */
 public class DeleteObjectLockConfigurationArgs extends BucketArgs {
   public static Builder builder() {

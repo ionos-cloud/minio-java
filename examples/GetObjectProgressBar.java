@@ -16,10 +16,10 @@
 
 import com.google.common.io.ByteStreams;
 import com.ionoscloud.s3.GetObjectArgs;
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.StatObjectArgs;
 import com.ionoscloud.s3.StatObjectResponse;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -31,20 +31,20 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class GetObjectProgressBar {
-  /** MinioClient.getObjectProgressBar() example. */
+  /** ApiClient.getObjectProgressBar() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -55,7 +55,7 @@ public class GetObjectProgressBar {
 
       // Get object stat information.
       StatObjectResponse stat =
-          minioClient.statObject(
+          apiClient.statObject(
               StatObjectArgs.builder()
                   .bucket("testbucket")
                   .object("resumes/4.original.pdf")
@@ -66,7 +66,7 @@ public class GetObjectProgressBar {
           new ProgressStream(
               "Downloading .. ",
               stat.size(),
-              minioClient.getObject(
+              apiClient.getObject(
                   GetObjectArgs.builder().bucket("my-bucketname").object("my-objectname").build()));
 
       Path path = Paths.get("my-filename");
@@ -85,7 +85,7 @@ public class GetObjectProgressBar {
                 + bytesWritten);
       }
 
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

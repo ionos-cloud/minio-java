@@ -22,8 +22,8 @@ import com.ionoscloud.s3.messages.OutputSerialization;
 import java.util.Objects;
 
 /**
- * Argument class of {@link MinioAsyncClient#selectObjectContent} and {@link
- * MinioClient#selectObjectContent}.
+ * Argument class of {@link ApiAsyncClient#selectObjectContent} and {@link
+ * ApiClient#selectObjectContent}.
  */
 public class SelectObjectContentArgs extends ObjectReadArgs {
   private String sqlExpression;

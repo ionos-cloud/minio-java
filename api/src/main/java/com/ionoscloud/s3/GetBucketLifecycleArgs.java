@@ -17,8 +17,8 @@
 package com.ionoscloud.s3;
 
 /**
- * Argument class of {@link MinioAsyncClient#getBucketLifecycle} and {@link
- * MinioClient#getBucketLifecycle}.
+ * Argument class of {@link ApiAsyncClient#getBucketLifecycle} and {@link
+ * ApiClient#getBucketLifecycle}.
  */
 public class GetBucketLifecycleArgs extends BucketArgs {
   public static Builder builder() {

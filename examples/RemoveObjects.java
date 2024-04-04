@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.RemoveObjectsArgs;
 import com.ionoscloud.s3.Result;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.DeleteError;
 import com.ionoscloud.s3.messages.DeleteObject;
 import java.io.IOException;
@@ -27,20 +27,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RemoveObjects {
-  /** MinioClient.removeObject() example removing multiple objects. */
+  /** ApiClient.removeObject() example removing multiple objects. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -50,14 +50,14 @@ public class RemoveObjects {
       objects.add(new DeleteObject("my-objectname2"));
       objects.add(new DeleteObject("my-objectname3"));
       Iterable<Result<DeleteError>> results =
-          minioClient.removeObjects(
+          apiClient.removeObjects(
               RemoveObjectsArgs.builder().bucket("my-bucketname").objects(objects).build());
       for (Result<DeleteError> result : results) {
         DeleteError error = result.get();
         System.out.println(
             "Error in deleting object " + error.objectName() + "; " + error.message());
       }
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

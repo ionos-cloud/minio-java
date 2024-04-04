@@ -25,12 +25,12 @@ import java.util.jar.Manifest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** Identifies and stores version information of minio-java package at run time. */
+/** Identifies and stores version information of sdk-java-s3 package at run time. */
 @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "MS_EXPOSE_REP")
-public enum MinioProperties {
+public enum SdkProperties {
   INSTANCE;
 
-  private static final Logger LOGGER = Logger.getLogger(MinioProperties.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(SdkProperties.class.getName());
 
   private final AtomicReference<String> version = new AtomicReference<>(null);
 
@@ -71,11 +71,7 @@ public enum MinioProperties {
   }
 
   public String getDefaultUserAgent() {
-    return "MinIO ("
-        + System.getProperty("os.name")
-        + "; "
-        + System.getProperty("os.arch")
-        + ") minio-java/"
+    return "ionos-cloud-sdk-java-s3-ionoscloud/"
         + getVersion();
   }
 }

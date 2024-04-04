@@ -19,8 +19,8 @@ package com.ionoscloud.s3;
 import java.util.Objects;
 
 /**
- * Argument class of {@link MinioAsyncClient#setBucketPolicy} and {@link
- * MinioClient#setBucketPolicy}.
+ * Argument class of {@link ApiAsyncClient#setBucketPolicy} and {@link
+ * ApiClient#setBucketPolicy}.
  */
 public class SetBucketPolicyArgs extends BucketArgs {
   private String config;

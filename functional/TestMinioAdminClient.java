@@ -25,14 +25,14 @@ import org.junit.Assert;
     justification = "Allow catching super class Exception since it's tests")
 public class TestMinioAdminClient {
 
-  private final MinioAdminClient adminClient;
+  private final ApiAdminClient adminClient;
   private final boolean mintEnv;
 
   private static String userAccessKey = FunctionalTest.getRandomName();
   private static String userSecretKey = FunctionalTest.getRandomName();
   private static String policyName = FunctionalTest.getRandomName();
 
-  public TestMinioAdminClient(MinioAdminClient adminClient, boolean mintEnv) {
+  public TestMinioAdminClient(ApiAdminClient adminClient, boolean mintEnv) {
     this.adminClient = adminClient;
     this.mintEnv = mintEnv;
   }

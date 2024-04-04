@@ -14,33 +14,33 @@
  * limitations under the License.
  */
 import com.ionoscloud.s3.EnableObjectLegalHoldArgs;
-import com.ionoscloud.s3.MinioClient;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class EnableObjectLegalHold {
-  /** MinioClient.enableObjectLegalHold() example. */
+  /** ApiClient.enableObjectLegalHold() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException, IllegalArgumentException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
 
       // Enable object legal hold.
-      minioClient.enableObjectLegalHold(
+      apiClient.enableObjectLegalHold(
           EnableObjectLegalHoldArgs.builder()
               .bucket("my-bucketname")
               .object("my-objectname")
@@ -48,7 +48,7 @@ public class EnableObjectLegalHold {
               .build());
 
       System.out.println("Legal hold enabled on object successfully ");
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

@@ -16,7 +16,7 @@
 
 package com.ionoscloud.s3;
 
-/** Argument class of {@link MinioAsyncClient#listBuckets} and {@link MinioClient#listBuckets}. */
+/** Argument class of {@link ApiAsyncClient#listBuckets} and {@link ApiClient#listBuckets}. */
 public class ListBucketsArgs extends BaseArgs {
   public static Builder builder() {
     return new Builder();

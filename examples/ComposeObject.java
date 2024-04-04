@@ -16,10 +16,10 @@
 
 import com.ionoscloud.s3.ComposeObjectArgs;
 import com.ionoscloud.s3.ComposeSource;
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.ServerSideEncryption;
 import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
@@ -29,20 +29,20 @@ import java.util.List;
 import javax.crypto.spec.SecretKeySpec;
 
 public class ComposeObject {
-  /** MinioClient.composeObject() example. */
+  /** ApiClient.composeObject() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -61,7 +61,7 @@ public class ComposeObject {
                 .object("my-objectname-two")
                 .build());
 
-        minioClient.composeObject(
+        apiClient.composeObject(
             ComposeObjectArgs.builder()
                 .bucket("my-destination-bucket")
                 .object("my-destination-object")
@@ -95,7 +95,7 @@ public class ComposeObject {
                 .ssec(srcSsec)
                 .build());
 
-        minioClient.composeObject(
+        apiClient.composeObject(
             ComposeObjectArgs.builder()
                 .bucket("my-destination-bucket")
                 .object("my-destination-object")
@@ -105,7 +105,7 @@ public class ComposeObject {
         System.out.println("Object Composed successfully");
       }
 
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

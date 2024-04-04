@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.PostPolicy;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -30,20 +30,20 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class GetPresignedPostFormData {
-  /** MinioClient.presignedPostPolicy() example. */
+  /** ApiClient.presignedPostPolicy() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -60,7 +60,7 @@ public class GetPresignedPostFormData {
       // Add condition that 'content-length-range' is between 64kiB to 10MiB.
       policy.addContentLengthRangeCondition(64 * 1024, 10 * 1024 * 1024);
 
-      Map<String, String> formData = minioClient.getPresignedPostFormData(policy);
+      Map<String, String> formData = apiClient.getPresignedPostFormData(policy);
 
       // Upload an image using POST object with form-data.
       MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
@@ -95,7 +95,7 @@ public class GetPresignedPostFormData {
       }
       System.out.print(" -F key=my-objectname -F Content-Type=image/jpg");
       System.out.println(" -F file=@/tmp/userpic.jpg https://play.min.io/my-bucketname");
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

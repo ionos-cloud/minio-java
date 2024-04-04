@@ -113,25 +113,25 @@ import org.xerial.snappy.SnappyFramedOutputStream;
  * Version 4; else they are performed anonymously.
  *
  * <p>Examples on using this library are available <a
- * href="https://github.com/minio/minio-java/tree/master/src/test/java/io/minio/examples">here</a>.
+ * href="https://github.com/ionos-cloud/sdk-java-s3/tree/master/src/test/java/com/ionoscloud/s3examples">here</a>.
  *
- * <p>Use {@code MinioAsyncClient.builder()} to create S3 client.
+ * <p>Use {@code ApiAsyncClient.builder()} to create S3 client.
  *
  * <pre>{@code
  * // Create client with anonymous access.
- * MinioAsyncClient minioAsyncClient =
- *     MinioAsyncClient.builder().endpoint("https://play.min.io").build();
+ * ApiAsyncClient apiAsyncClient =
+ *     ApiAsyncClient.builder().endpoint("https://play.min.io").build();
  *
  * // Create client with credentials.
- * MinioAsyncClient minioAsyncClient =
- *     MinioAsyncClient.builder()
+ * ApiAsyncClient apiAsyncClient =
+ *     ApiAsyncClient.builder()
  *         .endpoint("https://play.min.io")
  *         .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
  *         .build();
  * }</pre>
  */
-public class MinioAsyncClient extends S3Base {
-  private MinioAsyncClient(
+public class ApiAsyncClient extends S3Base {
+  private ApiAsyncClient(
       HttpUrl baseUrl,
       String awsS3Prefix,
       String awsDomainSuffix,
@@ -151,7 +151,7 @@ public class MinioAsyncClient extends S3Base {
         httpClient);
   }
 
-  protected MinioAsyncClient(MinioAsyncClient client) {
+  protected ApiAsyncClient(ApiAsyncClient client) {
     super(client);
   }
 
@@ -161,12 +161,12 @@ public class MinioAsyncClient extends S3Base {
    * <pre>Example:{@code
    * // Get information of an object.
    * CompletableFuture<StatObjectResponse> future =
-   *     minioAsyncClient.statObject(
+   *     apiAsyncClient.statObject(
    *         StatObjectArgs.builder().bucket("my-bucketname").object("my-objectname").build());
    *
    * // Get information of SSE-C encrypted object.
    * CompletableFuture<StatObjectResponse> future =
-   *     minioAsyncClient.statObject(
+   *     apiAsyncClient.statObject(
    *         StatObjectArgs.builder()
    *             .bucket("my-bucketname")
    *             .object("my-objectname")
@@ -175,7 +175,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * // Get information of a versioned object.
    * CompletableFuture<StatObjectResponse> future =
-   *     minioAsyncClient.statObject(
+   *     apiAsyncClient.statObject(
    *         StatObjectArgs.builder()
    *             .bucket("my-bucketname")
    *             .object("my-objectname")
@@ -184,7 +184,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * // Get information of a SSE-C encrypted versioned object.
    * CompletableFuture<StatObjectResponse> future =
-   *     minioAsyncClient.statObject(
+   *     apiAsyncClient.statObject(
    *         StatObjectArgs.builder()
    *             .bucket("my-bucketname")
    *             .object("my-objectname")
@@ -213,7 +213,7 @@ public class MinioAsyncClient extends S3Base {
    * Gets data from offset to length of a SSE-C encrypted object asynchronously.
    *
    * <pre>Example:{@code
-   * CompletableFuture<GetObjectResponse> future = minioAsyncClient.getObject(
+   * CompletableFuture<GetObjectResponse> future = apiAsyncClient.getObject(
    *     GetObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -263,7 +263,7 @@ public class MinioAsyncClient extends S3Base {
     try {
       Path filePath = Paths.get(filename);
       String tempFilename =
-          filename + "." + S3Escaper.encode(statObjectResponse.etag()) + ".part.minio";
+          filename + "." + S3Escaper.encode(statObjectResponse.etag()) + ".part.ionos";
       Path tempFilePath = Paths.get(tempFilename);
       if (Files.exists(tempFilePath)) Files.delete(tempFilePath);
       os = Files.newOutputStream(tempFilePath, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
@@ -292,7 +292,7 @@ public class MinioAsyncClient extends S3Base {
    * Downloads data of a SSE-C encrypted object to file.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = minioAsyncClient.downloadObject(
+   * CompletableFuture<Void> future = apiAsyncClient.downloadObject(
    *     DownloadObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -339,7 +339,7 @@ public class MinioAsyncClient extends S3Base {
    * <pre>Example:{@code
    * // Create object "my-objectname" in bucket "my-bucketname" by copying from object
    * // "my-objectname" in bucket "my-source-bucketname".
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.copyObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -352,7 +352,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * // Create object "my-objectname" in bucket "my-bucketname" by copying from object
    * // "my-source-objectname" in bucket "my-source-bucketname".
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.copyObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -365,7 +365,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * // Create object "my-objectname" in bucket "my-bucketname" with SSE-KMS server-side
    * // encryption by copying from object "my-objectname" in bucket "my-source-bucketname".
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.copyObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -379,7 +379,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * // Create object "my-objectname" in bucket "my-bucketname" with SSE-S3 server-side
    * // encryption by copying from object "my-objectname" in bucket "my-source-bucketname".
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.copyObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -393,7 +393,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * // Create object "my-objectname" in bucket "my-bucketname" with SSE-C server-side encryption
    * // by copying from object "my-objectname" in bucket "my-source-bucketname".
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.copyObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -407,7 +407,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * // Create object "my-objectname" in bucket "my-bucketname" by copying from SSE-C encrypted
    * // object "my-source-objectname" in bucket "my-source-bucketname".
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.copyObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -421,7 +421,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * // Create object "my-objectname" in bucket "my-bucketname" with custom headers conditionally
    * // by copying from object "my-objectname" in bucket "my-source-bucketname".
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.copyObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -580,7 +580,7 @@ public class MinioAsyncClient extends S3Base {
    *    ComposeSource.builder().bucket("my-job-bucket").object("my-objectname-part-three").build());
    *
    * // Create my-bucketname/my-objectname by combining source object list.
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.composeObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.composeObject(
    *    ComposeObjectArgs.builder()
    *        .bucket("my-bucketname")
    *        .object("my-objectname")
@@ -591,7 +591,7 @@ public class MinioAsyncClient extends S3Base {
    * // list.
    * Map<String, String> userMetadata = new HashMap<>();
    * userMetadata.put("My-Project", "Project One");
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.composeObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.composeObject(
    *     ComposeObjectArgs.builder()
    *        .bucket("my-bucketname")
    *        .object("my-objectname")
@@ -601,7 +601,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * // Create my-bucketname/my-objectname with user metadata and server-side encryption
    * // by combining source object list.
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.composeObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.composeObject(
    *   ComposeObjectArgs.builder()
    *        .bucket("my-bucketname")
    *        .object("my-objectname")
@@ -863,7 +863,7 @@ public class MinioAsyncClient extends S3Base {
    * // Get presigned URL string to delete 'my-objectname' in 'my-bucketname' and its life time
    * // is one day.
    * String url =
-   *    minioAsyncClient.getPresignedObjectUrl(
+   *    apiAsyncClient.getPresignedObjectUrl(
    *        GetPresignedObjectUrlArgs.builder()
    *            .method(Method.DELETE)
    *            .bucket("my-bucketname")
@@ -878,7 +878,7 @@ public class MinioAsyncClient extends S3Base {
    * reqParams.put("response-content-type", "application/json");
    *
    * String url =
-   *    minioAsyncClient.getPresignedObjectUrl(
+   *    apiAsyncClient.getPresignedObjectUrl(
    *        GetPresignedObjectUrlArgs.builder()
    *            .method(Method.PUT)
    *            .bucket("my-bucketname")
@@ -891,7 +891,7 @@ public class MinioAsyncClient extends S3Base {
    * // Get presigned URL string to download 'my-objectname' in 'my-bucketname' and its life time
    * // is 2 hours.
    * String url =
-   *    minioAsyncClient.getPresignedObjectUrl(
+   *    apiAsyncClient.getPresignedObjectUrl(
    *        GetPresignedObjectUrlArgs.builder()
    *            .method(Method.GET)
    *            .bucket("my-bucketname")
@@ -971,7 +971,7 @@ public class MinioAsyncClient extends S3Base {
    * // Add condition that 'content-length-range' is between 64kiB to 10MiB.
    * policy.addContentLengthRangeCondition(64 * 1024, 10 * 1024 * 1024);
    *
-   * Map<String, String> formData = minioAsyncClient.getPresignedPostFormData(policy);
+   * Map<String, String> formData = apiAsyncClient.getPresignedPostFormData(policy);
    *
    * // Upload an image using POST object with form-data.
    * MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
@@ -1038,11 +1038,11 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * // Remove object.
-   * CompletableFuture<Void> future = minioAsyncClient.removeObject(
+   * CompletableFuture<Void> future = apiAsyncClient.removeObject(
    *     RemoveObjectArgs.builder().bucket("my-bucketname").object("my-objectname").build());
    *
    * // Remove versioned object.
-   * CompletableFuture<Void> future = minioAsyncClient.removeObject(
+   * CompletableFuture<Void> future = apiAsyncClient.removeObject(
    *     RemoveObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-versioned-objectname")
@@ -1050,7 +1050,7 @@ public class MinioAsyncClient extends S3Base {
    *         .build());
    *
    * // Remove versioned object bypassing Governance mode.
-   * CompletableFuture<Void> future = minioAsyncClient.removeObject(
+   * CompletableFuture<Void> future = apiAsyncClient.removeObject(
    *     RemoveObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-versioned-objectname")
@@ -1094,7 +1094,7 @@ public class MinioAsyncClient extends S3Base {
    * objects.add(new DeleteObject("my-objectname2"));
    * objects.add(new DeleteObject("my-objectname3"));
    * Iterable<Result<DeleteError>> results =
-   *     minioAsyncClient.removeObjects(
+   *     apiAsyncClient.removeObjects(
    *         RemoveObjectsArgs.builder().bucket("my-bucketname").objects(objects).build());
    * for (Result<DeleteError> result : results) {
    *   DeleteError error = errorResult.get();
@@ -1220,7 +1220,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * // Restore object.
-   * CompletableFuture<Void> future = minioAsyncClient.restoreObject(
+   * CompletableFuture<Void> future = apiAsyncClient.restoreObject(
    *     RestoreObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -1228,7 +1228,7 @@ public class MinioAsyncClient extends S3Base {
    *         .build());
    *
    * // Restore versioned object.
-   * CompletableFuture<Void> future = minioAsyncClient.restoreObject(
+   * CompletableFuture<Void> future = apiAsyncClient.restoreObject(
    *     RestoreObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-versioned-objectname")
@@ -1264,16 +1264,16 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * // Lists objects information.
-   * Iterable<Result<Item>> results = minioAsyncClient.listObjects(
+   * Iterable<Result<Item>> results = apiAsyncClient.listObjects(
    *     ListObjectsArgs.builder().bucket("my-bucketname").build());
    *
    * // Lists objects information recursively.
-   * Iterable<Result<Item>> results = minioAsyncClient.listObjects(
+   * Iterable<Result<Item>> results = apiAsyncClient.listObjects(
    *     ListObjectsArgs.builder().bucket("my-bucketname").recursive(true).build());
    *
    * // Lists maximum 100 objects information whose names starts with 'E' and after
    * // 'ExampleGuide.pdf'.
-   * Iterable<Result<Item>> results = minioAsyncClient.listObjects(
+   * Iterable<Result<Item>> results = apiAsyncClient.listObjects(
    *     ListObjectsArgs.builder()
    *         .bucket("my-bucketname")
    *         .startAfter("ExampleGuide.pdf")
@@ -1283,7 +1283,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * // Lists maximum 100 objects information with version whose names starts with 'E' and after
    * // 'ExampleGuide.pdf'.
-   * Iterable<Result<Item>> results = minioAsyncClient.listObjects(
+   * Iterable<Result<Item>> results = apiAsyncClient.listObjects(
    *     ListObjectsArgs.builder()
    *         .bucket("my-bucketname")
    *         .startAfter("ExampleGuide.pdf")
@@ -1313,7 +1313,7 @@ public class MinioAsyncClient extends S3Base {
    * Lists bucket information of all buckets.
    *
    * <pre>Example:{@code
-   * CompletableFuture<List<Bucket>> future = minioAsyncClient.listBuckets();
+   * CompletableFuture<List<Bucket>> future = apiAsyncClient.listBuckets();
    * }</pre>
    *
    * @return {@link CompletableFuture}&lt;{@link List}&lt;{@link Bucket}&gt;&gt; object.
@@ -1335,7 +1335,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<List<Bucket>> future =
-   *     minioAsyncClient.listBuckets(ListBucketsArgs.builder().extraHeaders(headers).build());
+   *     apiAsyncClient.listBuckets(ListBucketsArgs.builder().extraHeaders(headers).build());
    * }</pre>
    *
    * @return {@link CompletableFuture}&lt;{@link List}&lt;{@link Bucket}&gt;&gt; object.
@@ -1369,7 +1369,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<Boolean> future =
-   *      minioAsyncClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
+   *      apiAsyncClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
    * @param args {@link BucketExistsArgs} object.
@@ -1419,20 +1419,20 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * // Create bucket with default region.
-   * CompletableFuture<Void> future = minioAsyncClient.makeBucket(
+   * CompletableFuture<Void> future = apiAsyncClient.makeBucket(
    *     MakeBucketArgs.builder()
    *         .bucket("my-bucketname")
    *         .build());
    *
    * // Create bucket with specific region.
-   * CompletableFuture<Void> future = minioAsyncClient.makeBucket(
+   * CompletableFuture<Void> future = apiAsyncClient.makeBucket(
    *     MakeBucketArgs.builder()
    *         .bucket("my-bucketname")
    *         .region("us-west-1")
    *         .build());
    *
    * // Create object-lock enabled bucket with specific region.
-   * CompletableFuture<Void> future = minioAsyncClient.makeBucket(
+   * CompletableFuture<Void> future = apiAsyncClient.makeBucket(
    *     MakeBucketArgs.builder()
    *         .bucket("my-bucketname")
    *         .region("us-west-1")
@@ -1493,7 +1493,7 @@ public class MinioAsyncClient extends S3Base {
    * Sets versioning configuration of a bucket.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = minioAsyncClient.setBucketVersioning(
+   * CompletableFuture<Void> future = apiAsyncClient.setBucketVersioning(
    *     SetBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
@@ -1519,7 +1519,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<VersioningConfiguration> future =
-   *     minioAsyncClient.getBucketVersioning(
+   *     apiAsyncClient.getBucketVersioning(
    *         GetBucketVersioningArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -1556,7 +1556,7 @@ public class MinioAsyncClient extends S3Base {
    * <pre>Example:{@code
    * ObjectLockConfiguration config = new ObjectLockConfiguration(
    *     RetentionMode.COMPLIANCE, new RetentionDurationDays(100));
-   * CompletableFuture<Void> future = minioAsyncClient.setObjectLockConfiguration(
+   * CompletableFuture<Void> future = apiAsyncClient.setObjectLockConfiguration(
    *     SetObjectLockConfigurationArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
@@ -1581,7 +1581,7 @@ public class MinioAsyncClient extends S3Base {
    * Deletes default object retention in a bucket.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = minioAsyncClient.deleteObjectLockConfiguration(
+   * CompletableFuture<Void> future = apiAsyncClient.deleteObjectLockConfiguration(
    *     DeleteObjectLockConfigurationArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -1609,7 +1609,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<ObjectLockConfiguration> future =
-   *     minioAsyncClient.getObjectLockConfiguration(
+   *     apiAsyncClient.getObjectLockConfiguration(
    *         GetObjectLockConfigurationArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -1646,7 +1646,7 @@ public class MinioAsyncClient extends S3Base {
    * <pre>Example:{@code
    *  Retention retention = new Retention(
    *       RetentionMode.COMPLIANCE, ZonedDateTime.now().plusYears(1));
-   *  CompletableFuture<Void> future = minioAsyncClient.setObjectRetention(
+   *  CompletableFuture<Void> future = apiAsyncClient.setObjectRetention(
    *      SetObjectRetentionArgs.builder()
    *          .bucket("my-bucketname")
    *          .object("my-objectname")
@@ -1686,7 +1686,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<Retention> future =
-   *     minioAsyncClient.getObjectRetention(GetObjectRetentionArgs.builder()
+   *     apiAsyncClient.getObjectRetention(GetObjectRetentionArgs.builder()
    *        .bucket(bucketName)
    *        .object(objectName)
    *        .versionId(versionId)
@@ -1748,7 +1748,7 @@ public class MinioAsyncClient extends S3Base {
    * Enables legal hold on an object.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = minioAsyncClient.enableObjectLegalHold(
+   * CompletableFuture<Void> future = apiAsyncClient.enableObjectLegalHold(
    *    EnableObjectLegalHoldArgs.builder()
    *        .bucket("my-bucketname")
    *        .object("my-objectname")
@@ -1779,7 +1779,7 @@ public class MinioAsyncClient extends S3Base {
    * Disables legal hold on an object.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = minioAsyncClient.disableObjectLegalHold(
+   * CompletableFuture<Void> future = apiAsyncClient.disableObjectLegalHold(
    *    DisableObjectLegalHoldArgs.builder()
    *        .bucket("my-bucketname")
    *        .object("my-objectname")
@@ -1876,7 +1876,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<Void> future =
-   *     minioAsyncClient.removeBucket(RemoveBucketArgs.builder().bucket("my-bucketname").build());
+   *     apiAsyncClient.removeBucket(RemoveBucketArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
    * @param args {@link RemoveBucketArgs} bucket.
@@ -1901,21 +1901,21 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * // Upload known sized input stream.
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.putObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.putObject(
    *     PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
    *             inputStream, size, -1)
    *         .contentType("video/mp4")
    *         .build());
    *
    * // Upload unknown sized input stream.
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.putObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.putObject(
    *     PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
    *             inputStream, -1, 10485760)
    *         .contentType("video/mp4")
    *         .build());
    *
    * // Create object ends with '/' (also called as folder or directory).
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.putObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.putObject(
    *     PutObjectArgs.builder().bucket("my-bucketname").object("path/to/").stream(
    *             new ByteArrayInputStream(new byte[] {}), 0, -1)
    *         .build());
@@ -1925,7 +1925,7 @@ public class MinioAsyncClient extends S3Base {
    * headers.put("X-Amz-Storage-Class", "REDUCED_REDUNDANCY");
    * Map<String, String> userMetadata = new HashMap<>();
    * userMetadata.put("My-Project", "Project One");
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.putObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.putObject(
    *     PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
    *             inputStream, size, -1)
    *         .headers(headers)
@@ -1933,7 +1933,7 @@ public class MinioAsyncClient extends S3Base {
    *         .build());
    *
    * // Upload input stream with server-side encryption.
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.putObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.putObject(
    *     PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
    *             inputStream, size, -1)
    *         .sse(sse)
@@ -1968,12 +1968,12 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * // Upload an JSON file.
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.uploadObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.uploadObject(
    *     UploadObjectArgs.builder()
    *         .bucket("my-bucketname").object("my-objectname").filename("person.json").build());
    *
    * // Upload a video file.
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.uploadObject(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.uploadObject(
    *     UploadObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -2035,7 +2035,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<String> future =
-   *     minioAsyncClient.getBucketPolicy(
+   *     apiAsyncClient.getBucketPolicy(
    *         GetBucketPolicyArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -2139,7 +2139,7 @@ public class MinioAsyncClient extends S3Base {
    * //     "Version": "2012-10-17"
    * // }
    * //
-   * CompletableFuture<Void> future = minioAsyncClient.setBucketPolicy(
+   * CompletableFuture<Void> future = apiAsyncClient.setBucketPolicy(
    *     SetBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
    * }</pre>
    *
@@ -2170,7 +2170,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<Void> future =
-   *     minioAsyncClient.deleteBucketPolicy(
+   *     apiAsyncClient.deleteBucketPolicy(
    *         DeleteBucketPolicyArgs.builder().bucket("my-bucketname"));
    * }</pre>
    *
@@ -2232,7 +2232,7 @@ public class MinioAsyncClient extends S3Base {
    *         null,
    *         null));
    * LifecycleConfiguration config = new LifecycleConfiguration(rules);
-   * CompletableFuture<Void> future = minioAsyncClient.setBucketLifecycle(
+   * CompletableFuture<Void> future = apiAsyncClient.setBucketLifecycle(
    *     SetBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
@@ -2283,7 +2283,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<LifecycleConfiguration> future =
-   *     minioAsyncClient.getBucketLifecycle(
+   *     apiAsyncClient.getBucketLifecycle(
    *         GetBucketLifecycleArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -2342,7 +2342,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<NotificationConfiguration> future =
-   *     minioAsyncClient.getBucketNotification(
+   *     apiAsyncClient.getBucketNotification(
    *         GetBucketNotificationArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -2382,7 +2382,7 @@ public class MinioAsyncClient extends S3Base {
    * eventList.add(EventType.OBJECT_CREATED_COPY);
    *
    * QueueConfiguration queueConfiguration = new QueueConfiguration();
-   * queueConfiguration.setQueue("arn:minio:sqs::1:webhook");
+   * queueConfiguration.setQueue("arn:ionos:sqs::1:webhook");
    * queueConfiguration.setEvents(eventList);
    * queueConfiguration.setPrefixRule("images");
    * queueConfiguration.setSuffixRule("pg");
@@ -2393,7 +2393,7 @@ public class MinioAsyncClient extends S3Base {
    * NotificationConfiguration config = new NotificationConfiguration();
    * config.setQueueConfigurationList(queueConfigurationList);
    *
-   * CompletableFuture<Void> future = minioAsyncClient.setBucketNotification(
+   * CompletableFuture<Void> future = apiAsyncClient.setBucketNotification(
    *     SetBucketNotificationArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
@@ -2418,7 +2418,7 @@ public class MinioAsyncClient extends S3Base {
    * Deletes notification configuration of a bucket.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = minioAsyncClient.deleteBucketNotification(
+   * CompletableFuture<Void> future = apiAsyncClient.deleteBucketNotification(
    *     DeleteBucketNotificationArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -2445,7 +2445,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<ReplicationConfiguration> future =
-   *     minioAsyncClient.getBucketReplication(
+   *     apiAsyncClient.getBucketReplication(
    *         GetBucketReplicationArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -2526,7 +2526,7 @@ public class MinioAsyncClient extends S3Base {
    * ReplicationConfiguration config =
    *     new ReplicationConfiguration("REPLACE-WITH-ACTUAL-ROLE", rules);
    *
-   * CompletableFuture<Void> future = minioAsyncClient.setBucketReplication(
+   * CompletableFuture<Void> future = apiAsyncClient.setBucketReplication(
    *     SetBucketReplicationArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
@@ -2558,7 +2558,7 @@ public class MinioAsyncClient extends S3Base {
    * Deletes bucket replication configuration from a bucket.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = minioAsyncClient.deleteBucketReplication(
+   * CompletableFuture<Void> future = apiAsyncClient.deleteBucketReplication(
    *     DeleteBucketReplicationArgs.builder().bucket("my-bucketname"));
    * }</pre>
    *
@@ -2587,7 +2587,7 @@ public class MinioAsyncClient extends S3Base {
    * <pre>Example:{@code
    * String[] events = {"s3:ObjectCreated:*", "s3:ObjectAccessed:*"};
    * try (CloseableIterator<Result<NotificationRecords>> ci =
-   *     minioAsyncClient.listenBucketNotification(
+   *     apiAsyncClient.listenBucketNotification(
    *         ListenBucketNotificationArgs.builder()
    *             .bucket("bucketName")
    *             .prefix("")
@@ -2654,7 +2654,7 @@ public class MinioAsyncClient extends S3Base {
    * OutputSerialization os =
    *     new OutputSerialization(null, null, null, QuoteFields.ASNEEDED, null);
    * SelectResponseStream stream =
-   *     minioAsyncClient.selectObjectContent(
+   *     apiAsyncClient.selectObjectContent(
    *       SelectObjectContentArgs.builder()
    *       .bucket("my-bucketname")
    *       .object("my-objectname")
@@ -2721,7 +2721,7 @@ public class MinioAsyncClient extends S3Base {
    * Sets encryption configuration of a bucket.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = minioAsyncClient.setBucketEncryption(
+   * CompletableFuture<Void> future = apiAsyncClient.setBucketEncryption(
    *     SetBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
@@ -2747,7 +2747,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<SseConfiguration> future =
-   *     minioAsyncClient.getBucketEncryption(
+   *     apiAsyncClient.getBucketEncryption(
    *         GetBucketEncryptionArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -2804,7 +2804,7 @@ public class MinioAsyncClient extends S3Base {
    * Deletes encryption configuration of a bucket.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = minioAsyncClient.deleteBucketEncryption(
+   * CompletableFuture<Void> future = apiAsyncClient.deleteBucketEncryption(
    *     DeleteBucketEncryptionArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -2855,7 +2855,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<Tags> future =
-   *     minioAsyncClient.getBucketTags(GetBucketTagsArgs.builder().bucket("my-bucketname").build());
+   *     apiAsyncClient.getBucketTags(GetBucketTagsArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
    * @param args {@link GetBucketTagsArgs} object.
@@ -2911,7 +2911,7 @@ public class MinioAsyncClient extends S3Base {
    * Map<String, String> map = new HashMap<>();
    * map.put("Project", "Project One");
    * map.put("User", "jsmith");
-   * CompletableFuture<Void> future = minioAsyncClient.setBucketTags(
+   * CompletableFuture<Void> future = apiAsyncClient.setBucketTags(
    *     SetBucketTagsArgs.builder().bucket("my-bucketname").tags(map).build());
    * }</pre>
    *
@@ -2936,7 +2936,7 @@ public class MinioAsyncClient extends S3Base {
    * Deletes tags of a bucket.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = minioAsyncClient.deleteBucketTags(
+   * CompletableFuture<Void> future = apiAsyncClient.deleteBucketTags(
    *     DeleteBucketTagsArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -2962,7 +2962,7 @@ public class MinioAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<Tags> future =
-   *     minioAsyncClient.getObjectTags(
+   *     apiAsyncClient.getObjectTags(
    *         GetObjectTagsArgs.builder().bucket("my-bucketname").object("my-objectname").build());
    * }</pre>
    *
@@ -3001,7 +3001,7 @@ public class MinioAsyncClient extends S3Base {
    * Map<String, String> map = new HashMap<>();
    * map.put("Project", "Project One");
    * map.put("User", "jsmith");
-   * CompletableFuture<Void> future = minioAsyncClient.setObjectTags(
+   * CompletableFuture<Void> future = apiAsyncClient.setObjectTags(
    *     SetObjectTagsArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -3032,7 +3032,7 @@ public class MinioAsyncClient extends S3Base {
    * Deletes tags of an object.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = minioAsyncClient.deleteObjectTags(
+   * CompletableFuture<Void> future = apiAsyncClient.deleteObjectTags(
    *     DeleteObjectTags.builder().bucket("my-bucketname").object("my-objectname").build());
    * }</pre>
    *
@@ -3073,7 +3073,7 @@ public class MinioAsyncClient extends S3Base {
    *         new ByteArrayInputStream("java".getBytes(StandardCharsets.UTF_8)),
    *         4,
    *         null));
-   * CompletableFuture<ObjectWriteResponse> future = minioAsyncClient.uploadSnowballObjects(
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.uploadSnowballObjects(
    *     UploadSnowballObjectsArgs.builder().bucket("my-bucketname").objects(objects).build());
    * }</pre>
    *
@@ -3210,7 +3210,7 @@ public class MinioAsyncClient extends S3Base {
     return new Builder();
   }
 
-  /** Argument builder of {@link MinioClient}. */
+  /** Argument builder of {@link ApiClient}. */
   public static final class Builder {
     private HttpUrl baseUrl;
     private String awsS3Prefix;
@@ -3327,7 +3327,7 @@ public class MinioAsyncClient extends S3Base {
       return this;
     }
 
-    public MinioAsyncClient build() {
+    public ApiAsyncClient build() {
       HttpUtils.validateNotNull(this.baseUrl, "endpoint");
 
       if (this.awsDomainSuffix != null
@@ -3344,7 +3344,7 @@ public class MinioAsyncClient extends S3Base {
                 DEFAULT_CONNECTION_TIMEOUT, DEFAULT_CONNECTION_TIMEOUT, DEFAULT_CONNECTION_TIMEOUT);
       }
 
-      return new MinioAsyncClient(
+      return new ApiAsyncClient(
           baseUrl,
           awsS3Prefix,
           awsDomainSuffix,

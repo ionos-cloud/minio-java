@@ -18,7 +18,7 @@
 package com.ionoscloud.s3;
 
 import com.ionoscloud.s3.errors.InvalidResponseException;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.http.Method;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -33,72 +33,72 @@ import okio.Buffer;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class MinioClientTest {
+public class ApiClientTest {
   private static final String CONTENT_TYPE = "Content-Type";
   private static final String CONTENT_LENGTH = "Content-Length";
 
   @Test(expected = IllegalArgumentException.class)
-  public void testEndpoint1() throws MinioException {
-    MinioClient.builder().endpoint((String) null).build();
+  public void testEndpoint1() throws ApiException {
+    ApiClient.builder().endpoint((String) null).build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testEndpoint2() throws MinioException {
-    MinioClient.builder().endpoint("http://play.min.io/mybucket").build();
+  public void testEndpoint2() throws ApiException {
+    ApiClient.builder().endpoint("http://play.min.io/mybucket").build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testEndpoint3() throws MinioException {
-    MinioClient.builder().endpoint("minio-.example.com").build();
+  public void testEndpoint3() throws ApiException {
+    ApiClient.builder().endpoint("minio-.example.com").build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testEndpoint4() throws MinioException {
-    MinioClient.builder().endpoint("-minio.example.com").build();
+  public void testEndpoint4() throws ApiException {
+    ApiClient.builder().endpoint("-minio.example.com").build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testEndpoint5() throws MinioException {
-    MinioClient.builder().endpoint("minio..example.com").build();
+  public void testEndpoint5() throws ApiException {
+    ApiClient.builder().endpoint("minio..example.com").build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testEndpoint6() throws MinioException {
-    MinioClient.builder().endpoint("minio._.com").build();
+  public void testEndpoint6() throws ApiException {
+    ApiClient.builder().endpoint("minio._.com").build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testEndpoint7() throws MinioException {
-    MinioClient.builder().endpoint("https://s3.amazonaws.com.cn").build();
+  public void testEndpoint7() throws ApiException {
+    ApiClient.builder().endpoint("https://s3.amazonaws.com.cn").build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testPort1() throws MinioException {
-    MinioClient.builder().endpoint("play.min.io", 0, false).build();
+  public void testPort1() throws ApiException {
+    ApiClient.builder().endpoint("play.min.io", 0, false).build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testPort2() throws MinioException {
-    MinioClient.builder().endpoint("play.min.io", 70000, false).build();
+  public void testPort2() throws ApiException {
+    ApiClient.builder().endpoint("play.min.io", 70000, false).build();
     Assert.fail("exception should be thrown");
   }
 
   @Test
   public void testAwsEndpoints()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
-    MinioClient client = null;
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
+    ApiClient client = null;
     String url = null;
 
     // virtual-style checks.
-    client = MinioClient.builder().endpoint("https://s3.amazonaws.com").build();
+    client = ApiClient.builder().endpoint("https://s3.amazonaws.com").build();
     url =
         client.getPresignedObjectUrl(
             GetPresignedObjectUrlArgs.builder()
@@ -110,7 +110,7 @@ public class MinioClientTest {
         "https://mybucket.s3.us-east-1.amazonaws.com/myobject", url.split("\\?")[0]);
 
     client =
-        MinioClient.builder()
+        ApiClient.builder()
             .endpoint("https://s3.us-east-2.amazonaws.com")
             .credentials("myaccesskey", "mysecretkey")
             .build();
@@ -124,7 +124,7 @@ public class MinioClientTest {
     Assert.assertEquals(
         "https://mybucket.s3.us-east-2.amazonaws.com/myobject", url.split("\\?")[0]);
 
-    client = MinioClient.builder().endpoint("https://s3-accelerate.amazonaws.com").build();
+    client = ApiClient.builder().endpoint("https://s3-accelerate.amazonaws.com").build();
     url =
         client.getPresignedObjectUrl(
             GetPresignedObjectUrlArgs.builder()
@@ -136,7 +136,7 @@ public class MinioClientTest {
         "https://mybucket.s3-accelerate.amazonaws.com/myobject", url.split("\\?")[0]);
 
     client =
-        MinioClient.builder()
+        ApiClient.builder()
             .endpoint("https://s3.dualstack.ca-central-1.amazonaws.com")
             .credentials("myaccesskey", "mysecretkey")
             .build();
@@ -151,7 +151,7 @@ public class MinioClientTest {
         "https://mybucket.s3.dualstack.ca-central-1.amazonaws.com/myobject", url.split("\\?")[0]);
 
     client =
-        MinioClient.builder().endpoint("https://s3-accelerate.dualstack.amazonaws.com").build();
+        ApiClient.builder().endpoint("https://s3-accelerate.dualstack.amazonaws.com").build();
     url =
         client.getPresignedObjectUrl(
             GetPresignedObjectUrlArgs.builder()
@@ -163,7 +163,7 @@ public class MinioClientTest {
         "https://mybucket.s3-accelerate.dualstack.amazonaws.com/myobject", url.split("\\?")[0]);
 
     // path-style checks.
-    client = MinioClient.builder().endpoint("https://s3.amazonaws.com").build();
+    client = ApiClient.builder().endpoint("https://s3.amazonaws.com").build();
     client.disableVirtualStyleEndpoint();
     url =
         client.getPresignedObjectUrl(
@@ -176,7 +176,7 @@ public class MinioClientTest {
         "https://s3.us-east-1.amazonaws.com/mybucket/myobject", url.split("\\?")[0]);
 
     client =
-        MinioClient.builder()
+        ApiClient.builder()
             .endpoint("https://s3.us-east-2.amazonaws.com")
             .credentials("myaccesskey", "mysecretkey")
             .build();
@@ -191,7 +191,7 @@ public class MinioClientTest {
     Assert.assertEquals(
         "https://s3.us-east-2.amazonaws.com/mybucket/myobject", url.split("\\?")[0]);
 
-    client = MinioClient.builder().endpoint("https://s3-accelerate.amazonaws.com").build();
+    client = ApiClient.builder().endpoint("https://s3-accelerate.amazonaws.com").build();
     client.disableVirtualStyleEndpoint();
     url =
         client.getPresignedObjectUrl(
@@ -204,7 +204,7 @@ public class MinioClientTest {
         "https://s3-accelerate.amazonaws.com/mybucket/myobject", url.split("\\?")[0]);
 
     client =
-        MinioClient.builder()
+        ApiClient.builder()
             .endpoint("https://s3.dualstack.ca-central-1.amazonaws.com")
             .credentials("myaccesskey", "mysecretkey")
             .build();
@@ -220,7 +220,7 @@ public class MinioClientTest {
         "https://s3.dualstack.ca-central-1.amazonaws.com/mybucket/myobject", url.split("\\?")[0]);
 
     client =
-        MinioClient.builder().endpoint("https://s3-accelerate.dualstack.amazonaws.com").build();
+        ApiClient.builder().endpoint("https://s3-accelerate.dualstack.amazonaws.com").build();
     client.disableVirtualStyleEndpoint();
     url =
         client.getPresignedObjectUrl(
@@ -235,7 +235,7 @@ public class MinioClientTest {
     // China region.
     // virtual-style checks.
     client =
-        MinioClient.builder()
+        ApiClient.builder()
             .endpoint("https://s3.cn-north-1.amazonaws.com.cn")
             .credentials("myaccesskey", "mysecretkey")
             .build();
@@ -250,7 +250,7 @@ public class MinioClientTest {
         "https://mybucket.s3.cn-north-1.amazonaws.com.cn/myobject", url.split("\\?")[0]);
 
     client =
-        MinioClient.builder()
+        ApiClient.builder()
             .endpoint("https://s3-accelerate.amazonaws.com.cn")
             .region("cn-north-1")
             .build();
@@ -265,7 +265,7 @@ public class MinioClientTest {
         "https://mybucket.s3-accelerate.amazonaws.com.cn/myobject", url.split("\\?")[0]);
 
     client =
-        MinioClient.builder()
+        ApiClient.builder()
             .endpoint("https://s3.dualstack.cn-northwest-1.amazonaws.com.cn")
             .credentials("myaccesskey", "mysecretkey")
             .build();
@@ -281,7 +281,7 @@ public class MinioClientTest {
         url.split("\\?")[0]);
 
     client =
-        MinioClient.builder()
+        ApiClient.builder()
             .endpoint("https://s3-accelerate.dualstack.amazonaws.com.cn")
             .region("cn-north-1")
             .build();
@@ -297,7 +297,7 @@ public class MinioClientTest {
 
     // path-style checks.
     client =
-        MinioClient.builder()
+        ApiClient.builder()
             .endpoint("https://s3.cn-north-1.amazonaws.com.cn")
             .credentials("myaccesskey", "mysecretkey")
             .build();
@@ -313,7 +313,7 @@ public class MinioClientTest {
         "https://s3.cn-north-1.amazonaws.com.cn/mybucket/myobject", url.split("\\?")[0]);
 
     client =
-        MinioClient.builder()
+        ApiClient.builder()
             .endpoint("https://s3-accelerate.amazonaws.com.cn")
             .region("cn-north-1")
             .build();
@@ -329,7 +329,7 @@ public class MinioClientTest {
         "https://s3-accelerate.amazonaws.com.cn/mybucket/myobject", url.split("\\?")[0]);
 
     client =
-        MinioClient.builder()
+        ApiClient.builder()
             .endpoint("https://s3.dualstack.cn-northwest-1.amazonaws.com.cn")
             .credentials("myaccesskey", "mysecretkey")
             .build();
@@ -346,7 +346,7 @@ public class MinioClientTest {
         url.split("\\?")[0]);
 
     client =
-        MinioClient.builder()
+        ApiClient.builder()
             .endpoint("https://s3-accelerate.dualstack.amazonaws.com.cn")
             .region("cn-north-1")
             .build();
@@ -364,28 +364,28 @@ public class MinioClientTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testBucketName1()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     StatObjectArgs.builder().bucket(null);
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testBucketName2()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     StatObjectArgs.builder().bucket("");
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testBucketName3()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     StatObjectArgs.builder().bucket("a");
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testBucketName4()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     StatObjectArgs.builder()
         .bucket("abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz0123456789");
     Assert.fail("exception should be thrown");
@@ -393,59 +393,59 @@ public class MinioClientTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testBucketName5()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     StatObjectArgs.builder().bucket("a..b");
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testBucketName6()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     StatObjectArgs.builder().bucket("a_b");
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testBucketName7()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     StatObjectArgs.builder().bucket("a#b");
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testObjectName1()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     StatObjectArgs.builder().object(null);
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testObjectName2()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     StatObjectArgs.builder().object("");
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testObjectName3()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     StatObjectArgs.builder().object("a/./b");
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testObjectName4()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     StatObjectArgs.builder().object("a/../b");
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testReadSse1()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     KeyGenerator keyGen = KeyGenerator.getInstance("AES");
     keyGen.init(256);
-    MinioClient client = MinioClient.builder().endpoint("http://play.min.io:9000").build();
+    ApiClient client = ApiClient.builder().endpoint("http://play.min.io:9000").build();
     client.statObject(
         StatObjectArgs.builder()
             .bucket("mybucket")
@@ -457,8 +457,8 @@ public class MinioClientTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testWriteSse1()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
-    MinioClient client = MinioClient.builder().endpoint("http://play.min.io:9000").build();
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
+    ApiClient client = ApiClient.builder().endpoint("http://play.min.io:9000").build();
     KeyGenerator keyGen = KeyGenerator.getInstance("AES");
     keyGen.init(256);
     client.putObject(
@@ -471,8 +471,8 @@ public class MinioClientTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testWriteSse2()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
-    MinioClient client = MinioClient.builder().endpoint("http://play.min.io:9000").build();
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
+    ApiClient client = ApiClient.builder().endpoint("http://play.min.io:9000").build();
     Map<String, String> myContext = new HashMap<>();
     myContext.put("key1", "value1");
     client.putObject(
@@ -485,7 +485,7 @@ public class MinioClientTest {
 
   @Test(expected = InvalidResponseException.class)
   public void testInvalidResponse1()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     MockWebServer server = new MockWebServer();
     MockResponse response = new MockResponse();
     response.setResponseCode(403);
@@ -494,14 +494,14 @@ public class MinioClientTest {
     server.enqueue(response);
     server.start();
 
-    MinioClient client = MinioClient.builder().endpoint(server.url("")).build();
+    ApiClient client = ApiClient.builder().endpoint(server.url("")).build();
     client.listBuckets();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = InvalidResponseException.class)
   public void testInvalidResponse2()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     MockWebServer server = new MockWebServer();
     MockResponse response = new MockResponse();
     response.setResponseCode(403);
@@ -511,14 +511,14 @@ public class MinioClientTest {
     server.enqueue(response);
     server.start();
 
-    MinioClient client = MinioClient.builder().endpoint(server.url("")).build();
+    ApiClient client = ApiClient.builder().endpoint(server.url("")).build();
     client.listBuckets();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = InvalidResponseException.class)
   public void testInvalidResponse3()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     MockWebServer server = new MockWebServer();
     MockResponse response = new MockResponse();
     response.setResponseCode(403);
@@ -528,14 +528,14 @@ public class MinioClientTest {
     server.enqueue(response);
     server.start();
 
-    MinioClient client = MinioClient.builder().endpoint(server.url("")).build();
+    ApiClient client = ApiClient.builder().endpoint(server.url("")).build();
     client.listBuckets();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = InvalidResponseException.class)
   public void testInvalidResponse4()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     MockWebServer server = new MockWebServer();
     MockResponse response = new MockResponse();
     response.setResponseCode(403);
@@ -545,16 +545,16 @@ public class MinioClientTest {
     server.enqueue(response);
     server.start();
 
-    MinioClient client = MinioClient.builder().endpoint(server.url("")).build();
+    ApiClient client = ApiClient.builder().endpoint(server.url("")).build();
     client.listBuckets();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testMakeBucketRegionConflicts()
-      throws NoSuchAlgorithmException, IOException, InvalidKeyException, MinioException {
-    MinioClient client =
-        MinioClient.builder()
+      throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
+    ApiClient client =
+        ApiClient.builder()
             .endpoint("http://play.min.io:9000")
             .credentials("foo", "bar")
             .region("us-east-1")

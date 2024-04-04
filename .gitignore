@@ -41,7 +41,3 @@ functional/.project
 functional/.settings/
 functional/bin/
 functional/.d*/
-minio
-!minio/
-minio.exe
-minio.*log

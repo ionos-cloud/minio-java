@@ -22,7 +22,7 @@ import java.util.Objects;
 import okhttp3.HttpUrl;
 
 /**
- * Argument class of {@link MinioAsyncClient#composeObject} and {@link MinioClient#composeObject}.
+ * Argument class of {@link ApiAsyncClient#composeObject} and {@link ApiClient#composeObject}.
  */
 public class ComposeObjectArgs extends ObjectWriteArgs {
   List<ComposeSource> sources;

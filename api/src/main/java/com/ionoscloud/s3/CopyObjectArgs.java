@@ -19,7 +19,7 @@ package com.ionoscloud.s3;
 import java.util.Objects;
 import okhttp3.HttpUrl;
 
-/** Argument class of {@link MinioAsyncClient#copyObject} and {@link MinioClient#copyObject}. */
+/** Argument class of {@link ApiAsyncClient#copyObject} and {@link ApiClient#copyObject}. */
 public class CopyObjectArgs extends ObjectWriteArgs {
   private CopySource source = null;
   private Directive metadataDirective;

@@ -20,8 +20,8 @@ import com.ionoscloud.s3.messages.ObjectLockConfiguration;
 import java.util.Objects;
 
 /**
- * Argument class of {@link MinioAsyncClient#setObjectLockConfiguration} and {@link
- * MinioClient#setObjectLockConfiguration}.
+ * Argument class of {@link ApiAsyncClient#setObjectLockConfiguration} and {@link
+ * ApiClient#setObjectLockConfiguration}.
  */
 public class SetObjectLockConfigurationArgs extends BucketArgs {
   private ObjectLockConfiguration config;

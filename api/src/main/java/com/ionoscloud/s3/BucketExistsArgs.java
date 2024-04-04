@@ -16,7 +16,7 @@
 
 package com.ionoscloud.s3;
 
-/** Argument class of {@link MinioAsyncClient#bucketExists} and {@link MinioClient#bucketExists}. */
+/** Argument class of {@link ApiAsyncClient#bucketExists} and {@link ApiClient#bucketExists}. */
 public class BucketExistsArgs extends BucketArgs {
   public static Builder builder() {
     return new Builder();

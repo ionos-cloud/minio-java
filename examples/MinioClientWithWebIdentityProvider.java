@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.StatObjectArgs;
 import com.ionoscloud.s3.StatObjectResponse;
 import com.ionoscloud.s3.credentials.Jwt;
@@ -34,7 +34,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class MinioClientWithWebIdentityProvider {
+public class ApiClientWithWebIdentityProvider {
   static Jwt getJwt(
       @Nonnull String clientId,
       @Nonnull String clientSecret,
@@ -99,15 +99,15 @@ public class MinioClientWithWebIdentityProvider {
             roleSessionName,
             null);
 
-    MinioClient minioClient =
-        MinioClient.builder()
+    ApiClient apiClient =
+        ApiClient.builder()
             .endpoint("https://MINIO-HOST:MINIO-PORT")
             .credentialsProvider(provider)
             .build();
 
     // Get information of an object.
     StatObjectResponse stat =
-        minioClient.statObject(
+        apiClient.statObject(
             StatObjectArgs.builder().bucket("my-bucketname").object("my-objectname").build());
     System.out.println(stat);
   }

@@ -24,7 +24,7 @@ dependencies {
 ```
 
 ## JAR download
-The latest JAR can be downloaded from [here](https://repo1.maven.org/maven2/io/minio/minio/8.5.9/)
+The latest JAR can be downloaded from [here](https://repo1.maven.org/maven2/com/ionoscloud/s3minio/8.5.9/)
 
 ## Quick Start Example - File Uploader
 This example program connects to an object storage server, makes a bucket on the server and then uploads a file to the bucket.
@@ -43,9 +43,9 @@ This example uses MinIO server playground [https://play.min.io](https://play.min
 ```java
 import com.ionoscloud.s3.BucketExistsArgs;
 import com.ionoscloud.s3.MakeBucketArgs;
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.UploadObjectArgs;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -54,26 +54,26 @@ public class FileUploader {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      // Create a minioClient with the MinIO server playground, its access key and secret key.
-      MinioClient minioClient =
-          MinioClient.builder()
+      // Create a apiClient with the MinIO server playground, its access key and secret key.
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       // Make 'asiatrip' bucket if not exist.
       boolean found =
-          minioClient.bucketExists(BucketExistsArgs.builder().bucket("asiatrip").build());
+          apiClient.bucketExists(BucketExistsArgs.builder().bucket("asiatrip").build());
       if (!found) {
         // Make a new bucket called 'asiatrip'.
-        minioClient.makeBucket(MakeBucketArgs.builder().bucket("asiatrip").build());
+        apiClient.makeBucket(MakeBucketArgs.builder().bucket("asiatrip").build());
       } else {
         System.out.println("Bucket 'asiatrip' already exists.");
       }
 
       // Upload '/home/user/Photos/asiaphotos.zip' as object name 'asiaphotos-2015.zip' to bucket
       // 'asiatrip'.
-      minioClient.uploadObject(
+      apiClient.uploadObject(
           UploadObjectArgs.builder()
               .bucket("asiatrip")
               .object("asiaphotos-2015.zip")
@@ -82,7 +82,7 @@ public class FileUploader {
       System.out.println(
           "'/home/user/Photos/asiaphotos.zip' is successfully uploaded as "
               + "object 'asiaphotos-2015.zip' to bucket 'asiatrip'.");
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
       System.out.println("HTTP trace: " + e.httpTrace());
     }
@@ -107,11 +107,11 @@ $ mc ls play/asiatrip/
 ## More References
 * [Java Client API Reference](https://min.io/docs/minio/linux/developers/java/API.html)
 * [Javadoc](https://minio-java.min.io/)
-* [Examples](https://github.com/minio/minio-java/tree/release/examples)
+* [Examples](https://github.com/ionos-cloud/sdk-java-s3/tree/release/examples)
 
 ## Explore Further
 * [Complete Documentation](https://min.io/docs/minio/kubernetes/upstream/index.html)
-* [Build your own Photo API Service - Full Application Example ](https://github.com/minio/minio-java-rest-example)
+* [Build your own Photo API Service - Full Application Example ](https://github.com/ionos-cloud/sdk-java-s3-rest-example)
 
 ## Contribute
-Please refer [Contributors Guide](https://github.com/minio/minio-java/blob/release/CONTRIBUTING.md)
+Please refer [Contributors Guide](https://github.com/ionos-cloud/sdk-java-s3/blob/release/CONTRIBUTING.md)

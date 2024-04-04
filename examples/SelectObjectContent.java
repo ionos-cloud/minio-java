@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.PutObjectArgs;
 import com.ionoscloud.s3.SelectObjectContentArgs;
 import com.ionoscloud.s3.SelectResponseStream;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.FileHeaderInfo;
 import com.ionoscloud.s3.messages.InputSerialization;
 import com.ionoscloud.s3.messages.OutputSerialization;
@@ -31,20 +31,20 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class SelectObjectContent {
-  /** MinioClient.getObject() example. */
+  /** ApiClient.getObject() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -58,7 +58,7 @@ public class SelectObjectContent {
                   + "air, moon roof, loaded\",4799.00\n")
               .getBytes(StandardCharsets.UTF_8);
       ByteArrayInputStream bais = new ByteArrayInputStream(data);
-      minioClient.putObject(
+      apiClient.putObject(
           PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
                   bais, data.length, -1)
               .build());
@@ -70,7 +70,7 @@ public class SelectObjectContent {
           new OutputSerialization(null, null, null, QuoteFields.ASNEEDED, null);
 
       SelectResponseStream stream =
-          minioClient.selectObjectContent(
+          apiClient.selectObjectContent(
               SelectObjectContentArgs.builder()
                   .bucket("my-bucketname")
                   .object("my-objectName")
@@ -88,7 +88,7 @@ public class SelectObjectContent {
       System.out.println("bytes processed: " + stats.bytesProcessed());
       System.out.println("bytes returned: " + stats.bytesReturned());
       stream.close();
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

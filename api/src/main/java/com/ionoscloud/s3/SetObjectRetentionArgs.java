@@ -20,8 +20,8 @@ import com.ionoscloud.s3.messages.Retention;
 import java.util.Objects;
 
 /**
- * Argument class of {@link MinioAsyncClient#setObjectRetention} and {@link
- * MinioClient#setObjectRetention}.
+ * Argument class of {@link ApiAsyncClient#setObjectRetention} and {@link
+ * ApiClient#setObjectRetention}.
  */
 public class SetObjectRetentionArgs extends ObjectVersionArgs {
   private Retention config;

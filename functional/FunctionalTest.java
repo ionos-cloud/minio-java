@@ -54,7 +54,7 @@ import com.ionoscloud.s3.IsObjectLegalHoldEnabledArgs;
 import com.ionoscloud.s3.ListObjectsArgs;
 import com.ionoscloud.s3.ListenBucketNotificationArgs;
 import com.ionoscloud.s3.MakeBucketArgs;
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.ObjectWriteResponse;
 import com.ionoscloud.s3.PostPolicy;
 import com.ionoscloud.s3.PutObjectArgs;
@@ -120,7 +120,7 @@ import com.ionoscloud.s3.messages.Stats;
 import com.ionoscloud.s3.messages.Status;
 import com.ionoscloud.s3.messages.Tags;
 import com.ionoscloud.s3.messages.VersioningConfiguration;
-import com.ionoscloud.s3.admin.MinioAdminClient;
+import com.ionoscloud.s3.admin.ApiAdminClient;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -190,7 +190,7 @@ public class FunctionalTest {
   private static String replicationSrcBucket = null;
   private static String replicationRole = null;
   private static String replicationBucketArn = null;
-  private static MinioClient client = null;
+  private static ApiClient client = null;
   private static TestMinioAdminClient adminClientTests;
 
   private static ServerSideEncryptionCustomerKey ssec = null;
@@ -3871,9 +3871,9 @@ public class FunctionalTest {
   }
 
   public static void runEndpointTests(boolean automated) throws Exception {
-    client = MinioClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
-    MinioAdminClient adminClient =
-        MinioAdminClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
+    client = ApiClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
+    ApiAdminClient adminClient =
+        ApiAdminClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
     adminClientTests = new TestMinioAdminClient(adminClient, mintEnv);
     // Enable trace for debugging.
     // client.traceOn(System.out);
@@ -3883,10 +3883,10 @@ public class FunctionalTest {
     if (automated) {
       // Run tests on TLS endpoint
       client =
-          MinioClient.builder().endpoint(endpointTLS).credentials(accessKey, secretKey).build();
+          ApiClient.builder().endpoint(endpointTLS).credentials(accessKey, secretKey).build();
       client.ignoreCertCheck();
       adminClient =
-          MinioAdminClient.builder()
+          ApiAdminClient.builder()
               .endpoint(endpointTLS)
               .credentials(accessKey, secretKey)
               .build();
@@ -3908,13 +3908,13 @@ public class FunctionalTest {
       bucketName = getRandomName();
       bucketNameWithLock = getRandomName();
       client =
-          MinioClient.builder()
+          ApiClient.builder()
               .endpoint(endpoint)
               .credentials(accessKey, secretKey)
               .region(region)
               .build();
       adminClient =
-          MinioAdminClient.builder()
+          ApiAdminClient.builder()
               .endpoint(endpoint)
               .credentials(accessKey, secretKey)
               .region(region)

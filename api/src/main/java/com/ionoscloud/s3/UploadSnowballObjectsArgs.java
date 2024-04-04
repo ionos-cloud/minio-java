@@ -21,8 +21,8 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * Argument class of {@link MinioAsyncClient#uploadSnowballObjects} and {@link
- * MinioClient#uploadSnowballObjects}.
+ * Argument class of {@link ApiAsyncClient#uploadSnowballObjects} and {@link
+ * ApiClient#uploadSnowballObjects}.
  */
 public class UploadSnowballObjectsArgs extends ObjectWriteArgs {
   private static final Random random = new Random(new SecureRandom().nextLong());

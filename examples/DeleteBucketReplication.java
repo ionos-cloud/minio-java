@@ -15,34 +15,34 @@
  */
 
 import com.ionoscloud.s3.DeleteBucketReplicationArgs;
-import com.ionoscloud.s3.MinioClient;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class DeleteBucketReplication {
-  /** MinioClient.deleteBucketReplication() example. */
+  /** ApiClient.deleteBucketReplication() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
 
-      minioClient.deleteBucketReplication(
+      apiClient.deleteBucketReplication(
           DeleteBucketReplicationArgs.builder().bucket("my-bucketname").build());
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

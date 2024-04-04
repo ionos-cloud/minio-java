@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Argument class of {@link MinioAsyncClient#setObjectTags} and {@link MinioClient#setObjectTags}.
+ * Argument class of {@link ApiAsyncClient#setObjectTags} and {@link ApiClient#setObjectTags}.
  */
 public class SetObjectTagsArgs extends ObjectVersionArgs {
   private Tags tags;

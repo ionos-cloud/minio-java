@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.SetBucketReplicationArgs;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.AndOperator;
 import com.ionoscloud.s3.messages.DeleteMarkerReplication;
 import com.ionoscloud.s3.messages.ReplicationConfiguration;
@@ -33,20 +33,20 @@ import java.util.List;
 import java.util.Map;
 
 public class SetBucketReplication {
-  /** MinioClient.setBucketReplication() example. */
+  /** ApiClient.setBucketReplication() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -74,9 +74,9 @@ public class SetBucketReplication {
       ReplicationConfiguration config =
           new ReplicationConfiguration("REPLACE-WITH-ACTUAL-ROLE", rules);
 
-      minioClient.setBucketReplication(
+      apiClient.setBucketReplication(
           SetBucketReplicationArgs.builder().bucket("my-bucketname").config(config).build());
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

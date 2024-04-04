@@ -17,8 +17,8 @@
 package com.ionoscloud.s3;
 
 /**
- * Argument class of {@link MinioAsyncClient#disableObjectLegalHold} and {@link
- * MinioClient#disableObjectLegalHold}.
+ * Argument class of {@link ApiAsyncClient#disableObjectLegalHold} and {@link
+ * ApiClient#disableObjectLegalHold}.
  */
 public class DisableObjectLegalHoldArgs extends ObjectVersionArgs {
   public static Builder builder() {

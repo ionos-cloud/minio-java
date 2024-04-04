@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.SetBucketNotificationArgs;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.EventType;
 import com.ionoscloud.s3.messages.NotificationConfiguration;
 import com.ionoscloud.s3.messages.QueueConfiguration;
@@ -27,20 +27,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SetBucketNotification {
-  /** MinioClient.setBucketNotification() example. */
+  /** ApiClient.setBucketNotification() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -63,10 +63,10 @@ public class SetBucketNotification {
       config.setQueueConfigurationList(queueConfigurationList);
 
       // Set updated notification configuration.
-      minioClient.setBucketNotification(
+      apiClient.setBucketNotification(
           SetBucketNotificationArgs.builder().bucket("my-bucketname").config(config).build());
       System.out.println("Bucket notification is set successfully");
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

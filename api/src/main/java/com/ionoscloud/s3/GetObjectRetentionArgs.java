@@ -17,8 +17,8 @@
 package com.ionoscloud.s3;
 
 /**
- * Argument class of {@link MinioAsyncClient#getObjectRetention} and {@link
- * MinioClient#getObjectRetention}.
+ * Argument class of {@link ApiAsyncClient#getObjectRetention} and {@link
+ * ApiClient#getObjectRetention}.
  */
 public class GetObjectRetentionArgs extends ObjectVersionArgs {
   public static Builder builder() {

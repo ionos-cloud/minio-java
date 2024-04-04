@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
 import com.ionoscloud.s3.StatObjectArgs;
 import com.ionoscloud.s3.StatObjectResponse;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -26,20 +26,20 @@ import java.util.HashMap;
 import javax.crypto.KeyGenerator;
 
 public class StatObject {
-  /** MinioClient.statObject() example. */
+  /** ApiClient.statObject() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -53,7 +53,7 @@ public class StatObject {
       {
         // Get information of an object.
         StatObjectResponse stat =
-            minioClient.statObject(
+            apiClient.statObject(
                 StatObjectArgs.builder().bucket("my-bucketname").object("my-objectname").build());
         System.out.println(stat);
       }
@@ -61,7 +61,7 @@ public class StatObject {
       {
         // Get information of SSE-C encrypted object.
         StatObjectResponse stat =
-            minioClient.statObject(
+            apiClient.statObject(
                 StatObjectArgs.builder()
                     .bucket("my-bucketname")
                     .object("my-encrypted-objectname")
@@ -73,7 +73,7 @@ public class StatObject {
       {
         // Get information of a versioned object.
         StatObjectResponse stat =
-            minioClient.statObject(
+            apiClient.statObject(
                 StatObjectArgs.builder()
                     .bucket("my-bucketname")
                     .object("my-versioned-objectname")
@@ -85,7 +85,7 @@ public class StatObject {
       {
         // Get information of a SSE-C encrypted versioned object.
         StatObjectResponse stat =
-            minioClient.statObject(
+            apiClient.statObject(
                 StatObjectArgs.builder()
                     .bucket("my-bucketname")
                     .object("my-encrypted-versioned-objectname")
@@ -103,7 +103,7 @@ public class StatObject {
         queryParams.put("partNumber", "1");
 
         StatObjectResponse stat =
-            minioClient.statObject(
+            apiClient.statObject(
                 StatObjectArgs.builder()
                     .bucket("my-bucketname")
                     .object("my-objectname")
@@ -112,7 +112,7 @@ public class StatObject {
                     .build());
         System.out.println(stat);
       }
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

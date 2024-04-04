@@ -18,7 +18,7 @@ package com.ionoscloud.s3;
 
 import java.util.Objects;
 
-/** Argument class of {@link MinioAsyncClient#removeObject} and {@link MinioClient#removeObject}. */
+/** Argument class of {@link ApiAsyncClient#removeObject} and {@link ApiClient#removeObject}. */
 public class RemoveObjectArgs extends ObjectVersionArgs {
   private boolean bypassGovernanceMode;
 

@@ -17,12 +17,12 @@
 
 import com.ionoscloud.s3.CopyObjectArgs;
 import com.ionoscloud.s3.CopySource;
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.ServerSideEncryption;
 import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
 import com.ionoscloud.s3.ServerSideEncryptionKms;
 import com.ionoscloud.s3.ServerSideEncryptionS3;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -31,20 +31,20 @@ import java.util.Map;
 import javax.crypto.KeyGenerator;
 
 public class CopyObject {
-  /** MinioClient.copyObject() example. */
+  /** ApiClient.copyObject() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -69,7 +69,7 @@ public class CopyObject {
       {
         // Create object "my-objectname" in bucket "my-bucketname" by copying from object
         // "my-objectname" in bucket "my-source-bucketname".
-        minioClient.copyObject(
+        apiClient.copyObject(
             CopyObjectArgs.builder()
                 .bucket("my-bucketname")
                 .object("my-objectname")
@@ -87,7 +87,7 @@ public class CopyObject {
       {
         // Create object "my-objectname" in bucket "my-bucketname" by copying from object
         // "my-source-objectname" in bucket "my-source-bucketname".
-        minioClient.copyObject(
+        apiClient.copyObject(
             CopyObjectArgs.builder()
                 .bucket("my-bucketname")
                 .object("my-objectname")
@@ -105,7 +105,7 @@ public class CopyObject {
       {
         // Create object "my-objectname" in bucket "my-bucketname" with SSE-KMS server-side
         // encryption by copying from object "my-objectname" in bucket "my-source-bucketname".
-        minioClient.copyObject(
+        apiClient.copyObject(
             CopyObjectArgs.builder()
                 .bucket("my-bucketname")
                 .object("my-objectname")
@@ -124,7 +124,7 @@ public class CopyObject {
       {
         // Create object "my-objectname" in bucket "my-bucketname" with SSE-S3 server-side
         // encryption by copying from object "my-objectname" in bucket "my-source-bucketname".
-        minioClient.copyObject(
+        apiClient.copyObject(
             CopyObjectArgs.builder()
                 .bucket("my-bucketname")
                 .object("my-objectname")
@@ -143,7 +143,7 @@ public class CopyObject {
       {
         // Create object "my-objectname" in bucket "my-bucketname" with SSE-C server-side encryption
         // by copying from object "my-objectname" in bucket "my-source-bucketname".
-        minioClient.copyObject(
+        apiClient.copyObject(
             CopyObjectArgs.builder()
                 .bucket("my-bucketname")
                 .object("my-objectname")
@@ -162,7 +162,7 @@ public class CopyObject {
       {
         // Create object "my-objectname" in bucket "my-bucketname" by copying from SSE-C encrypted
         // object "my-source-objectname" in bucket "my-source-bucketname".
-        minioClient.copyObject(
+        apiClient.copyObject(
             CopyObjectArgs.builder()
                 .bucket("my-bucketname")
                 .object("my-objectname")
@@ -181,7 +181,7 @@ public class CopyObject {
       {
         // Create object "my-objectname" in bucket "my-bucketname" with custom headers conditionally
         // by copying from object "my-objectname" in bucket "my-source-bucketname".
-        minioClient.copyObject(
+        apiClient.copyObject(
             CopyObjectArgs.builder()
                 .bucket("my-bucketname")
                 .object("my-objectname")
@@ -197,7 +197,7 @@ public class CopyObject {
             "my-source-bucketname/my-objectname copied "
                 + "to my-bucketname/my-objectname successfully");
       }
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

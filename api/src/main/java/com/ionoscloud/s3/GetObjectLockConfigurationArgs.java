@@ -17,8 +17,8 @@
 package com.ionoscloud.s3;
 
 /**
- * Argument class of {@link MinioAsyncClient#getObjectLockConfiguration} and {@link
- * MinioClient#getObjectLockConfiguration}.
+ * Argument class of {@link ApiAsyncClient#getObjectLockConfiguration} and {@link
+ * ApiClient#getObjectLockConfiguration}.
  */
 public class GetObjectLockConfigurationArgs extends BucketArgs {
   public static Builder builder() {

@@ -181,13 +181,13 @@ project(':api') {
                     name = 'minio'
                     packaging = 'jar'
                     description = 'MinIO Java SDK for Amazon S3 Compatible Cloud Storage'
-                    url = 'https://github.com/minio/minio-java'
+                    url = 'https://github.com/ionos-cloud/sdk-java-s3'
                     inceptionYear = '2015'
 
                     scm {
-                        connection = 'scm:git:git@github.com:minio/minio-java.git'
-                        developerConnection = 'scm:git:git@github.com:minio/minio-java.git'
-                        url = 'http://github.com/minio/minio-java'
+                        connection = 'scm:git:git@github.com:ionos-cloud/sdk-java-s3.git'
+                        developerConnection = 'scm:git:git@github.com:ionos-cloud/sdk-java-s3.git'
+                        url = 'http://github.com/ionos-cloud/sdk-java-s3'
                     }
 
                     licenses {
@@ -294,13 +294,13 @@ project(':adminapi') {
                     name = 'minio'
                     packaging = 'jar'
                     description = 'MinIO Java SDK for Amazon S3 Compatible Cloud Storage'
-                    url = 'https://github.com/minio/minio-java'
+                    url = 'https://github.com/ionos-cloud/sdk-java-s3'
                     inceptionYear = '2015'
 
                     scm {
-                        connection = 'scm:git:git@github.com:minio/minio-java.git'
-                        developerConnection = 'scm:git:git@github.com:minio/minio-java.git'
-                        url = 'http://github.com/minio/minio-java'
+                        connection = 'scm:git:git@github.com:ionos-cloud/sdk-java-s3.git'
+                        developerConnection = 'scm:git:git@github.com:ionos-cloud/sdk-java-s3.git'
+                        url = 'http://github.com/ionos-cloud/sdk-java-s3'
                     }
 
                     licenses {

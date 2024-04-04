@@ -79,30 +79,30 @@ import okhttp3.OkHttpClient;
  * Version 4; else they are performed anonymously.
  *
  * <p>Examples on using this library are available <a
- * href="https://github.com/minio/minio-java/tree/master/src/test/java/io/minio/examples">here</a>.
+ * href="https://github.com/ionos-cloud/sdk-java-s3/tree/master/src/test/java/com/ionoscloud/s3examples">here</a>.
  *
- * <p>Use {@code MinioClient.builder()} to create S3 client.
+ * <p>Use {@code ApiClient.builder()} to create S3 client.
  *
  * <pre>{@code
  * // Create client with anonymous access.
- * MinioClient minioClient = MinioClient.builder().endpoint("https://play.min.io").build();
+ * ApiClient apiClient = ApiClient.builder().endpoint("https://play.min.io").build();
  *
  * // Create client with credentials.
- * MinioClient minioClient =
- *     MinioClient.builder()
+ * ApiClient apiClient =
+ *     ApiClient.builder()
  *         .endpoint("https://play.min.io")
  *         .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
  *         .build();
  * }</pre>
  */
-public class MinioClient {
-  private MinioAsyncClient asyncClient = null;
+public class ApiClient {
+  private ApiAsyncClient asyncClient = null;
 
-  private MinioClient(MinioAsyncClient asyncClient) {
+  private ApiClient(ApiAsyncClient asyncClient) {
     this.asyncClient = asyncClient;
   }
 
-  protected MinioClient(MinioClient client) {
+  protected ApiClient(ApiClient client) {
     this.asyncClient = client.asyncClient;
   }
 
@@ -112,12 +112,12 @@ public class MinioClient {
    * <pre>Example:{@code
    * // Get information of an object.
    * StatObjectResponse stat =
-   *     minioClient.statObject(
+   *     apiClient.statObject(
    *         StatObjectArgs.builder().bucket("my-bucketname").object("my-objectname").build());
    *
    * // Get information of SSE-C encrypted object.
    * StatObjectResponse stat =
-   *     minioClient.statObject(
+   *     apiClient.statObject(
    *         StatObjectArgs.builder()
    *             .bucket("my-bucketname")
    *             .object("my-objectname")
@@ -126,7 +126,7 @@ public class MinioClient {
    *
    * // Get information of a versioned object.
    * StatObjectResponse stat =
-   *     minioClient.statObject(
+   *     apiClient.statObject(
    *         StatObjectArgs.builder()
    *             .bucket("my-bucketname")
    *             .object("my-objectname")
@@ -135,7 +135,7 @@ public class MinioClient {
    *
    * // Get information of a SSE-C encrypted versioned object.
    * StatObjectResponse stat =
-   *     minioClient.statObject(
+   *     apiClient.statObject(
    *         StatObjectArgs.builder()
    *             .bucket("my-bucketname")
    *             .object("my-objectname")
@@ -177,7 +177,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * try (InputStream stream =
-   *     minioClient.getObject(
+   *     apiClient.getObject(
    *   GetObjectArgs.builder()
    *     .bucket("my-bucketname")
    *     .object("my-objectname")
@@ -219,7 +219,7 @@ public class MinioClient {
    * Downloads data of a SSE-C encrypted object to file.
    *
    * <pre>Example:{@code
-   * minioClient.downloadObject(
+   * apiClient.downloadObject(
    *   DownloadObjectArgs.builder()
    *     .bucket("my-bucketname")
    *     .object("my-objectname")
@@ -258,7 +258,7 @@ public class MinioClient {
    * <pre>Example:{@code
    * // Create object "my-objectname" in bucket "my-bucketname" by copying from object
    * // "my-objectname" in bucket "my-source-bucketname".
-   * minioClient.copyObject(
+   * apiClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -271,7 +271,7 @@ public class MinioClient {
    *
    * // Create object "my-objectname" in bucket "my-bucketname" by copying from object
    * // "my-source-objectname" in bucket "my-source-bucketname".
-   * minioClient.copyObject(
+   * apiClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -284,7 +284,7 @@ public class MinioClient {
    *
    * // Create object "my-objectname" in bucket "my-bucketname" with SSE-KMS server-side
    * // encryption by copying from object "my-objectname" in bucket "my-source-bucketname".
-   * minioClient.copyObject(
+   * apiClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -298,7 +298,7 @@ public class MinioClient {
    *
    * // Create object "my-objectname" in bucket "my-bucketname" with SSE-S3 server-side
    * // encryption by copying from object "my-objectname" in bucket "my-source-bucketname".
-   * minioClient.copyObject(
+   * apiClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -312,7 +312,7 @@ public class MinioClient {
    *
    * // Create object "my-objectname" in bucket "my-bucketname" with SSE-C server-side encryption
    * // by copying from object "my-objectname" in bucket "my-source-bucketname".
-   * minioClient.copyObject(
+   * apiClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -326,7 +326,7 @@ public class MinioClient {
    *
    * // Create object "my-objectname" in bucket "my-bucketname" by copying from SSE-C encrypted
    * // object "my-source-objectname" in bucket "my-source-bucketname".
-   * minioClient.copyObject(
+   * apiClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -340,7 +340,7 @@ public class MinioClient {
    *
    * // Create object "my-objectname" in bucket "my-bucketname" with custom headers conditionally
    * // by copying from object "my-objectname" in bucket "my-source-bucketname".
-   * minioClient.copyObject(
+   * apiClient.copyObject(
    *     CopyObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -393,7 +393,7 @@ public class MinioClient {
    *    ComposeSource.builder().bucket("my-job-bucket").object("my-objectname-part-three").build());
    *
    * // Create my-bucketname/my-objectname by combining source object list.
-   * minioClient.composeObject(
+   * apiClient.composeObject(
    *    ComposeObjectArgs.builder()
    *        .bucket("my-bucketname")
    *        .object("my-objectname")
@@ -404,7 +404,7 @@ public class MinioClient {
    * // list.
    * Map<String, String> userMetadata = new HashMap<>();
    * userMetadata.put("My-Project", "Project One");
-   * minioClient.composeObject(
+   * apiClient.composeObject(
    *     ComposeObjectArgs.builder()
    *        .bucket("my-bucketname")
    *        .object("my-objectname")
@@ -414,7 +414,7 @@ public class MinioClient {
    *
    * // Create my-bucketname/my-objectname with user metadata and server-side encryption
    * // by combining source object list.
-   * minioClient.composeObject(
+   * apiClient.composeObject(
    *   ComposeObjectArgs.builder()
    *        .bucket("my-bucketname")
    *        .object("my-objectname")
@@ -457,7 +457,7 @@ public class MinioClient {
    * // Get presigned URL string to delete 'my-objectname' in 'my-bucketname' and its life time
    * // is one day.
    * String url =
-   *    minioClient.getPresignedObjectUrl(
+   *    apiClient.getPresignedObjectUrl(
    *        GetPresignedObjectUrlArgs.builder()
    *            .method(Method.DELETE)
    *            .bucket("my-bucketname")
@@ -472,7 +472,7 @@ public class MinioClient {
    * reqParams.put("response-content-type", "application/json");
    *
    * String url =
-   *    minioClient.getPresignedObjectUrl(
+   *    apiClient.getPresignedObjectUrl(
    *        GetPresignedObjectUrlArgs.builder()
    *            .method(Method.PUT)
    *            .bucket("my-bucketname")
@@ -485,7 +485,7 @@ public class MinioClient {
    * // Get presigned URL string to download 'my-objectname' in 'my-bucketname' and its life time
    * // is 2 hours.
    * String url =
-   *    minioClient.getPresignedObjectUrl(
+   *    apiClient.getPresignedObjectUrl(
    *        GetPresignedObjectUrlArgs.builder()
    *            .method(Method.GET)
    *            .bucket("my-bucketname")
@@ -531,7 +531,7 @@ public class MinioClient {
    * // Add condition that 'content-length-range' is between 64kiB to 10MiB.
    * policy.addContentLengthRangeCondition(64 * 1024, 10 * 1024 * 1024);
    *
-   * Map<String, String> formData = minioClient.getPresignedPostFormData(policy);
+   * Map<String, String> formData = apiClient.getPresignedPostFormData(policy);
    *
    * // Upload an image using POST object with form-data.
    * MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
@@ -585,11 +585,11 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * // Remove object.
-   * minioClient.removeObject(
+   * apiClient.removeObject(
    *     RemoveObjectArgs.builder().bucket("my-bucketname").object("my-objectname").build());
    *
    * // Remove versioned object.
-   * minioClient.removeObject(
+   * apiClient.removeObject(
    *     RemoveObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-versioned-objectname")
@@ -597,7 +597,7 @@ public class MinioClient {
    *         .build());
    *
    * // Remove versioned object bypassing Governance mode.
-   * minioClient.removeObject(
+   * apiClient.removeObject(
    *     RemoveObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-versioned-objectname")
@@ -640,7 +640,7 @@ public class MinioClient {
    * objects.add(new DeleteObject("my-objectname2"));
    * objects.add(new DeleteObject("my-objectname3"));
    * Iterable<Result<DeleteError>> results =
-   *     minioClient.removeObjects(
+   *     apiClient.removeObjects(
    *         RemoveObjectsArgs.builder().bucket("my-bucketname").objects(objects).build());
    * for (Result<DeleteError> result : results) {
    *   DeleteError error = errorResult.get();
@@ -661,7 +661,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * // Restore object.
-   * minioClient.restoreObject(
+   * apiClient.restoreObject(
    *     RestoreObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -669,7 +669,7 @@ public class MinioClient {
    *         .build());
    *
    * // Restore versioned object.
-   * minioClient.restoreObject(
+   * apiClient.restoreObject(
    *     RestoreObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-versioned-objectname")
@@ -712,16 +712,16 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * // Lists objects information.
-   * Iterable<Result<Item>> results = minioClient.listObjects(
+   * Iterable<Result<Item>> results = apiClient.listObjects(
    *     ListObjectsArgs.builder().bucket("my-bucketname").build());
    *
    * // Lists objects information recursively.
-   * Iterable<Result<Item>> results = minioClient.listObjects(
+   * Iterable<Result<Item>> results = apiClient.listObjects(
    *     ListObjectsArgs.builder().bucket("my-bucketname").recursive(true).build());
    *
    * // Lists maximum 100 objects information whose names starts with 'E' and after
    * // 'ExampleGuide.pdf'.
-   * Iterable<Result<Item>> results = minioClient.listObjects(
+   * Iterable<Result<Item>> results = apiClient.listObjects(
    *     ListObjectsArgs.builder()
    *         .bucket("my-bucketname")
    *         .startAfter("ExampleGuide.pdf")
@@ -731,7 +731,7 @@ public class MinioClient {
    *
    * // Lists maximum 100 objects information with version whose names starts with 'E' and after
    * // 'ExampleGuide.pdf'.
-   * Iterable<Result<Item>> results = minioClient.listObjects(
+   * Iterable<Result<Item>> results = apiClient.listObjects(
    *     ListObjectsArgs.builder()
    *         .bucket("my-bucketname")
    *         .startAfter("ExampleGuide.pdf")
@@ -753,7 +753,7 @@ public class MinioClient {
    * Lists bucket information of all buckets.
    *
    * <pre>Example:{@code
-   * List<Bucket> bucketList = minioClient.listBuckets();
+   * List<Bucket> bucketList = apiClient.listBuckets();
    * for (Bucket bucket : bucketList) {
    *   System.out.println(bucket.creationDate() + ", " + bucket.name());
    * }
@@ -789,7 +789,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * List<Bucket> bucketList =
-   *     minioClient.listBuckets(ListBucketsArgs.builder().extraHeaders(headers).build());
+   *     apiClient.listBuckets(ListBucketsArgs.builder().extraHeaders(headers).build());
    * for (Bucket bucket : bucketList) {
    *   System.out.println(bucket.creationDate() + ", " + bucket.name());
    * }
@@ -825,7 +825,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * boolean found =
-   *      minioClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
+   *      apiClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
    * if (found) {
    *   System.out.println("my-bucketname exists");
    * } else {
@@ -864,20 +864,20 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * // Create bucket with default region.
-   * minioClient.makeBucket(
+   * apiClient.makeBucket(
    *     MakeBucketArgs.builder()
    *         .bucket("my-bucketname")
    *         .build());
    *
    * // Create bucket with specific region.
-   * minioClient.makeBucket(
+   * apiClient.makeBucket(
    *     MakeBucketArgs.builder()
    *         .bucket("my-bucketname")
    *         .region("us-west-1")
    *         .build());
    *
    * // Create object-lock enabled bucket with specific region.
-   * minioClient.makeBucket(
+   * apiClient.makeBucket(
    *     MakeBucketArgs.builder()
    *         .bucket("my-bucketname")
    *         .region("us-west-1")
@@ -913,7 +913,7 @@ public class MinioClient {
    * Sets versioning configuration of a bucket.
    *
    * <pre>Example:{@code
-   * minioClient.setBucketVersioning(
+   * apiClient.setBucketVersioning(
    *     SetBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
@@ -946,7 +946,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * VersioningConfiguration config =
-   *     minioClient.getBucketVersioning(
+   *     apiClient.getBucketVersioning(
    *         GetBucketVersioningArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -982,7 +982,7 @@ public class MinioClient {
    * <pre>Example:{@code
    * ObjectLockConfiguration config = new ObjectLockConfiguration(
    *     RetentionMode.COMPLIANCE, new RetentionDurationDays(100));
-   * minioClient.setObjectLockConfiguration(
+   * apiClient.setObjectLockConfiguration(
    *     SetObjectLockConfigurationArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
@@ -1014,7 +1014,7 @@ public class MinioClient {
    * Deletes default object retention in a bucket.
    *
    * <pre>Example:{@code
-   * minioClient.deleteObjectLockConfiguration(
+   * apiClient.deleteObjectLockConfiguration(
    *     DeleteObjectLockConfigurationArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -1047,7 +1047,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * ObjectLockConfiguration config =
-   *     minioClient.getObjectLockConfiguration(
+   *     apiClient.getObjectLockConfiguration(
    *         GetObjectLockConfigurationArgs.builder().bucket("my-bucketname").build());
    * System.out.println("Mode: " + config.mode());
    * System.out.println(
@@ -1086,7 +1086,7 @@ public class MinioClient {
    * <pre>Example:{@code
    *  Retention retention = new Retention(
    *       RetentionMode.COMPLIANCE, ZonedDateTime.now().plusYears(1));
-   *  minioClient.setObjectRetention(
+   *  apiClient.setObjectRetention(
    *      SetObjectRetentionArgs.builder()
    *          .bucket("my-bucketname")
    *          .object("my-objectname")
@@ -1124,7 +1124,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * Retention retention =
-   *     minioClient.getObjectRetention(GetObjectRetentionArgs.builder()
+   *     apiClient.getObjectRetention(GetObjectRetentionArgs.builder()
    *        .bucket(bucketName)
    *        .object(objectName)
    *        .versionId(versionId)
@@ -1163,7 +1163,7 @@ public class MinioClient {
    * Enables legal hold on an object.
    *
    * <pre>Example:{@code
-   * minioClient.enableObjectLegalHold(
+   * apiClient.enableObjectLegalHold(
    *    EnableObjectLegalHoldArgs.builder()
    *        .bucket("my-bucketname")
    *        .object("my-objectname")
@@ -1199,7 +1199,7 @@ public class MinioClient {
    * Disables legal hold on an object.
    *
    * <pre>Example:{@code
-   * minioClient.disableObjectLegalHold(
+   * apiClient.disableObjectLegalHold(
    *    DisableObjectLegalHoldArgs.builder()
    *        .bucket("my-bucketname")
    *        .object("my-objectname")
@@ -1280,7 +1280,7 @@ public class MinioClient {
    * Removes an empty bucket using arguments
    *
    * <pre>Example:{@code
-   * minioClient.removeBucket(RemoveBucketArgs.builder().bucket("my-bucketname").build());
+   * apiClient.removeBucket(RemoveBucketArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
    * @param args {@link RemoveBucketArgs} bucket.
@@ -1312,21 +1312,21 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * // Upload known sized input stream.
-   * minioClient.putObject(
+   * apiClient.putObject(
    *     PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
    *             inputStream, size, -1)
    *         .contentType("video/mp4")
    *         .build());
    *
    * // Upload unknown sized input stream.
-   * minioClient.putObject(
+   * apiClient.putObject(
    *     PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
    *             inputStream, -1, 10485760)
    *         .contentType("video/mp4")
    *         .build());
    *
    * // Create object ends with '/' (also called as folder or directory).
-   * minioClient.putObject(
+   * apiClient.putObject(
    *     PutObjectArgs.builder().bucket("my-bucketname").object("path/to/").stream(
    *             new ByteArrayInputStream(new byte[] {}), 0, -1)
    *         .build());
@@ -1336,7 +1336,7 @@ public class MinioClient {
    * headers.put("X-Amz-Storage-Class", "REDUCED_REDUNDANCY");
    * Map<String, String> userMetadata = new HashMap<>();
    * userMetadata.put("My-Project", "Project One");
-   * minioClient.putObject(
+   * apiClient.putObject(
    *     PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
    *             inputStream, size, -1)
    *         .headers(headers)
@@ -1344,7 +1344,7 @@ public class MinioClient {
    *         .build());
    *
    * // Upload input stream with server-side encryption.
-   * minioClient.putObject(
+   * apiClient.putObject(
    *     PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
    *             inputStream, size, -1)
    *         .sse(sse)
@@ -1382,12 +1382,12 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * // Upload an JSON file.
-   * minioClient.uploadObject(
+   * apiClient.uploadObject(
    *     UploadObjectArgs.builder()
    *         .bucket("my-bucketname").object("my-objectname").filename("person.json").build());
    *
    * // Upload a video file.
-   * minioClient.uploadObject(
+   * apiClient.uploadObject(
    *     UploadObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -1427,7 +1427,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * String config =
-   *     minioClient.getBucketPolicy(GetBucketPolicyArgs.builder().bucket("my-bucketname").build());
+   *     apiClient.getBucketPolicy(GetBucketPolicyArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
    * @param args {@link GetBucketPolicyArgs} object.
@@ -1483,7 +1483,7 @@ public class MinioClient {
    * //     "Version": "2012-10-17"
    * // }
    * //
-   * minioClient.setBucketPolicy(
+   * apiClient.setBucketPolicy(
    *     SetBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
    * }</pre>
    *
@@ -1515,7 +1515,7 @@ public class MinioClient {
    * Deletes bucket policy configuration to a bucket.
    *
    * <pre>Example:{@code
-   * minioClient.deleteBucketPolicy(DeleteBucketPolicyArgs.builder().bucket("my-bucketname"));
+   * apiClient.deleteBucketPolicy(DeleteBucketPolicyArgs.builder().bucket("my-bucketname"));
    * }</pre>
    *
    * @param args {@link DeleteBucketPolicyArgs} object.
@@ -1558,7 +1558,7 @@ public class MinioClient {
    *         null,
    *         null));
    * LifecycleConfiguration config = new LifecycleConfiguration(rules);
-   * minioClient.setBucketLifecycle(
+   * apiClient.setBucketLifecycle(
    *     SetBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
@@ -1622,7 +1622,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * LifecycleConfiguration config =
-   *     minioClient.getBucketLifecycle(
+   *     apiClient.getBucketLifecycle(
    *         GetBucketLifecycleArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -1658,7 +1658,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * NotificationConfiguration config =
-   *     minioClient.getBucketNotification(
+   *     apiClient.getBucketNotification(
    *         GetBucketNotificationArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -1697,7 +1697,7 @@ public class MinioClient {
    * eventList.add(EventType.OBJECT_CREATED_COPY);
    *
    * QueueConfiguration queueConfiguration = new QueueConfiguration();
-   * queueConfiguration.setQueue("arn:minio:sqs::1:webhook");
+   * queueConfiguration.setQueue("arn:ionos:sqs::1:webhook");
    * queueConfiguration.setEvents(eventList);
    * queueConfiguration.setPrefixRule("images");
    * queueConfiguration.setSuffixRule("pg");
@@ -1708,7 +1708,7 @@ public class MinioClient {
    * NotificationConfiguration config = new NotificationConfiguration();
    * config.setQueueConfigurationList(queueConfigurationList);
    *
-   * minioClient.setBucketNotification(
+   * apiClient.setBucketNotification(
    *     SetBucketNotificationArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
@@ -1740,7 +1740,7 @@ public class MinioClient {
    * Deletes notification configuration of a bucket.
    *
    * <pre>Example:{@code
-   * minioClient.deleteBucketNotification(
+   * apiClient.deleteBucketNotification(
    *     DeleteBucketNotificationArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -1773,7 +1773,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * ReplicationConfiguration config =
-   *     minioClient.getBucketReplication(
+   *     apiClient.getBucketReplication(
    *         GetBucketReplicationArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -1830,7 +1830,7 @@ public class MinioClient {
    * ReplicationConfiguration config =
    *     new ReplicationConfiguration("REPLACE-WITH-ACTUAL-ROLE", rules);
    *
-   * minioClient.setBucketReplication(
+   * apiClient.setBucketReplication(
    *     SetBucketReplicationArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
@@ -1862,7 +1862,7 @@ public class MinioClient {
    * Deletes bucket replication configuration from a bucket.
    *
    * <pre>Example:{@code
-   * minioClient.deleteBucketReplication(
+   * apiClient.deleteBucketReplication(
    *     DeleteBucketReplicationArgs.builder().bucket("my-bucketname"));
    * }</pre>
    *
@@ -1898,7 +1898,7 @@ public class MinioClient {
    * <pre>Example:{@code
    * String[] events = {"s3:ObjectCreated:*", "s3:ObjectAccessed:*"};
    * try (CloseableIterator<Result<NotificationRecords>> ci =
-   *     minioClient.listenBucketNotification(
+   *     apiClient.listenBucketNotification(
    *         ListenBucketNotificationArgs.builder()
    *             .bucket("bucketName")
    *             .prefix("")
@@ -1948,7 +1948,7 @@ public class MinioClient {
    * OutputSerialization os =
    *     new OutputSerialization(null, null, null, QuoteFields.ASNEEDED, null);
    * SelectResponseStream stream =
-   *     minioClient.selectObjectContent(
+   *     apiClient.selectObjectContent(
    *       SelectObjectContentArgs.builder()
    *       .bucket("my-bucketname")
    *       .object("my-objectname")
@@ -1993,7 +1993,7 @@ public class MinioClient {
    * Sets encryption configuration of a bucket.
    *
    * <pre>Example:{@code
-   * minioClient.setBucketEncryption(
+   * apiClient.setBucketEncryption(
    *     SetBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
@@ -2026,7 +2026,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * SseConfiguration config =
-   *     minioClient.getBucketEncryption(
+   *     apiClient.getBucketEncryption(
    *         GetBucketEncryptionArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -2060,7 +2060,7 @@ public class MinioClient {
    * Deletes encryption configuration of a bucket.
    *
    * <pre>Example:{@code
-   * minioClient.deleteBucketEncryption(
+   * apiClient.deleteBucketEncryption(
    *     DeleteBucketEncryptionArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -2093,7 +2093,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * Tags tags =
-   *     minioClient.getBucketTags(GetBucketTagsArgs.builder().bucket("my-bucketname").build());
+   *     apiClient.getBucketTags(GetBucketTagsArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
    * @param args {@link GetBucketTagsArgs} object.
@@ -2129,7 +2129,7 @@ public class MinioClient {
    * Map<String, String> map = new HashMap<>();
    * map.put("Project", "Project One");
    * map.put("User", "jsmith");
-   * minioClient.setBucketTags(
+   * apiClient.setBucketTags(
    *     SetBucketTagsArgs.builder().bucket("my-bucketname").tags(map).build());
    * }</pre>
    *
@@ -2161,7 +2161,7 @@ public class MinioClient {
    * Deletes tags of a bucket.
    *
    * <pre>Example:{@code
-   * minioClient.deleteBucketTags(DeleteBucketTagsArgs.builder().bucket("my-bucketname").build());
+   * apiClient.deleteBucketTags(DeleteBucketTagsArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
    * @param args {@link DeleteBucketTagsArgs} object.
@@ -2193,7 +2193,7 @@ public class MinioClient {
    *
    * <pre>Example:{@code
    * Tags tags =
-   *     minioClient.getObjectTags(
+   *     apiClient.getObjectTags(
    *         GetObjectTagsArgs.builder().bucket("my-bucketname").object("my-objectname").build());
    * }</pre>
    *
@@ -2230,7 +2230,7 @@ public class MinioClient {
    * Map<String, String> map = new HashMap<>();
    * map.put("Project", "Project One");
    * map.put("User", "jsmith");
-   * minioClient.setObjectTags(
+   * apiClient.setObjectTags(
    *     SetObjectTagsArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
@@ -2266,7 +2266,7 @@ public class MinioClient {
    * Deletes tags of an object.
    *
    * <pre>Example:{@code
-   * minioClient.deleteObjectTags(
+   * apiClient.deleteObjectTags(
    *     DeleteObjectTags.builder().bucket("my-bucketname").object("my-objectname").build());
    * }</pre>
    *
@@ -2313,7 +2313,7 @@ public class MinioClient {
    *         new ByteArrayInputStream("java".getBytes(StandardCharsets.UTF_8)),
    *         4,
    *         null));
-   * minioClient.uploadSnowballObjects(
+   * apiClient.uploadSnowballObjects(
    *     UploadSnowballObjectsArgs.builder().bucket("my-bucketname").objects(objects).build());
    * }</pre>
    *
@@ -2347,7 +2347,7 @@ public class MinioClient {
    * must be between 1 and Integer.MAX_VALUE when converted to milliseconds.
    *
    * <pre>Example:{@code
-   * minioClient.setTimeout(TimeUnit.SECONDS.toMillis(10), TimeUnit.SECONDS.toMillis(10),
+   * apiClient.setTimeout(TimeUnit.SECONDS.toMillis(10), TimeUnit.SECONDS.toMillis(10),
    *     TimeUnit.SECONDS.toMillis(30));
    * }</pre>
    *
@@ -2363,7 +2363,7 @@ public class MinioClient {
    * Ignores check on server certificate for HTTPS connection.
    *
    * <pre>Example:{@code
-   * minioClient.ignoreCertCheck();
+   * apiClient.ignoreCertCheck();
    * }</pre>
    *
    * @throws KeyManagementException thrown to indicate key management error.
@@ -2454,12 +2454,12 @@ public class MinioClient {
     return new Builder();
   }
 
-  /** Argument builder of {@link MinioClient}. */
+  /** Argument builder of {@link ApiClient}. */
   public static final class Builder {
-    private MinioAsyncClient.Builder asyncClientBuilder = null;
+    private ApiAsyncClient.Builder asyncClientBuilder = null;
 
     public Builder() {
-      asyncClientBuilder = MinioAsyncClient.builder();
+      asyncClientBuilder = ApiAsyncClient.builder();
     }
 
     public Builder endpoint(String endpoint) {
@@ -2502,9 +2502,9 @@ public class MinioClient {
       return this;
     }
 
-    public MinioClient build() {
-      MinioAsyncClient asyncClient = asyncClientBuilder.build();
-      return new MinioClient(asyncClient);
+    public ApiClient build() {
+      ApiAsyncClient asyncClient = asyncClientBuilder.build();
+      return new ApiClient(asyncClient);
     }
   }
 }

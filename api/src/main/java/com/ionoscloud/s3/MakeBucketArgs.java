@@ -18,7 +18,7 @@ package com.ionoscloud.s3;
 
 import java.util.Objects;
 
-/** Argument class of {@link MinioAsyncClient#makeBucket} and {@link MinioClient#makeBucket}. */
+/** Argument class of {@link ApiAsyncClient#makeBucket} and {@link ApiClient#makeBucket}. */
 public class MakeBucketArgs extends BucketArgs {
   private boolean objectLock;
 

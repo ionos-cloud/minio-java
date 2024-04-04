@@ -126,7 +126,7 @@ public abstract class S3Base {
   private static final Set<String> TRACE_QUERY_PARAMS =
       ImmutableSet.of("retention", "legal-hold", "tagging", UPLOAD_ID);
   private PrintWriter traceStream;
-  private String userAgent = MinioProperties.INSTANCE.getDefaultUserAgent();
+  private String userAgent = SdkProperties.INSTANCE.getDefaultUserAgent();
 
   protected HttpUrl baseUrl;
   protected String awsS3Prefix;
@@ -1672,7 +1672,7 @@ public abstract class S3Base {
    * must be between 1 and Integer.MAX_VALUE when converted to milliseconds.
    *
    * <pre>Example:{@code
-   * minioClient.setTimeout(TimeUnit.SECONDS.toMillis(10), TimeUnit.SECONDS.toMillis(10),
+   * apiClient.setTimeout(TimeUnit.SECONDS.toMillis(10), TimeUnit.SECONDS.toMillis(10),
    *     TimeUnit.SECONDS.toMillis(30));
    * }</pre>
    *
@@ -1689,7 +1689,7 @@ public abstract class S3Base {
    * Ignores check on server certificate for HTTPS connection.
    *
    * <pre>Example:{@code
-   * minioClient.ignoreCertCheck();
+   * apiClient.ignoreCertCheck();
    * }</pre>
    *
    * @throws KeyManagementException thrown to indicate key management error.
@@ -1710,7 +1710,7 @@ public abstract class S3Base {
   public void setAppInfo(String name, String version) {
     if (name == null || version == null) return;
     this.userAgent =
-        MinioProperties.INSTANCE.getDefaultUserAgent() + " " + name.trim() + "/" + version.trim();
+        SdkProperties.INSTANCE.getDefaultUserAgent() + " " + name.trim() + "/" + version.trim();
   }
 
   /**

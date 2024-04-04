@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.PutObjectArgs;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
@@ -57,17 +57,17 @@ public class PutObjectUiProgressBar extends JFrame {
    * on the UI
    */
   private void uploadFile(String fileName)
-      throws IOException, NoSuchAlgorithmException, InvalidKeyException, MinioException {
+      throws IOException, NoSuchAlgorithmException, InvalidKeyException, ApiException {
     /* play.min.io for test and development. */
-    MinioClient minioClient =
-        MinioClient.builder()
+    ApiClient apiClient =
+        ApiClient.builder()
             .endpoint("https://play.min.io")
             .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
             .build();
 
     /* Amazon S3: */
-    // MinioClient minioClient =
-    //     MinioClient.builder()
+    // ApiClient apiClient =
+    //     ApiClient.builder()
     //         .endpoint("https://s3.amazonaws.com")
     //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
     //         .build();
@@ -78,7 +78,7 @@ public class PutObjectUiProgressBar extends JFrame {
           new ProgressMonitorInputStream(this, "Uploading... " + file.getAbsolutePath(), bis);
 
       pmis.getProgressMonitor().setMillisToPopup(10);
-      minioClient.putObject(
+      apiClient.putObject(
           PutObjectArgs.builder().bucket("bank").object("my-objectname").stream(
                   pmis, pmis.available(), -1)
               .build());
@@ -117,7 +117,7 @@ public class PutObjectUiProgressBar extends JFrame {
     }
   }
 
-  /** MinioClient.putObjectProgressBar() example. */
+  /** ApiClient.putObjectProgressBar() example. */
   public static void main(String[] args) {
     PutObjectUiProgressBar demo = new PutObjectUiProgressBar();
     demo.go();

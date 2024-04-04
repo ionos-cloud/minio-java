@@ -5,14 +5,14 @@
 ## MinIO
 
 ```java
-MinioClient minioClient = new MinioClient("https://play.min.io", "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG");
+ApiClient apiClient = new ApiClient("https://play.min.io", "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG");
 ```
 
 ## AWS S3
 
 
 ```java
-MinioClient s3Client = new MinioClient("https://s3.amazonaws.com", "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY");
+ApiClient s3Client = new ApiClient("https://s3.amazonaws.com", "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY");
 ```
 
 | 存储桶操作 |  文件对象操作 | Presigned操作  | 存储桶策略
@@ -31,62 +31,62 @@ MinioClient s3Client = new MinioClient("https://s3.amazonaws.com", "YOUR-ACCESSK
 
 |  |
 |---|
-|`public MinioClient(String endpoint) throws NullPointerException, InvalidEndpointException, InvalidPortException`   |
+|`public ApiClient(String endpoint) throws NullPointerException, InvalidEndpointException, InvalidPortException`   |
 | 使用给定的endpoint以及匿名方式创建一个Minio client对象。|
-| [查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-)  |
+| [查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-)  |
 
 
 |   |
 |---|
-|`public MinioClient(URL url) throws NullPointerException, InvalidEndpointException, InvalidPortException`   |
+|`public ApiClient(URL url) throws NullPointerException, InvalidEndpointException, InvalidPortException`   |
 | 使用给定的url以及匿名方式创建一个Minio client对象。 |
-| [查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.net.URL-)  |
+| [查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.net.URL-)  |
 
 
 |  |
 |---|
-| `public MinioClient(com.squareup.okhttp.HttpUrl url) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
+| `public ApiClient(com.squareup.okhttp.HttpUrl url) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
 |使用给定的HttpUrl以及匿名方式创建一个Minio client对象。 |
-| [查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-com.squareup.okhttp.HttpUrl-)  |
+| [查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-com.squareup.okhttp.HttpUrl-)  |
 
 |   |
 |---|
-| `public MinioClient(String endpoint, String accessKey, String secretKey) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
+| `public ApiClient(String endpoint, String accessKey, String secretKey) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
 |  使用给定的endpoint、access key和secret key创建一个Minio client对象。 |
-|   [查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-java.lang.String-java.lang.String-)|
+|   [查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-java.lang.String-java.lang.String-)|
 
 |   |
 |---|
-| `public MinioClient(String endpoint, int port,  String accessKey, String secretKey) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
+| `public ApiClient(String endpoint, int port,  String accessKey, String secretKey) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
 |  使用给定的endpoint、port、access key和secret key创建一个Minio client对象。 |
-| [查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-int-java.lang.String-java.lang.String-)  |
+| [查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-int-java.lang.String-java.lang.String-)  |
 
 
 |   |
 |---|
-| `public MinioClient(String endpoint, String accessKey, String secretKey, boolean secure) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
+| `public ApiClient(String endpoint, String accessKey, String secretKey, boolean secure) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
 | 使用给定的endpoint、access key、secret key和一个secure选项（是否使用https）创建一个Minio client对象。 |
-|  [查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-java.lang.String-java.lang.String-boolean-) |
+|  [查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-java.lang.String-java.lang.String-boolean-) |
 
 
 |   |
 |---|
-| `public MinioClient(String endpoint, int port, String accessKey, String secretKey, boolean secure) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
+| `public ApiClient(String endpoint, int port, String accessKey, String secretKey, boolean secure) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
 | 使用给定的endpoint、port、access key、secret key和一个secure选项（是否使用https）创建一个Minio client对象。  |
-|  [查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-int-java.lang.String-java.lang.String-boolean-) |
+|  [查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-int-java.lang.String-java.lang.String-boolean-) |
 
 |   |
 |---|
-| `public MinioClient(com.squareup.okhttp.HttpUrl url, String accessKey, String secretKey) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
+| `public ApiClient(com.squareup.okhttp.HttpUrl url, String accessKey, String secretKey) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
 | 使用给定的HttpUrl对象、access key、secret key创建一个Minio client对象。 |
-| [查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-com.squareup.okhttp.HttpUrl-java.lang.String-java.lang.String-)  |
+| [查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-com.squareup.okhttp.HttpUrl-java.lang.String-java.lang.String-)  |
 
 
 |   |
 |---|
-| `public MinioClient(URL url, String accessKey, String secretKey) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
+| `public ApiClient(URL url, String accessKey, String secretKey) throws NullPointerException, InvalidEndpointException, InvalidPortException`  |
 |  使用给定的URL对象、access key、secret key创建一个Minio client对象。 |
-|  [查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.net.URL-java.lang.String-java.lang.String-) |
+|  [查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.net.URL-java.lang.String-java.lang.String-) |
 
 
 __参数__
@@ -113,32 +113,32 @@ __示例__
 
 
 ```java
-// 1. public MinioClient(String endpoint)
-MinioClient minioClient = new MinioClient("https://play.min.io");
+// 1. public ApiClient(String endpoint)
+ApiClient apiClient = new ApiClient("https://play.min.io");
 
-// 2. public MinioClient(URL url)
-MinioClient minioClient = new MinioClient(new URL("https://play.min.io"));
+// 2. public ApiClient(URL url)
+ApiClient apiClient = new ApiClient(new URL("https://play.min.io"));
 
-// 3. public MinioClient(com.squareup.okhttp.HttpUrl url)
- MinioClient minioClient = new MinioClient(new HttpUrl.parse("https://play.min.io"));
+// 3. public ApiClient(com.squareup.okhttp.HttpUrl url)
+ ApiClient apiClient = new ApiClient(new HttpUrl.parse("https://play.min.io"));
 
-// 4. public MinioClient(String endpoint, String accessKey, String secretKey)
-MinioClient minioClient = new MinioClient("https://play.min.io", "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG");
+// 4. public ApiClient(String endpoint, String accessKey, String secretKey)
+ApiClient apiClient = new ApiClient("https://play.min.io", "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG");
 
-// 5. public MinioClient(String endpoint, int port,  String accessKey, String secretKey)
-MinioClient minioClient = new MinioClient("https://play.min.io", 9000, "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG");
+// 5. public ApiClient(String endpoint, int port,  String accessKey, String secretKey)
+ApiClient apiClient = new ApiClient("https://play.min.io", 9000, "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG");
 
-// 6. public MinioClient(String endpoint, String accessKey, String secretKey, boolean insecure)
-MinioClient minioClient = new MinioClient("https://play.min.io", "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG", true);
+// 6. public ApiClient(String endpoint, String accessKey, String secretKey, boolean insecure)
+ApiClient apiClient = new ApiClient("https://play.min.io", "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG", true);
 
-// 7. public MinioClient(String endpoint, int port,  String accessKey, String secretKey, boolean insecure)
-MinioClient minioClient = new MinioClient("https://play.min.io", 9000, "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG", true);
+// 7. public ApiClient(String endpoint, int port,  String accessKey, String secretKey, boolean insecure)
+ApiClient apiClient = new ApiClient("https://play.min.io", 9000, "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG", true);
 
-// 8. public MinioClient(com.squareup.okhttp.HttpUrl url, String accessKey, String secretKey)
- MinioClient minioClient = new MinioClient(new URL("https://play.min.io"), "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG");
+// 8. public ApiClient(com.squareup.okhttp.HttpUrl url, String accessKey, String secretKey)
+ ApiClient apiClient = new ApiClient(new URL("https://play.min.io"), "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG");
 
-// 9. public MinioClient(URL url, String accessKey, String secretKey)
-MinioClient minioClient = new MinioClient(HttpUrl.parse("https://play.min.io"), "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG");
+// 9. public ApiClient(URL url, String accessKey, String secretKey)
+ApiClient apiClient = new ApiClient(HttpUrl.parse("https://play.min.io"), "Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG");
 ```
 
 
@@ -146,32 +146,32 @@ MinioClient minioClient = new MinioClient(HttpUrl.parse("https://play.min.io"), 
 
 
 ```java
-// 1. public MinioClient(String endpoint)
-MinioClient s3Client = new MinioClient("https://s3.amazonaws.com");
+// 1. public ApiClient(String endpoint)
+ApiClient s3Client = new ApiClient("https://s3.amazonaws.com");
 
-// 2. public MinioClient(URL url)
-MinioClient minioClient = new MinioClient(new URL("https://s3.amazonaws.com"));
+// 2. public ApiClient(URL url)
+ApiClient apiClient = new ApiClient(new URL("https://s3.amazonaws.com"));
 
-// 3. public MinioClient(com.squareup.okhttp.HttpUrl url)
- MinioClient s3Client = new MinioClient(new HttpUrl.parse("https://s3.amazonaws.com"));
+// 3. public ApiClient(com.squareup.okhttp.HttpUrl url)
+ ApiClient s3Client = new ApiClient(new HttpUrl.parse("https://s3.amazonaws.com"));
 
-// 4. public MinioClient(String endpoint, String accessKey, String secretKey)
-MinioClient s3Client = new MinioClient("s3.amazonaws.com", "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY");
+// 4. public ApiClient(String endpoint, String accessKey, String secretKey)
+ApiClient s3Client = new ApiClient("s3.amazonaws.com", "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY");
 
-// 5. public MinioClient(String endpoint, int port,  String accessKey, String secretKey)
-MinioClient s3Client = new MinioClient("s3.amazonaws.com", 80, "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY");
+// 5. public ApiClient(String endpoint, int port,  String accessKey, String secretKey)
+ApiClient s3Client = new ApiClient("s3.amazonaws.com", 80, "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY");
 
-// 6. public MinioClient(String endpoint, String accessKey, String secretKey, boolean insecure)
-MinioClient s3Client = new MinioClient("s3.amazonaws.com", "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY", false);
+// 6. public ApiClient(String endpoint, String accessKey, String secretKey, boolean insecure)
+ApiClient s3Client = new ApiClient("s3.amazonaws.com", "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY", false);
 
-// 7. public MinioClient(String endpoint, int port,  String accessKey, String secretKey, boolean insecure)
-MinioClient s3Client = new MinioClient("s3.amazonaws.com", 80, "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY",false);
+// 7. public ApiClient(String endpoint, int port,  String accessKey, String secretKey, boolean insecure)
+ApiClient s3Client = new ApiClient("s3.amazonaws.com", 80, "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY",false);
 
-// 8. public MinioClient(com.squareup.okhttp.HttpUrl url, String accessKey, String secretKey)
- MinioClient s3Client = new MinioClient(new URL("s3.amazonaws.com"), "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY");
+// 8. public ApiClient(com.squareup.okhttp.HttpUrl url, String accessKey, String secretKey)
+ ApiClient s3Client = new ApiClient(new URL("s3.amazonaws.com"), "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY");
 
-// 9. public MinioClient(URL url, String accessKey, String secretKey)
-MinioClient s3Client = new MinioClient(HttpUrl.parse("s3.amazonaws.com"), "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY");
+// 9. public ApiClient(URL url, String accessKey, String secretKey)
+ApiClient s3Client = new ApiClient(HttpUrl.parse("s3.amazonaws.com"), "YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY");
 ```
 
 ## 2. 存储桶操作
@@ -182,7 +182,7 @@ MinioClient s3Client = new MinioClient(HttpUrl.parse("s3.amazonaws.com"), "YOUR-
 
 创建一个新的存储桶
 
-[查看Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#makeBucket-java.lang.String-)
+[查看Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#makeBucket-java.lang.String-)
 
 __参数__
 
@@ -208,15 +208,15 @@ __示例__
 ```java
 try {
   // 如存储桶不存在，创建之。
-  boolean found = minioClient.bucketExists("mybucket");
+  boolean found = apiClient.bucketExists("mybucket");
   if (found) {
     System.out.println("mybucket already exists");
   } else {
     // 创建名为'my-bucketname'的存储桶。
-    minioClient.makeBucket("mybucket");
+    apiClient.makeBucket("mybucket");
     System.out.println("mybucket is created successfully");
   }
-} catch (MinioException e) {
+} catch (ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -228,7 +228,7 @@ try {
 
 列出所有存储桶。
 
-[查看Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#listBuckets--)
+[查看Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#listBuckets--)
 
 |返回值类型	  | 异常	  |
 |:--- |:--- |
@@ -246,11 +246,11 @@ __示例__
 ```java
 try {
   // 列出所有存储桶
-  List<Bucket> bucketList = minioClient.listBuckets();
+  List<Bucket> bucketList = apiClient.listBuckets();
   for (Bucket bucket : bucketList) {
     System.out.println(bucket.creationDate() + ", " + bucket.name());
   }
-} catch (MinioException e) {
+} catch (ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -262,7 +262,7 @@ try {
 
 检查存储桶是否存在。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#bucketExists-java.lang.String-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#bucketExists-java.lang.String-)
 
 
 __参数__
@@ -291,13 +291,13 @@ __示例__
 ```java
 try {
   // 检查'my-bucketname'是否存在。
-  boolean found = minioClient.bucketExists("mybucket");
+  boolean found = apiClient.bucketExists("mybucket");
   if (found) {
     System.out.println("mybucket exists");
   } else {
     System.out.println("mybucket does not exist");
   }
-} catch (MinioException e) {
+} catch (ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -310,7 +310,7 @@ try {
 
 删除一个存储桶。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#removeBucket-java.lang.String-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#removeBucket-java.lang.String-)
 
 注意: -  removeBucket不会删除存储桶里的对象，你需要通过removeObject API来删除它们。
 
@@ -340,15 +340,15 @@ __示例__
 ```java
 try {
   // 删除之前先检查`my-bucket`是否存在。
-  boolean found = minioClient.bucketExists("mybucket");
+  boolean found = apiClient.bucketExists("mybucket");
   if (found) {
     // 删除`my-bucketname`存储桶，注意，只有存储桶为空时才能删除成功。
-    minioClient.removeBucket("mybucket");
+    apiClient.removeBucket("mybucket");
     System.out.println("mybucket is removed successfully");
   } else {
     System.out.println("mybucket does not exist");
   }
-} catch(MinioException e) {
+} catch(ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -360,7 +360,7 @@ try {
 
 列出某个存储桶中的所有对象。
 
-[查看Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#listObjects-java.lang.String-java.lang.String-boolean-)
+[查看Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#listObjects-java.lang.String-java.lang.String-boolean-)
 
 
 __参数__
@@ -385,10 +385,10 @@ __示例__
 ```java
 try {
   // 检查'mybucket'是否存在。
-  boolean found = minioClient.bucketExists("mybucket");
+  boolean found = apiClient.bucketExists("mybucket");
   if (found) {
     // 列出'my-bucketname'里的对象
-    Iterable<Result<Item>> myObjects = minioClient.listObjects("mybucket");
+    Iterable<Result<Item>> myObjects = apiClient.listObjects("mybucket");
     for (Result<Item> result : myObjects) {
       Item item = result.get();
       System.out.println(item.lastModified() + ", " + item.size() + ", " + item.objectName());
@@ -396,7 +396,7 @@ try {
   } else {
     System.out.println("mybucket does not exist");
   }
-} catch (MinioException e) {
+} catch (ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -409,7 +409,7 @@ try {
 
 列出存储桶中被部分上传的对象。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#listIncompleteUploads-java.lang.String-java.lang.String-boolean-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#listIncompleteUploads-java.lang.String-java.lang.String-boolean-)
 
 
 __参数__
@@ -433,10 +433,10 @@ __示例__
 ```java
 try {
   // 检查'mybucket'是否存在。
-  boolean found = minioClient.bucketExists("mybucket");
+  boolean found = apiClient.bucketExists("mybucket");
   if (found) {
     // 列出'mybucket'中所有未完成的multipart上传的的对象。 
-    Iterable<Result<Upload>> myObjects = minioClient.listIncompleteUploads("mybucket");
+    Iterable<Result<Upload>> myObjects = apiClient.listIncompleteUploads("mybucket");
     for (Result<Upload> result : myObjects) {
       Upload upload = result.get();
       System.out.println(upload.uploadId() + ", " + upload.objectName());
@@ -444,7 +444,7 @@ try {
   } else {
     System.out.println("mybucket does not exist");
   }
-} catch (MinioException e) {
+} catch (ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -455,7 +455,7 @@ try {
 
 获得指定对象前缀的存储桶策略。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#getBucketPolicy-java.lang.String-java.lang.String-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getBucketPolicy-java.lang.String-java.lang.String-)
 
 __参数__
 
@@ -485,8 +485,8 @@ __示例__
 
 ```java
 try {
-  System.out.println("Current policy: " + minioClient.getBucketPolicy("myBucket", "downloads"));
-} catch (MinioException e) {
+  System.out.println("Current policy: " + apiClient.getBucketPolicy("myBucket", "downloads"));
+} catch (ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -497,7 +497,7 @@ try {
 
 给一个存储桶+对象前缀设置策略。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#setBucketPolicy-java.lang.String-java.lang.String-com.ionoscloud.s3.BucketPolicy-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketPolicy-java.lang.String-java.lang.String-com.ionoscloud.s3.BucketPolicy-)
 
 __参数__
 
@@ -529,8 +529,8 @@ __示例__
 
 ```java
 try {
-  minioClient.setBucketPolicy("myBucket", "uploads", PolicyType.READ_ONLY);
-} catch (MinioException e) {
+  apiClient.setBucketPolicy("myBucket", "uploads", PolicyType.READ_ONLY);
+} catch (ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -544,7 +544,7 @@ try {
 
 以流的形式下载一个对象。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#getObject-java.lang.String-java.lang.String-long-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObject-java.lang.String-java.lang.String-long-)
 
 
 __参数__
@@ -575,10 +575,10 @@ try {
   // 调用statObject()来判断对象是否存在。
   // 如果不存在, statObject()抛出异常,
   // 否则则代表对象存在。
-  minioClient.statObject("mybucket", "myobject");
+  apiClient.statObject("mybucket", "myobject");
 
   // 获取"myobject"的输入流。
-  InputStream stream = minioClient.getObject("mybucket", "myobject");
+  InputStream stream = apiClient.getObject("mybucket", "myobject");
 
   // 读取输入流直到EOF并打印到控制台。
   byte[] buf = new byte[16384];
@@ -589,7 +589,7 @@ try {
 
   // 关闭流，此处为示例，流关闭最好放在finally块。
   stream.close();
-} catch (MinioException e) {
+} catch (ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -601,7 +601,7 @@ try {
 
 下载对象指定区域的字节数组做为流。（断点下载）
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#getObject-java.lang.String-java.lang.String-long-java.lang.Long-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObject-java.lang.String-java.lang.String-long-java.lang.Long-)
 
 
 __参数__
@@ -635,10 +635,10 @@ try {
   // 调用statObject()来判断对象是否存在。
   // 如果不存在, statObject()抛出异常,
   // 否则则代表对象存在。
-  minioClient.statObject("mybucket", "myobject");
+  apiClient.statObject("mybucket", "myobject");
 
   // 获取指定offset和length的"myobject"的输入流。
-  InputStream stream = minioClient.getObject("mybucket", "myobject", 1024L, 4096L);
+  InputStream stream = apiClient.getObject("mybucket", "myobject", 1024L, 4096L);
 
   // 读取输入流直到EOF并打印到控制台。
   byte[] buf = new byte[16384];
@@ -649,7 +649,7 @@ try {
 
   // 关闭流。
   stream.close();
-} catch (MinioException e) {
+} catch (ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -661,7 +661,7 @@ try {
 
 下载并将文件保存到本地。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#getObject-java.lang.String-java.lang.String-java.lang.String-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObject-java.lang.String-java.lang.String-java.lang.String-)
 
 
 __参数__
@@ -691,12 +691,12 @@ try {
   // 调用statObject()来判断对象是否存在。
   // 如果不存在, statObject()抛出异常,
   // 否则则代表对象存在。
-  minioClient.statObject("mybucket", "myobject");
+  apiClient.statObject("mybucket", "myobject");
 
   // 获取myobject的流并保存到photo.jpg文件中。
-  minioClient.getObject("mybucket", "myobject", "photo.jpg");
+  apiClient.getObject("mybucket", "myobject", "photo.jpg");
 
-} catch (MinioException e) {
+} catch (ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -710,7 +710,7 @@ try {
 
 CipherInputStream必须用完关闭，否则连接不会被释放。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#getObject-java.lang.String-java.lang.String-javax.crypto.SecretKey-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObject-java.lang.String-java.lang.String-javax.crypto.SecretKey-)
 
 __参数__
 
@@ -743,7 +743,7 @@ try {
   // 调用statObject()来判断对象是否存在。
   // 如果不存在, statObject()抛出异常,
   // 否则则代表对象存在。
-  minioClient.statObject("mybucket", "myobject");
+  apiClient.statObject("mybucket", "myobject");
 
   //生成256位AES key。
   KeyGenerator symKeyGenerator = KeyGenerator.getInstance("AES");
@@ -751,7 +751,7 @@ try {
   SecretKey symKey = symKeyGenerator.generateKey();
 
   // 获取对象数据并保存到photo.jpg
-  InputStream stream = minioClient.getObject("testbucket", "my-objectname", symKey);
+  InputStream stream = apiClient.getObject("testbucket", "my-objectname", symKey);
 
   // 读流到EOF，并输出到控制台。
   byte[] buf = new byte[16384];
@@ -763,7 +763,7 @@ try {
   // 关闭流。
   stream.close();
 
-} catch (MinioException e) {
+} catch (ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -777,7 +777,7 @@ try {
 
 CipherInputStream必须用完关闭，否则连接不会被释放。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#getObject-java.lang.String-java.lang.String-java.security.KeyPair-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObject-java.lang.String-java.lang.String-java.security.KeyPair-)
 
 __参数__
 
@@ -809,14 +809,14 @@ try {
   // 调用statObject()来判断对象是否存在。
   // 如果不存在, statObject()抛出异常,
   // 否则则代表对象存在。
-  minioClient.statObject("mybucket", "myobject");
+  apiClient.statObject("mybucket", "myobject");
 
   KeyPairGenerator keyGenerator = KeyPairGenerator.getInstance("RSA");
   keyGenerator.initialize(1024, new SecureRandom());
   KeyPair keypair = keyGenerator.generateKeyPair();
 
   // 获取对象数据并保存到photo.jpg
-  InputStream stream = minioClient.getObject("testbucket", "my-objectname", keypair);
+  InputStream stream = apiClient.getObject("testbucket", "my-objectname", keypair);
 
   // 读流到EOF，并输出到控制台。
   byte[] buf = new byte[16384];
@@ -828,7 +828,7 @@ try {
   // 关闭流。
   stream.close();
 
-} catch (MinioException e) {
+} catch (ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -840,7 +840,7 @@ try {
 
 通过InputStream上传对象。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#putObject-java.lang.String-java.lang.String-java.io.InputStream-long-java.lang.String-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putObject-java.lang.String-java.lang.String-java.io.InputStream-long-java.lang.String-)
 
 
 __参数__
@@ -893,10 +893,10 @@ try {
   ByteArrayInputStream bais = new
   ByteArrayInputStream(builder.toString().getBytes("UTF-8"));
   // 创建对象
-  minioClient.putObject("mybucket", "myobject", bais, bais.available(), "application/octet-stream");
+  apiClient.putObject("mybucket", "myobject", bais, bais.available(), "application/octet-stream");
   bais.close();
   System.out.println("myobject is uploaded successfully");
-} catch(MinioException e) {
+} catch(ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -907,7 +907,7 @@ try {
 `public void putObject(String bucketName, String objectName, String fileName)`
 
 通过文件上传到对象中。
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#putObject-java.lang.String-java.lang.String-java.lang.String-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putObject-java.lang.String-java.lang.String-java.lang.String-)
 
 __参数__
 
@@ -934,9 +934,9 @@ __示例__
 
 ```java
 try {
-  minioClient.putObject("mybucket",  "island.jpg", "/mnt/photos/island.jpg")
+  apiClient.putObject("mybucket",  "island.jpg", "/mnt/photos/island.jpg")
   System.out.println("island.jpg is uploaded successfully");
-} catch(MinioException e) {
+} catch(ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -950,7 +950,7 @@ try {
 
 如果对象大于5MB,客户端会自动进行multi part上传。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#putObject-java.lang.String-java.lang.String-java.io.InputStream-long-java.lang.String-javax.crypto.SecretKey-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putObject-java.lang.String-java.lang.String-java.io.InputStream-long-java.lang.String-javax.crypto.SecretKey-)
 
 __参数__
 
@@ -1012,10 +1012,10 @@ try {
   SecretKey symKey = symKeyGenerator.generateKey();
   
   // 创建一个对象
-  minioClient.putObject("mybucket", "myobject", bais, bais.available(), "application/octet-stream", symKey);
+  apiClient.putObject("mybucket", "myobject", bais, bais.available(), "application/octet-stream", symKey);
   bais.close();
   System.out.println("myobject is uploaded successfully");
-} catch(MinioException e) {
+} catch(ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -1031,7 +1031,7 @@ try {
 
 如果对象大于5MB,客户端会自动进行multi part上传。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#putObject-java.lang.String-java.lang.String-java.io.InputStream-long-java.lang.String-java.security.KeyPair-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putObject-java.lang.String-java.lang.String-java.io.InputStream-long-java.lang.String-java.security.KeyPair-)
 
 __参数__
 
@@ -1091,10 +1091,10 @@ try {
   KeyPair keypair = keyGenerator.generateKeyPair();
   
   // Create an object
-  minioClient.putObject("mybucket", "myobject", bais, bais.available(), "application/octet-stream", keypair);
+  apiClient.putObject("mybucket", "myobject", bais, bais.available(), "application/octet-stream", keypair);
   bais.close();
   System.out.println("myobject is uploaded successfully");
-} catch(MinioException e) {
+} catch(ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -1106,7 +1106,7 @@ try {
 
 获取对象的元数据。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#statObject-java.lang.String-java.lang.String-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#statObject-java.lang.String-java.lang.String-)
 
 
 __参数__
@@ -1134,9 +1134,9 @@ __示例__
 ```java
 try {
   // 获得对象的元数据。
-  ObjectStat objectStat = minioClient.statObject("mybucket", "myobject");
+  ObjectStat objectStat = apiClient.statObject("mybucket", "myobject");
   System.out.println(objectStat);
-} catch(MinioException e) {
+} catch(ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -1148,7 +1148,7 @@ try {
 
 从objectName指定的对象中将数据拷贝到destObjectName指定的对象。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#copyObject-java.lang.String-java.lang.String-java.lang.String-java.lang.String-com.ionoscloud.s3.CopyConditions-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#copyObject-java.lang.String-java.lang.String-java.lang.String-java.lang.String-com.ionoscloud.s3.CopyConditions-)
 
 __参数__
 
@@ -1181,9 +1181,9 @@ try {
   CopyConditions copyConditions = new CopyConditions();
   copyConditions.setMatchETagNone("TestETag");
 
-  minioClient.copyObject("mybucket",  "island.jpg", "mydestbucket", "processed.png", copyConditions);
+  apiClient.copyObject("mybucket",  "island.jpg", "mydestbucket", "processed.png", copyConditions);
   System.out.println("island.jpg is uploaded successfully");
-} catch(MinioException e) {
+} catch(ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -1195,7 +1195,7 @@ try {
 
 删除一个对象。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#removeObject-java.lang.String-java.lang.String-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#removeObject-java.lang.String-java.lang.String-)
 
 __参数__
 
@@ -1223,9 +1223,9 @@ __示例__
 ```java
 try {
       // 从mybucket中删除myobject。
-      minioClient.removeObject("mybucket", "myobject");
+      apiClient.removeObject("mybucket", "myobject");
       System.out.println("successfully removed mybucket/myobject");
-} catch (MinioException e) {
+} catch (ApiException e) {
       System.out.println("Error: " + e);
 }
 ```
@@ -1237,7 +1237,7 @@ try {
 
 删除多个对象。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#removeObject-java.lang.String-java.lang.String-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#removeObject-java.lang.String-java.lang.String-)
 
 __参数__
 
@@ -1263,11 +1263,11 @@ objectNames.add("my-objectname2");
 objectNames.add("my-objectname3");
 try {
       // 删除my-bucketname里的多个对象
-      for (Result<DeleteError> errorResult: minioClient.removeObject("my-bucketname", objectNames)) {
+      for (Result<DeleteError> errorResult: apiClient.removeObject("my-bucketname", objectNames)) {
         DeleteError error = errorResult.get();
         System.out.println("Failed to remove '" + error.objectName() + "'. Error:" + error.message());
       }
-} catch (MinioException e) {
+} catch (ApiException e) {
       System.out.println("Error: " + e);
 }
 ```
@@ -1279,7 +1279,7 @@ try {
 
 删除一个未完整上传的对象。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#removeIncompleteUpload-java.lang.String-java.lang.String-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#removeIncompleteUpload-java.lang.String-java.lang.String-)
 
 __参数__
 
@@ -1307,9 +1307,9 @@ __示例__
 ```java
 try {
     // 从存储桶中删除名为myobject的未完整上传的对象。
-	minioClient.removeIncompleteUpload("mybucket", "myobject");
+	apiClient.removeIncompleteUpload("mybucket", "myobject");
 	System.out.println("successfully removed all incomplete upload session of my-bucketname/my-objectname");
-} catch(MinioException e) {
+} catch(ApiException e) {
 	System.out.println("Error occurred: " + e);
 }
 ```
@@ -1322,7 +1322,7 @@ try {
 
 生成一个给HTTP GET请求用的presigned URL。浏览器/移动端的客户端可以用这个URL进行下载，即使其所在的存储桶是私有的。这个presigned URL可以设置一个失效时间，默认值是7天。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#presignedGetObject-java.lang.String-java.lang.String-java.lang.Integer-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#presignedGetObject-java.lang.String-java.lang.String-java.lang.Integer-)
 
 
 __参数__
@@ -1350,9 +1350,9 @@ __示例__
 
 ```java
 try {
-	String url = minioClient.presignedGetObject("mybucket", "myobject", 60 * 60 * 24);
+	String url = apiClient.presignedGetObject("mybucket", "myobject", 60 * 60 * 24);
 	System.out.println(url);
-} catch(MinioException e) {
+} catch(ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -1364,7 +1364,7 @@ try {
 
 生成一个给HTTP PUT请求用的presigned URL。浏览器/移动端的客户端可以用这个URL进行上传，即使其所在的存储桶是私有的。这个presigned URL可以设置一个失效时间，默认值是7天。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#presignedPutObject-java.lang.String-java.lang.String-java.lang.Integer-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#presignedPutObject-java.lang.String-java.lang.String-java.lang.Integer-)
 
 __参数__
 
@@ -1389,9 +1389,9 @@ __示例__
 
 ```java
 try {
-	String url = minioClient.presignedPutObject("mybucket", "myobject", 60 * 60 * 24);
+	String url = apiClient.presignedPutObject("mybucket", "myobject", 60 * 60 * 24);
 	System.out.println(url);
-} catch(MinioException e) {
+} catch(ApiException e) {
   System.out.println("Error occurred: " + e);
 }
 ```
@@ -1403,7 +1403,7 @@ try {
 
 允许给POST请求的presigned URL设置策略，比如接收对象上传的存储桶名称的策略，key名称前缀，过期策略。
 
-[查看 Javadoc](http://minio.github.io/minio-java/io/minio/MinioClient.html#presignedPostPolicy-com.ionoscloud.s3.PostPolicy-)
+[查看 Javadoc](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#presignedPostPolicy-com.ionoscloud.s3.PostPolicy-)
 
 __参数__
 
@@ -1430,17 +1430,17 @@ try {
 	PostPolicy policy = new PostPolicy("mybucket", "myobject",
   DateTime.now().plusDays(7));
 	policy.setContentType("image/png");
-	Map<String,String> formData = minioClient.presignedPostPolicy(policy);
+	Map<String,String> formData = apiClient.presignedPostPolicy(policy);
 	System.out.print("curl -X POST ");
 	for (Map.Entry<String,String> entry : formData.entrySet()) {
     System.out.print(" -F " + entry.getKey() + "=" + entry.getValue());
 	}
 	System.out.println(" -F file=@/tmp/userpic.png  https://play.min.io/mybucket");
-} catch(MinioException e) {
+} catch(ApiException e) {
   System.out.println("Error occurred: " + e);
 ```
 
 ## 5. 了解更多
 
-- [创建属于你的照片API服务示例](https://github.com/minio/minio-java-rest-example)
-- [完整的JavaDoc](http://minio.github.io/minio-java/)
+- [创建属于你的照片API服务示例](https://github.com/ionos-cloud/sdk-java-s3-rest-example)
+- [完整的JavaDoc](http://github.com/ionos-cloud/sdk-java-s3/)

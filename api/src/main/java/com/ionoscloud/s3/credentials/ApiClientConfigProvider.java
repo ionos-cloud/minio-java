@@ -31,13 +31,13 @@ import java.util.Locale;
 import java.util.Map;
 import javax.annotation.Nullable;
 
-/** Credential provider using MinioClient configuration file. */
-public class MinioClientConfigProvider extends EnvironmentProvider {
+/** Credential provider using ApiClient configuration file. */
+public class ApiClientConfigProvider extends EnvironmentProvider {
   private final String filename;
   private final String alias;
   private final ObjectMapper mapper;
 
-  public MinioClientConfigProvider(@Nullable String filename, @Nullable String alias) {
+  public ApiClientConfigProvider(@Nullable String filename, @Nullable String alias) {
     if (filename != null && filename.isEmpty()) {
       throw new IllegalArgumentException("Filename must not be empty");
     }
@@ -89,7 +89,7 @@ public class MinioClientConfigProvider extends EnvironmentProvider {
       Map<String, String> values = config.get(alias);
       if (values == null) {
         throw new ProviderException(
-            "Alias " + alias + " does not exist in MinioClient configuration file");
+            "Alias " + alias + " does not exist in ApiClient configuration file");
       }
 
       String accessKey = values.get("accessKey");
@@ -97,17 +97,17 @@ public class MinioClientConfigProvider extends EnvironmentProvider {
 
       if (accessKey == null) {
         throw new ProviderException(
-            "Access key does not exist in alias " + alias + " in MinioClient configuration file");
+            "Access key does not exist in alias " + alias + " in ApiClient configuration file");
       }
 
       if (secretKey == null) {
         throw new ProviderException(
-            "Secret key does not exist in alias " + alias + " in MinioClient configuration file");
+            "Secret key does not exist in alias " + alias + " in ApiClient configuration file");
       }
 
       return new Credentials(accessKey, secretKey, null, null);
     } catch (IOException e) {
-      throw new ProviderException("Unable to read MinioClient configuration file", e);
+      throw new ProviderException("Unable to read ApiClient configuration file", e);
     }
   }
 

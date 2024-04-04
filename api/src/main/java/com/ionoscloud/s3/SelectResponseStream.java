@@ -18,7 +18,7 @@ package com.ionoscloud.s3;
 
 import com.google.common.io.ByteStreams;
 import com.ionoscloud.s3.errors.InternalException;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.Progress;
 import com.ionoscloud.s3.messages.Stats;
 import java.io.ByteArrayInputStream;
@@ -84,7 +84,7 @@ public class SelectResponseStream extends InputStream {
     return headerMap;
   }
 
-  private boolean populate() throws EOFException, IOException, InternalException, MinioException {
+  private boolean populate() throws EOFException, IOException, InternalException, ApiException {
     ByteStreams.readFully(inputStream, prelude);
     ByteStreams.readFully(inputStream, preludeCrc);
     crcHasher.reset();
@@ -122,7 +122,7 @@ public class SelectResponseStream extends InputStream {
     }
 
     if (headerMap.get(":message-type").equals("error")) {
-      throw new MinioException(
+      throw new ApiException(
           headerMap.get(":error-code") + ":" + headerMap.get(":error-message"));
     }
 
@@ -171,7 +171,7 @@ public class SelectResponseStream extends InputStream {
         ;
       } catch (EOFException e) {
         return -1;
-      } catch (MinioException e) {
+      } catch (ApiException e) {
         throw new IOException(e);
       }
     }

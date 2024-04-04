@@ -15,8 +15,8 @@
  */
 
 import com.ionoscloud.s3.GetObjectArgs;
-import com.ionoscloud.s3.MinioClient;
-import com.ionoscloud.s3.errors.MinioException;
+import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -24,20 +24,20 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class GetPartialObject {
-  /** MinioClient.getObject() example. */
+  /** ApiClient.getObject() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
+      ApiClient apiClient =
+          ApiClient.builder()
               .endpoint("https://play.min.io")
               .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -45,7 +45,7 @@ public class GetPartialObject {
       // Get input stream to have content of 'my-objectname' from 'my-bucketname' starts from
       // byte position 1024 and length 4096.
       InputStream stream =
-          minioClient.getObject(
+          apiClient.getObject(
               GetObjectArgs.builder()
                   .bucket("my-bucketname")
                   .object("my-objectname")
@@ -62,7 +62,7 @@ public class GetPartialObject {
 
       // Close the input stream.
       stream.close();
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

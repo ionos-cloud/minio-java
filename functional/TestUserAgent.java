@@ -16,14 +16,14 @@
  */
 
 import com.ionoscloud.s3.BucketExistsArgs;
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class TestUserAgent {
   public static void main(String[] args) throws Exception {
-    MinioClient client = MinioClient.builder().endpoint("http://example.org").build();
+    ApiClient client = ApiClient.builder().endpoint("http://example.org").build();
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     client.traceOn(baos);
     client.bucketExists(BucketExistsArgs.builder().bucket("any-bucket-name-works").build());

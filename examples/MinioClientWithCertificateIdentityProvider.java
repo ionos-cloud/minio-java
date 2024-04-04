@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import com.ionoscloud.s3.MinioClient;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.StatObjectArgs;
 import com.ionoscloud.s3.StatObjectResponse;
 import com.ionoscloud.s3.credentials.CertificateIdentityProvider;
@@ -22,7 +22,7 @@ import com.ionoscloud.s3.credentials.Provider;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 
-public class MinioClientWithCertificateIdentityProvider {
+public class ApiClientWithCertificateIdentityProvider {
   public static void main(String[] args) throws Exception {
     // STS endpoint usually point to MinIO server.
     String stsEndpoint = "https://STS-HOST:STS-PORT/";
@@ -93,15 +93,15 @@ public class MinioClientWithCertificateIdentityProvider {
     Provider provider =
         new CertificateIdentityProvider(stsEndpoint, sslSocketFactory, trustManager, null, null);
 
-    MinioClient minioClient =
-        MinioClient.builder()
+    ApiClient apiClient =
+        ApiClient.builder()
             .endpoint("https://MINIO-HOST:MINIO-PORT")
             .credentialsProvider(provider)
             .build();
 
     // Get information of an object.
     StatObjectResponse stat =
-        minioClient.statObject(
+        apiClient.statObject(
             StatObjectArgs.builder().bucket("my-bucketname").object("my-objectname").build());
     System.out.println(stat);
   }

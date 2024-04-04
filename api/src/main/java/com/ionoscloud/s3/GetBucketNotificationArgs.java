@@ -17,8 +17,8 @@
 package com.ionoscloud.s3;
 
 /**
- * Argument class of {@link MinioAsyncClient#getBucketNotification} and {@link
- * MinioClient#getBucketNotification}.
+ * Argument class of {@link ApiAsyncClient#getBucketNotification} and {@link
+ * ApiClient#getBucketNotification}.
  */
 public class GetBucketNotificationArgs extends BucketArgs {
   public static Builder builder() {

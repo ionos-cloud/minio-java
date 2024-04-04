@@ -20,8 +20,8 @@ import com.ionoscloud.s3.messages.VersioningConfiguration;
 import java.util.Objects;
 
 /**
- * Argument class of {@link MinioAsyncClient#setBucketVersioning} and {@link
- * MinioClient#setBucketVersioning}.
+ * Argument class of {@link ApiAsyncClient#setBucketVersioning} and {@link
+ * ApiClient#setBucketVersioning}.
  */
 public class SetBucketVersioningArgs extends BucketArgs {
   private VersioningConfiguration config;

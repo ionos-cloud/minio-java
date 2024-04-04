@@ -17,23 +17,23 @@
 package com.ionoscloud.s3.errors;
 
 /** Base Exception class for all minio-java exceptions. */
-public class MinioException extends Exception {
+public class ApiException extends Exception {
   private static final long serialVersionUID = -7241010318779326306L;
 
   String httpTrace = null;
 
-  /** Constructs a new MinioException. */
-  public MinioException() {
+  /** Constructs a new ApiException. */
+  public ApiException() {
     super();
   }
 
-  /** Constructs a new MinioException with given error message. */
-  public MinioException(String message) {
+  /** Constructs a new ApiException with given error message. */
+  public ApiException(String message) {
     super(message);
   }
 
-  /** Constructs a new MinioException with given error message. */
-  public MinioException(String message, String httpTrace) {
+  /** Constructs a new ApiException with given error message. */
+  public ApiException(String message, String httpTrace) {
     super(message);
     this.httpTrace = httpTrace;
   }
