@@ -1,19 +1,4 @@
-/*
- * MinIO Java SDK for Amazon S3 Compatible Cloud Storage,
- * (C) 2021 MinIO, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.ionoscloud.s3.admin;
 
@@ -30,14 +15,7 @@ import org.bouncycastle.crypto.params.AEADParameters;
 import org.bouncycastle.crypto.params.Argon2Parameters;
 import org.bouncycastle.crypto.params.KeyParameter;
 
-/**
- * MinIO <a href="https://github.com/minio/madmin-go/blob/main/encrypt.go#L38">encrypts/decrypts</a>
- * any payloads containing access or secret keys. The encryption scheme used is from a library
- * called <a href="https://github.com/secure-io/sio-go">sio-go</a>. The library encrypts/decrypts
- * data in chunks, which allows it handle large amounts of data, without sacrificing security. In
- * addition, MinIO itself formats the data into specific format, to allow encryption/decryption
- * between client and server.
- */
+
 public class Crypto {
   private static final byte ARGON2ID_AES_GCM = 0;
   private static final int NONCE_LENGTH = 8;
@@ -97,11 +75,9 @@ public class Crypto {
 
   /**
    * Encrypts data in {@link Crypto#BUFFER_SIZE} chunks using AES-GCM using a 256-bit Argon2ID key.
-   * The format returned is compatible with MinIO servers and clients. Header format: salt [string
-   * 32] | aead id [byte 1] | nonce [byte 8] | encrypted_data [byte len(encrypted_data)] To see the
-   * original implementation in Go, check out the <a
-   * href="https://github.com/minio/madmin-go/blob/main/encrypt.go#L38">madmin-go library</a>.
-   *
+   * The format returned is compatible with servers and clients. Header format: salt [string
+   * 32] | aead id [byte 1] | nonce [byte 8] | encrypted_data [byte len(encrypted_data)]
+   * 
    * @param password Plaintext password
    * @param data The data to encrypt
    * @return Encrypted data

@@ -1,18 +1,4 @@
-/*
- * MinIO Java SDK for Amazon S3 Compatible Cloud Storage, (C) 2015-2021 MinIO, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.ionoscloud.s3.messages;
 
@@ -46,7 +32,7 @@ public abstract class Item {
   private long size; // except DeleteMarker
 
   @Element(name = "StorageClass", required = false)
-  private String storageClass; // except DeleteMarker, not in case of MinIO server.
+  private String storageClass; // except DeleteMarker
 
   @Element(name = "IsLatest", required = false)
   private boolean isLatest; // except ListObjects V1
@@ -109,7 +95,7 @@ public abstract class Item {
     return owner;
   }
 
-  /** Returns user metadata. This is MinIO specific extension to ListObjectsV2. */
+  /** Returns user metadata. */
   public Map<String, String> userMetadata() {
     return (userMetadata == null) ? null : userMetadata.get();
   }

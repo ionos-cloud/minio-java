@@ -1,19 +1,4 @@
-/*
- * MinIO Java SDK for Amazon S3 Compatible Cloud Storage,
- * (C) 2021 MinIO, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.ionoscloud.s3.admin;
 
@@ -66,7 +51,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.bouncycastle.crypto.InvalidCipherTextException;
 
-/** Client to perform MinIO administration operations. */
+/** Client to perform administration operations. */
 public class ApiAdminClient {
   private enum Command {
     ADD_USER("add-user"),
@@ -142,7 +127,7 @@ public class ApiAdminClient {
         this.baseUrl
             .newBuilder()
             .host(this.baseUrl.host())
-            .addEncodedPathSegments(S3Escaper.encodePath("minio/admin/v3/" + command.toString()));
+            .addEncodedPathSegments(S3Escaper.encodePath("ionos/admin/v3/" + command.toString()));
     if (queryParamMap != null) {
       for (Map.Entry<String, String> entry : queryParamMap.entries()) {
         urlBuilder.addEncodedQueryParameter(
@@ -228,7 +213,7 @@ public class ApiAdminClient {
    * @param memberOf List of group.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    * @throws InvalidCipherTextException thrown to indicate data cannot be encrypted/decrypted.
    */
   public void addUser(
@@ -254,13 +239,13 @@ public class ApiAdminClient {
   }
 
   /**
-   * Obtains user info for a specified MinIO user.
+   * Obtains user info for a specified user.
    *
    * @param accessKey Access Key.
    * @return {@link UserInfo} - user info for the specified accessKey.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public UserInfo getUserInfo(String accessKey)
       throws NoSuchAlgorithmException, InvalidKeyException, IOException {
@@ -273,12 +258,12 @@ public class ApiAdminClient {
   }
 
   /**
-   * Obtains a list of all MinIO users.
+   * Obtains a list of all users.
    *
    * @return {@link Map<String, UserInfo>} - List of all users.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    * @throws InvalidCipherTextException thrown to indicate data cannot be encrypted/decrypted.
    */
   public Map<String, UserInfo> listUsers()
@@ -301,7 +286,7 @@ public class ApiAdminClient {
    * @param accessKey Access Key.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public void deleteUser(@Nonnull String accessKey)
       throws NoSuchAlgorithmException, InvalidKeyException, IOException {
@@ -325,7 +310,7 @@ public class ApiAdminClient {
    * @param members Members of group.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public void addUpdateGroup(
       @Nonnull String group, @Nullable Status groupStatus, @Nullable List<String> members)
@@ -345,13 +330,13 @@ public class ApiAdminClient {
   }
 
   /**
-   * Obtains group info for a specified MinIO group.
+   * Obtains group info for a specified group.
    *
    * @param group Group name.
    * @return {@link GroupInfo} - group info for the specified group.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public GroupInfo getGroupInfo(String group)
       throws NoSuchAlgorithmException, InvalidKeyException, IOException {
@@ -363,12 +348,12 @@ public class ApiAdminClient {
   }
 
   /**
-   * Obtains a list of all MinIO groups.
+   * Obtains a list of all groups.
    *
    * @return {@link List<String>} - List of all groups.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public List<String> listGroups()
       throws NoSuchAlgorithmException, InvalidKeyException, IOException {
@@ -386,7 +371,7 @@ public class ApiAdminClient {
    * @param group Group name.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public void removeGroup(@Nonnull String group)
       throws NoSuchAlgorithmException, InvalidKeyException, IOException {
@@ -412,7 +397,7 @@ public class ApiAdminClient {
    * @param unit the quota unit of the size argument
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public void setBucketQuota(@Nonnull String bucketName, long size, @Nonnull QuotaUnit unit)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
@@ -465,7 +450,7 @@ public class ApiAdminClient {
    * @param bucketName bucketName
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public void clearBucketQuota(@Nonnull String bucketName)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
@@ -496,7 +481,7 @@ public class ApiAdminClient {
    * @param policy Policy as JSON string.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public void addCannedPolicy(@Nonnull String name, @Nonnull String policy)
       throws NoSuchAlgorithmException, InvalidKeyException, IOException {
@@ -523,7 +508,7 @@ public class ApiAdminClient {
    * @param policyName Policy name or comma separated policy names.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public void setPolicy(
       @Nonnull String userOrGroupName, boolean isGroup, @Nonnull String policyName)
@@ -556,7 +541,7 @@ public class ApiAdminClient {
    *     policy as their value.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public Map<String, String> listCannedPolicies()
       throws NoSuchAlgorithmException, InvalidKeyException, IOException {
@@ -579,7 +564,7 @@ public class ApiAdminClient {
    * @param name Policy name.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public void removeCannedPolicy(@Nonnull String name)
       throws NoSuchAlgorithmException, InvalidKeyException, IOException {
@@ -601,7 +586,7 @@ public class ApiAdminClient {
    * @return {@link DataUsageInfo} - DataUsageInfo object
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public DataUsageInfo getDataUsageInfo()
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
@@ -611,12 +596,12 @@ public class ApiAdminClient {
   }
 
   /**
-   * Obtains admin info for the Minio server.
+   * Obtains admin info for the server.
    *
-   * @return {@link Message} - admin info for the Minio server.
+   * @return {@link Message} - admin info for the server.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public Message getServerInfo() throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try (Response response = execute(Method.GET, Command.INFO, null, null)) {
@@ -637,7 +622,7 @@ public class ApiAdminClient {
    * @return {@link Credentials} - Service account info for the specified accessKey.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    * @throws InvalidCipherTextException thrown to indicate data cannot be encrypted/decrypted.
    */
   public Credentials addServiceAccount(
@@ -707,7 +692,7 @@ public class ApiAdminClient {
    * @param newExpiration New expiry time.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    * @throws InvalidCipherTextException thrown to indicate data cannot be encrypted/decrypted.
    */
   public void updateServiceAccount(
@@ -764,7 +749,7 @@ public class ApiAdminClient {
    * @param accessKey Access Key.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    */
   public void deleteServiceAccount(@Nonnull String accessKey)
       throws NoSuchAlgorithmException, InvalidKeyException, IOException {
@@ -781,13 +766,13 @@ public class ApiAdminClient {
   }
 
   /**
-   * Obtains a list of minio service account by user name.
+   * Obtains a list of service account by user name.
    *
    * @param username user name.
-   * @return {@link ListServiceAccountResp} - List of minio service account.
+   * @return {@link ListServiceAccountResp} - List of service account.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    * @throws InvalidCipherTextException thrown to indicate data cannot be encrypted/decrypted.
    */
   public ListServiceAccountResp listServiceAccount(@Nonnull String username)
@@ -810,13 +795,13 @@ public class ApiAdminClient {
   }
 
   /**
-   * Obtains service account info for a specified MinIO user.
+   * Obtains service account info for a specified user.
    *
    * @param accessKey Access Key.
    * @return {@link GetServiceAccountInfoResp} - Service account info for the specified accessKey.
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws InvalidKeyException thrown to indicate missing of HMAC SHA-256 library.
-   * @throws IOException thrown to indicate I/O error on MinIO REST operation.
+   * @throws IOException thrown to indicate I/O error on REST operation.
    * @throws InvalidCipherTextException thrown to indicate data cannot be encrypted/decrypted.
    */
   public GetServiceAccountInfoResp getServiceAccountInfo(@Nonnull String accessKey)

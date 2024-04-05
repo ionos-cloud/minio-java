@@ -1,23 +1,11 @@
 # Java Client API Reference [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
-## Create MinIO Client.
-
-## MinIO
+## Create Client.
 
 ```java
 ApiClient apiClient =
     ApiClient.builder()
-        .endpoint("https://play.min.io")
-        .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
-        .build();
-```
-
-## AWS S3
-
-```java
-ApiClient apiClient =
-    ApiClient.builder()
-        .endpoint("https://s3.amazonaws.com")
+        .endpoint("ENDPOINT")
         .credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
         .build();
 ```
@@ -53,9 +41,9 @@ ApiClient apiClient =
 | [`setBucketVersioning`](#setBucketVersioning)                     |                                                         |
 | [`setObjectLockConfiguration`](#setObjectLockConfiguration)       |                                                         |
 
-## 1. MinIO Client Builder
+## 1. Client Builder
 
-MinIO Client Builder is used to create MinIO client. Builder has below methods to accept arguments.
+Client Builder is used to create a client. Builder has below methods to accept arguments.
 | Method          | Description                                                                                                                                |
 |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------|
 | `endpoint()`    | Accepts endpoint as a String, URL or okhttp3.HttpUrl object and optionally accepts port number and flag to enable secure (TLS) connection. |
@@ -71,137 +59,76 @@ MinIO Client Builder is used to create MinIO client. Builder has below methods t
 
 __Examples__
 
-### MinIO
 
 ```java
-// 1. Create client to S3 service 'play.min.io' at port 443 with TLS security
+// 1. Create client to S3 service 'ENDPOINT' at port 443 with TLS security
 // for anonymous access.
-ApiClient apiClient = ApiClient.builder().endpoint("https://play.min.io").build();
+ApiClient s3Client = ApiClient.builder().endpoint("https://ENDPOINT").build();
 
-// 2. Create client to S3 service 'play.min.io' at port 443 with TLS security
+// 2. Create client to S3 service 'ENDPOINT' at port 443 with TLS security
 // using URL object for anonymous access.
-ApiClient apiClient = ApiClient.builder().endpoint(new URL("https://play.min.io")).build();
+ApiClient s3Client = ApiClient.builder().endpoint(new URL("https://ENDPOINT")).build();
 
-// 3. Create client to S3 service 'play.min.io' at port 9000 with TLS security
-// using okhttp3.HttpUrl object for anonymous access.
-ApiClient apiClient =
-    ApiClient.builder().endpoint(HttpUrl.parse("https://play.min.io:9000")).build();
-
-// 4. Create client to S3 service 'play.min.io' at port 443 with TLS security
-// for authenticated access.
-ApiClient apiClient =
-    ApiClient.builder()
-	    .endpoint("https://play.min.io")
-		.credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
-		.build();
-
-// 5. Create client to S3 service 'play.min.io' at port 9000 with non-TLS security
-// for authenticated access.
-ApiClient apiClient =
-    ApiClient.builder()
-	    .endpoint("play.min.io", 9000, false)
-	    .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
-		.build();
-
-// 6. Create client to S3 service 'play.min.io' at port 9000 with TLS security
-// for authenticated access.
-ApiClient apiClient =
-    ApiClient.builder()
-	    .endpoint("play.min.io", 9000, true)
-		.credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
-		.build();
-
-// 7. Create client to S3 service 'play.min.io' at port 443 with TLS security
-// and region 'us-west-1' for authenticated access.
-ApiClient apiClient =
-    ApiClient.builder()
-	    .endpoint(new URL("https://play.min.io"))
-		.credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
-		.region("us-west-1")
-		.build();
-
-// 8. Create client to S3 service 'play.min.io' at port 9000 with TLS security,
-// region 'eu-east-1' and custom HTTP client for authenticated access.
-ApiClient apiClient =
-    ApiClient.builder()
-	    .endpoint("https://play.min.io:9000")
-		.credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
-		.region("eu-east-1")
-		.httpClient(customHttpClient)
-		.build();
-```
-
-### AWS S3
-
-```java
-// 1. Create client to S3 service 's3.amazonaws.com' at port 443 with TLS security
-// for anonymous access.
-ApiClient s3Client = ApiClient.builder().endpoint("https://s3.amazonaws.com").build();
-
-// 2. Create client to S3 service 's3.amazonaws.com' at port 443 with TLS security
-// using URL object for anonymous access.
-ApiClient s3Client = ApiClient.builder().endpoint(new URL("https://s3.amazonaws.com")).build();
-
-// 3. Create client to S3 service 's3.amazonaws.com' at port 9000 with TLS security
+// 3. Create client to S3 service 'ENDPOINT' at port 9000 with TLS security
 // using okhttp3.HttpUrl object for anonymous access.
 ApiClient s3Client =
-    ApiClient.builder().endpoint(HttpUrl.parse("https://s3.amazonaws.com")).build();
+    ApiClient.builder().endpoint(HttpUrl.parse("https://ENDPOINT")).build();
 
-// 4. Create client to S3 service 's3.amazonaws.com' at port 80 with TLS security
+// 4. Create client to S3 service 'ENDPOINT' at port 80 with TLS security
 // for authenticated access.
 ApiClient s3Client =
     ApiClient.builder()
-	    .endpoint("s3.amazonaws.com")
+	    .endpoint("ENDPOINT")
 		.credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
 		.build();
 
-// 5. Create client to S3 service 's3.amazonaws.com' at port 443 with non-TLS security
+// 5. Create client to S3 service 'ENDPOINT' at port 443 with non-TLS security
 // for authenticated access.
 ApiClient s3Client =
     ApiClient.builder()
-        .endpoint("s3.amazonaws.com", 433, false)
+        .endpoint("ENDPOINT", 433, false)
 		.credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
 		.build();
 
-// 6. Create client to S3 service 's3.amazonaws.com' at port 80 with non-TLS security
+// 6. Create client to S3 service 'ENDPOINT' at port 80 with non-TLS security
 // for authenticated access.
 ApiClient s3Client =
     ApiClient.builder()
-	    .endpoint("s3.amazonaws.com", 80, false)
+	    .endpoint("ENDPOINT", 80, false)
         .credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
 		.build();
 
-// 7. Create client to S3 service 's3.amazonaws.com' at port 80 with TLS security
+// 7. Create client to S3 service 'ENDPOINT' at port 80 with TLS security
 // for authenticated access.
 ApiClient s3Client =
     ApiClient.builder()
-	    .endpoint("s3.amazonaws.com", 80, true)
+	    .endpoint("ENDPOINT", 80, true)
         .credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
 		.build();
 
-// 8. Create client to S3 service 's3.amazonaws.com' at port 80 with non-TLS security
+// 8. Create client to S3 service 'ENDPOINT' at port 80 with non-TLS security
 // and region 'us-west-1' for authenticated access.
 ApiClient s3Client =
     ApiClient.builder()
-	    .endpoint("s3.amazonaws.com", 80, false)
+	    .endpoint("ENDPOINT", 80, false)
         .credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
 		.region("us-west-1")
 		.build();
 
-// 9. Create client to S3 service 's3.amazonaws.com' at port 443 with TLS security
+// 9. Create client to S3 service 'ENDPOINT' at port 443 with TLS security
 // and region 'eu-west-2' for authenticated access.
 ApiClient s3Client =
     ApiClient.builder()
-	    .endpoint("s3.amazonaws.com", 443, true)
+	    .endpoint("ENDPOINT", 443, true)
 		.credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY").
 		.region("eu-west-2")
 		.build();
 
-// 10. Create client to S3 service 's3.amazonaws.com' at port 443 with TLS security,
+// 10. Create client to S3 service 'ENDPOINT' at port 443 with TLS security,
 // region 'eu-central-1' and custom HTTP client for authenticated access.
 ApiClient s3Client =
     ApiClient.builder()
-	    .endpoint("s3.amazonaws.com", 443, true)
+	    .endpoint("ENDPOINT", 443, true)
         .credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
 		.region("eu-central-1")
 		.httpClient(customHttpClient)
@@ -802,7 +729,7 @@ eventList.add(EventType.OBJECT_CREATED_PUT);
 eventList.add(EventType.OBJECT_CREATED_COPY);
 
 QueueConfiguration queueConfiguration = new QueueConfiguration();
-queueConfiguration.setQueue("arn:minio:sqs::1:webhook");
+queueConfiguration.setQueue("arn:ionos:sqs::1:webhook");
 queueConfiguration.setEvents(eventList);
 queueConfiguration.setPrefixRule("images");
 queueConfiguration.setSuffixRule("pg");

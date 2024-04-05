@@ -1,14 +1,14 @@
 # For maintainers only
-MinIO Java SDK uses [gradle](https://gradle.org/) build system.
+IONOS Java SDK uses [gradle](https://gradle.org/) build system.
 
 ## Responsibilities
 Go through [Maintainer Responsibility Guide](https://gist.github.com/abperiasamy/f4d9b31d3186bbd26522).
 
-## Setup your minio-java Github Repository
-Clone [minio-java](https://github.com/ionos-cloud/sdk-java-s3/) source repository locally.
+## Setup your sdk-java-s3 Github Repository
+Clone [sdk-java-s3](https://github.com/ionos-cloud/sdk-java-s3/) source repository locally.
 ```sh
 $ git clone https://github.com/ionos-cloud/sdk-java-s3
-$ cd minio-java
+$ cd sdk-java-s3
 ```
 
 ### Build and verify
@@ -24,7 +24,7 @@ Create a new gradle properties file
 $ cat > ${HOME}/.gradle/gradle.properties <<EOF
 signing.keyId=76A57749
 signing.password=*******
-signing.secretKeyRingFile=/media/${USER}/Minio2/trusted/secring.gpg
+signing.secretKeyRingFile=/media/${USER}/Ionos/trusted/secring.gpg
 nexusUsername=********
 nexusPassword=********
 release=true
@@ -32,7 +32,7 @@ EOF
 ```
 
 #### Upload to maven
-Upload all artifacts belonging to `com.ionoscloud.s3` artifact repository, additionally this step requires you to have access to MinIO's trusted private key.
+Upload all artifacts belonging to `com.ionoscloud.s3` artifact repository, additionally this step requires you to have access to Ionos's trusted private key.
 ```sh
 $ ./gradlew uploadArchives
 ```
@@ -44,9 +44,9 @@ $ ./gradlew closeAndReleaseRepository
 ```
 
 ### Tag
-Tag and sign your release commit, additionally this step requires you to have access to MinIO's trusted private key.
+Tag and sign your release commit, additionally this step requires you to have access to Ionos's trusted private key.
 ```
-$ export GNUPGHOME=/media/${USER}/Minio2/trusted
+$ export GNUPGHOME=/media/${USER}/Ionos/trusted
 $ git tag -s 0.3.0
 $ git push
 $ git push --tags

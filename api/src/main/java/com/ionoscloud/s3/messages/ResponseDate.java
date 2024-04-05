@@ -1,18 +1,4 @@
-/*
- * MinIO Java SDK for Amazon S3 Compatible Cloud Storage, (C) 2015 MinIO, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.ionoscloud.s3.messages;
 
@@ -32,7 +18,7 @@ import org.simpleframework.xml.stream.OutputNode;
 @Root
 @Convert(ResponseDate.ResponseDateConverter.class)
 public class ResponseDate {
-  public static final DateTimeFormatter MINIO_RESPONSE_DATE_FORMAT =
+  public static final DateTimeFormatter IONOS_RESPONSE_DATE_FORMAT =
       DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH':'mm':'ss'Z'", Locale.US).withZone(Time.UTC);
 
   private ZonedDateTime zonedDateTime;
@@ -56,7 +42,7 @@ public class ResponseDate {
     try {
       return new ResponseDate(ZonedDateTime.parse(responseDateString, Time.RESPONSE_DATE_FORMAT));
     } catch (DateTimeParseException e) {
-      return new ResponseDate(ZonedDateTime.parse(responseDateString, MINIO_RESPONSE_DATE_FORMAT));
+      return new ResponseDate(ZonedDateTime.parse(responseDateString, IONOS_RESPONSE_DATE_FORMAT));
     }
   }
 

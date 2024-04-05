@@ -1,19 +1,4 @@
-/*
- * MinIO Java SDK for Amazon S3 Compatible Cloud Storage,
- * (C) 2015, 2016, 2017 MinIO, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.ionoscloud.s3;
 
@@ -45,31 +30,31 @@ public class ApiClientTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testEndpoint2() throws ApiException {
-    ApiClient.builder().endpoint("http://play.min.io/mybucket").build();
+    ApiClient.builder().endpoint("http://url/mybucket").build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testEndpoint3() throws ApiException {
-    ApiClient.builder().endpoint("minio-.example.com").build();
+    ApiClient.builder().endpoint("ionos-.example.com").build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testEndpoint4() throws ApiException {
-    ApiClient.builder().endpoint("-minio.example.com").build();
+    ApiClient.builder().endpoint("-ionos.example.com").build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testEndpoint5() throws ApiException {
-    ApiClient.builder().endpoint("minio..example.com").build();
+    ApiClient.builder().endpoint("ionos..example.com").build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testEndpoint6() throws ApiException {
-    ApiClient.builder().endpoint("minio._.com").build();
+    ApiClient.builder().endpoint("ionos._.com").build();
     Assert.fail("exception should be thrown");
   }
 

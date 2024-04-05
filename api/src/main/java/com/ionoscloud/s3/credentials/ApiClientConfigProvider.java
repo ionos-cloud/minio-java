@@ -1,18 +1,4 @@
-/*
- * MinIO Java SDK for Amazon S3 Compatible Cloud Storage, (C) 2020 MinIO, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.ionoscloud.s3.credentials;
 
@@ -56,7 +42,7 @@ public class ApiClientConfigProvider extends EnvironmentProvider {
   }
 
   /**
-   * Retrieve credentials in provided alias or MINIO_ALIAS or "s3" alias in configuration file from
+   * Retrieve credentials in provided alias or IONOS_ALIAS or "s3" alias in configuration file from
    * provided filename or AWS_SHARED_CREDENTIALS_FILE environment variable or file .aws/credentials
    * in user's home directory.
    */
@@ -64,7 +50,7 @@ public class ApiClientConfigProvider extends EnvironmentProvider {
   public Credentials fetch() {
     String filename = this.filename;
     if (filename == null) {
-      filename = getProperty("MINIO_SHARED_CREDENTIALS_FILE");
+      filename = getProperty("IONOS_SHARED_CREDENTIALS_FILE");
     }
     if (filename == null) {
       String mcDir = ".mc";
@@ -77,7 +63,7 @@ public class ApiClientConfigProvider extends EnvironmentProvider {
 
     String alias = this.alias;
     if (alias == null) {
-      alias = getProperty("MINIO_ALIAS");
+      alias = getProperty("IONOS_ALIAS");
     }
     if (alias == null) {
       alias = "s3";

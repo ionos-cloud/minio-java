@@ -1,8 +1,7 @@
-# MinIO Java SDK for Amazon S3 Compatible Cloud Storage [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# IONOS Java SDK for Amazon S3 Compatible Cloud Storage [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
-MinIO Java SDK is Simple Storage Service (aka S3) client to perform bucket and object operations to any Amazon S3 compatible object storage service.
+IONOS Java SDK is Simple Storage Service (aka S3) client to perform bucket and object operations to any Amazon S3 compatible object storage service.
 
-For a complete list of APIs and examples, please take a look at the [Java Client API Reference](https://min.io/docs/minio/linux/developers/java/API.html) documentation.
 
 ## Minimum Requirements
 Java 1.8 or above.
@@ -11,20 +10,20 @@ Java 1.8 or above.
 ```xml
 <dependency>
     <groupId>com.ionoscloud.s3</groupId>
-    <artifactId>minio</artifactId>
-    <version>8.5.9</version>
+    <artifactId>ionos-cloud-sdk-s3</artifactId>
+    <version>1.0.0</version>
 </dependency>
 ```
 
 ## Gradle usage
 ```
 dependencies {
-    implementation("com.ionoscloud.s3:minio:8.5.9")
+    implementation("com.ionoscloud.s3:ionos-cloud-sdk-s3:1.0.0")
 }
 ```
 
 ## JAR download
-The latest JAR can be downloaded from [here](https://repo1.maven.org/maven2/com/ionoscloud/s3minio/8.5.9/)
+The latest JAR can be downloaded from [here](https://repo1.maven.org/maven2/com/ionoscloud/s3ionos-cloud-sdk-s3/1.0.0/)
 
 ## Quick Start Example - File Uploader
 This example program connects to an object storage server, makes a bucket on the server and then uploads a file to the bucket.
@@ -37,7 +36,6 @@ You need three items in order to connect to an object storage server.
 | Access Key | Access key (aka user ID) of an account in the S3 service.  |
 | Secret Key | Secret key (aka password) of an account in the S3 service. |
 
-This example uses MinIO server playground [https://play.min.io](https://play.min.io). Feel free to use this service for test and development.
 
 ### FileUploader.java
 ```java
@@ -54,11 +52,10 @@ public class FileUploader {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      // Create a apiClient with the MinIO server playground, its access key and secret key.
       ApiClient apiClient =
           ApiClient.builder()
-              .endpoint("https://play.min.io")
-              .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
+              .endpoint("<Endpoint>>")
+              .credentials("<Access Key>", "<Secret Key>")
               .build();
 
       // Make 'asiatrip' bucket if not exist.
@@ -92,12 +89,12 @@ public class FileUploader {
 
 #### Compile FileUploader
 ```sh
-$ javac -cp minio-8.5.9-all.jar FileUploader.java
+$ javac -cp ionos-cloud-sdk-s3-1.0.0-all.jar FileUploader.java
 ```
 
 #### Run FileUploader
 ```sh
-$ java -cp minio-8.5.9-all.jar:. FileUploader
+$ java -cp ionos-cloud-sdk-s3-1.0.0-all.jar:. FileUploader
 '/home/user/Photos/asiaphotos.zip' is successfully uploaded as object 'asiaphotos-2015.zip' to bucket 'asiatrip'.
 
 $ mc ls play/asiatrip/
@@ -105,13 +102,15 @@ $ mc ls play/asiatrip/
 ```
 
 ## More References
-* [Java Client API Reference](https://min.io/docs/minio/linux/developers/java/API.html)
-* [Javadoc](https://minio-java.min.io/)
 * [Examples](https://github.com/ionos-cloud/sdk-java-s3/tree/release/examples)
 
-## Explore Further
-* [Complete Documentation](https://min.io/docs/minio/kubernetes/upstream/index.html)
-* [Build your own Photo API Service - Full Application Example ](https://github.com/ionos-cloud/sdk-java-s3-rest-example)
+## Feature Reference
 
-## Contribute
-Please refer [Contributors Guide](https://github.com/ionos-cloud/sdk-java-s3/blob/release/CONTRIBUTING.md)
+The ionos-cloud-sdk-dbaas-mariadb SDK for JAVA aims to offer access to all resources in the IONOS Container Registry API and also offers some additional features that make the integration easier:
+ - authentication for API calls
+ - handling of asynchronous requests
+
+## FAQ
+
+ - How can I open a bug/feature request?
+	Bugs & feature requests can be open on the repository issues: https://github.com/ionos-cloud/sdk-java-s3/issues/new/choose

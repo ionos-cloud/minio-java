@@ -40,12 +40,12 @@ jobs:
         run: |
           ./gradlew build
           ./gradlew runFunctionalTest
-          javac -cp api/build/libs/minio-${DEV_VERSION}-all.jar functional/TestUserAgent.java
-          java -Dversion=${DEV_VERSION} -cp api/build/libs/minio-${DEV_VERSION}-all.jar:functional TestUserAgent
+          javac -cp api/build/libs/ionosclouds3-${DEV_VERSION}-all.jar functional/TestUserAgent.java
+          java -Dversion=${DEV_VERSION} -cp api/build/libs/ionosclouds3-${DEV_VERSION}-all.jar:functional TestUserAgent
           ./gradlew clean
           ./gradlew build -Prelease
-          javac -cp api/build/libs/minio-${RELEASE_VERSION}-all.jar functional/TestUserAgent.java
-          java -Dversion=${RELEASE_VERSION} -cp api/build/libs/minio-${RELEASE_VERSION}-all.jar:functional TestUserAgent
+          javac -cp api/build/libs/ionosclouds3-${RELEASE_VERSION}-all.jar functional/TestUserAgent.java
+          java -Dversion=${RELEASE_VERSION} -cp api/build/libs/ionosclouds3-${RELEASE_VERSION}-all.jar:functional TestUserAgent
       - name: Gradle build on Windows
         if: matrix.os == 'windows-latest'
         run: |
