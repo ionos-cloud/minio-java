@@ -12,7 +12,7 @@ public class ApiClientWithAwsConfigProvider {
 
     ApiClient apiClient =
         ApiClient.builder()
-            .endpoint("https://MINIO-HOST:MINIO-PORT")
+            .endpoint("https://IONOS-HOST:IONOS-PORT")
             .credentialsProvider(provider)
             .build();
 

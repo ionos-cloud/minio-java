@@ -105,13 +105,13 @@ import org.xerial.snappy.SnappyFramedOutputStream;
  * <pre>{@code
  * // Create client with anonymous access.
  * ApiAsyncClient apiAsyncClient =
- *     ApiAsyncClient.builder().endpoint("https://play.min.io").build();
+ *     ApiAsyncClient.builder().endpoint(System.getenv("IONOS_API_URL")).build();
  *
  * // Create client with credentials.
  * ApiAsyncClient apiAsyncClient =
  *     ApiAsyncClient.builder()
- *         .endpoint("https://play.min.io")
- *         .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
+ *         .endpoint(System.getenv("IONOS_API_URL"))
+ *         .credentials(System.getenv("IONOS_ACCESS_KEY"), System.getenv("IONOS_SECRET_KEY"))
  *         .build();
  * }</pre>
  */
@@ -973,7 +973,7 @@ public class ApiAsyncClient extends S3Base {
    *
    * Request request =
    *     new Request.Builder()
-   *         .url("https://play.min.io/my-bucketname")
+   *         .url("<url>")
    *         .post(multipartBuilder.build())
    *         .build();
    * OkHttpClient httpClient = new OkHttpClient().newBuilder().build();

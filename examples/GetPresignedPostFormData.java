@@ -20,11 +20,11 @@ public class GetPresignedPostFormData {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      /* play.min.io for test and development. */
+      
       ApiClient apiClient =
           ApiClient.builder()
-              .endpoint("https://play.min.io")
-              .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
+              .endpoint(System.getenv("IONOS_API_URL"))
+              .credentials(System.getenv("IONOS_ACCESS_KEY"), System.getenv("IONOS_SECRET_KEY"))
               .build();
 
       /* Amazon S3: */
@@ -63,7 +63,7 @@ public class GetPresignedPostFormData {
 
       Request request =
           new Request.Builder()
-              .url("https://play.min.io/my-bucketname")
+              .url("<url>")
               .post(multipartBuilder.build())
               .build();
       OkHttpClient httpClient = new OkHttpClient().newBuilder().build();
@@ -80,7 +80,7 @@ public class GetPresignedPostFormData {
         System.out.print(" -F " + entry.getKey() + "=" + entry.getValue());
       }
       System.out.print(" -F key=my-objectname -F Content-Type=image/jpg");
-      System.out.println(" -F file=@/tmp/userpic.jpg https://play.min.io/my-bucketname");
+      System.out.println(" -F file=@/tmp/userpic.jpg <url>");
     } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }

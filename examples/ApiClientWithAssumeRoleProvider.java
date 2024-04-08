@@ -1,5 +1,3 @@
-
-
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.StatObjectArgs;
 import com.ionoscloud.s3.StatObjectResponse;
@@ -10,9 +8,9 @@ public class ApiClientWithAssumeRoleProvider {
   public static void main(String[] args) throws Exception {
     Provider provider =
         new AssumeRoleProvider(
-            "https://play.minio.io:9000/", // STS endpoint usually point to MinIO server.
-            "minio", // Access key.
-            "minio123", // Secret key.
+            "<endpoint>", // STS endpoint usually point to the server.
+            "<access_key>", // Access key.
+            "<secret_key>", // Secret key.
             null, // Duration seconds if available.
             null, // Policy if available.
             null, // Region if available.
@@ -23,7 +21,7 @@ public class ApiClientWithAssumeRoleProvider {
 
     ApiClient apiClient =
         ApiClient.builder()
-            .endpoint("https://play.minio.io:9000")
+            .endpoint("<endpoint>")
             .credentialsProvider(provider)
             .build();
 

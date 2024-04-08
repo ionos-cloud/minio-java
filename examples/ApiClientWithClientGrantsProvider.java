@@ -59,7 +59,7 @@ public class ApiClientWithClientGrantsProvider {
     // Client secret to fetch JWT.
     String clientSecret = "IDP-CLIENT-SECRET";
 
-    // STS endpoint usually point to MinIO server.
+    // STS endpoint usually point to server.
     String stsEndpoint = "http://STS-HOST:STS-PORT/";
 
     // Policy to Credentials. - optional, primary policy
@@ -91,7 +91,7 @@ public class ApiClientWithClientGrantsProvider {
 
     ApiClient apiClient =
         ApiClient.builder()
-            .endpoint("https://MINIO-HOST:MINIO-PORT")
+            .endpoint("https://IONOS-HOST:IONOS-PORT")
             .credentialsProvider(provider)
             .build();
 

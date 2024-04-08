@@ -8,7 +8,7 @@ import com.ionoscloud.s3.credentials.Provider;
 
 public class ApiClientWithLdapIdentityProvider {
   public static void main(String[] args) throws Exception {
-    // STS endpoint usually point to MinIO server.
+    // STS endpoint usually point to the server.
     String stsEndpoint = "http://STS-HOST:STS-PORT/";
 
     // LDAP username.
@@ -21,7 +21,7 @@ public class ApiClientWithLdapIdentityProvider {
 
     ApiClient apiClient =
         ApiClient.builder()
-            .endpoint("https://MINIO-HOST:MINIO-PORT")
+            .endpoint("https://IONOS-HOST:IONOS-PORT")
             .credentialsProvider(provider)
             .build();
 

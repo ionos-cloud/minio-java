@@ -1,5 +1,3 @@
-
-
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.StatObjectArgs;
 import com.ionoscloud.s3.StatObjectResponse;
@@ -12,7 +10,7 @@ public class ApiClientWithIamAwsProvider {
 
     ApiClient apiClient =
         ApiClient.builder()
-            .endpoint("https://MINIO-HOST:MINIO-PORT")
+            .endpoint("https://IONOS-HOST:IONOS-PORT")
             .credentialsProvider(provider)
             .build();
 

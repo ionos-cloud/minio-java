@@ -10,7 +10,7 @@ import javax.net.ssl.X509TrustManager;
 
 public class ApiClientWithCertificateIdentityProvider {
   public static void main(String[] args) throws Exception {
-    // STS endpoint usually point to MinIO server.
+    // STS endpoint usually point to the server.
     String stsEndpoint = "https://STS-HOST:STS-PORT/";
 
     // SSL socket factory.
@@ -20,12 +20,12 @@ public class ApiClientWithCertificateIdentityProvider {
     X509TrustManager trustManager = null;
 
     // Below is a sample code to construct sslSocketFactory and trustManager for self-signed
-    // certificates (server and client) used in a MinIO server setup.
+    // certificates (server and client) used in a server setup.
     //
     // CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
     //
     // Certificate serverCertificate = null;
-    // try (FileInputStream fis = new FileInputStream("/home/bala/.minio/certs/public.crt")) {
+    // try (FileInputStream fis = new FileInputStream("<cert_file>")) {
     //   serverCertificate = certificateFactory.generateCertificate(fis);
     // }
     //
@@ -36,7 +36,7 @@ public class ApiClientWithCertificateIdentityProvider {
     //
     // String privateKeyString =
     //     new String(
-    //             Files.readAllBytes(Paths.get("/home/bala/.minio/certs/CAs/client1.key")),
+    //             Files.readAllBytes(Paths.get("<key_file>")),
     //             Charset.defaultCharset())
     //         .replace("-----BEGIN PRIVATE KEY-----", "")
     //         .replaceAll(System.lineSeparator(), "")
@@ -47,7 +47,7 @@ public class ApiClientWithCertificateIdentityProvider {
     // PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKey);
     //
     // Certificate certificateChain = null;
-    // try (FileInputStream fis = new FileInputStream("/home/bala/.minio/certs/CAs/client1.crt")) {
+    // try (FileInputStream fis = new FileInputStream("<cert_file>")) {
     //   certificateChain = certificateFactory.generateCertificate(fis);
     // }
     //
@@ -81,7 +81,7 @@ public class ApiClientWithCertificateIdentityProvider {
 
     ApiClient apiClient =
         ApiClient.builder()
-            .endpoint("https://MINIO-HOST:MINIO-PORT")
+            .endpoint("https://IONOS-HOST:IONOS-PORT")
             .credentialsProvider(provider)
             .build();
 

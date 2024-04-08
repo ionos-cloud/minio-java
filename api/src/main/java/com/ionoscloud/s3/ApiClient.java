@@ -70,13 +70,13 @@ import okhttp3.OkHttpClient;
  *
  * <pre>{@code
  * // Create client with anonymous access.
- * ApiClient apiClient = ApiClient.builder().endpoint("https://play.min.io").build();
+ * ApiClient apiClient = ApiClient.builder().endpoint(System.getenv("IONOS_API_URL")).build();
  *
  * // Create client with credentials.
  * ApiClient apiClient =
  *     ApiClient.builder()
- *         .endpoint("https://play.min.io")
- *         .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
+ *         .endpoint(System.getenv("IONOS_API_URL"))
+ *         .credentials(System.getenv("IONOS_ACCESS_KEY"), System.getenv("IONOS_SECRET_KEY"))
  *         .build();
  * }</pre>
  */
@@ -533,7 +533,7 @@ public class ApiClient {
    *
    * Request request =
    *     new Request.Builder()
-   *         .url("https://play.min.io/my-bucketname")
+   *         .url("<url>")
    *         .post(multipartBuilder.build())
    *         .build();
    * OkHttpClient httpClient = new OkHttpClient().newBuilder().build();

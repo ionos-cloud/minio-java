@@ -109,7 +109,6 @@ import com.ionoscloud.s3.admin.ApiAdminClient;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -141,16 +140,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okio.BufferedSink;
-import okio.Okio;
 import org.junit.Assert;
 
 @SuppressFBWarnings(
     value = "REC",
     justification = "Allow catching super class Exception since it's tests")
 public class FunctionalTest {
-  private static final String OS = System.getProperty("os.name").toLowerCase(Locale.US);
-  private static final String MINIO_BINARY;
   private static final String PASS = "PASS";
   private static final String FAILED = "FAIL";
   private static final String IGNORED = "NA";
@@ -176,20 +171,13 @@ public class FunctionalTest {
   private static String replicationRole = null;
   private static String replicationBucketArn = null;
   private static ApiClient client = null;
-  private static TestMinioAdminClient adminClientTests;
+  private static TestApiAdminClient adminClientTests;
 
   private static ServerSideEncryptionCustomerKey ssec = null;
   private static ServerSideEncryption sseS3 = new ServerSideEncryptionS3();
   private static ServerSideEncryption sseKms = null;
 
   static {
-    String binaryName = "minio";
-    if (OS.contains("windows")) {
-      binaryName = "minio.exe";
-    }
-
-    MINIO_BINARY = binaryName;
-
     try {
       KeyGenerator keyGen = KeyGenerator.getInstance("AES");
       keyGen.init(256);
@@ -261,7 +249,7 @@ public class FunctionalTest {
 
   /** Generate random name. */
   public static String getRandomName() {
-    return "minio-java-test-" + new BigInteger(32, random).toString(32);
+    return "ionoscloud-java-test-" + new BigInteger(32, random).toString(32);
   }
 
   /** Returns byte array contains all data in given InputStream. */
@@ -1417,13 +1405,13 @@ public class FunctionalTest {
 
     testListObjects(
         "[bucket, prefix]",
-        ListObjectsArgs.builder().bucket(getRandomName()).prefix("minio").build(),
+        ListObjectsArgs.builder().bucket(getRandomName()).prefix("ionoscloud").build(),
         3,
         0);
 
     testListObjects(
         "[bucket, prefix, recursive]",
-        ListObjectsArgs.builder().bucket(getRandomName()).prefix("minio").recursive(true).build(),
+        ListObjectsArgs.builder().bucket(getRandomName()).prefix("ionoscloud").recursive(true).build(),
         3,
         0);
 
@@ -1442,7 +1430,7 @@ public class FunctionalTest {
 
     testListObjects(
         "[bucket, prefix, recursive, 1050 objects]",
-        ListObjectsArgs.builder().bucket(getRandomName()).prefix("minio").recursive(true).build(),
+        ListObjectsArgs.builder().bucket(getRandomName()).prefix("ionoscloud").recursive(true).build(),
         1050,
         0);
 
@@ -2642,7 +2630,7 @@ public class FunctionalTest {
                 .build());
 
         // Check empty retention.
-        // Enable below test when minio server release has a fix.
+        // Enable below test when the server release has a fix.
         // testGetObjectRetention(
         //     SetObjectRetentionArgs.builder()
         //         .bucket(bucketNameWithLock)
@@ -3769,97 +3757,11 @@ public class FunctionalTest {
     adminClientTests.runAdminTests();
   }
 
-  public static boolean downloadMinio() throws IOException {
-    String url = "https://dl.min.io/server/minio/release/";
-    if (OS.contains("linux")) {
-      url += "linux-amd64/minio";
-    } else if (OS.contains("windows")) {
-      url += "windows-amd64/minio.exe";
-    } else if (OS.contains("mac")) {
-      url += "darwin-amd64/minio";
-    } else {
-      System.out.println("unknown operating system " + OS);
-      return false;
-    }
-
-    File file = new File(MINIO_BINARY);
-    if (file.exists()) {
-      return true;
-    }
-
-    System.out.println("downloading " + MINIO_BINARY + " binary");
-
-    Request.Builder requestBuilder = new Request.Builder();
-    Request request = requestBuilder.url(HttpUrl.parse(url)).method("GET", null).build();
-    OkHttpClient transport = newHttpClient();
-    Response response = transport.newCall(request).execute();
-
-    try {
-      if (!response.isSuccessful()) {
-        System.out.println("failed to download binary " + MINIO_BINARY);
-        return false;
-      }
-
-      BufferedSink bufferedSink = Okio.buffer(Okio.sink(new File(MINIO_BINARY)));
-      bufferedSink.writeAll(response.body().source());
-      bufferedSink.flush();
-      bufferedSink.close();
-    } finally {
-      response.close();
-    }
-
-    if (!OS.contains("windows")) {
-      file.setExecutable(true);
-    }
-
-    return true;
-  }
-
-  public static Process runMinio(boolean tls) throws Exception {
-    File binaryPath = new File(new File(System.getProperty("user.dir")), MINIO_BINARY);
-    ProcessBuilder pb;
-    if (tls) {
-      pb =
-          new ProcessBuilder(
-              binaryPath.getPath(),
-              "server",
-              "--address",
-              ":9001",
-              "--certs-dir",
-              ".cfg/certs",
-              ".d{1...4}");
-    } else {
-      pb = new ProcessBuilder(binaryPath.getPath(), "server", ".d{1...4}");
-    }
-
-    Map<String, String> env = pb.environment();
-    env.put("MINIO_ROOT_USER", "minio");
-    env.put("MINIO_ROOT_PASSWORD", "minio123");
-    env.put("MINIO_CI_CD", "1");
-    // echo -n abcdefghijklmnopqrstuvwxyzABCDEF | base64 -
-    env.put("MINIO_KMS_SECRET_KEY", "my-minio-key:YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXpBQkNERUY=");
-    env.put("MINIO_NOTIFY_WEBHOOK_ENABLE_miniojavatest", "on");
-    env.put("MINIO_NOTIFY_WEBHOOK_ENDPOINT_miniojavatest", "http://example.org/");
-    sqsArn = "arn:minio:sqs::miniojavatest:webhook";
-
-    pb.redirectErrorStream(true);
-    pb.redirectOutput(ProcessBuilder.Redirect.to(new File(MINIO_BINARY + ".log")));
-
-    if (tls) {
-      System.out.println("starting minio server in TLS");
-    } else {
-      System.out.println("starting minio server");
-    }
-    Process p = pb.start();
-    Thread.sleep(10 * 1000); // wait for 10 seconds to do real start.
-    return p;
-  }
-
   public static void runEndpointTests(boolean automated) throws Exception {
     client = ApiClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
     ApiAdminClient adminClient =
         ApiAdminClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
-    adminClientTests = new TestMinioAdminClient(adminClient, mintEnv);
+    adminClientTests = new TestApiAdminClient(adminClient, mintEnv);
     // Enable trace for debugging.
     // client.traceOn(System.out);
     if (!mintEnv) System.out.println(">>> Running tests:");
@@ -3876,7 +3778,7 @@ public class FunctionalTest {
               .credentials(accessKey, secretKey)
               .build();
       adminClient.ignoreCertCheck();
-      adminClientTests = new TestMinioAdminClient(adminClient, mintEnv);
+      adminClientTests = new TestApiAdminClient(adminClient, mintEnv);
       // Enable trace for debugging.
       // client.traceOn(System.out);
       if (!mintEnv) System.out.println(">>> Running tests on TLS endpoint:");
@@ -3889,7 +3791,7 @@ public class FunctionalTest {
       System.out.println(">>> Running tests for region:");
       isQuickTest = true;
       isSecureEndpoint = endpoint.toLowerCase(Locale.US).contains("https://");
-      // Get new bucket name to avoid minio azure gateway failure.
+      // Get new bucket name to avoid gateway failure.
       bucketName = getRandomName();
       bucketNameWithLock = getRandomName();
       client =
@@ -3904,7 +3806,7 @@ public class FunctionalTest {
               .credentials(accessKey, secretKey)
               .region(region)
               .build();
-      adminClientTests = new TestMinioAdminClient(adminClient, mintEnv);
+      adminClientTests = new TestApiAdminClient(adminClient, mintEnv);
       FunctionalTest.runTests();
     }
   }
@@ -3922,52 +3824,24 @@ public class FunctionalTest {
         dataFile6Mb = Paths.get(dataDir, "datafile-6-MB");
       }
     }
-    replicationSrcBucket = System.getenv("MINIO_JAVA_TEST_REPLICATION_SRC_BUCKET");
-    replicationRole = System.getenv("MINIO_JAVA_TEST_REPLICATION_ROLE");
-    replicationBucketArn = System.getenv("MINIO_JAVA_TEST_REPLICATION_BUCKET_ARN");
+    replicationSrcBucket = System.getenv("IONOS_JAVA_TEST_REPLICATION_SRC_BUCKET");
+    replicationRole = System.getenv("IONOS_JAVA_TEST_REPLICATION_ROLE");
+    replicationBucketArn = System.getenv("IONOS_JAVA_TEST_REPLICATION_BUCKET_ARN");
 
-    Process minioProcess = null;
-    Process minioProcessTLS = null;
+    Process ionosProcess = null;
+    Process ionosProcessTLS = null;
 
     boolean automated = true;
-    String kmsKeyName = "my-minio-key";
+    String kmsKeyName = "my-ionos-key";
     if (args.length != 4) {
-      endpoint = "http://localhost:9000";
-      endpointTLS = "https://localhost:9001";
-      accessKey = "minio";
-      secretKey = "minio123";
-      region = "us-east-1";
-
-      if (!downloadMinio()) {
-        System.out.println("usage: FunctionalTest <ENDPOINT> <ACCESSKEY> <SECRETKEY> <REGION>");
-        System.exit(-1);
-      }
-
-      minioProcess = runMinio(false);
-      try {
-        int exitValue = minioProcess.exitValue();
-        System.out.println("minio server process exited with " + exitValue);
-        System.out.println("usage: FunctionalTest <ENDPOINT> <ACCESSKEY> <SECRETKEY> <REGION>");
-        System.exit(-1);
-      } catch (IllegalThreadStateException e) {
-        ignore();
-      }
-
-      minioProcessTLS = runMinio(true);
-      try {
-        int exitValue = minioProcessTLS.exitValue();
-        System.out.println("minio server process exited with " + exitValue);
-        System.out.println("usage: FunctionalTest <ENDPOINT> <ACCESSKEY> <SECRETKEY> <REGION>");
-        System.exit(-1);
-      } catch (IllegalThreadStateException e) {
-        ignore();
-      }
+      System.out.println("usage: FunctionalTest <ENDPOINT> <ACCESSKEY> <SECRETKEY> <REGION>");
+      System.exit(-1);
     } else {
-      kmsKeyName = System.getenv("MINIO_JAVA_TEST_KMS_KEY_NAME");
+      kmsKeyName = System.getenv("IONOS_JAVA_TEST_KMS_KEY_NAME");
       if (kmsKeyName == null) {
         kmsKeyName = System.getenv("MINT_KEY_ID");
       }
-      sqsArn = System.getenv("MINIO_JAVA_TEST_SQS_ARN");
+      sqsArn = System.getenv("IONOS_JAVA_TEST_SQS_ARN");
       endpoint = args[0];
       accessKey = args[1];
       secretKey = args[2];
@@ -3991,11 +3865,11 @@ public class FunctionalTest {
       }
       exitValue = -1;
     } finally {
-      if (minioProcess != null) {
-        minioProcess.destroy();
+      if (ionosProcess != null) {
+        ionosProcess.destroy();
       }
-      if (minioProcessTLS != null) {
-        minioProcessTLS.destroy();
+      if (ionosProcessTLS != null) {
+        ionosProcessTLS.destroy();
       }
     }
 

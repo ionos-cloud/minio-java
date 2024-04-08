@@ -66,13 +66,13 @@ public class ApiClientTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testPort1() throws ApiException {
-    ApiClient.builder().endpoint("play.min.io", 0, false).build();
+    ApiClient.builder().endpoint("endpoint", 0, false).build();
     Assert.fail("exception should be thrown");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testPort2() throws ApiException {
-    ApiClient.builder().endpoint("play.min.io", 70000, false).build();
+    ApiClient.builder().endpoint("endpoint", 70000, false).build();
     Assert.fail("exception should be thrown");
   }
 
@@ -430,7 +430,7 @@ public class ApiClientTest {
       throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     KeyGenerator keyGen = KeyGenerator.getInstance("AES");
     keyGen.init(256);
-    ApiClient client = ApiClient.builder().endpoint("http://play.min.io:9000").build();
+    ApiClient client = ApiClient.builder().endpoint("http://endpoint:9000").build();
     client.statObject(
         StatObjectArgs.builder()
             .bucket("mybucket")
@@ -443,7 +443,7 @@ public class ApiClientTest {
   @Test(expected = IllegalArgumentException.class)
   public void testWriteSse1()
       throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
-    ApiClient client = ApiClient.builder().endpoint("http://play.min.io:9000").build();
+    ApiClient client = ApiClient.builder().endpoint("http://endpoint:9000").build();
     KeyGenerator keyGen = KeyGenerator.getInstance("AES");
     keyGen.init(256);
     client.putObject(
@@ -457,7 +457,7 @@ public class ApiClientTest {
   @Test(expected = IllegalArgumentException.class)
   public void testWriteSse2()
       throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
-    ApiClient client = ApiClient.builder().endpoint("http://play.min.io:9000").build();
+    ApiClient client = ApiClient.builder().endpoint("http://endpoint:9000").build();
     Map<String, String> myContext = new HashMap<>();
     myContext.put("key1", "value1");
     client.putObject(
@@ -540,7 +540,7 @@ public class ApiClientTest {
       throws NoSuchAlgorithmException, IOException, InvalidKeyException, ApiException {
     ApiClient client =
         ApiClient.builder()
-            .endpoint("http://play.min.io:9000")
+            .endpoint("http://endpoint:9000")
             .credentials("foo", "bar")
             .region("us-east-1")
             .build();

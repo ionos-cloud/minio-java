@@ -63,10 +63,10 @@ public class ApiClientWithWebIdentityProvider {
     // Client secret to fetch JWT.
     String clientSecret = "PASSWORD";
 
-    // Client-ID of MinIO service on IDP.
-    String idpClientId = "MINIO-CLIENT-ID";
+    // Client-ID of IONOS service on IDP.
+    String idpClientId = "IONOS-CLIENT-ID";
 
-    // STS endpoint usually point to MinIO server.
+    // STS endpoint usually point to IONOS server.
     String stsEndpoint = "http://STS-HOST:STS-PORT/";
 
     // Role ARN if available.
@@ -87,7 +87,7 @@ public class ApiClientWithWebIdentityProvider {
 
     ApiClient apiClient =
         ApiClient.builder()
-            .endpoint("https://MINIO-HOST:MINIO-PORT")
+            .endpoint("https://IONOS-HOST:IONOS-PORT")
             .credentialsProvider(provider)
             .build();
 

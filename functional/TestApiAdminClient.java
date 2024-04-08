@@ -8,7 +8,7 @@ import org.junit.Assert;
 @SuppressFBWarnings(
     value = "REC",
     justification = "Allow catching super class Exception since it's tests")
-public class TestMinioAdminClient {
+public class TestApiAdminClient {
 
   private final ApiAdminClient adminClient;
   private final boolean mintEnv;
@@ -17,7 +17,7 @@ public class TestMinioAdminClient {
   private static String userSecretKey = FunctionalTest.getRandomName();
   private static String policyName = FunctionalTest.getRandomName();
 
-  public TestMinioAdminClient(ApiAdminClient adminClient, boolean mintEnv) {
+  public TestApiAdminClient(ApiAdminClient adminClient, boolean mintEnv) {
     this.adminClient = adminClient;
     this.mintEnv = mintEnv;
   }

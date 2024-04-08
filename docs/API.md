@@ -1,4 +1,4 @@
-# Java Client API Reference [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# Java Client API Reference
 
 ## Create Client.
 
@@ -48,11 +48,7 @@ Client Builder is used to create a client. Builder has below methods to accept a
 |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------|
 | `endpoint()`    | Accepts endpoint as a String, URL or okhttp3.HttpUrl object and optionally accepts port number and flag to enable secure (TLS) connection. |
 |                 | Endpoint as a string can be formatted like below:                                                                                          |
-|                 | `https://s3.amazonaws.com`                                                                                                                 |
-|                 | `https://play.min.io`                                                                                                                      |
-|                 | `https://play.min.io:9000`                                                                                                                 |
-|                 | `localhost`                                                                                                                                |
-|                 | `play.min.io`                                                                                                                              |
+|                 | `<url>`                                                                                                                 |
 | `credentials()` | Accepts access key (aka user ID) and secret key (aka password) of an account in S3 service.                                                |
 | `region()`      | Accepts region name of S3 service. If specified, all operations use this region otherwise region is probed per bucket.                     |
 | `httpClient()`  | Custom HTTP client to override default.                                                                                                    |
@@ -1419,7 +1415,7 @@ multipartBuilder.addFormDataPart(
 
 Request request =
     new Request.Builder()
-        .url("https://play.min.io/my-bucketname")
+        .url("<url>")
         .post(multipartBuilder.build())
         .build();
 OkHttpClient httpClient = new OkHttpClient().newBuilder().build();

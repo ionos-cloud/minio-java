@@ -43,7 +43,7 @@ public class MintLogger {
       String alert,
       String message,
       String error) {
-    this.name = "minio-java";
+    this.name = "sdk-java-s3";
     this.function = function;
     this.duration = duration;
     this.args = args;
