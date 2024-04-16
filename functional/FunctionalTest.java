@@ -105,7 +105,6 @@ import com.ionoscloud.s3.messages.Stats;
 import com.ionoscloud.s3.messages.Status;
 import com.ionoscloud.s3.messages.Tags;
 import com.ionoscloud.s3.messages.VersioningConfiguration;
-import com.ionoscloud.s3.admin.ApiAdminClient;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -171,7 +170,6 @@ public class FunctionalTest {
   private static String replicationRole = null;
   private static String replicationBucketArn = null;
   private static ApiClient client = null;
-  private static TestApiAdminClient adminClientTests;
 
   private static ServerSideEncryptionCustomerKey ssec = null;
   private static ServerSideEncryption sseS3 = new ServerSideEncryptionS3();
@@ -3754,14 +3752,10 @@ public class FunctionalTest {
   public static void runTests() throws Exception {
     runBucketTests();
     runObjectTests();
-    adminClientTests.runAdminTests();
   }
 
   public static void runEndpointTests(boolean automated) throws Exception {
     client = ApiClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
-    ApiAdminClient adminClient =
-        ApiAdminClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
-    adminClientTests = new TestApiAdminClient(adminClient, mintEnv);
     // Enable trace for debugging.
     // client.traceOn(System.out);
     if (!mintEnv) System.out.println(">>> Running tests:");
@@ -3772,13 +3766,6 @@ public class FunctionalTest {
       client =
           ApiClient.builder().endpoint(endpointTLS).credentials(accessKey, secretKey).build();
       client.ignoreCertCheck();
-      adminClient =
-          ApiAdminClient.builder()
-              .endpoint(endpointTLS)
-              .credentials(accessKey, secretKey)
-              .build();
-      adminClient.ignoreCertCheck();
-      adminClientTests = new TestApiAdminClient(adminClient, mintEnv);
       // Enable trace for debugging.
       // client.traceOn(System.out);
       if (!mintEnv) System.out.println(">>> Running tests on TLS endpoint:");
@@ -3800,13 +3787,6 @@ public class FunctionalTest {
               .credentials(accessKey, secretKey)
               .region(region)
               .build();
-      adminClient =
-          ApiAdminClient.builder()
-              .endpoint(endpoint)
-              .credentials(accessKey, secretKey)
-              .region(region)
-              .build();
-      adminClientTests = new TestApiAdminClient(adminClient, mintEnv);
       FunctionalTest.runTests();
     }
   }
