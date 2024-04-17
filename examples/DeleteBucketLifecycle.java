@@ -26,7 +26,7 @@ public class DeleteBucketLifecycle {
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
 
-      // Pass blank as life cycle in setBucketLifecycle method.
+      // Pass blank as life cycle in putBucketLifecycle method.
       apiClient.deleteBucketLifecycle(
           DeleteBucketLifecycleArgs.builder().bucket("my-bucketName").build());
     } catch (ApiException e) {

@@ -1,7 +1,7 @@
 
 
 import com.ionoscloud.s3.ApiClient;
-import com.ionoscloud.s3.SetBucketLifecycleArgs;
+import com.ionoscloud.s3.PutBucketLifecycleArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.Expiration;
 import com.ionoscloud.s3.messages.LifecycleConfiguration;
@@ -15,8 +15,8 @@ import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SetBucketLifecycle {
-  /** ApiClient.SetBucketLifecycle() example. */
+public class PutBucketLifecycle {
+  /** ApiClient.PutBucketLifecycle() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
@@ -47,8 +47,8 @@ public class SetBucketLifecycle {
               null));
       LifecycleConfiguration config = new LifecycleConfiguration(rules);
 
-      apiClient.setBucketLifecycle(
-          SetBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
+      apiClient.putBucketLifecycle(
+          PutBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
     } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }

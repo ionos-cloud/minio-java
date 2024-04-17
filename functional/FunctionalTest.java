@@ -54,12 +54,12 @@ import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
 import com.ionoscloud.s3.ServerSideEncryptionKms;
 import com.ionoscloud.s3.ServerSideEncryptionS3;
 import com.ionoscloud.s3.PutBucketEncryptionArgs;
-import com.ionoscloud.s3.SetBucketLifecycleArgs;
+import com.ionoscloud.s3.PutBucketLifecycleArgs;
 import com.ionoscloud.s3.SetBucketNotificationArgs;
 import com.ionoscloud.s3.PutBucketPolicyArgs;
 import com.ionoscloud.s3.SetBucketReplicationArgs;
 import com.ionoscloud.s3.PutBucketTaggingArgs;
-import com.ionoscloud.s3.SetBucketVersioningArgs;
+import com.ionoscloud.s3.PutBucketVersioningArgs;
 import com.ionoscloud.s3.SetObjectLockConfigurationArgs;
 import com.ionoscloud.s3.SetObjectRetentionArgs;
 import com.ionoscloud.s3.PutObjectTaggingArgs;
@@ -572,8 +572,8 @@ public class FunctionalTest {
     testBucketApiCases(methodName, false, true);
   }
 
-  public static void setBucketVersioning() throws Exception {
-    String methodName = "setBucketVersioning()";
+  public static void putBucketVersioning() throws Exception {
+    String methodName = "putBucketVersioning()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -583,13 +583,13 @@ public class FunctionalTest {
     try {
       client.makeBucket(MakeBucketArgs.builder().bucket(name).build());
       try {
-        client.setBucketVersioning(
-            SetBucketVersioningArgs.builder()
+        client.putBucketVersioning(
+            PutBucketVersioningArgs.builder()
                 .bucket(name)
                 .config(new VersioningConfiguration(VersioningConfiguration.Status.ENABLED, null))
                 .build());
-        client.setBucketVersioning(
-            SetBucketVersioningArgs.builder()
+        client.putBucketVersioning(
+            PutBucketVersioningArgs.builder()
                 .bucket(name)
                 .config(new VersioningConfiguration(VersioningConfiguration.Status.SUSPENDED, null))
                 .build());
@@ -619,8 +619,8 @@ public class FunctionalTest {
             "getBucketVersioning(); expected = \"\", got = " + config.status(),
             config.status(),
             VersioningConfiguration.Status.OFF);
-        client.setBucketVersioning(
-            SetBucketVersioningArgs.builder()
+        client.putBucketVersioning(
+            PutBucketVersioningArgs.builder()
                 .bucket(name)
                 .config(new VersioningConfiguration(VersioningConfiguration.Status.ENABLED, null))
                 .build());
@@ -633,8 +633,8 @@ public class FunctionalTest {
             config.status(),
             VersioningConfiguration.Status.ENABLED);
 
-        client.setBucketVersioning(
-            SetBucketVersioningArgs.builder()
+        client.putBucketVersioning(
+            PutBucketVersioningArgs.builder()
                 .bucket(name)
                 .config(new VersioningConfiguration(VersioningConfiguration.Status.SUSPENDED, null))
                 .build());
@@ -1362,8 +1362,8 @@ public class FunctionalTest {
       client.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
       try {
         if (versions > 0) {
-          client.setBucketVersioning(
-              SetBucketVersioningArgs.builder()
+          client.putBucketVersioning(
+              PutBucketVersioningArgs.builder()
                   .bucket(bucketName)
                   .config(new VersioningConfiguration(VersioningConfiguration.Status.ENABLED, null))
                   .build());
@@ -2744,15 +2744,15 @@ public class FunctionalTest {
     }
   }
 
-  public static void testSetBucketLifecycle(String bucketName, LifecycleRule... rules)
+  public static void testPutBucketLifecycle(String bucketName, LifecycleRule... rules)
       throws Exception {
     LifecycleConfiguration config = new LifecycleConfiguration(Arrays.asList(rules));
-    client.setBucketLifecycle(
-        SetBucketLifecycleArgs.builder().bucket(bucketName).config(config).build());
+    client.putBucketLifecycle(
+        PutBucketLifecycleArgs.builder().bucket(bucketName).config(config).build());
   }
 
-  public static void setBucketLifecycle() throws Exception {
-    String methodName = "setBucketLifecycle()";
+  public static void putBucketLifecycle() throws Exception {
+    String methodName = "putBucketLifecycle()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -2762,7 +2762,7 @@ public class FunctionalTest {
     try {
       client.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
       try {
-        testSetBucketLifecycle(
+        testPutBucketLifecycle(
             bucketName,
             new LifecycleRule(
                 Status.ENABLED,
@@ -2795,7 +2795,7 @@ public class FunctionalTest {
       try {
         client.deleteBucketLifecycle(
             DeleteBucketLifecycleArgs.builder().bucket(bucketName).build());
-        testSetBucketLifecycle(
+        testPutBucketLifecycle(
             bucketName,
             new LifecycleRule(
                 Status.ENABLED,
@@ -2831,7 +2831,7 @@ public class FunctionalTest {
         LifecycleConfiguration config =
             client.getBucketLifecycle(GetBucketLifecycleArgs.builder().bucket(bucketName).build());
         Assert.assertNull("config: expected: <null>, got: <non-null>", config);
-        testSetBucketLifecycle(
+        testPutBucketLifecycle(
             bucketName,
             new LifecycleRule(
                 Status.ENABLED,
@@ -2868,7 +2868,7 @@ public class FunctionalTest {
             rule.filter().prefix());
         Assert.assertEquals("rule.id(): expected: rule2, got: " + rule.id(), "rule2", rule.id());
 
-        testSetBucketLifecycle(
+        testPutBucketLifecycle(
             bucketName,
             new LifecycleRule(
                 Status.ENABLED,
@@ -3679,7 +3679,7 @@ public class FunctionalTest {
     deleteBucket();
     listBuckets();
 
-    setBucketVersioning();
+    putBucketVersioning();
     getBucketVersioning();
 
     setObjectLockConfiguration();
@@ -3697,7 +3697,7 @@ public class FunctionalTest {
     getBucketPolicy();
     deleteBucketPolicy();
 
-    setBucketLifecycle();
+    putBucketLifecycle();
     getBucketLifecycle();
     deleteBucketLifecycle();
 

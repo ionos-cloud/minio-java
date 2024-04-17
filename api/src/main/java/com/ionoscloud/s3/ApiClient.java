@@ -898,11 +898,11 @@ public class ApiClient {
    * Sets versioning configuration of a bucket.
    *
    * <pre>Example:{@code
-   * apiClient.setBucketVersioning(
-   *     SetBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
+   * apiClient.putBucketVersioning(
+   *     PutBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
-   * @param args {@link SetBucketVersioningArgs} object.
+   * @param args {@link PutBucketVersioningArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -913,12 +913,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setBucketVersioning(SetBucketVersioningArgs args)
+  public void putBucketVersioning(PutBucketVersioningArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setBucketVersioning(args).get();
+      asyncClient.putBucketVersioning(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -1543,11 +1543,11 @@ public class ApiClient {
    *         null,
    *         null));
    * LifecycleConfiguration config = new LifecycleConfiguration(rules);
-   * apiClient.setBucketLifecycle(
-   *     SetBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
+   * apiClient.putBucketLifecycle(
+   *     PutBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
-   * @param args {@link SetBucketLifecycleArgs} object.
+   * @param args {@link PutBucketLifecycleArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1558,12 +1558,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setBucketLifecycle(SetBucketLifecycleArgs args)
+  public void putBucketLifecycle(PutBucketLifecycleArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setBucketLifecycle(args).get();
+      asyncClient.putBucketLifecycle(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {

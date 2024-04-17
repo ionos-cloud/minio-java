@@ -1478,11 +1478,11 @@ public class ApiAsyncClient extends S3Base {
    * Sets versioning configuration of a bucket.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = apiAsyncClient.setBucketVersioning(
-   *     SetBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
+   * CompletableFuture<Void> future = apiAsyncClient.putBucketVersioning(
+   *     PutBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
-   * @param args {@link SetBucketVersioningArgs} object.
+   * @param args {@link PutBucketVersioningArgs} object.
    * @return {@link CompletableFuture}&lt;{@link Void}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1491,7 +1491,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Void> setBucketVersioning(SetBucketVersioningArgs args)
+  public CompletableFuture<Void> putBucketVersioning(PutBucketVersioningArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);
@@ -2217,11 +2217,11 @@ public class ApiAsyncClient extends S3Base {
    *         null,
    *         null));
    * LifecycleConfiguration config = new LifecycleConfiguration(rules);
-   * CompletableFuture<Void> future = apiAsyncClient.setBucketLifecycle(
-   *     SetBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
+   * CompletableFuture<Void> future = apiAsyncClient.putBucketLifecycle(
+   *     PutBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
-   * @param args {@link SetBucketLifecycleArgs} object.
+   * @param args {@link PutBucketLifecycleArgs} object.
    * @return {@link CompletableFuture}&lt;{@link Void}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2230,7 +2230,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Void> setBucketLifecycle(SetBucketLifecycleArgs args)
+  public CompletableFuture<Void> putBucketLifecycle(PutBucketLifecycleArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);

@@ -33,12 +33,12 @@ ApiClient apiClient =
 | [`makeBucket`](#makeBucket)                                       | [`setObjectRetention`](#setObjectRetention)             |
 | [`deleteBucket`](#deleteBucket)                                   | [`putObjectTagging`](#putObjectTagging)                       |
 | [`putBucketEncryption`](#putBucketEncryption)                     | [`statObject`](#statObject)                             |
-| [`setBucketLifecycle`](#setBucketLifecycle)                       | [`postObject`](#postObject)                         |
+| [`putBucketLifecycle`](#putBucketLifecycle)                       | [`postObject`](#postObject)                         |
 | [`setBucketNotification`](#setBucketNotification)                 | [`uploadSnowballObjects`](#uploadSnowballObjects)       |
 | [`putBucketPolicy`](#putBucketPolicy)                             |                                                         |
 | [`setBucketReplication`](#setBucketReplication)                   |                                                         |
 | [`putBucketTagging`](#putBucketTagging)                                 |                                                         |
-| [`setBucketVersioning`](#setBucketVersioning)                     |                                                         |
+| [`putBucketVersioning`](#putBucketVersioning)                     |                                                         |
 | [`setObjectLockConfiguration`](#setObjectLockConfiguration)       |                                                         |
 
 ## 1. Client Builder
@@ -667,16 +667,16 @@ apiClient.putBucketEncryption(
     PutBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
  ```
 
-<a name="setBucketLifecycle"></a>
-### setBucketLifecycle(SetBucketLifecycleArgs args)
-`public void setBucketLifecycle(SetBucketLifecycleArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketLifecycle-com.ionoscloud.s3.SetBucketLifecycleArgs-)_
+<a name="putBucketLifecycle"></a>
+### putBucketLifecycle(PutBucketLifecycleArgs args)
+`public void putBucketLifecycle(PutBucketLifecycleArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putBucketLifecycle-com.ionoscloud.s3.PutBucketLifecycleArgs-)_
 
 Sets lifecycle configuration to a bucket.
 
 __Parameters__
 | Parameter | Type                       | Description |
 |:----------|:---------------------------|:------------|
-| ``args``  | _[SetBucketLifecycleArgs]_ | Arguments.  |
+| ``args``  | _[PutBucketLifecycleArgs]_ | Arguments.  |
 
 __Example__
 ```java
@@ -702,8 +702,8 @@ rules.add(
         null,
         null));
 LifecycleConfiguration config = new LifecycleConfiguration(rules);
-apiClient.setBucketLifecycle(
-    SetBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
+apiClient.putBucketLifecycle(
+    PutBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
 ```
 
 <a name="setBucketNotification"></a>
@@ -841,21 +841,21 @@ map.put("User", "jsmith");
 apiClient.putBucketTagging(PutBucketTaggingArgs.builder().bucket("my-bucketname").tags(map).build());
 ```
 
-<a name="setBucketVersioning"></a>
-### setBucketVersioning(SetBucketVersioningArgs args)
-`public void setBucketVersioning(SetBucketVersioningArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketVersioning-com.ionoscloud.s3.SetBucketVersioningArgs-)_
+<a name="putBucketVersioning"></a>
+### putBucketVersioning(PutBucketVersioningArgs args)
+`public void putBucketVersioning(PutBucketVersioningArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putBucketVersioning-com.ionoscloud.s3.PutBucketVersioningArgs-)_
 
 Sets versioning configuration of a bucket.
 
 __Parameters__
 | Parameter | Type                        | Description |
 |:----------|:----------------------------|:------------|
-| ``args``  | _[SetBucketVersioningArgs]_ | Arguments.  |
+| ``args``  | _[PutBucketVersioningArgs]_ | Arguments.  |
 
 __Example__
 ```java
-apiClient.setBucketVersioning(
-    SetBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
+apiClient.putBucketVersioning(
+    PutBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
  ```
 
 <a name="setObjectLockConfiguration"></a>
@@ -1837,7 +1837,7 @@ ObjectStat objectStat =
 [LifecycleConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/LifecycleConfiguration.html
 [DeleteBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketLifecycleArgs.html
 [GetBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketLifecycleArgs.html
-[SetBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketLifecycleArgs.html
+[PutBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutBucketLifecycleArgs.html
 [GetBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketPolicyArgs.html
 [PutBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutBucketPolicyArgs.html
 [DeleteBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketPolicyArgs.html
@@ -1870,5 +1870,5 @@ ObjectStat objectStat =
 [ReplicationConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/ReplicationConfiguration.html
 [VersioningConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/VersioningConfiguration.html
 [GetBucketVersioningArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketVersioningArgs.html
-[SetBucketVersioningArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketVersioningArgs.html
+[PutBucketVersioningArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutBucketVersioningArgs.html
 [RestoreObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3RestoreObjectArgs.html
