@@ -1265,10 +1265,10 @@ public class ApiClient {
    * Removes an empty bucket using arguments
    *
    * <pre>Example:{@code
-   * apiClient.removeBucket(RemoveBucketArgs.builder().bucket("my-bucketname").build());
+   * apiClient.deleteBucket(DeleteBucketArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
-   * @param args {@link RemoveBucketArgs} bucket.
+   * @param args {@link DeleteBucketArgs} bucket.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1279,12 +1279,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void removeBucket(RemoveBucketArgs args)
+  public void deleteBucket(DeleteBucketArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.removeBucket(args).get();
+      asyncClient.deleteBucket(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {

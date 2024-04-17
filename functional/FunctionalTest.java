@@ -43,7 +43,7 @@ import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.ObjectWriteResponse;
 import com.ionoscloud.s3.PostPolicy;
 import com.ionoscloud.s3.PutObjectArgs;
-import com.ionoscloud.s3.RemoveBucketArgs;
+import com.ionoscloud.s3.DeleteBucketArgs;
 import com.ionoscloud.s3.RemoveObjectArgs;
 import com.ionoscloud.s3.RemoveObjectsArgs;
 import com.ionoscloud.s3.Result;
@@ -432,14 +432,14 @@ public class FunctionalTest {
                         .region(args.region())
                         .build()));
         if (removeCheck) {
-          client.removeBucket(
-              RemoveBucketArgs.builder().bucket(args.bucket()).region(args.region()).build());
+          client.deleteBucket(
+              DeleteBucketArgs.builder().bucket(args.bucket()).region(args.region()).build());
         }
         mintSuccessLog(methodName, null, startTime);
       } finally {
         if (!removeCheck) {
-          client.removeBucket(
-              RemoveBucketArgs.builder().bucket(args.bucket()).region(args.region()).build());
+          client.deleteBucket(
+              DeleteBucketArgs.builder().bucket(args.bucket()).region(args.region()).build());
         }
       }
     } catch (Exception e) {
@@ -546,7 +546,7 @@ public class FunctionalTest {
         mintSuccessLog(methodName, null, startTime);
       } finally {
         for (String bucketName : expectedBucketNames) {
-          client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+          client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
         }
       }
     } catch (Exception e) {
@@ -563,8 +563,8 @@ public class FunctionalTest {
     testBucketApiCases(methodName, true, false);
   }
 
-  public static void removeBucket() throws Exception {
-    String methodName = "removeBucket()";
+  public static void deleteBucket() throws Exception {
+    String methodName = "deleteBucket()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -595,7 +595,7 @@ public class FunctionalTest {
                 .build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(name).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(name).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -648,7 +648,7 @@ public class FunctionalTest {
             VersioningConfiguration.Status.SUSPENDED);
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(name).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(name).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -683,14 +683,14 @@ public class FunctionalTest {
     long startTime = System.currentTimeMillis();
     try {
       if (bucketName != null) {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
 
       if (bucketNameWithLock != null) {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketNameWithLock).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketNameWithLock).build());
       }
     } catch (Exception e) {
-      handleException("removeBucket()", null, startTime, e);
+      handleException("deleteBucket()", null, startTime, e);
     }
   }
 
@@ -1387,7 +1387,7 @@ public class FunctionalTest {
         if (results != null) {
           removeObjects(bucketName, results);
         }
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, testTags, startTime, e);
@@ -1792,7 +1792,7 @@ public class FunctionalTest {
                 .build());
         client.removeObject(
             RemoveObjectArgs.builder().bucket(args.bucket()).object(args.object()).build());
-        client.removeBucket(RemoveBucketArgs.builder().bucket(args.source().bucket()).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(args.source().bucket()).build());
       }
     } catch (Exception e) {
       handleException(methodName, testTags, startTime, e);
@@ -1835,7 +1835,7 @@ public class FunctionalTest {
             RemoveObjectArgs.builder().bucket(srcBucketName).object(srcObjectName).build());
         client.removeObject(
             RemoveObjectArgs.builder().bucket(bucketName).object(srcObjectName + "-copy").build());
-        client.removeBucket(RemoveBucketArgs.builder().bucket(srcBucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(srcBucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, testTags, startTime, e);
@@ -1884,7 +1884,7 @@ public class FunctionalTest {
             RemoveObjectArgs.builder().bucket(srcBucketName).object(srcObjectName).build());
         client.removeObject(
             RemoveObjectArgs.builder().bucket(bucketName).object(srcObjectName + "-copy").build());
-        client.removeBucket(RemoveBucketArgs.builder().bucket(srcBucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(srcBucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, testTags, startTime, e);
@@ -1932,7 +1932,7 @@ public class FunctionalTest {
             RemoveObjectArgs.builder().bucket(srcBucketName).object(srcObjectName).build());
         client.removeObject(
             RemoveObjectArgs.builder().bucket(bucketName).object(srcObjectName + "-copy").build());
-        client.removeBucket(RemoveBucketArgs.builder().bucket(srcBucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(srcBucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, testTags, startTime, e);
@@ -2425,7 +2425,7 @@ public class FunctionalTest {
         client.setObjectLockConfiguration(
             SetObjectLockConfigurationArgs.builder().bucket(bucketName).config(config).build());
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
       mintSuccessLog(methodName, testTags, startTime);
     } catch (Exception e) {
@@ -2467,7 +2467,7 @@ public class FunctionalTest {
         testGetObjectLockConfiguration(
             bucketName, RetentionMode.GOVERNANCE, new RetentionDurationYears(1));
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
 
       mintSuccessLog(methodName, null, startTime);
@@ -2496,7 +2496,7 @@ public class FunctionalTest {
         client.deleteObjectLockConfiguration(
             DeleteObjectLockConfigurationArgs.builder().bucket(bucketName).build());
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
       mintSuccessLog(methodName, null, startTime);
     } catch (Exception e) {
@@ -2678,7 +2678,7 @@ public class FunctionalTest {
         client.getBucketPolicy(GetBucketPolicyArgs.builder().bucket(bucketName).build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -2706,7 +2706,7 @@ public class FunctionalTest {
             SetBucketPolicyArgs.builder().bucket(bucketName).config(policy).build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -2737,7 +2737,7 @@ public class FunctionalTest {
         client.deleteBucketPolicy(DeleteBucketPolicyArgs.builder().bucket(bucketName).build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -2775,7 +2775,7 @@ public class FunctionalTest {
                 null));
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -2810,7 +2810,7 @@ public class FunctionalTest {
             DeleteBucketLifecycleArgs.builder().bucket(bucketName).build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -2895,7 +2895,7 @@ public class FunctionalTest {
             config.rules().get(0).filter().prefix());
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -2936,7 +2936,7 @@ public class FunctionalTest {
         client.setBucketNotification(
             SetBucketNotificationArgs.builder().bucket(bucketName).config(config).build());
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
       mintSuccessLog(methodName, null, startTime);
     } catch (Exception e) {
@@ -2988,7 +2988,7 @@ public class FunctionalTest {
               "config: expected: " + Xml.marshal(expectedConfig) + ", got: " + Xml.marshal(config));
         }
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
       mintSuccessLog(methodName, null, startTime);
     } catch (Exception e) {
@@ -3040,7 +3040,7 @@ public class FunctionalTest {
           System.out.println("config: expected: <empty>, got: " + Xml.marshal(config));
         }
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
       mintSuccessLog(methodName, null, startTime);
     } catch (Exception e) {
@@ -3108,7 +3108,7 @@ public class FunctionalTest {
       Files.delete(Paths.get(file));
       client.removeObject(
           RemoveObjectArgs.builder().bucket(bucketName).object("prefix-random-suffix").build());
-      client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+      client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
     }
   }
 
@@ -3204,7 +3204,7 @@ public class FunctionalTest {
                 .build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -3244,7 +3244,7 @@ public class FunctionalTest {
             SseAlgorithm.AES256);
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -3278,7 +3278,7 @@ public class FunctionalTest {
         Assert.assertNull("rule: expected: <null>, got: <non-null>", config.rule());
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -3302,7 +3302,7 @@ public class FunctionalTest {
         client.setBucketTags(SetBucketTagsArgs.builder().bucket(bucketName).tags(map).build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -3331,7 +3331,7 @@ public class FunctionalTest {
         Assert.assertEquals("tags: expected: " + map + ", got: " + tags.get(), map, tags.get());
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -3360,7 +3360,7 @@ public class FunctionalTest {
         Assert.assertTrue("tags: expected: <empty>" + ", got: " + tags.get(), tags.get().isEmpty());
         mintSuccessLog(methodName, null, startTime);
       } finally {
-        client.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+        client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
     } catch (Exception e) {
       handleException(methodName, null, startTime, e);
@@ -3676,7 +3676,7 @@ public class FunctionalTest {
   public static void runBucketTests() throws Exception {
     makeBucket();
     bucketExists();
-    removeBucket();
+    deleteBucket();
     listBuckets();
 
     setBucketVersioning();

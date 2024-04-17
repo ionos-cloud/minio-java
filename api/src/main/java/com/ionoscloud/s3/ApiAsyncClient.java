@@ -1861,10 +1861,10 @@ public class ApiAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<Void> future =
-   *     apiAsyncClient.removeBucket(RemoveBucketArgs.builder().bucket("my-bucketname").build());
+   *     apiAsyncClient.deleteBucket(DeleteBucketArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
-   * @param args {@link RemoveBucketArgs} bucket.
+   * @param args {@link DeleteBucketArgs} bucket.
    * @return {@link CompletableFuture}&lt;{@link Void}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1873,7 +1873,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Void> removeBucket(RemoveBucketArgs args)
+  public CompletableFuture<Void> deleteBucket(DeleteBucketArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);

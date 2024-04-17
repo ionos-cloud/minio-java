@@ -2,14 +2,14 @@
 
 import com.ionoscloud.s3.HeadBucketArgs;
 import com.ionoscloud.s3.ApiClient;
-import com.ionoscloud.s3.RemoveBucketArgs;
+import com.ionoscloud.s3.DeleteBucketArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class RemoveBucket {
-  /** ApiClient.removeBucket() example. */
+public class DeleteBucket {
+  /** ApiClient.deleteBucket() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
@@ -32,7 +32,7 @@ public class RemoveBucket {
       boolean found =
           apiClient.bucketExists(HeadBucketArgs.builder().bucket("my-bucketname").build());
       if (found) {
-        apiClient.removeBucket(RemoveBucketArgs.builder().bucket("my-bucketname").build());
+        apiClient.deleteBucket(DeleteBucketArgs.builder().bucket("my-bucketname").build());
         System.out.println("my-bucketname is removed successfully");
       } else {
         System.out.println("my-bucketname does not exist");

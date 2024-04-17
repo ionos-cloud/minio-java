@@ -31,7 +31,7 @@ ApiClient apiClient =
 | [`listBuckets`](#listBuckets)                                     | [`restoreObject`](#restoreObject)                       |
 | [`listenBucketNotification`](#listenBucketNotification)           | [`selectObjectContent`](#selectObjectContent)           |
 | [`makeBucket`](#makeBucket)                                       | [`setObjectRetention`](#setObjectRetention)             |
-| [`removeBucket`](#removeBucket)                                   | [`setObjectTags`](#setObjectTags)                       |
+| [`deleteBucket`](#deleteBucket)                                   | [`setObjectTags`](#setObjectTags)                       |
 | [`setBucketEncryption`](#setBucketEncryption)                     | [`statObject`](#statObject)                             |
 | [`setBucketLifecycle`](#setBucketLifecycle)                       | [`uploadObject`](#uploadObject)                         |
 | [`setBucketNotification`](#setBucketNotification)                 | [`uploadSnowballObjects`](#uploadSnowballObjects)       |
@@ -633,9 +633,9 @@ apiClient.makeBucket(
         .build());
 ```
 
-<a name="removeBucket"></a>
-### removeBucket(RemoveBucketArgs args)
-`public void removeBucket(RemoveBucketArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#removeBucket-com.ionoscloud.s3.RemoveBucketArgs-)_
+<a name="deleteBucket"></a>
+### deleteBucket(DeleteBucketArgs args)
+`public void deleteBucket(DeleteBucketArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteBucket-com.ionoscloud.s3.DeleteBucketArgs-)_
 
 Removes an empty bucket.
 
@@ -643,11 +643,11 @@ __Parameters__
 
 | Parameter    | Type                 | Description     |
 |:-------------|:---------------------|:----------------|
-| ``args``     | _[RemoveBucketArgs]_ | Arguments.      |
+| ``args``     | _[DeleteBucketArgs]_ | Arguments.      |
 
 __Example__
 ```java
-apiClient.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+apiClient.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
 ```
 
 <a name="setBucketEncryption"></a>
@@ -1817,7 +1817,7 @@ ObjectStat objectStat =
 [SelectResponseStream]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SelectResponseStream.html
 [MakeBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3MakeBucketArgs.html
 [ListObjectsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ListObjectsArgs.html
-[RemoveBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3RemoveBucketArgs.html
+[DeleteBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketArgs.html
 [SetObjectRetentionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetObjectRetentionArgs.html
 [GetObjectRetentionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectRetentionArgs.html
 [Method]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3http/Method.html
