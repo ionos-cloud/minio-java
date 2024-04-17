@@ -3,8 +3,8 @@
 package com.ionoscloud.s3;
 
 /**
- * Argument class of {@link ApiAsyncClient#deleteBucketTags} and {@link
- * ApiClient#deleteBucketTags}.
+ * Argument class of {@link ApiAsyncClient#deleteBucketTagging} and {@link
+ * ApiClient#deleteBucketTagging}.
  */
 public class DeleteBucketTaggingArgs extends BucketArgs {
   public static Builder builder() {

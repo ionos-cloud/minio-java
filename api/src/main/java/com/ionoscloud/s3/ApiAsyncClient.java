@@ -2921,7 +2921,7 @@ public class ApiAsyncClient extends S3Base {
    * Deletes tags of a bucket.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = apiAsyncClient.deleteBucketTags(
+   * CompletableFuture<Void> future = apiAsyncClient.deleteBucketTagging(
    *     DeleteBucketTaggingArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
@@ -2934,7 +2934,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Void> deleteBucketTags(DeleteBucketTaggingArgs args)
+  public CompletableFuture<Void> deleteBucketTagging(DeleteBucketTaggingArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);

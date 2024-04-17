@@ -18,7 +18,7 @@ ApiClient apiClient =
 | [`deleteBucketNotification`](#deleteBucketNotification)           | [`disableObjectLegalHold`](#disableObjectLegalHold)     |
 | [`deleteBucketPolicy`](#deleteBucketPolicy)                       | [`downloadObject`](#downloadObject)                     |
 | [`deleteBucketReplication`](#deleteBucketReplication)             | [`enableObjectLegalHold`](#enableObjectLegalHold)       |
-| [`deleteBucketTags`](#deleteBucketTags)                           | [`getObject`](#getObject)                               |
+| [`deleteBucketTagging`](#deleteBucketTagging)                           | [`getObject`](#getObject)                               |
 | [`deleteObjectLockConfiguration`](#deleteObjectLockConfiguration) | [`getObjectRetention`](#getObjectRetention)             |
 | [`getBucketEncryption`](#getBucketEncryption)                     | [`getObjectTags`](#getObjectTags)                       |
 | [`getBucketLifecycle`](#getBucketLifecycle)                       | [`getPresignedObjectUrl`](#getPresignedObjectUrl)       |
@@ -210,9 +210,9 @@ apiClient.deleteBucketLifecycle(
     DeleteBucketLifecycleArgs.builder().bucket("my-bucketname").build());
 ```
 
-<a name="deleteBucketTags"></a>
-### deleteBucketTags(DeleteBucketTaggingArgs args)
-`private void deleteBucketTags(DeleteBucketTaggingArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteBucketTags-com.ionoscloud.s3.DeleteBucketTaggingArgs-)_
+<a name="deleteBucketTagging"></a>
+### deleteBucketTagging(DeleteBucketTaggingArgs args)
+`private void deleteBucketTagging(DeleteBucketTaggingArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteBucketTagging-com.ionoscloud.s3.DeleteBucketTaggingArgs-)_
 
 Deletes tags of a bucket.
 
@@ -223,7 +223,7 @@ __Parameters__
 
 __Example__
 ```java
-apiClient.deleteBucketTags(DeleteBucketTaggingArgs.builder().bucket("my-bucketname").build());
+apiClient.deleteBucketTagging(DeleteBucketTaggingArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="deleteBucketPolicy"></a>

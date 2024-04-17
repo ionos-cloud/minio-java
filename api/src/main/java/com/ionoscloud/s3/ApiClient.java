@@ -2146,7 +2146,7 @@ public class ApiClient {
    * Deletes tags of a bucket.
    *
    * <pre>Example:{@code
-   * apiClient.deleteBucketTags(DeleteBucketTaggingArgs.builder().bucket("my-bucketname").build());
+   * apiClient.deleteBucketTagging(DeleteBucketTaggingArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
    * @param args {@link DeleteBucketTaggingArgs} object.
@@ -2160,12 +2160,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void deleteBucketTags(DeleteBucketTaggingArgs args)
+  public void deleteBucketTagging(DeleteBucketTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.deleteBucketTags(args).get();
+      asyncClient.deleteBucketTagging(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {

@@ -8,7 +8,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class DeleteBucketTagging {
-  /** ApiClient.deleteBucketTags() example. */
+  /** ApiClient.deleteBucketTagging() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
@@ -26,7 +26,7 @@ public class DeleteBucketTagging {
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
 
-      apiClient.deleteBucketTags(DeleteBucketTaggingArgs.builder().bucket("my-bucketname").build());
+      apiClient.deleteBucketTagging(DeleteBucketTaggingArgs.builder().bucket("my-bucketname").build());
       System.out.println("Bucket tags deleted successfully");
     } catch (ApiException e) {
       System.out.println("Error occurred: " + e);

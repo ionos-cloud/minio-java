@@ -3338,8 +3338,8 @@ public class FunctionalTest {
     }
   }
 
-  public static void deleteBucketTags() throws Exception {
-    String methodName = "deleteBucketTags()";
+  public static void deleteBucketTagging() throws Exception {
+    String methodName = "deleteBucketTagging()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -3349,13 +3349,13 @@ public class FunctionalTest {
     try {
       client.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
       try {
-        client.deleteBucketTags(DeleteBucketTaggingArgs.builder().bucket(bucketName).build());
+        client.deleteBucketTagging(DeleteBucketTaggingArgs.builder().bucket(bucketName).build());
 
         Map<String, String> map = new HashMap<>();
         map.put("Project", "Project One");
         map.put("User", "jsmith");
         client.putBucketTagging(PutBucketTaggingArgs.builder().bucket(bucketName).tags(map).build());
-        client.deleteBucketTags(DeleteBucketTaggingArgs.builder().bucket(bucketName).build());
+        client.deleteBucketTagging(DeleteBucketTaggingArgs.builder().bucket(bucketName).build());
         Tags tags = client.getBucketTagging(GetBucketTaggingArgs.builder().bucket(bucketName).build());
         Assert.assertTrue("tags: expected: <empty>" + ", got: " + tags.get(), tags.get().isEmpty());
         mintSuccessLog(methodName, null, startTime);
@@ -3691,7 +3691,7 @@ public class FunctionalTest {
 
     putBucketTagging();
     getBucketTagging();
-    deleteBucketTags();
+    deleteBucketTagging();
 
     putBucketPolicy();
     getBucketPolicy();
