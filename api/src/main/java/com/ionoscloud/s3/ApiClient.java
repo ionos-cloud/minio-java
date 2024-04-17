@@ -2078,10 +2078,10 @@ public class ApiClient {
    *
    * <pre>Example:{@code
    * Tags tags =
-   *     apiClient.getBucketTags(GetBucketTagsArgs.builder().bucket("my-bucketname").build());
+   *     apiClient.getBucketTagging(GetBucketTaggingArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
-   * @param args {@link GetBucketTagsArgs} object.
+   * @param args {@link GetBucketTaggingArgs} object.
    * @return {@link Tags} - Tags.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
@@ -2093,12 +2093,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public Tags getBucketTags(GetBucketTagsArgs args)
+  public Tags getBucketTagging(GetBucketTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      return asyncClient.getBucketTags(args).get();
+      return asyncClient.getBucketTagging(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -2114,11 +2114,11 @@ public class ApiClient {
    * Map<String, String> map = new HashMap<>();
    * map.put("Project", "Project One");
    * map.put("User", "jsmith");
-   * apiClient.setBucketTags(
-   *     SetBucketTagsArgs.builder().bucket("my-bucketname").tags(map).build());
+   * apiClient.putBucketTagging(
+   *     PutBucketTaggingArgs.builder().bucket("my-bucketname").tags(map).build());
    * }</pre>
    *
-   * @param args {@link SetBucketTagsArgs} object.
+   * @param args {@link PutBucketTaggingArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2129,12 +2129,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setBucketTags(SetBucketTagsArgs args)
+  public void putBucketTagging(PutBucketTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setBucketTags(args).get();
+      asyncClient.putBucketTagging(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -2146,10 +2146,10 @@ public class ApiClient {
    * Deletes tags of a bucket.
    *
    * <pre>Example:{@code
-   * apiClient.deleteBucketTags(DeleteBucketTagsArgs.builder().bucket("my-bucketname").build());
+   * apiClient.deleteBucketTags(DeleteBucketTaggingArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
-   * @param args {@link DeleteBucketTagsArgs} object.
+   * @param args {@link DeleteBucketTaggingArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2160,7 +2160,7 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void deleteBucketTags(DeleteBucketTagsArgs args)
+  public void deleteBucketTags(DeleteBucketTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {

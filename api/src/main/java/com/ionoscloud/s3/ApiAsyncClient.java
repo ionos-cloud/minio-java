@@ -2840,10 +2840,10 @@ public class ApiAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<Tags> future =
-   *     apiAsyncClient.getBucketTags(GetBucketTagsArgs.builder().bucket("my-bucketname").build());
+   *     apiAsyncClient.getBucketTagging(GetBucketTaggingArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
-   * @param args {@link GetBucketTagsArgs} object.
+   * @param args {@link GetBucketTaggingArgs} object.
    * @return {@link CompletableFuture}&lt;{@link Tags}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2852,7 +2852,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Tags> getBucketTags(GetBucketTagsArgs args)
+  public CompletableFuture<Tags> getBucketTagging(GetBucketTaggingArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);
@@ -2896,11 +2896,11 @@ public class ApiAsyncClient extends S3Base {
    * Map<String, String> map = new HashMap<>();
    * map.put("Project", "Project One");
    * map.put("User", "jsmith");
-   * CompletableFuture<Void> future = apiAsyncClient.setBucketTags(
-   *     SetBucketTagsArgs.builder().bucket("my-bucketname").tags(map).build());
+   * CompletableFuture<Void> future = apiAsyncClient.putBucketTagging(
+   *     PutBucketTaggingArgs.builder().bucket("my-bucketname").tags(map).build());
    * }</pre>
    *
-   * @param args {@link SetBucketTagsArgs} object.
+   * @param args {@link PutBucketTaggingArgs} object.
    * @return {@link CompletableFuture}&lt;{@link Void}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2909,7 +2909,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Void> setBucketTags(SetBucketTagsArgs args)
+  public CompletableFuture<Void> putBucketTagging(PutBucketTaggingArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);
@@ -2922,10 +2922,10 @@ public class ApiAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<Void> future = apiAsyncClient.deleteBucketTags(
-   *     DeleteBucketTagsArgs.builder().bucket("my-bucketname").build());
+   *     DeleteBucketTaggingArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
-   * @param args {@link DeleteBucketTagsArgs} object.
+   * @param args {@link DeleteBucketTaggingArgs} object.
    * @return {@link CompletableFuture}&lt;{@link Void}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2934,7 +2934,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Void> deleteBucketTags(DeleteBucketTagsArgs args)
+  public CompletableFuture<Void> deleteBucketTags(DeleteBucketTaggingArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);

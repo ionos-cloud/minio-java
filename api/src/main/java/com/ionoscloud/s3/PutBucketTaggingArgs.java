@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Argument class of {@link ApiAsyncClient#setBucketTags} and {@link ApiClient#setBucketTags}.
+ * Argument class of {@link ApiAsyncClient#putBucketTagging} and {@link ApiClient#putBucketTagging}.
  */
-public class SetBucketTagsArgs extends BucketArgs {
+public class PutBucketTaggingArgs extends BucketArgs {
   private Tags tags;
 
   public Tags tags() {
@@ -20,13 +20,13 @@ public class SetBucketTagsArgs extends BucketArgs {
     return new Builder();
   }
 
-  /** Argument builder of {@link SetBucketTagsArgs}. */
-  public static final class Builder extends BucketArgs.Builder<Builder, SetBucketTagsArgs> {
+  /** Argument builder of {@link PutBucketTaggingArgs}. */
+  public static final class Builder extends BucketArgs.Builder<Builder, PutBucketTaggingArgs> {
     private void validateTags(Tags tags) {
       validateNotNull(tags, "tags");
     }
 
-    protected void validate(SetBucketTagsArgs args) {
+    protected void validate(PutBucketTaggingArgs args) {
       super.validate(args);
       validateTags(args.tags);
     }
@@ -47,9 +47,9 @@ public class SetBucketTagsArgs extends BucketArgs {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof SetBucketTagsArgs)) return false;
+    if (!(o instanceof PutBucketTaggingArgs)) return false;
     if (!super.equals(o)) return false;
-    SetBucketTagsArgs that = (SetBucketTagsArgs) o;
+    PutBucketTaggingArgs that = (PutBucketTaggingArgs) o;
     return Objects.equals(tags, that.tags);
   }
 

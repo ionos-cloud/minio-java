@@ -16,7 +16,7 @@ import com.ionoscloud.s3.DeleteBucketLifecycleArgs;
 import com.ionoscloud.s3.DeleteBucketNotificationArgs;
 import com.ionoscloud.s3.DeleteBucketPolicyArgs;
 import com.ionoscloud.s3.DeleteBucketReplicationArgs;
-import com.ionoscloud.s3.DeleteBucketTagsArgs;
+import com.ionoscloud.s3.DeleteBucketTaggingArgs;
 import com.ionoscloud.s3.DeleteObjectLockConfigurationArgs;
 import com.ionoscloud.s3.DeleteObjectTagsArgs;
 import com.ionoscloud.s3.Directive;
@@ -28,7 +28,7 @@ import com.ionoscloud.s3.GetBucketLifecycleArgs;
 import com.ionoscloud.s3.GetBucketNotificationArgs;
 import com.ionoscloud.s3.GetBucketPolicyArgs;
 import com.ionoscloud.s3.GetBucketReplicationArgs;
-import com.ionoscloud.s3.GetBucketTagsArgs;
+import com.ionoscloud.s3.GetBucketTaggingArgs;
 import com.ionoscloud.s3.GetBucketVersioningArgs;
 import com.ionoscloud.s3.GetObjectArgs;
 import com.ionoscloud.s3.GetObjectLockConfigurationArgs;
@@ -58,7 +58,7 @@ import com.ionoscloud.s3.SetBucketLifecycleArgs;
 import com.ionoscloud.s3.SetBucketNotificationArgs;
 import com.ionoscloud.s3.PutBucketPolicyArgs;
 import com.ionoscloud.s3.SetBucketReplicationArgs;
-import com.ionoscloud.s3.SetBucketTagsArgs;
+import com.ionoscloud.s3.PutBucketTaggingArgs;
 import com.ionoscloud.s3.SetBucketVersioningArgs;
 import com.ionoscloud.s3.SetObjectLockConfigurationArgs;
 import com.ionoscloud.s3.SetObjectRetentionArgs;
@@ -3285,8 +3285,8 @@ public class FunctionalTest {
     }
   }
 
-  public static void setBucketTags() throws Exception {
-    String methodName = "setBucketTags()";
+  public static void putBucketTagging() throws Exception {
+    String methodName = "putBucketTagging()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -3299,7 +3299,7 @@ public class FunctionalTest {
         Map<String, String> map = new HashMap<>();
         map.put("Project", "Project One");
         map.put("User", "jsmith");
-        client.setBucketTags(SetBucketTagsArgs.builder().bucket(bucketName).tags(map).build());
+        client.putBucketTagging(PutBucketTaggingArgs.builder().bucket(bucketName).tags(map).build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
         client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
@@ -3309,8 +3309,8 @@ public class FunctionalTest {
     }
   }
 
-  public static void getBucketTags() throws Exception {
-    String methodName = "getBucketTags()";
+  public static void getBucketTagging() throws Exception {
+    String methodName = "getBucketTagging()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -3321,13 +3321,13 @@ public class FunctionalTest {
       client.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
       try {
         Map<String, String> map = new HashMap<>();
-        Tags tags = client.getBucketTags(GetBucketTagsArgs.builder().bucket(bucketName).build());
+        Tags tags = client.getBucketTagging(GetBucketTaggingArgs.builder().bucket(bucketName).build());
         Assert.assertEquals("tags: expected: " + map + ", got: " + tags.get(), map, tags.get());
 
         map.put("Project", "Project One");
         map.put("User", "jsmith");
-        client.setBucketTags(SetBucketTagsArgs.builder().bucket(bucketName).tags(map).build());
-        tags = client.getBucketTags(GetBucketTagsArgs.builder().bucket(bucketName).build());
+        client.putBucketTagging(PutBucketTaggingArgs.builder().bucket(bucketName).tags(map).build());
+        tags = client.getBucketTagging(GetBucketTaggingArgs.builder().bucket(bucketName).build());
         Assert.assertEquals("tags: expected: " + map + ", got: " + tags.get(), map, tags.get());
         mintSuccessLog(methodName, null, startTime);
       } finally {
@@ -3349,14 +3349,14 @@ public class FunctionalTest {
     try {
       client.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
       try {
-        client.deleteBucketTags(DeleteBucketTagsArgs.builder().bucket(bucketName).build());
+        client.deleteBucketTags(DeleteBucketTaggingArgs.builder().bucket(bucketName).build());
 
         Map<String, String> map = new HashMap<>();
         map.put("Project", "Project One");
         map.put("User", "jsmith");
-        client.setBucketTags(SetBucketTagsArgs.builder().bucket(bucketName).tags(map).build());
-        client.deleteBucketTags(DeleteBucketTagsArgs.builder().bucket(bucketName).build());
-        Tags tags = client.getBucketTags(GetBucketTagsArgs.builder().bucket(bucketName).build());
+        client.putBucketTagging(PutBucketTaggingArgs.builder().bucket(bucketName).tags(map).build());
+        client.deleteBucketTags(DeleteBucketTaggingArgs.builder().bucket(bucketName).build());
+        Tags tags = client.getBucketTagging(GetBucketTaggingArgs.builder().bucket(bucketName).build());
         Assert.assertTrue("tags: expected: <empty>" + ", got: " + tags.get(), tags.get().isEmpty());
         mintSuccessLog(methodName, null, startTime);
       } finally {
@@ -3689,8 +3689,8 @@ public class FunctionalTest {
     getBucketEncryption();
     deleteBucketEncryption();
 
-    setBucketTags();
-    getBucketTags();
+    putBucketTagging();
+    getBucketTagging();
     deleteBucketTags();
 
     putBucketPolicy();
