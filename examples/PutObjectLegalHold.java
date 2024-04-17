@@ -1,13 +1,13 @@
 
-import com.ionoscloud.s3.EnableObjectLegalHoldArgs;
+import com.ionoscloud.s3.PutObjectLegalHoldArgs;
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class EnableObjectLegalHold {
-  /** ApiClient.enableObjectLegalHold() example. */
+public class PutObjectLegalHold {
+  /** ApiClient.putObjectLegalHold() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException, IllegalArgumentException {
     try {
@@ -26,8 +26,8 @@ public class EnableObjectLegalHold {
       //         .build();
 
       // Enable object legal hold.
-      apiClient.enableObjectLegalHold(
-          EnableObjectLegalHoldArgs.builder()
+      apiClient.putObjectLegalHold(
+          PutObjectLegalHoldArgs.builder()
               .bucket("my-bucketname")
               .object("my-objectname")
               .versionId("object-versionId")

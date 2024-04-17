@@ -1,7 +1,7 @@
 
 
 import com.ionoscloud.s3.ApiClient;
-import com.ionoscloud.s3.SetObjectLockConfigurationArgs;
+import com.ionoscloud.s3.PutObjectLockConfigurationArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.ObjectLockConfiguration;
 import com.ionoscloud.s3.messages.RetentionDurationDays;
@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class SetObjectLockConfiguration {
-  /** ApiClient.setObjectLockConfiguration() exanple. */
+public class PutObjectLockConfiguration {
+  /** ApiClient.putObjectLockConfiguration() exanple. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
@@ -33,8 +33,8 @@ public class SetObjectLockConfiguration {
       ObjectLockConfiguration config =
           new ObjectLockConfiguration(RetentionMode.COMPLIANCE, new RetentionDurationDays(100));
 
-      apiClient.setObjectLockConfiguration(
-          SetObjectLockConfigurationArgs.builder()
+      apiClient.putObjectLockConfiguration(
+          PutObjectLockConfigurationArgs.builder()
               .bucket("my-lock-enabled-bucketname")
               .config(config)
               .build());

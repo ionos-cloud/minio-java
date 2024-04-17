@@ -22,7 +22,7 @@ import com.ionoscloud.s3.DeleteObjectTaggingArgs;
 import com.ionoscloud.s3.Directive;
 import com.ionoscloud.s3.DisableObjectLegalHoldArgs;
 import com.ionoscloud.s3.DownloadObjectArgs;
-import com.ionoscloud.s3.EnableObjectLegalHoldArgs;
+import com.ionoscloud.s3.PutObjectLegalHoldArgs;
 import com.ionoscloud.s3.GetBucketEncryptionArgs;
 import com.ionoscloud.s3.GetBucketLifecycleArgs;
 import com.ionoscloud.s3.GetBucketNotificationArgs;
@@ -35,7 +35,7 @@ import com.ionoscloud.s3.GetObjectLockConfigurationArgs;
 import com.ionoscloud.s3.GetObjectRetentionArgs;
 import com.ionoscloud.s3.GetObjectTaggingArgs;
 import com.ionoscloud.s3.GetPresignedObjectUrlArgs;
-import com.ionoscloud.s3.IsObjectLegalHoldEnabledArgs;
+import com.ionoscloud.s3.GetObjectLegalHoldArgs;
 import com.ionoscloud.s3.ListObjectsArgs;
 import com.ionoscloud.s3.ListenBucketNotificationArgs;
 import com.ionoscloud.s3.MakeBucketArgs;
@@ -60,8 +60,8 @@ import com.ionoscloud.s3.PutBucketPolicyArgs;
 import com.ionoscloud.s3.SetBucketReplicationArgs;
 import com.ionoscloud.s3.PutBucketTaggingArgs;
 import com.ionoscloud.s3.PutBucketVersioningArgs;
-import com.ionoscloud.s3.SetObjectLockConfigurationArgs;
-import com.ionoscloud.s3.SetObjectRetentionArgs;
+import com.ionoscloud.s3.PutObjectLockConfigurationArgs;
+import com.ionoscloud.s3.PutObjectRetentionArgs;
 import com.ionoscloud.s3.PutObjectTaggingArgs;
 import com.ionoscloud.s3.SnowballObject;
 import com.ionoscloud.s3.StatObjectArgs;
@@ -746,8 +746,8 @@ public class FunctionalTest {
         }
       }
       if (args.retention() != null) {
-        client.setObjectRetention(
-            SetObjectRetentionArgs.builder()
+        client.putObjectRetention(
+            PutObjectRetentionArgs.builder()
                 .bucket(args.bucket())
                 .object(args.object())
                 .config(new Retention())
@@ -2268,24 +2268,24 @@ public class FunctionalTest {
   public static void checkObjectLegalHold(String bucketName, String objectName, boolean enableCheck)
       throws Exception {
     if (enableCheck) {
-      client.enableObjectLegalHold(
-          EnableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).build());
+      client.putObjectLegalHold(
+          PutObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).build());
     } else {
       client.disableObjectLegalHold(
           DisableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).build());
     }
 
     boolean result =
-        client.isObjectLegalHoldEnabled(
-            IsObjectLegalHoldEnabledArgs.builder().bucket(bucketName).object(objectName).build());
+        client.getObjectLegalHold(
+            GetObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).build());
     Assert.assertEquals(
         "object legal hold: expected: " + enableCheck + ", got: " + result, result, enableCheck);
   }
 
-  public static void enableObjectLegalHold() throws Exception {
+  public static void putObjectLegalHold() throws Exception {
     if (bucketNameWithLock == null) return;
 
-    String methodName = "enableObjectLegalHold()";
+    String methodName = "putObjectLegalHold()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -2341,8 +2341,8 @@ public class FunctionalTest {
                     .build());
 
         checkObjectLegalHold(bucketNameWithLock, objectName, false);
-        client.enableObjectLegalHold(
-            EnableObjectLegalHoldArgs.builder()
+        client.putObjectLegalHold(
+            PutObjectLegalHoldArgs.builder()
                 .bucket(bucketNameWithLock)
                 .object(objectName)
                 .build());
@@ -2364,10 +2364,10 @@ public class FunctionalTest {
     }
   }
 
-  public static void isObjectLegalHoldEnabled() throws Exception {
+  public static void getObjectLegalHold() throws Exception {
     if (bucketNameWithLock == null) return;
 
-    String methodName = "isObjectLegalHoldEnabled()";
+    String methodName = "getObjectLegalHold()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -2383,8 +2383,8 @@ public class FunctionalTest {
                     .build());
 
         boolean result =
-            client.isObjectLegalHoldEnabled(
-                IsObjectLegalHoldEnabledArgs.builder()
+            client.getObjectLegalHold(
+                GetObjectLegalHoldArgs.builder()
                     .bucket(bucketNameWithLock)
                     .object(objectName)
                     .build());
@@ -2408,8 +2408,8 @@ public class FunctionalTest {
     }
   }
 
-  public static void setObjectLockConfiguration() throws Exception {
-    String methodName = "setObjectLockConfiguration()";
+  public static void putObjectLockConfiguration() throws Exception {
+    String methodName = "putObjectLockConfiguration()";
     String testTags = "[COMPLIANCE, 10 days]";
     if (!mintEnv) {
       System.out.println(methodName);
@@ -2422,8 +2422,8 @@ public class FunctionalTest {
       try {
         ObjectLockConfiguration config =
             new ObjectLockConfiguration(RetentionMode.COMPLIANCE, new RetentionDurationDays(10));
-        client.setObjectLockConfiguration(
-            SetObjectLockConfigurationArgs.builder().bucket(bucketName).config(config).build());
+        client.putObjectLockConfiguration(
+            PutObjectLockConfigurationArgs.builder().bucket(bucketName).config(config).build());
       } finally {
         client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
       }
@@ -2436,8 +2436,8 @@ public class FunctionalTest {
   public static void testGetObjectLockConfiguration(
       String bucketName, RetentionMode mode, RetentionDuration duration) throws Exception {
     ObjectLockConfiguration expectedConfig = new ObjectLockConfiguration(mode, duration);
-    client.setObjectLockConfiguration(
-        SetObjectLockConfigurationArgs.builder().bucket(bucketName).config(expectedConfig).build());
+    client.putObjectLockConfiguration(
+        PutObjectLockConfigurationArgs.builder().bucket(bucketName).config(expectedConfig).build());
     ObjectLockConfiguration config =
         client.getObjectLockConfiguration(
             GetObjectLockConfigurationArgs.builder().bucket(bucketName).build());
@@ -2491,8 +2491,8 @@ public class FunctionalTest {
             DeleteObjectLockConfigurationArgs.builder().bucket(bucketName).build());
         ObjectLockConfiguration config =
             new ObjectLockConfiguration(RetentionMode.COMPLIANCE, new RetentionDurationDays(10));
-        client.setObjectLockConfiguration(
-            SetObjectLockConfigurationArgs.builder().bucket(bucketName).config(config).build());
+        client.putObjectLockConfiguration(
+            PutObjectLockConfigurationArgs.builder().bucket(bucketName).config(config).build());
         client.deleteObjectLockConfiguration(
             DeleteObjectLockConfigurationArgs.builder().bucket(bucketName).build());
       } finally {
@@ -2504,10 +2504,10 @@ public class FunctionalTest {
     }
   }
 
-  public static void setObjectRetention() throws Exception {
+  public static void putObjectRetention() throws Exception {
     if (bucketNameWithLock == null) return;
 
-    String methodName = "setObjectRetention()";
+    String methodName = "putObjectRetention()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -2523,8 +2523,8 @@ public class FunctionalTest {
                         new ContentInputStream(1 * KB), 1 * KB, -1)
                     .build());
 
-        client.setObjectRetention(
-            SetObjectRetentionArgs.builder()
+        client.putObjectRetention(
+            PutObjectRetentionArgs.builder()
                 .bucket(bucketNameWithLock)
                 .object(objectName)
                 .config(
@@ -2532,8 +2532,8 @@ public class FunctionalTest {
                         RetentionMode.GOVERNANCE, ZonedDateTime.now(Time.UTC).plusDays(1)))
                 .build());
 
-        client.setObjectRetention(
-            SetObjectRetentionArgs.builder()
+        client.putObjectRetention(
+            PutObjectRetentionArgs.builder()
                 .bucket(bucketNameWithLock)
                 .object(objectName)
                 .config(new Retention())
@@ -2555,8 +2555,8 @@ public class FunctionalTest {
     }
   }
 
-  public static void testGetObjectRetention(SetObjectRetentionArgs args) throws Exception {
-    client.setObjectRetention(args);
+  public static void testGetObjectRetention(PutObjectRetentionArgs args) throws Exception {
+    client.putObjectRetention(args);
     Retention config =
         client.getObjectRetention(
             GetObjectRetentionArgs.builder().bucket(args.bucket()).object(args.object()).build());
@@ -2608,7 +2608,7 @@ public class FunctionalTest {
                     .build());
 
         testGetObjectRetention(
-            SetObjectRetentionArgs.builder()
+            PutObjectRetentionArgs.builder()
                 .bucket(bucketNameWithLock)
                 .object(objectName)
                 .config(
@@ -2618,7 +2618,7 @@ public class FunctionalTest {
 
         // Check shortening retention until period
         testGetObjectRetention(
-            SetObjectRetentionArgs.builder()
+            PutObjectRetentionArgs.builder()
                 .bucket(bucketNameWithLock)
                 .object(objectName)
                 .config(
@@ -2630,7 +2630,7 @@ public class FunctionalTest {
         // Check empty retention.
         // Enable below test when the server release has a fix.
         // testGetObjectRetention(
-        //     SetObjectRetentionArgs.builder()
+        //     PutObjectRetentionArgs.builder()
         //         .bucket(bucketNameWithLock)
         //         .object(objectName)
         //         .config(new Retention())
@@ -3682,7 +3682,7 @@ public class FunctionalTest {
     putBucketVersioning();
     getBucketVersioning();
 
-    setObjectLockConfiguration();
+    putObjectLockConfiguration();
     getObjectLockConfiguration();
 
     putBucketEncryption();
@@ -3728,15 +3728,15 @@ public class FunctionalTest {
     postObject();
     downloadObject();
 
-    setObjectRetention();
+    putObjectRetention();
     getObjectRetention();
 
     getPresignedObjectUrl();
     getPresignedPostFormData();
 
-    enableObjectLegalHold();
+    putObjectLegalHold();
     disableObjectLegalHold();
-    isObjectLegalHoldEnabled();
+    getObjectLegalHold();
 
     selectObjectContent();
 

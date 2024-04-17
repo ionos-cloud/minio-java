@@ -967,11 +967,11 @@ public class ApiClient {
    * <pre>Example:{@code
    * ObjectLockConfiguration config = new ObjectLockConfiguration(
    *     RetentionMode.COMPLIANCE, new RetentionDurationDays(100));
-   * apiClient.setObjectLockConfiguration(
-   *     SetObjectLockConfigurationArgs.builder().bucket("my-bucketname").config(config).build());
+   * apiClient.putObjectLockConfiguration(
+   *     PutObjectLockConfigurationArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
-   * @param args {@link SetObjectLockConfigurationArgs} object.
+   * @param args {@link PutObjectLockConfigurationArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -982,12 +982,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setObjectLockConfiguration(SetObjectLockConfigurationArgs args)
+  public void putObjectLockConfiguration(PutObjectLockConfigurationArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setObjectLockConfiguration(args).get();
+      asyncClient.putObjectLockConfiguration(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -1071,8 +1071,8 @@ public class ApiClient {
    * <pre>Example:{@code
    *  Retention retention = new Retention(
    *       RetentionMode.COMPLIANCE, ZonedDateTime.now().plusYears(1));
-   *  apiClient.setObjectRetention(
-   *      SetObjectRetentionArgs.builder()
+   *  apiClient.putObjectRetention(
+   *      PutObjectRetentionArgs.builder()
    *          .bucket("my-bucketname")
    *          .object("my-objectname")
    *          .config(config)
@@ -1080,7 +1080,7 @@ public class ApiClient {
    *          .build());
    * }</pre>
    *
-   * @param args {@link SetObjectRetentionArgs} object.
+   * @param args {@link PutObjectRetentionArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1091,12 +1091,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setObjectRetention(SetObjectRetentionArgs args)
+  public void putObjectRetention(PutObjectRetentionArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setObjectRetention(args).get();
+      asyncClient.putObjectRetention(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -1148,15 +1148,15 @@ public class ApiClient {
    * Enables legal hold on an object.
    *
    * <pre>Example:{@code
-   * apiClient.enableObjectLegalHold(
-   *    EnableObjectLegalHoldArgs.builder()
+   * apiClient.putObjectLegalHold(
+   *    PutObjectLegalHoldArgs.builder()
    *        .bucket("my-bucketname")
    *        .object("my-objectname")
    *        .versionId("object-versionId")
    *        .build());
    * }</pre>
    *
-   * @param args {@link EnableObjectLegalHoldArgs} object.
+   * @param args {@link PutObjectLegalHoldArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1167,12 +1167,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void enableObjectLegalHold(EnableObjectLegalHoldArgs args)
+  public void putObjectLegalHold(PutObjectLegalHoldArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.enableObjectLegalHold(args).get();
+      asyncClient.putObjectLegalHold(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -1221,8 +1221,8 @@ public class ApiClient {
    *
    * <pre>Example:{@code
    * boolean status =
-   *     s3Client.isObjectLegalHoldEnabled(
-   *        IsObjectLegalHoldEnabledArgs.builder()
+   *     s3Client.getObjectLegalHold(
+   *        GetObjectLegalHoldArgs.builder()
    *             .bucket("my-bucketname")
    *             .object("my-objectname")
    *             .versionId("object-versionId")
@@ -1234,7 +1234,7 @@ public class ApiClient {
    *  }
    * }</pre>
    *
-   * args {@link IsObjectLegalHoldEnabledArgs} object.
+   * args {@link GetObjectLegalHoldArgs} object.
    *
    * @return boolean - True if legal hold is enabled.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
@@ -1247,12 +1247,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public boolean isObjectLegalHoldEnabled(IsObjectLegalHoldEnabledArgs args)
+  public boolean getObjectLegalHold(GetObjectLegalHoldArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      return asyncClient.isObjectLegalHoldEnabled(args).get();
+      return asyncClient.getObjectLegalHold(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {

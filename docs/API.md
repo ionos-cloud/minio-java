@@ -17,20 +17,20 @@ ApiClient apiClient =
 | [`deleteBucketLifecycle`](#deleteBucketLifecycle)                 | [`deleteObjectTags`](#deleteObjectTags)                 |
 | [`deleteBucketNotification`](#deleteBucketNotification)           | [`disableObjectLegalHold`](#disableObjectLegalHold)     |
 | [`deleteBucketPolicy`](#deleteBucketPolicy)                       | [`downloadObject`](#downloadObject)                     |
-| [`deleteBucketReplication`](#deleteBucketReplication)             | [`enableObjectLegalHold`](#enableObjectLegalHold)       |
+| [`deleteBucketReplication`](#deleteBucketReplication)             | [`putObjectLegalHold`](#putObjectLegalHold)       |
 | [`deleteBucketTagging`](#deleteBucketTagging)                           | [`getObject`](#getObject)                               |
 | [`deleteObjectLockConfiguration`](#deleteObjectLockConfiguration) | [`getObjectRetention`](#getObjectRetention)             |
 | [`getBucketEncryption`](#getBucketEncryption)                     | [`getObjectTagging`](#getObjectTagging)                       |
 | [`getBucketLifecycle`](#getBucketLifecycle)                       | [`getPresignedObjectUrl`](#getPresignedObjectUrl)       |
 | [`getBucketNotification`](#getBucketNotification)                 | [`getPresignedPostFormData`](#getPresignedPostFormData) |
-| [`getBucketPolicy`](#getBucketPolicy)                             | [`isObjectLegalHoldEnabled`](#isObjectLegalHoldEnabled) |
+| [`getBucketPolicy`](#getBucketPolicy)                             | [`getObjectLegalHold`](#getObjectLegalHold) |
 | [`getBucketReplication`](#getBucketReplication)                   | [`listObjects`](#listObjects)                           |
 | [`getBucketTagging`](#getBucketTagging)                                 | [`putObject`](#putObject)                               |
 | [`getBucketVersioning`](#getBucketVersioning)                     | [`removeObject`](#removeObject)                         |
 | [`getObjectLockConfiguration`](#getObjectLockConfiguration)       | [`removeObjects`](#removeObjects)                       |
 | [`listBuckets`](#listBuckets)                                     | [`restoreObject`](#restoreObject)                       |
 | [`listenBucketNotification`](#listenBucketNotification)           | [`selectObjectContent`](#selectObjectContent)           |
-| [`makeBucket`](#makeBucket)                                       | [`setObjectRetention`](#setObjectRetention)             |
+| [`makeBucket`](#makeBucket)                                       | [`putObjectRetention`](#putObjectRetention)             |
 | [`deleteBucket`](#deleteBucket)                                   | [`putObjectTagging`](#putObjectTagging)                       |
 | [`putBucketEncryption`](#putBucketEncryption)                     | [`statObject`](#statObject)                             |
 | [`putBucketLifecycle`](#putBucketLifecycle)                       | [`postObject`](#postObject)                         |
@@ -39,7 +39,7 @@ ApiClient apiClient =
 | [`setBucketReplication`](#setBucketReplication)                   |                                                         |
 | [`putBucketTagging`](#putBucketTagging)                                 |                                                         |
 | [`putBucketVersioning`](#putBucketVersioning)                     |                                                         |
-| [`setObjectLockConfiguration`](#setObjectLockConfiguration)       |                                                         |
+| [`putObjectLockConfiguration`](#putObjectLockConfiguration)       |                                                         |
 
 ## 1. Client Builder
 
@@ -858,23 +858,23 @@ apiClient.putBucketVersioning(
     PutBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
  ```
 
-<a name="setObjectLockConfiguration"></a>
-### setObjectLockConfiguration(SetObjectLockConfigurationArgs args)
-`public void setObjectLockConfiguration(SetObjectLockConfigurationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setObjectLockConfiguration-com.ionoscloud.s3.SetObjectLockConfigurationArgs-)_
+<a name="putObjectLockConfiguration"></a>
+### putObjectLockConfiguration(PutObjectLockConfigurationArgs args)
+`public void putObjectLockConfiguration(PutObjectLockConfigurationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putObjectLockConfiguration-com.ionoscloud.s3.PutObjectLockConfigurationArgs-)_
 
 Sets object-lock configuration in a bucket.
 
 __Parameters__
 | Parameter | Type                               | Description |
 |:----------|:-----------------------------------|:------------|
-| ``args``  | _[SetObjectLockConfigurationArgs]_ | Arguments.  |
+| ``args``  | _[PutObjectLockConfigurationArgs]_ | Arguments.  |
 
 __Example__
 ```java
 ObjectLockConfiguration config =
     new ObjectLockConfiguration(RetentionMode.COMPLIANCE, new RetentionDurationDays(100));
-apiClient.setObjectLockConfiguration(
-    SetObjectLockConfigurationArgs.builder().bucket("my-bucketname").config(config).build());
+apiClient.putObjectLockConfiguration(
+    PutObjectLockConfigurationArgs.builder().bucket("my-bucketname").config(config).build());
 ```
 
 ## 3. Object operations
@@ -1092,9 +1092,9 @@ apiClient.disableObjectLegalHold(
         .build());
 ```
 
-<a name="enableObjectLegalHold"></a>
-### enableObjectLegalHold(EnableObjectLegalHoldArgs args)
-`public void enableObjectLegalHold(EnableObjectLegalHoldArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#enableObjectLegalHold-com.ionoscloud.s3.EnableObjectLegalHoldArgs-)_
+<a name="putObjectLegalHold"></a>
+### putObjectLegalHold(PutObjectLegalHoldArgs args)
+`public void putObjectLegalHold(PutObjectLegalHoldArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putObjectLegalHold-com.ionoscloud.s3.PutObjectLegalHoldArgs-)_
 
 Enables legal hold on an object.
 
@@ -1102,14 +1102,14 @@ Enables legal hold on an object.
 
 | Parameter      | Type                          | Description  |
 |:---------------|:------------------------------|:-------------|
-| ``args``       | _[EnableObjectLegalHoldArgs]_ | Argumments.  |
+| ``args``       | _[PutObjectLegalHoldArgs]_ | Argumments.  |
 
  __Example__
  ```java
 
  // Disables legal hold on an object.
-apiClient.enableObjectLegalHold(
-    EnableObjectLegalHoldArgs.builder()
+apiClient.putObjectLegalHold(
+    PutObjectLegalHoldArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
         .build());
@@ -1335,9 +1335,9 @@ String url =
 System.out.println(url);
 ```
 
- <a name="isObjectLegalHoldEnabled"></a>
-### isObjectLegalHoldEnabled(IsObjectLegalHoldEnabledArgs args)
-`public boolean isObjectLegalHoldEnabled(IsObjectLegalHoldEnabledArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#isObjectLegalHoldEnabled-com.ionoscloud.s3.IsObjectLegalHoldEnabledArgs-)_
+ <a name="getObjectLegalHold"></a>
+### getObjectLegalHold(GetObjectLegalHoldArgs args)
+`public boolean getObjectLegalHold(GetObjectLegalHoldArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObjectLegalHold-com.ionoscloud.s3.GetObjectLegalHoldArgs-)_
 
 Returns true if legal hold is enabled on an object.
 
@@ -1345,7 +1345,7 @@ Returns true if legal hold is enabled on an object.
 
 | Parameter | Type                             | Description  |
 |:----------|:---------------------------------|:-------------|
-| ``args``  | _[IsObjectLegalHoldEnabledArgs]_ | Arguments.   |
+| ``args``  | _[GetObjectLegalHoldArgs]_ | Arguments.   |
 
 
 | Returns                                    |
@@ -1356,8 +1356,8 @@ Returns true if legal hold is enabled on an object.
 
 ```java
 boolean status =
-    s3Client.isObjectLegalHoldEnabled(
-       IsObjectLegalHoldEnabledArgs.builder()
+    s3Client.getObjectLegalHold(
+       GetObjectLegalHoldArgs.builder()
             .bucket("my-bucketname")
             .object("my-objectname")
             .versionId("object-versionId")
@@ -1683,9 +1683,9 @@ System.out.println("bytes returned: " + stats.bytesReturned());
 stream.close();
 ```
 
-<a name="setObjectRetention"></a>
-### setObjectRetention(SetObjectRetentionArgs args)
-`public void setObjectLockRetention(SetObjectRetentionArgs)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setObjectRetention-com.ionoscloud.s3.SetObjectRetentionArgs-)_
+<a name="putObjectRetention"></a>
+### putObjectRetention(PutObjectRetentionArgs args)
+`public void setObjectLockRetention(PutObjectRetentionArgs)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putObjectRetention-com.ionoscloud.s3.PutObjectRetentionArgs-)_
 
 Sets retention configuration to an object.
 
@@ -1693,13 +1693,13 @@ Sets retention configuration to an object.
 
 | Parameter        | Type                       | Description  |
 |:-----------------|:---------------------------|:-------------|
-| ``args``         | _[SetObjectRetentionArgs]_ | Arguments.   |
+| ``args``         | _[PutObjectRetentionArgs]_ | Arguments.   |
 
  __Example__
 ```java
 Retention retention = new Retention(RetentionMode.COMPLIANCE, ZonedDateTime.now().plusYears(1));
-apiClient.setObjectRetention(
-    SetObjectRetentionArgs.builder()
+apiClient.putObjectRetention(
+    PutObjectRetentionArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
         .config(retention)
@@ -1818,7 +1818,7 @@ ObjectStat objectStat =
 [MakeBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3MakeBucketArgs.html
 [ListObjectsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ListObjectsArgs.html
 [DeleteBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketArgs.html
-[SetObjectRetentionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetObjectRetentionArgs.html
+[PutObjectRetentionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutObjectRetentionArgs.html
 [GetObjectRetentionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectRetentionArgs.html
 [Method]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3http/Method.html
 [StatObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3StatObjectArgs.html
@@ -1844,16 +1844,16 @@ ObjectStat objectStat =
 [GetObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectArgs.html
 [DownloadObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DownloadObjectArgs.html
 [HeadBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3HeadBucketArgs.html
-[EnableObjectLegalHoldArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3EnableObjectLegalHoldArgs.html
+[PutObjectLegalHoldArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutObjectLegalHoldArgs.html
 [DisableObjectLegalHoldArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DisableObjectLegalHoldArgs.html
-[IsObjectLegalHoldEnabledArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3IsObjectLegalHoldEnabledArgs.html
+[GetObjectLegalHoldArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectLegalHoldArgs.html
 [DeleteBucketNotificationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketNotificationArgs.html
 [GetBucketNotificationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketNotificationArgs.html
 [SetBucketNotificationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketNotificationArgs.html
 [ListenBucketNotificationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ListenBucketNotificationArgs.html
 [SelectObjectContentArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SelectObjectContentArgs.html
 [GetObjectLockConfigurationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectLockConfigurationArgs.html
-[SetObjectLockConfigurationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetObjectLockConfigurationArgs.html
+[PutObjectLockConfigurationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutObjectLockConfigurationArgs.html
 [DeleteObjectLockConfigurationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteObjectLockConfigurationArgs.html
 [GetPresignedObjectUrlArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetPresignedObjectUrlArgs.html
 [RemoveObjectsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3RemoveObjectsArgs.html

@@ -1,7 +1,7 @@
 
 
 import com.ionoscloud.s3.ApiClient;
-import com.ionoscloud.s3.SetObjectRetentionArgs;
+import com.ionoscloud.s3.PutObjectRetentionArgs;
 import com.ionoscloud.s3.Time;
 import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.Retention;
@@ -11,8 +11,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.ZonedDateTime;
 
-public class SetObjectRetention {
-  /** ApiClient.setObjectRetention() example. */
+public class PutObjectRetention {
+  /** ApiClient.putObjectRetention() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException, IllegalArgumentException {
     try {
@@ -36,8 +36,8 @@ public class SetObjectRetention {
       Retention config = new Retention(RetentionMode.COMPLIANCE, retentionUntil);
 
       // Set object retention
-      apiClient.setObjectRetention(
-          SetObjectRetentionArgs.builder()
+      apiClient.putObjectRetention(
+          PutObjectRetentionArgs.builder()
               .bucket("my-bucketname")
               .object("my-objectname")
               .config(config)
