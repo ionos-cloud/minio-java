@@ -18,7 +18,7 @@ import com.ionoscloud.s3.DeleteBucketPolicyArgs;
 import com.ionoscloud.s3.DeleteBucketReplicationArgs;
 import com.ionoscloud.s3.DeleteBucketTaggingArgs;
 import com.ionoscloud.s3.DeleteObjectLockConfigurationArgs;
-import com.ionoscloud.s3.DeleteObjectTagsArgs;
+import com.ionoscloud.s3.DeleteObjectTaggingArgs;
 import com.ionoscloud.s3.Directive;
 import com.ionoscloud.s3.DisableObjectLegalHoldArgs;
 import com.ionoscloud.s3.DownloadObjectArgs;
@@ -33,7 +33,7 @@ import com.ionoscloud.s3.GetBucketVersioningArgs;
 import com.ionoscloud.s3.GetObjectArgs;
 import com.ionoscloud.s3.GetObjectLockConfigurationArgs;
 import com.ionoscloud.s3.GetObjectRetentionArgs;
-import com.ionoscloud.s3.GetObjectTagsArgs;
+import com.ionoscloud.s3.GetObjectTaggingArgs;
 import com.ionoscloud.s3.GetPresignedObjectUrlArgs;
 import com.ionoscloud.s3.IsObjectLegalHoldEnabledArgs;
 import com.ionoscloud.s3.ListObjectsArgs;
@@ -62,7 +62,7 @@ import com.ionoscloud.s3.PutBucketTaggingArgs;
 import com.ionoscloud.s3.SetBucketVersioningArgs;
 import com.ionoscloud.s3.SetObjectLockConfigurationArgs;
 import com.ionoscloud.s3.SetObjectRetentionArgs;
-import com.ionoscloud.s3.SetObjectTagsArgs;
+import com.ionoscloud.s3.PutObjectTaggingArgs;
 import com.ionoscloud.s3.SnowballObject;
 import com.ionoscloud.s3.StatObjectArgs;
 import com.ionoscloud.s3.StatObjectResponse;
@@ -3367,8 +3367,8 @@ public class FunctionalTest {
     }
   }
 
-  public static void setObjectTags() throws Exception {
-    String methodName = "setObjectTags()";
+  public static void putObjectTagging() throws Exception {
+    String methodName = "putObjectTagging()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -3384,8 +3384,8 @@ public class FunctionalTest {
         Map<String, String> map = new HashMap<>();
         map.put("Project", "Project One");
         map.put("User", "jsmith");
-        client.setObjectTags(
-            SetObjectTagsArgs.builder().bucket(bucketName).object(objectName).tags(map).build());
+        client.putObjectTagging(
+            PutObjectTaggingArgs.builder().bucket(bucketName).object(objectName).tags(map).build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
         client.removeObject(
@@ -3396,8 +3396,8 @@ public class FunctionalTest {
     }
   }
 
-  public static void getObjectTags() throws Exception {
-    String methodName = "getObjectTags()";
+  public static void getObjectTagging() throws Exception {
+    String methodName = "getObjectTagging()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -3412,17 +3412,17 @@ public class FunctionalTest {
                 .build());
         Map<String, String> map = new HashMap<>();
         Tags tags =
-            client.getObjectTags(
-                GetObjectTagsArgs.builder().bucket(bucketName).object(objectName).build());
+            client.getObjectTagging(
+                GetObjectTaggingArgs.builder().bucket(bucketName).object(objectName).build());
         Assert.assertEquals("tags: expected: " + map + ", got: " + tags.get(), map, tags.get());
 
         map.put("Project", "Project One");
         map.put("User", "jsmith");
-        client.setObjectTags(
-            SetObjectTagsArgs.builder().bucket(bucketName).object(objectName).tags(map).build());
+        client.putObjectTagging(
+            PutObjectTaggingArgs.builder().bucket(bucketName).object(objectName).tags(map).build());
         tags =
-            client.getObjectTags(
-                GetObjectTagsArgs.builder().bucket(bucketName).object(objectName).build());
+            client.getObjectTagging(
+                GetObjectTaggingArgs.builder().bucket(bucketName).object(objectName).build());
         Assert.assertEquals("tags: expected: " + map + ", got: " + tags.get(), map, tags.get());
         mintSuccessLog(methodName, null, startTime);
       } finally {
@@ -3449,18 +3449,18 @@ public class FunctionalTest {
                     new ContentInputStream(1 * KB), 1 * KB, -1)
                 .build());
         client.deleteObjectTags(
-            DeleteObjectTagsArgs.builder().bucket(bucketName).object(objectName).build());
+            DeleteObjectTaggingArgs.builder().bucket(bucketName).object(objectName).build());
 
         Map<String, String> map = new HashMap<>();
         map.put("Project", "Project One");
         map.put("User", "jsmith");
-        client.setObjectTags(
-            SetObjectTagsArgs.builder().bucket(bucketName).object(objectName).tags(map).build());
+        client.putObjectTagging(
+            PutObjectTaggingArgs.builder().bucket(bucketName).object(objectName).tags(map).build());
         client.deleteObjectTags(
-            DeleteObjectTagsArgs.builder().bucket(bucketName).object(objectName).build());
+            DeleteObjectTaggingArgs.builder().bucket(bucketName).object(objectName).build());
         Tags tags =
-            client.getObjectTags(
-                GetObjectTagsArgs.builder().bucket(bucketName).object(objectName).build());
+            client.getObjectTagging(
+                GetObjectTaggingArgs.builder().bucket(bucketName).object(objectName).build());
         Assert.assertTrue("tags: expected: <empty>, got: " + tags.get(), tags.get().isEmpty());
         mintSuccessLog(methodName, null, startTime);
       } finally {
@@ -3740,8 +3740,8 @@ public class FunctionalTest {
 
     selectObjectContent();
 
-    setObjectTags();
-    getObjectTags();
+    putObjectTagging();
+    getObjectTagging();
     deleteObjectTags();
 
     uploadSnowballObjects();

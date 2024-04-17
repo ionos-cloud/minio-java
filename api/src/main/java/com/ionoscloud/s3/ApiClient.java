@@ -2178,11 +2178,11 @@ public class ApiClient {
    *
    * <pre>Example:{@code
    * Tags tags =
-   *     apiClient.getObjectTags(
-   *         GetObjectTagsArgs.builder().bucket("my-bucketname").object("my-objectname").build());
+   *     apiClient.getObjectTagging(
+   *         GetObjectTaggingArgs.builder().bucket("my-bucketname").object("my-objectname").build());
    * }</pre>
    *
-   * @param args {@link GetObjectTagsArgs} object.
+   * @param args {@link GetObjectTaggingArgs} object.
    * @return {@link Tags} - Tags.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
@@ -2194,12 +2194,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public Tags getObjectTags(GetObjectTagsArgs args)
+  public Tags getObjectTagging(GetObjectTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      return asyncClient.getObjectTags(args).get();
+      return asyncClient.getObjectTagging(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -2215,15 +2215,15 @@ public class ApiClient {
    * Map<String, String> map = new HashMap<>();
    * map.put("Project", "Project One");
    * map.put("User", "jsmith");
-   * apiClient.setObjectTags(
-   *     SetObjectTagsArgs.builder()
+   * apiClient.putObjectTagging(
+   *     PutObjectTaggingArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
    *         .tags((map)
    *         .build());
    * }</pre>
    *
-   * @param args {@link SetObjectTagsArgs} object.
+   * @param args {@link PutObjectTaggingArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2234,12 +2234,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setObjectTags(SetObjectTagsArgs args)
+  public void putObjectTagging(PutObjectTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setObjectTags(args).get();
+      asyncClient.putObjectTagging(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -2252,10 +2252,10 @@ public class ApiClient {
    *
    * <pre>Example:{@code
    * apiClient.deleteObjectTags(
-   *     DeleteObjectTags.builder().bucket("my-bucketname").object("my-objectname").build());
+   *     DeleteObjectTagging.builder().bucket("my-bucketname").object("my-objectname").build());
    * }</pre>
    *
-   * @param args {@link DeleteObjectTagsArgs} object.
+   * @param args {@link DeleteObjectTaggingArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2266,7 +2266,7 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void deleteObjectTags(DeleteObjectTagsArgs args)
+  public void deleteObjectTags(DeleteObjectTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {

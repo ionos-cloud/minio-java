@@ -1,15 +1,14 @@
 
 
-import com.ionoscloud.s3.GetObjectTagsArgs;
+import com.ionoscloud.s3.DeleteObjectTaggingArgs;
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.errors.ApiException;
-import com.ionoscloud.s3.messages.Tags;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class GetObjectTags {
-  /** ApiClient.getObjectTags() example. */
+public class DeleteObjectTagging {
+  /** ApiClient.deleteObjectTags() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
@@ -27,10 +26,9 @@ public class GetObjectTags {
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
 
-      Tags tags =
-          apiClient.getObjectTags(
-              GetObjectTagsArgs.builder().bucket("my-bucketname").object("my-objectname").build());
-      System.out.println("Object tags: " + tags.get());
+      apiClient.deleteObjectTags(
+          DeleteObjectTaggingArgs.builder().bucket("my-bucketname").object("my-objectname").build());
+      System.out.println("Object tags deleted successfully");
     } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }

@@ -2947,11 +2947,11 @@ public class ApiAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<Tags> future =
-   *     apiAsyncClient.getObjectTags(
-   *         GetObjectTagsArgs.builder().bucket("my-bucketname").object("my-objectname").build());
+   *     apiAsyncClient.getObjectTagging(
+   *         GetObjectTaggingArgs.builder().bucket("my-bucketname").object("my-objectname").build());
    * }</pre>
    *
-   * @param args {@link GetObjectTagsArgs} object.
+   * @param args {@link GetObjectTaggingArgs} object.
    * @return {@link CompletableFuture}&lt;{@link Tags}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2960,7 +2960,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Tags> getObjectTags(GetObjectTagsArgs args)
+  public CompletableFuture<Tags> getObjectTagging(GetObjectTaggingArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);
@@ -2986,15 +2986,15 @@ public class ApiAsyncClient extends S3Base {
    * Map<String, String> map = new HashMap<>();
    * map.put("Project", "Project One");
    * map.put("User", "jsmith");
-   * CompletableFuture<Void> future = apiAsyncClient.setObjectTags(
-   *     SetObjectTagsArgs.builder()
+   * CompletableFuture<Void> future = apiAsyncClient.putObjectTagging(
+   *     PutObjectTaggingArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
    *         .tags((map)
    *         .build());
    * }</pre>
    *
-   * @param args {@link SetObjectTagsArgs} object.
+   * @param args {@link PutObjectTaggingArgs} object.
    * @return {@link CompletableFuture}&lt;{@link Void}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -3003,7 +3003,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Void> setObjectTags(SetObjectTagsArgs args)
+  public CompletableFuture<Void> putObjectTagging(PutObjectTaggingArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);
@@ -3018,10 +3018,10 @@ public class ApiAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<Void> future = apiAsyncClient.deleteObjectTags(
-   *     DeleteObjectTags.builder().bucket("my-bucketname").object("my-objectname").build());
+   *     DeleteObjectTagging.builder().bucket("my-bucketname").object("my-objectname").build());
    * }</pre>
    *
-   * @param args {@link DeleteObjectTagsArgs} object.
+   * @param args {@link DeleteObjectTaggingArgs} object.
    * @return {@link CompletableFuture}&lt;{@link Void}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -3030,7 +3030,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Void> deleteObjectTags(DeleteObjectTagsArgs args)
+  public CompletableFuture<Void> deleteObjectTags(DeleteObjectTaggingArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);

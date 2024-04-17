@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Argument class of {@link ApiAsyncClient#setObjectTags} and {@link ApiClient#setObjectTags}.
+ * Argument class of {@link ApiAsyncClient#putObjectTagging} and {@link ApiClient#putObjectTagging}.
  */
-public class SetObjectTagsArgs extends ObjectVersionArgs {
+public class PutObjectTaggingArgs extends ObjectVersionArgs {
   private Tags tags;
 
   public Tags tags() {
@@ -20,13 +20,13 @@ public class SetObjectTagsArgs extends ObjectVersionArgs {
     return new Builder();
   }
 
-  /** Argument builder of {@link SetObjectTagsArgs}. */
-  public static final class Builder extends ObjectVersionArgs.Builder<Builder, SetObjectTagsArgs> {
+  /** Argument builder of {@link PutObjectTaggingArgs}. */
+  public static final class Builder extends ObjectVersionArgs.Builder<Builder, PutObjectTaggingArgs> {
     private void validateTags(Tags tags) {
       validateNotNull(tags, "tags");
     }
 
-    protected void validate(SetObjectTagsArgs args) {
+    protected void validate(PutObjectTaggingArgs args) {
       super.validate(args);
       validateTags(args.tags);
     }
@@ -47,9 +47,9 @@ public class SetObjectTagsArgs extends ObjectVersionArgs {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof SetObjectTagsArgs)) return false;
+    if (!(o instanceof PutObjectTaggingArgs)) return false;
     if (!super.equals(o)) return false;
-    SetObjectTagsArgs that = (SetObjectTagsArgs) o;
+    PutObjectTaggingArgs that = (PutObjectTaggingArgs) o;
     return Objects.equals(tags, that.tags);
   }
 
