@@ -1354,10 +1354,10 @@ public class ApiAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * CompletableFuture<Boolean> future =
-   *      apiAsyncClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
+   *      apiAsyncClient.bucketExists(HeadBucketArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
-   * @param args {@link BucketExistsArgs} object.
+   * @param args {@link HeadBucketArgs} object.
    * @return {@link CompletableFuture}&lt;{@link Boolean}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1366,7 +1366,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Boolean> bucketExists(BucketExistsArgs args)
+  public CompletableFuture<Boolean> bucketExists(HeadBucketArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     return executeHeadAsync(args, null, null)

@@ -1,6 +1,6 @@
 
 
-import com.ionoscloud.s3.BucketExistsArgs;
+import com.ionoscloud.s3.HeadBucketArgs;
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.RemoveBucketArgs;
 import com.ionoscloud.s3.errors.ApiException;
@@ -30,7 +30,7 @@ public class RemoveBucket {
       // Remove bucket 'my-bucketname' if it exists.
       // This operation will only work if your bucket is empty.
       boolean found =
-          apiClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
+          apiClient.bucketExists(HeadBucketArgs.builder().bucket("my-bucketname").build());
       if (found) {
         apiClient.removeBucket(RemoveBucketArgs.builder().bucket("my-bucketname").build());
         System.out.println("my-bucketname is removed successfully");

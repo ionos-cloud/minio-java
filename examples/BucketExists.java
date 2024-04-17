@@ -1,13 +1,13 @@
 
 
-import com.ionoscloud.s3.BucketExistsArgs;
+import com.ionoscloud.s3.HeadBucketArgs;
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class BucketExists {
+public class HeadBucket {
   /** ApiClient.bucketExists() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
@@ -28,7 +28,7 @@ public class BucketExists {
 
       // Check whether 'my-bucketname' exist or not.
       boolean found =
-          apiClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
+          apiClient.bucketExists(HeadBucketArgs.builder().bucket("my-bucketname").build());
       if (found) {
         System.out.println("my-bucketname exists");
       } else {

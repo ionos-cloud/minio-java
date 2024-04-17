@@ -150,15 +150,15 @@ All APIs throw below exceptions in addition to specific to API.
 ## 2. Bucket operations
 
 <a name="bucketExists"></a>
-### bucketExists(BucketExistsArgs args)
-`public boolean bucketExists(BucketExistsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#bucketExists-com.ionoscloud.s3.BucketExistsArgs-)_
+### bucketExists(HeadBucketArgs args)
+`public boolean bucketExists(HeadBucketArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#bucketExists-com.ionoscloud.s3.HeadBucketArgs-)_
 
 Checks if a bucket exists.
 
 __Parameters__
 | Parameter      | Type                 | Description    |
 |:---------------|:---------------------|:---------------|
-| ``bucketName`` | _[BucketExistsArgs]_ | Arguments.     |
+| ``bucketName`` | _[HeadBucketArgs]_ | Arguments.     |
 
 | Returns                                |
 |:---------------------------------------|
@@ -168,7 +168,7 @@ __Example__
 ```java
 // Check whether 'my-bucketname' exists or not.
 boolean found =
-  apiClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
+  apiClient.bucketExists(HeadBucketArgs.builder().bucket("my-bucketname").build());
 if (found) {
   System.out.println("my-bucketname exists");
 } else {
@@ -1843,7 +1843,7 @@ ObjectStat objectStat =
 [DeleteBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketPolicyArgs.html
 [GetObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectArgs.html
 [DownloadObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DownloadObjectArgs.html
-[BucketExistsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3BucketExistsArgs.html
+[HeadBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3HeadBucketArgs.html
 [EnableObjectLegalHoldArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3EnableObjectLegalHoldArgs.html
 [DisableObjectLegalHoldArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DisableObjectLegalHoldArgs.html
 [IsObjectLegalHoldEnabledArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3IsObjectLegalHoldEnabledArgs.html

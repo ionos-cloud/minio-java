@@ -1,6 +1,6 @@
 
 
-import com.ionoscloud.s3.BucketExistsArgs;
+import com.ionoscloud.s3.HeadBucketArgs;
 import com.ionoscloud.s3.MakeBucketArgs;
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.errors.ApiException;
@@ -28,14 +28,14 @@ public class MakeBucket {
       //         .build();
 
       // Create bucket 'my-bucketname' if it doesn`t exist.
-      if (!apiClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build())) {
+      if (!apiClient.bucketExists(HeadBucketArgs.builder().bucket("my-bucketname").build())) {
         apiClient.makeBucket(MakeBucketArgs.builder().bucket("my-bucketname").build());
         System.out.println("my-bucketname is created successfully");
       }
 
       // Create bucket 'my-bucketname-in-eu' in 'eu-west-1' region if it doesn't exist.
       if (!apiClient.bucketExists(
-          BucketExistsArgs.builder().bucket("my-bucketname-in-eu").build())) {
+          HeadBucketArgs.builder().bucket("my-bucketname-in-eu").build())) {
         apiClient.makeBucket(
             MakeBucketArgs.builder().bucket("my-bucketname-in-eu").region("eu-west-1").build());
         System.out.println("my-bucketname-in-eu is created successfully");
@@ -44,7 +44,7 @@ public class MakeBucket {
       // Create bucket 'my-bucketname-in-eu-with-object-lock' in 'eu-west-1' with object lock
       // functionality enabled.
       if (!apiClient.bucketExists(
-          BucketExistsArgs.builder().bucket("my-bucketname-in-eu-with-object-lock").build())) {
+          HeadBucketArgs.builder().bucket("my-bucketname-in-eu-with-object-lock").build())) {
         apiClient.makeBucket(
             MakeBucketArgs.builder()
                 .bucket("my-bucketname-in-eu-with-object-lock")

@@ -5,7 +5,7 @@ import static java.nio.file.StandardOpenOption.CREATE;
 
 import com.google.common.io.BaseEncoding;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import com.ionoscloud.s3.BucketExistsArgs;
+import com.ionoscloud.s3.HeadBucketArgs;
 import com.ionoscloud.s3.CloseableIterator;
 import com.ionoscloud.s3.ComposeObjectArgs;
 import com.ionoscloud.s3.ComposeSource;
@@ -427,7 +427,7 @@ public class FunctionalTest {
             methodName + " failed after bucket creation",
             existCheck
                 && !client.bucketExists(
-                    BucketExistsArgs.builder()
+                    HeadBucketArgs.builder()
                         .bucket(args.bucket())
                         .region(args.region())
                         .build()));

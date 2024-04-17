@@ -810,7 +810,7 @@ public class ApiClient {
    *
    * <pre>Example:{@code
    * boolean found =
-   *      apiClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
+   *      apiClient.bucketExists(HeadBucketArgs.builder().bucket("my-bucketname").build());
    * if (found) {
    *   System.out.println("my-bucketname exists");
    * } else {
@@ -818,7 +818,7 @@ public class ApiClient {
    * }
    * }</pre>
    *
-   * @param args {@link BucketExistsArgs} object.
+   * @param args {@link HeadBucketArgs} object.
    * @return boolean - True if the bucket exists.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
@@ -830,7 +830,7 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public boolean bucketExists(BucketExistsArgs args)
+  public boolean bucketExists(HeadBucketArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {

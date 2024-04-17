@@ -39,7 +39,7 @@ You need three items in order to connect to an object storage server.
 
 ### FileUploader.java
 ```java
-import com.ionoscloud.s3.BucketExistsArgs;
+import com.ionoscloud.s3.HeadBucketArgs;
 import com.ionoscloud.s3.MakeBucketArgs;
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.UploadObjectArgs;
@@ -60,7 +60,7 @@ public class FileUploader {
 
       // Make 'asiatrip' bucket if not exist.
       boolean found =
-          apiClient.bucketExists(BucketExistsArgs.builder().bucket("asiatrip").build());
+          apiClient.bucketExists(HeadBucketArgs.builder().bucket("asiatrip").build());
       if (!found) {
         // Make a new bucket called 'asiatrip'.
         apiClient.makeBucket(MakeBucketArgs.builder().bucket("asiatrip").build());
