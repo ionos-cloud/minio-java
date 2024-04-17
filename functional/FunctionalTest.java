@@ -53,7 +53,7 @@ import com.ionoscloud.s3.ServerSideEncryption;
 import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
 import com.ionoscloud.s3.ServerSideEncryptionKms;
 import com.ionoscloud.s3.ServerSideEncryptionS3;
-import com.ionoscloud.s3.SetBucketEncryptionArgs;
+import com.ionoscloud.s3.PutBucketEncryptionArgs;
 import com.ionoscloud.s3.SetBucketLifecycleArgs;
 import com.ionoscloud.s3.SetBucketNotificationArgs;
 import com.ionoscloud.s3.SetBucketPolicyArgs;
@@ -3186,8 +3186,8 @@ public class FunctionalTest {
     }
   }
 
-  public static void setBucketEncryption() throws Exception {
-    String methodName = "setBucketEncryption()";
+  public static void putBucketEncryption() throws Exception {
+    String methodName = "putBucketEncryption()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -3197,8 +3197,8 @@ public class FunctionalTest {
     try {
       client.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
       try {
-        client.setBucketEncryption(
-            SetBucketEncryptionArgs.builder()
+        client.putBucketEncryption(
+            PutBucketEncryptionArgs.builder()
                 .bucket(bucketName)
                 .config(SseConfiguration.newConfigWithSseS3Rule())
                 .build());
@@ -3226,8 +3226,8 @@ public class FunctionalTest {
             client.getBucketEncryption(
                 GetBucketEncryptionArgs.builder().bucket(bucketName).build());
         Assert.assertNull("rule: expected: <null>, got: <non-null>", config.rule());
-        client.setBucketEncryption(
-            SetBucketEncryptionArgs.builder()
+        client.putBucketEncryption(
+            PutBucketEncryptionArgs.builder()
                 .bucket(bucketName)
                 .config(SseConfiguration.newConfigWithSseS3Rule())
                 .build());
@@ -3265,8 +3265,8 @@ public class FunctionalTest {
         client.deleteBucketEncryption(
             DeleteBucketEncryptionArgs.builder().bucket(bucketName).build());
 
-        client.setBucketEncryption(
-            SetBucketEncryptionArgs.builder()
+        client.putBucketEncryption(
+            PutBucketEncryptionArgs.builder()
                 .bucket(bucketName)
                 .config(SseConfiguration.newConfigWithSseS3Rule())
                 .build());
@@ -3685,7 +3685,7 @@ public class FunctionalTest {
     setObjectLockConfiguration();
     getObjectLockConfiguration();
 
-    setBucketEncryption();
+    putBucketEncryption();
     getBucketEncryption();
     deleteBucketEncryption();
 

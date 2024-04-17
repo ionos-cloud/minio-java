@@ -32,7 +32,7 @@ ApiClient apiClient =
 | [`listenBucketNotification`](#listenBucketNotification)           | [`selectObjectContent`](#selectObjectContent)           |
 | [`makeBucket`](#makeBucket)                                       | [`setObjectRetention`](#setObjectRetention)             |
 | [`deleteBucket`](#deleteBucket)                                   | [`setObjectTags`](#setObjectTags)                       |
-| [`setBucketEncryption`](#setBucketEncryption)                     | [`statObject`](#statObject)                             |
+| [`putBucketEncryption`](#putBucketEncryption)                     | [`statObject`](#statObject)                             |
 | [`setBucketLifecycle`](#setBucketLifecycle)                       | [`uploadObject`](#uploadObject)                         |
 | [`setBucketNotification`](#setBucketNotification)                 | [`uploadSnowballObjects`](#uploadSnowballObjects)       |
 | [`setBucketPolicy`](#setBucketPolicy)                             |                                                         |
@@ -650,21 +650,21 @@ __Example__
 apiClient.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
 ```
 
-<a name="setBucketEncryption"></a>
-### setBucketEncryption(SetBucketEncryptionArgs args)
-`public void setBucketEncryption(SetBucketEncryptionArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketEncryption-com.ionoscloud.s3.SetBucketEncryptionArgs-)_
+<a name="putBucketEncryption"></a>
+### putBucketEncryption(PutBucketEncryptionArgs args)
+`public void putBucketEncryption(PutBucketEncryptionArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putBucketEncryption-com.ionoscloud.s3.PutBucketEncryptionArgs-)_
 
 Sets encryption configuration of a bucket.
 
 __Parameters__
 | Parameter | Type                        | Description |
 |:----------|:----------------------------|:------------|
-| ``args``  | _[SetBucketEncryptionArgs]_ | Arguments.  |
+| ``args``  | _[PutBucketEncryptionArgs]_ | Arguments.  |
 
 __Example__
 ```java
-apiClient.setBucketEncryption(
-    SetBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
+apiClient.putBucketEncryption(
+    PutBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
  ```
 
 <a name="setBucketLifecycle"></a>
@@ -1826,7 +1826,7 @@ ObjectStat objectStat =
 [SseConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/SseConfiguration.html
 [DeleteBucketEncryptionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketEncryptionArgs.html
 [GetBucketEncryptionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketEncryptionArgs.html
-[SetBucketEncryptionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketEncryptionArgs.html
+[PutBucketEncryptionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutBucketEncryptionArgs.html
 [Tags]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/Tags.html
 [DeleteBucketTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketTagsArgs.html
 [GetBucketTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketTagsArgs.html

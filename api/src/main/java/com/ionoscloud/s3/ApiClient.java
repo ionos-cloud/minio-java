@@ -1978,11 +1978,11 @@ public class ApiClient {
    * Sets encryption configuration of a bucket.
    *
    * <pre>Example:{@code
-   * apiClient.setBucketEncryption(
-   *     SetBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
+   * apiClient.putBucketEncryption(
+   *     PutBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
-   * @param args {@link SetBucketEncryptionArgs} object.
+   * @param args {@link PutBucketEncryptionArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1993,12 +1993,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setBucketEncryption(SetBucketEncryptionArgs args)
+  public void putBucketEncryption(PutBucketEncryptionArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setBucketEncryption(args).get();
+      asyncClient.putBucketEncryption(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {

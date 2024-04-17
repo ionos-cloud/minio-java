@@ -2706,11 +2706,11 @@ public class ApiAsyncClient extends S3Base {
    * Sets encryption configuration of a bucket.
    *
    * <pre>Example:{@code
-   * CompletableFuture<Void> future = apiAsyncClient.setBucketEncryption(
-   *     SetBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
+   * CompletableFuture<Void> future = apiAsyncClient.putBucketEncryption(
+   *     PutBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
-   * @param args {@link SetBucketEncryptionArgs} object.
+   * @param args {@link PutBucketEncryptionArgs} object.
    * @return {@link CompletableFuture}&lt;{@link Void}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2719,7 +2719,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Void> setBucketEncryption(SetBucketEncryptionArgs args)
+  public CompletableFuture<Void> putBucketEncryption(PutBucketEncryptionArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);
