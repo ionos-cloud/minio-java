@@ -2124,11 +2124,11 @@ public class ApiAsyncClient extends S3Base {
    * //     "Version": "2012-10-17"
    * // }
    * //
-   * CompletableFuture<Void> future = apiAsyncClient.setBucketPolicy(
-   *     SetBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
+   * CompletableFuture<Void> future = apiAsyncClient.putBucketPolicy(
+   *     PutBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
    * }</pre>
    *
-   * @param args {@link SetBucketPolicyArgs} object.
+   * @param args {@link PutBucketPolicyArgs} object.
    * @return {@link CompletableFuture}&lt;{@link Void}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2137,7 +2137,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<Void> setBucketPolicy(SetBucketPolicyArgs args)
+  public CompletableFuture<Void> putBucketPolicy(PutBucketPolicyArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);

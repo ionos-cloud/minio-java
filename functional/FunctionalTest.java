@@ -56,7 +56,7 @@ import com.ionoscloud.s3.ServerSideEncryptionS3;
 import com.ionoscloud.s3.PutBucketEncryptionArgs;
 import com.ionoscloud.s3.SetBucketLifecycleArgs;
 import com.ionoscloud.s3.SetBucketNotificationArgs;
-import com.ionoscloud.s3.SetBucketPolicyArgs;
+import com.ionoscloud.s3.PutBucketPolicyArgs;
 import com.ionoscloud.s3.SetBucketReplicationArgs;
 import com.ionoscloud.s3.SetBucketTagsArgs;
 import com.ionoscloud.s3.SetBucketVersioningArgs;
@@ -2673,8 +2673,8 @@ public class FunctionalTest {
                 + bucketName
                 + "/myobject*'],'Sid':''}]}";
         policy = policy.replaceAll("'", "\"");
-        client.setBucketPolicy(
-            SetBucketPolicyArgs.builder().bucket(bucketName).config(policy).build());
+        client.putBucketPolicy(
+            PutBucketPolicyArgs.builder().bucket(bucketName).config(policy).build());
         client.getBucketPolicy(GetBucketPolicyArgs.builder().bucket(bucketName).build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
@@ -2685,8 +2685,8 @@ public class FunctionalTest {
     }
   }
 
-  public static void setBucketPolicy() throws Exception {
-    String methodName = "setBucketPolicy()";
+  public static void putBucketPolicy() throws Exception {
+    String methodName = "putBucketPolicy()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
@@ -2702,8 +2702,8 @@ public class FunctionalTest {
                 + bucketName
                 + "/myobject*'],'Sid':''}]}";
         policy = policy.replaceAll("'", "\"");
-        client.setBucketPolicy(
-            SetBucketPolicyArgs.builder().bucket(bucketName).config(policy).build());
+        client.putBucketPolicy(
+            PutBucketPolicyArgs.builder().bucket(bucketName).config(policy).build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
         client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
@@ -2732,8 +2732,8 @@ public class FunctionalTest {
                 + bucketName
                 + "/myobject*'],'Sid':''}]}";
         policy = policy.replaceAll("'", "\"");
-        client.setBucketPolicy(
-            SetBucketPolicyArgs.builder().bucket(bucketName).config(policy).build());
+        client.putBucketPolicy(
+            PutBucketPolicyArgs.builder().bucket(bucketName).config(policy).build());
         client.deleteBucketPolicy(DeleteBucketPolicyArgs.builder().bucket(bucketName).build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
@@ -3693,7 +3693,7 @@ public class FunctionalTest {
     getBucketTags();
     deleteBucketTags();
 
-    setBucketPolicy();
+    putBucketPolicy();
     getBucketPolicy();
     deleteBucketPolicy();
 

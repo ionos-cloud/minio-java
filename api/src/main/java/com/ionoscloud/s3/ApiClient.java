@@ -1468,11 +1468,11 @@ public class ApiClient {
    * //     "Version": "2012-10-17"
    * // }
    * //
-   * apiClient.setBucketPolicy(
-   *     SetBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
+   * apiClient.putBucketPolicy(
+   *     PutBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
    * }</pre>
    *
-   * @param args {@link SetBucketPolicyArgs} object.
+   * @param args {@link PutBucketPolicyArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1483,12 +1483,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setBucketPolicy(SetBucketPolicyArgs args)
+  public void putBucketPolicy(PutBucketPolicyArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setBucketPolicy(args).get();
+      asyncClient.putBucketPolicy(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {

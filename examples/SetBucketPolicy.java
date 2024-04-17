@@ -1,14 +1,14 @@
 
 
 import com.ionoscloud.s3.ApiClient;
-import com.ionoscloud.s3.SetBucketPolicyArgs;
+import com.ionoscloud.s3.PutBucketPolicyArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class SetBucketPolicy {
-  /** ApiClient.setBucketPolicy() example. */
+public class PutBucketPolicy {
+  /** ApiClient.putBucketPolicy() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
@@ -47,8 +47,8 @@ public class SetBucketPolicy {
       builder.append("    ],\n");
       builder.append("    \"Version\": \"2012-10-17\"\n");
       builder.append("}\n");
-      apiClient.setBucketPolicy(
-          SetBucketPolicyArgs.builder().bucket("my-bucketname").config(builder.toString()).build());
+      apiClient.putBucketPolicy(
+          PutBucketPolicyArgs.builder().bucket("my-bucketname").config(builder.toString()).build());
     } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }

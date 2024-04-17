@@ -35,7 +35,7 @@ ApiClient apiClient =
 | [`putBucketEncryption`](#putBucketEncryption)                     | [`statObject`](#statObject)                             |
 | [`setBucketLifecycle`](#setBucketLifecycle)                       | [`uploadObject`](#uploadObject)                         |
 | [`setBucketNotification`](#setBucketNotification)                 | [`uploadSnowballObjects`](#uploadSnowballObjects)       |
-| [`setBucketPolicy`](#setBucketPolicy)                             |                                                         |
+| [`putBucketPolicy`](#putBucketPolicy)                             |                                                         |
 | [`setBucketReplication`](#setBucketReplication)                   |                                                         |
 | [`setBucketTags`](#setBucketTags)                                 |                                                         |
 | [`setBucketVersioning`](#setBucketVersioning)                     |                                                         |
@@ -740,9 +740,9 @@ apiClient.setBucketNotification(
     SetBucketNotificationArgs.builder().bucket("my-bucketname").config(config).build());
 ```
 
-<a name="setBucketPolicy"></a>
-### setBucketPolicy(SetBucketPolicyArgs args)
-`public void setBucketPolicy(SetBucketPolicyArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketPolicy-com.ionoscloud.s3.SetBucketPolicyArgs-)_
+<a name="putBucketPolicy"></a>
+### putBucketPolicy(PutBucketPolicyArgs args)
+`public void putBucketPolicy(PutBucketPolicyArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putBucketPolicy-com.ionoscloud.s3.PutBucketPolicyArgs-)_
 
 Sets bucket policy configuration to a bucket.
 
@@ -750,7 +750,7 @@ __Parameters__
 
 | Parameter | Type                    | Description |
 |:----------|:------------------------|:------------|
-| ``args``  | _[SetBucketPolicyArgs]_ | Arguments.  |
+| ``args``  | _[PutBucketPolicyArgs]_ | Arguments.  |
 
 __Example__
 ```java
@@ -776,8 +776,8 @@ __Example__
 //     "Version": "2012-10-17"
 // }
 //
-apiClient.setBucketPolicy(
-    SetBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
+apiClient.putBucketPolicy(
+    PutBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
 ```
 
 <a name="setBucketReplication"></a>
@@ -1839,7 +1839,7 @@ ObjectStat objectStat =
 [GetBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketLifecycleArgs.html
 [SetBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketLifecycleArgs.html
 [GetBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketPolicyArgs.html
-[SetBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketPolicyArgs.html
+[PutBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutBucketPolicyArgs.html
 [DeleteBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketPolicyArgs.html
 [GetObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectArgs.html
 [DownloadObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DownloadObjectArgs.html
