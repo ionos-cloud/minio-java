@@ -21,8 +21,8 @@ class PutObjectRunnable implements Runnable {
 
     try {
       traceBuffer.append("[" + filename + "]: threaded put object\n");
-      client.uploadObject(
-          UploadObjectArgs.builder()
+      client.postObject(
+          PostObjectArgs.builder()
               .bucket(bucketName)
               .object(filename)
               .filename(filename)

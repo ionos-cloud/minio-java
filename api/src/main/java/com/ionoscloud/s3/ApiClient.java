@@ -1367,13 +1367,13 @@ public class ApiClient {
    *
    * <pre>Example:{@code
    * // Upload an JSON file.
-   * apiClient.uploadObject(
-   *     UploadObjectArgs.builder()
+   * apiClient.postObject(
+   *     PostObjectArgs.builder()
    *         .bucket("my-bucketname").object("my-objectname").filename("person.json").build());
    *
    * // Upload a video file.
-   * apiClient.uploadObject(
-   *     UploadObjectArgs.builder()
+   * apiClient.postObject(
+   *     PostObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
    *         .filename("my-video.avi")
@@ -1381,7 +1381,7 @@ public class ApiClient {
    *         .build());
    * }</pre>
    *
-   * @param args {@link UploadObjectArgs} object.
+   * @param args {@link PostObjectArgs} object.
    * @return {@link ObjectWriteResponse} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
@@ -1393,12 +1393,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public ObjectWriteResponse uploadObject(UploadObjectArgs args)
+  public ObjectWriteResponse postObject(PostObjectArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      return asyncClient.uploadObject(args).get();
+      return asyncClient.postObject(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {

@@ -5,7 +5,7 @@ package com.ionoscloud.s3;
 import java.io.IOException;
 import java.util.Objects;
 
-/** Base argument class for {@link PutObjectArgs} and {@link UploadObjectArgs}. */
+/** Base argument class for {@link PutObjectArgs} and {@link PostObjectArgs}. */
 public abstract class PutObjectBaseArgs extends ObjectWriteArgs {
   protected long objectSize;
   protected long partSize;

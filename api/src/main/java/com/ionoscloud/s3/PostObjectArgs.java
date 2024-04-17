@@ -7,8 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-/** Argument class of {@link ApiAsyncClient#uploadObject} and {@link ApiClient#uploadObject}. */
-public class UploadObjectArgs extends PutObjectBaseArgs {
+/** Argument class of {@link ApiAsyncClient#postObject} and {@link ApiClient#postObject}. */
+public class PostObjectArgs extends PutObjectBaseArgs {
   private String filename;
 
   public String filename() {
@@ -35,10 +35,10 @@ public class UploadObjectArgs extends PutObjectBaseArgs {
     return new Builder();
   }
 
-  /** Argument builder of {@link UploadObjectArgs}. */
-  public static final class Builder extends PutObjectBaseArgs.Builder<Builder, UploadObjectArgs> {
+  /** Argument builder of {@link PostObjectArgs}. */
+  public static final class Builder extends PutObjectBaseArgs.Builder<Builder, PostObjectArgs> {
     @Override
-    protected void validate(UploadObjectArgs args) {
+    protected void validate(PostObjectArgs args) {
       super.validate(args);
       validateFilename(args.filename);
     }
@@ -79,9 +79,9 @@ public class UploadObjectArgs extends PutObjectBaseArgs {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof UploadObjectArgs)) return false;
+    if (!(o instanceof PostObjectArgs)) return false;
     if (!super.equals(o)) return false;
-    UploadObjectArgs that = (UploadObjectArgs) o;
+    PostObjectArgs that = (PostObjectArgs) o;
     return Objects.equals(filename, that.filename);
   }
 

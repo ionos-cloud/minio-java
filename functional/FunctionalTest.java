@@ -67,7 +67,7 @@ import com.ionoscloud.s3.SnowballObject;
 import com.ionoscloud.s3.StatObjectArgs;
 import com.ionoscloud.s3.StatObjectResponse;
 import com.ionoscloud.s3.Time;
-import com.ionoscloud.s3.UploadObjectArgs;
+import com.ionoscloud.s3.PostObjectArgs;
 import com.ionoscloud.s3.UploadSnowballObjectsArgs;
 import com.ionoscloud.s3.Xml;
 import com.ionoscloud.s3.errors.ErrorResponseException;
@@ -694,18 +694,18 @@ public class FunctionalTest {
     }
   }
 
-  public static void testUploadObject(String testTags, String filename, String contentType)
+  public static void testPostObject(String testTags, String filename, String contentType)
       throws Exception {
-    String methodName = "uploadObject()";
+    String methodName = "postObject()";
     long startTime = System.currentTimeMillis();
     try {
       try {
-        UploadObjectArgs.Builder builder =
-            UploadObjectArgs.builder().bucket(bucketName).object(filename).filename(filename);
+        PostObjectArgs.Builder builder =
+            PostObjectArgs.builder().bucket(bucketName).object(filename).filename(filename);
         if (contentType != null) {
           builder.contentType(contentType);
         }
-        client.uploadObject(builder.build());
+        client.postObject(builder.build());
         mintSuccessLog(methodName, testTags, startTime);
       } finally {
         Files.delete(Paths.get(filename));
@@ -716,20 +716,20 @@ public class FunctionalTest {
     }
   }
 
-  public static void uploadObject() throws Exception {
-    String methodName = "uploadObject()";
+  public static void postObject() throws Exception {
+    String methodName = "postObject()";
     if (!mintEnv) {
       System.out.println(methodName);
     }
 
-    testUploadObject("[single upload]", createFile1Kb(), null);
+    testPostObject("[single upload]", createFile1Kb(), null);
 
     if (isQuickTest) {
       return;
     }
 
-    testUploadObject("[multi-part upload]", createFile6Mb(), null);
-    testUploadObject("[custom content-type]", createFile1Kb(), customContentType);
+    testPostObject("[multi-part upload]", createFile6Mb(), null);
+    testPostObject("[custom content-type]", createFile1Kb(), customContentType);
   }
 
   public static void testPutObject(String testTags, PutObjectArgs args, String errorCode)
@@ -3725,7 +3725,7 @@ public class FunctionalTest {
 
     copyObject();
     composeObject();
-    uploadObject();
+    postObject();
     downloadObject();
 
     setObjectRetention();

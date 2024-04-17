@@ -2,14 +2,14 @@
 
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
-import com.ionoscloud.s3.UploadObjectArgs;
+import com.ionoscloud.s3.PostObjectArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.KeyGenerator;
 
-public class UploadObject {
+public class PostObject {
   /** ApiClient.putObject() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
@@ -30,8 +30,8 @@ public class UploadObject {
 
       {
         // Upload 'my-filename' as object 'my-objectname' in 'my-bucketname'.
-        apiClient.uploadObject(
-            UploadObjectArgs.builder()
+        apiClient.postObject(
+            PostObjectArgs.builder()
                 .bucket("my-bucketname")
                 .object("my-objectname")
                 .filename("my-filename")
@@ -46,8 +46,8 @@ public class UploadObject {
             new ServerSideEncryptionCustomerKey(keyGen.generateKey());
 
         // Upload 'my-filename' as object encrypted 'my-objectname' in 'my-bucketname'.
-        apiClient.uploadObject(
-            UploadObjectArgs.builder()
+        apiClient.postObject(
+            PostObjectArgs.builder()
                 .bucket("my-bucketname")
                 .object("my-objectname")
                 .filename("my-filename")

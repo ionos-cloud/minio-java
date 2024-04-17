@@ -1953,13 +1953,13 @@ public class ApiAsyncClient extends S3Base {
    *
    * <pre>Example:{@code
    * // Upload an JSON file.
-   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.uploadObject(
-   *     UploadObjectArgs.builder()
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.postObject(
+   *     PostObjectArgs.builder()
    *         .bucket("my-bucketname").object("my-objectname").filename("person.json").build());
    *
    * // Upload a video file.
-   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.uploadObject(
-   *     UploadObjectArgs.builder()
+   * CompletableFuture<ObjectWriteResponse> future = apiAsyncClient.postObject(
+   *     PostObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
    *         .filename("my-video.avi")
@@ -1967,7 +1967,7 @@ public class ApiAsyncClient extends S3Base {
    *         .build());
    * }</pre>
    *
-   * @param args {@link UploadObjectArgs} object.
+   * @param args {@link PostObjectArgs} object.
    * @return {@link CompletableFuture}&lt;{@link ObjectWriteResponse}&gt; object.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1976,7 +1976,7 @@ public class ApiAsyncClient extends S3Base {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public CompletableFuture<ObjectWriteResponse> uploadObject(UploadObjectArgs args)
+  public CompletableFuture<ObjectWriteResponse> postObject(PostObjectArgs args)
       throws InsufficientDataException, InternalException, InvalidKeyException, IOException,
           NoSuchAlgorithmException, XmlParserException {
     checkArgs(args);

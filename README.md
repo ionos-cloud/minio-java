@@ -42,7 +42,7 @@ You need three items in order to connect to an object storage server.
 import com.ionoscloud.s3.HeadBucketArgs;
 import com.ionoscloud.s3.MakeBucketArgs;
 import com.ionoscloud.s3.ApiClient;
-import com.ionoscloud.s3.UploadObjectArgs;
+import com.ionoscloud.s3.PostObjectArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -70,8 +70,8 @@ public class FileUploader {
 
       // Upload '/home/user/Photos/asiaphotos.zip' as object name 'asiaphotos-2015.zip' to bucket
       // 'asiatrip'.
-      apiClient.uploadObject(
-          UploadObjectArgs.builder()
+      apiClient.postObject(
+          PostObjectArgs.builder()
               .bucket("asiatrip")
               .object("asiaphotos-2015.zip")
               .filename("/home/user/Photos/asiaphotos.zip")

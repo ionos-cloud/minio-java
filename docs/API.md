@@ -33,7 +33,7 @@ ApiClient apiClient =
 | [`makeBucket`](#makeBucket)                                       | [`setObjectRetention`](#setObjectRetention)             |
 | [`deleteBucket`](#deleteBucket)                                   | [`setObjectTags`](#setObjectTags)                       |
 | [`putBucketEncryption`](#putBucketEncryption)                     | [`statObject`](#statObject)                             |
-| [`setBucketLifecycle`](#setBucketLifecycle)                       | [`uploadObject`](#uploadObject)                         |
+| [`setBucketLifecycle`](#setBucketLifecycle)                       | [`postObject`](#postObject)                         |
 | [`setBucketNotification`](#setBucketNotification)                 | [`uploadSnowballObjects`](#uploadSnowballObjects)       |
 | [`putBucketPolicy`](#putBucketPolicy)                             |                                                         |
 | [`setBucketReplication`](#setBucketReplication)                   |                                                         |
@@ -1484,27 +1484,27 @@ apiClient.putObject(
         .build());
 ```
 
-<a name="uploadObject"></a>
-### uploadObject(UploadObjectArgs args)
-`public void uploadObject(UploadObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#uploadObject-com.ionoscloud.s3.UploadObjectArgs-)_
+<a name="postObject"></a>
+### postObject(PostObjectArgs args)
+`public void postObject(PostObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#postObject-com.ionoscloud.s3.PostObjectArgs-)_
 
 Uploads contents from a file as object in bucket.
 
 __Parameters__
 | Parameter | Type                 | Description |
 |:----------|:---------------------|:------------|
-| ``args``  | _[UploadObjectArgs]_ | Arguments.  |
+| ``args``  | _[PostObjectArgs]_ | Arguments.  |
 
 __Example__
 ```java
 // Upload an JSON file.
-apiClient.uploadObject(
-    UploadObjectArgs.builder()
+apiClient.postObject(
+    PostObjectArgs.builder()
         .bucket("my-bucketname").object("my-objectname").filename("person.json").build());
 
 // Upload a video file.
-apiClient.uploadObject(
-    UploadObjectArgs.builder()
+apiClient.postObject(
+    PostObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
         .filename("my-video.avi")
@@ -1859,7 +1859,7 @@ ObjectStat objectStat =
 [RemoveObjectsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3RemoveObjectsArgs.html
 [CopyObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3CopyObjectArgs.html
 [PutObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutObjectArgs.html
-[UploadObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3UploadObjectArgs.html
+[PostObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PostObjectArgs.html
 [UploadSnowballObjectsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3UploadSnowballObjectsArgs.html
 [ComposeObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ComposeObjectArgs.html
 [ObjectWriteResponse]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ObjectWriteResponse.html
