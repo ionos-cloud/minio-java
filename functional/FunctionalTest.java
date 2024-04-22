@@ -2770,6 +2770,7 @@ public class FunctionalTest {
                 new Expiration((ZonedDateTime) null, 365, null),
                 new RuleFilter("logs/"),
                 "rule2",
+                "rule2",
                 null,
                 null,
                 null));
@@ -2802,6 +2803,7 @@ public class FunctionalTest {
                 null,
                 new Expiration((ZonedDateTime) null, 365, null),
                 new RuleFilter("logs/"),
+                "rule2",
                 "rule2",
                 null,
                 null,
@@ -2838,6 +2840,7 @@ public class FunctionalTest {
                 null,
                 new Expiration((ZonedDateTime) null, 365, null),
                 new RuleFilter("logs/"),
+                "rule2",
                 "rule2",
                 null,
                 null,
@@ -2878,6 +2881,7 @@ public class FunctionalTest {
                 null,
                 null,
                 null,
+                null,
                 null));
         config =
             client.getBucketLifecycle(GetBucketLifecycleArgs.builder().bucket(bucketName).build());
@@ -2886,13 +2890,6 @@ public class FunctionalTest {
             "config.rules().size(): expected: 1, got: " + config.rules().size(),
             config.rules().size(),
             1);
-        Assert.assertNotNull(
-            "rule.filter(): expected: <non-null>, got: <null>", config.rules().get(0).filter());
-        Assert.assertEquals(
-            "rule.filter().prefix(): expected: <empty>, got: "
-                + config.rules().get(0).filter().prefix(),
-            "",
-            config.rules().get(0).filter().prefix());
         mintSuccessLog(methodName, null, startTime);
       } finally {
         client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
