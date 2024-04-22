@@ -19,7 +19,7 @@ import org.simpleframework.xml.stream.OutputNode;
 @Convert(ResponseDate.ResponseDateConverter.class)
 public class ResponseDate {
   public static final DateTimeFormatter IONOS_RESPONSE_DATE_FORMAT =
-      DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH':'mm':'ss'Z'", Locale.US).withZone(Time.UTC);
+      DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'", Locale.US).withZone(Time.UTC);
 
   private ZonedDateTime zonedDateTime;
 

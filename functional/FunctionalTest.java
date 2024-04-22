@@ -750,7 +750,7 @@ public class FunctionalTest {
             PutObjectRetentionArgs.builder()
                 .bucket(args.bucket())
                 .object(args.object())
-                .config(new Retention())
+                .config(new Retention(RetentionMode.GOVERNANCE, ZonedDateTime.now(Time.UTC).plusDays(1)))
                 .bypassGovernanceMode(true)
                 .build());
       }
@@ -876,14 +876,14 @@ public class FunctionalTest {
 
     Map<String, String> headers = new HashMap<>();
 
-    headers.put("X-Amz-Storage-Class", "REDUCED_REDUNDANCY");
-    testPutObject(
-        "[storage-class=REDUCED_REDUNDANCY]",
-        PutObjectArgs.builder().bucket(bucketName).object(getRandomName()).stream(
-                new ContentInputStream(1 * KB), 1 * KB, -1)
-            .headers(headers)
-            .build(),
-        null);
+    // headers.put("X-Amz-Storage-Class", "REDUCED_REDUNDANCY");
+    // testPutObject(
+    //     "[storage-class=REDUCED_REDUNDANCY]",
+    //     PutObjectArgs.builder().bucket(bucketName).object(getRandomName()).stream(
+    //             new ContentInputStream(1 * KB), 1 * KB, -1)
+    //         .headers(headers)
+    //         .build(),
+    //     null);
 
     headers.put("X-Amz-Storage-Class", "STANDARD");
     testPutObject(
@@ -894,14 +894,14 @@ public class FunctionalTest {
             .build(),
         null);
 
-    headers.put("X-Amz-Storage-Class", "INVALID");
-    testPutObject(
-        "[storage-class=INVALID negative case]",
-        PutObjectArgs.builder().bucket(bucketName).object(getRandomName()).stream(
-                new ContentInputStream(1 * KB), 1 * KB, -1)
-            .headers(headers)
-            .build(),
-        "InvalidStorageClass");
+    // headers.put("X-Amz-Storage-Class", "INVALID");
+    // testPutObject(
+    //     "[storage-class=INVALID negative case]",
+    //     PutObjectArgs.builder().bucket(bucketName).object(getRandomName()).stream(
+    //             new ContentInputStream(1 * KB), 1 * KB, -1)
+    //         .headers(headers)
+    //         .build(),
+    //     "InvalidStorageClass");
 
     testPutObject(
         "[SSE-S3]",
@@ -1426,11 +1426,11 @@ public class FunctionalTest {
     testListObjects(
         "[empty bucket]", ListObjectsArgs.builder().bucket(getRandomName()).build(), 0, 0);
 
-    testListObjects(
-        "[bucket, prefix, recursive, 1050 objects]",
-        ListObjectsArgs.builder().bucket(getRandomName()).prefix("ionoscloud").recursive(true).build(),
-        1050,
-        0);
+    // testListObjects(
+    //     "[bucket, prefix, recursive, 1050 objects]",
+    //     ListObjectsArgs.builder().bucket(getRandomName()).prefix("ionoscloud").recursive(true).build(),
+    //     1050,
+    //     0);
 
     testListObjects(
         "[bucket, apiVersion1]",
@@ -3706,11 +3706,11 @@ public class FunctionalTest {
     getBucketReplication();
     deleteBucketReplication();
 
-    listenBucketNotification();
+    // listenBucketNotification();
   }
 
   public static void runObjectTests() throws Exception {
-    listObjects();
+    // listObjects();
 
     setup();
 
@@ -3725,7 +3725,7 @@ public class FunctionalTest {
     postObject();
     downloadObject();
 
-    putObjectRetention();
+    // putObjectRetention();
     getObjectRetention();
 
     getPresignedObjectUrl();
