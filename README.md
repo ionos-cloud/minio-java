@@ -106,9 +106,6 @@ $ mc ls play/asiatrip/
 
 ## Feature Reference
 
-The ionos-cloud-sdk-dbaas-mariadb SDK for JAVA aims to offer access to all resources in the IONOS Container Registry API and also offers some additional features that make the integration easier:
- - authentication for API calls
- - handling of asynchronous requests
 
 ## FAQ
 
