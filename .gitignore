@@ -27,6 +27,7 @@ target/
 .metadata/
 .project
 .settings/
+.vscode/
 api/.classpath
 api/.gitignore
 api/.project
@@ -40,7 +41,3 @@ functional/.project
 functional/.settings/
 functional/bin/
 functional/.d*/
-minio
-!minio/
-minio.exe
-minio.*log

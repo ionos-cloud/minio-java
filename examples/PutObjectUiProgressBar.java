@@ -1,22 +1,8 @@
-/*
- * MinIO Java SDK for Amazon S3 Compatible Cloud Storage, (C) 2017 MinIO, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
-import io.minio.errors.MinioException;
+
+import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.PutObjectArgs;
+import com.ionoscloud.s3.errors.ApiException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
@@ -57,17 +43,17 @@ public class PutObjectUiProgressBar extends JFrame {
    * on the UI
    */
   private void uploadFile(String fileName)
-      throws IOException, NoSuchAlgorithmException, InvalidKeyException, MinioException {
-    /* play.min.io for test and development. */
-    MinioClient minioClient =
-        MinioClient.builder()
-            .endpoint("https://play.min.io")
-            .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
+      throws IOException, NoSuchAlgorithmException, InvalidKeyException, ApiException {
+    
+    ApiClient apiClient =
+        ApiClient.builder()
+            .endpoint(System.getenv("IONOS_API_URL"))
+            .credentials(System.getenv("IONOS_ACCESS_KEY"), System.getenv("IONOS_SECRET_KEY"))
             .build();
 
     /* Amazon S3: */
-    // MinioClient minioClient =
-    //     MinioClient.builder()
+    // ApiClient apiClient =
+    //     ApiClient.builder()
     //         .endpoint("https://s3.amazonaws.com")
     //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
     //         .build();
@@ -78,7 +64,7 @@ public class PutObjectUiProgressBar extends JFrame {
           new ProgressMonitorInputStream(this, "Uploading... " + file.getAbsolutePath(), bis);
 
       pmis.getProgressMonitor().setMillisToPopup(10);
-      minioClient.putObject(
+      apiClient.putObject(
           PutObjectArgs.builder().bucket("bank").object("my-objectname").stream(
                   pmis, pmis.available(), -1)
               .build());
@@ -117,7 +103,7 @@ public class PutObjectUiProgressBar extends JFrame {
     }
   }
 
-  /** MinioClient.putObjectProgressBar() example. */
+  /** ApiClient.putObjectProgressBar() example. */
   public static void main(String[] args) {
     PutObjectUiProgressBar demo = new PutObjectUiProgressBar();
     demo.go();

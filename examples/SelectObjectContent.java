@@ -1,29 +1,15 @@
-/*
- * MinIO Java SDK for Amazon S3 Compatible Cloud Storage, (C) 2019 MinIO, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
-import io.minio.SelectObjectContentArgs;
-import io.minio.SelectResponseStream;
-import io.minio.errors.MinioException;
-import io.minio.messages.FileHeaderInfo;
-import io.minio.messages.InputSerialization;
-import io.minio.messages.OutputSerialization;
-import io.minio.messages.QuoteFields;
-import io.minio.messages.Stats;
+
+import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.PutObjectArgs;
+import com.ionoscloud.s3.SelectObjectContentArgs;
+import com.ionoscloud.s3.SelectResponseStream;
+import com.ionoscloud.s3.errors.ApiException;
+import com.ionoscloud.s3.messages.FileHeaderInfo;
+import com.ionoscloud.s3.messages.InputSerialization;
+import com.ionoscloud.s3.messages.OutputSerialization;
+import com.ionoscloud.s3.messages.QuoteFields;
+import com.ionoscloud.s3.messages.Stats;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -31,20 +17,20 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class SelectObjectContent {
-  /** MinioClient.getObject() example. */
+  /** ApiClient.getObject() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
-              .endpoint("https://play.min.io")
-              .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
+      
+      ApiClient apiClient =
+          ApiClient.builder()
+              .endpoint(System.getenv("IONOS_API_URL"))
+              .credentials(System.getenv("IONOS_ACCESS_KEY"), System.getenv("IONOS_SECRET_KEY"))
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -58,7 +44,7 @@ public class SelectObjectContent {
                   + "air, moon roof, loaded\",4799.00\n")
               .getBytes(StandardCharsets.UTF_8);
       ByteArrayInputStream bais = new ByteArrayInputStream(data);
-      minioClient.putObject(
+      apiClient.putObject(
           PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
                   bais, data.length, -1)
               .build());
@@ -70,7 +56,7 @@ public class SelectObjectContent {
           new OutputSerialization(null, null, null, QuoteFields.ASNEEDED, null);
 
       SelectResponseStream stream =
-          minioClient.selectObjectContent(
+          apiClient.selectObjectContent(
               SelectObjectContentArgs.builder()
                   .bucket("my-bucketname")
                   .object("my-objectName")
@@ -88,7 +74,7 @@ public class SelectObjectContent {
       System.out.println("bytes processed: " + stats.bytesProcessed());
       System.out.println("bytes returned: " + stats.bytesReturned());
       stream.close();
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

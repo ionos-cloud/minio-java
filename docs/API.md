@@ -1,23 +1,11 @@
-# Java Client API Reference [![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
+# Java Client API Reference
 
-## Create MinIO Client.
-
-## MinIO
+## Create Client.
 
 ```java
-MinioClient minioClient =
-    MinioClient.builder()
-        .endpoint("https://play.min.io")
-        .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
-        .build();
-```
-
-## AWS S3
-
-```java
-MinioClient minioClient =
-    MinioClient.builder()
-        .endpoint("https://s3.amazonaws.com")
+ApiClient apiClient =
+    ApiClient.builder()
+        .endpoint("ENDPOINT")
         .credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
         .build();
 ```
@@ -53,155 +41,90 @@ MinioClient minioClient =
 | [`setBucketVersioning`](#setBucketVersioning)                     |                                                         |
 | [`setObjectLockConfiguration`](#setObjectLockConfiguration)       |                                                         |
 
-## 1. MinIO Client Builder
+## 1. Client Builder
 
-MinIO Client Builder is used to create MinIO client. Builder has below methods to accept arguments.
+Client Builder is used to create a client. Builder has below methods to accept arguments.
 | Method          | Description                                                                                                                                |
 |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------|
 | `endpoint()`    | Accepts endpoint as a String, URL or okhttp3.HttpUrl object and optionally accepts port number and flag to enable secure (TLS) connection. |
 |                 | Endpoint as a string can be formatted like below:                                                                                          |
-|                 | `https://s3.amazonaws.com`                                                                                                                 |
-|                 | `https://play.min.io`                                                                                                                      |
-|                 | `https://play.min.io:9000`                                                                                                                 |
-|                 | `localhost`                                                                                                                                |
-|                 | `play.min.io`                                                                                                                              |
+|                 | `<url>`                                                                                                                 |
 | `credentials()` | Accepts access key (aka user ID) and secret key (aka password) of an account in S3 service.                                                |
 | `region()`      | Accepts region name of S3 service. If specified, all operations use this region otherwise region is probed per bucket.                     |
 | `httpClient()`  | Custom HTTP client to override default.                                                                                                    |
 
 __Examples__
 
-### MinIO
 
 ```java
-// 1. Create client to S3 service 'play.min.io' at port 443 with TLS security
+// 1. Create client to S3 service 'ENDPOINT' at port 443 with TLS security
 // for anonymous access.
-MinioClient minioClient = MinioClient.builder().endpoint("https://play.min.io").build();
+ApiClient s3Client = ApiClient.builder().endpoint("https://ENDPOINT").build();
 
-// 2. Create client to S3 service 'play.min.io' at port 443 with TLS security
+// 2. Create client to S3 service 'ENDPOINT' at port 443 with TLS security
 // using URL object for anonymous access.
-MinioClient minioClient = MinioClient.builder().endpoint(new URL("https://play.min.io")).build();
+ApiClient s3Client = ApiClient.builder().endpoint(new URL("https://ENDPOINT")).build();
 
-// 3. Create client to S3 service 'play.min.io' at port 9000 with TLS security
+// 3. Create client to S3 service 'ENDPOINT' at port 9000 with TLS security
 // using okhttp3.HttpUrl object for anonymous access.
-MinioClient minioClient =
-    MinioClient.builder().endpoint(HttpUrl.parse("https://play.min.io:9000")).build();
+ApiClient s3Client =
+    ApiClient.builder().endpoint(HttpUrl.parse("https://ENDPOINT")).build();
 
-// 4. Create client to S3 service 'play.min.io' at port 443 with TLS security
+// 4. Create client to S3 service 'ENDPOINT' at port 80 with TLS security
 // for authenticated access.
-MinioClient minioClient =
-    MinioClient.builder()
-	    .endpoint("https://play.min.io")
-		.credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
-		.build();
-
-// 5. Create client to S3 service 'play.min.io' at port 9000 with non-TLS security
-// for authenticated access.
-MinioClient minioClient =
-    MinioClient.builder()
-	    .endpoint("play.min.io", 9000, false)
-	    .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
-		.build();
-
-// 6. Create client to S3 service 'play.min.io' at port 9000 with TLS security
-// for authenticated access.
-MinioClient minioClient =
-    MinioClient.builder()
-	    .endpoint("play.min.io", 9000, true)
-		.credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
-		.build();
-
-// 7. Create client to S3 service 'play.min.io' at port 443 with TLS security
-// and region 'us-west-1' for authenticated access.
-MinioClient minioClient =
-    MinioClient.builder()
-	    .endpoint(new URL("https://play.min.io"))
-		.credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
-		.region("us-west-1")
-		.build();
-
-// 8. Create client to S3 service 'play.min.io' at port 9000 with TLS security,
-// region 'eu-east-1' and custom HTTP client for authenticated access.
-MinioClient minioClient =
-    MinioClient.builder()
-	    .endpoint("https://play.min.io:9000")
-		.credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
-		.region("eu-east-1")
-		.httpClient(customHttpClient)
-		.build();
-```
-
-### AWS S3
-
-```java
-// 1. Create client to S3 service 's3.amazonaws.com' at port 443 with TLS security
-// for anonymous access.
-MinioClient s3Client = MinioClient.builder().endpoint("https://s3.amazonaws.com").build();
-
-// 2. Create client to S3 service 's3.amazonaws.com' at port 443 with TLS security
-// using URL object for anonymous access.
-MinioClient s3Client = MinioClient.builder().endpoint(new URL("https://s3.amazonaws.com")).build();
-
-// 3. Create client to S3 service 's3.amazonaws.com' at port 9000 with TLS security
-// using okhttp3.HttpUrl object for anonymous access.
-MinioClient s3Client =
-    MinioClient.builder().endpoint(HttpUrl.parse("https://s3.amazonaws.com")).build();
-
-// 4. Create client to S3 service 's3.amazonaws.com' at port 80 with TLS security
-// for authenticated access.
-MinioClient s3Client =
-    MinioClient.builder()
-	    .endpoint("s3.amazonaws.com")
+ApiClient s3Client =
+    ApiClient.builder()
+	    .endpoint("ENDPOINT")
 		.credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
 		.build();
 
-// 5. Create client to S3 service 's3.amazonaws.com' at port 443 with non-TLS security
+// 5. Create client to S3 service 'ENDPOINT' at port 443 with non-TLS security
 // for authenticated access.
-MinioClient s3Client =
-    MinioClient.builder()
-        .endpoint("s3.amazonaws.com", 433, false)
+ApiClient s3Client =
+    ApiClient.builder()
+        .endpoint("ENDPOINT", 433, false)
 		.credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
 		.build();
 
-// 6. Create client to S3 service 's3.amazonaws.com' at port 80 with non-TLS security
+// 6. Create client to S3 service 'ENDPOINT' at port 80 with non-TLS security
 // for authenticated access.
-MinioClient s3Client =
-    MinioClient.builder()
-	    .endpoint("s3.amazonaws.com", 80, false)
+ApiClient s3Client =
+    ApiClient.builder()
+	    .endpoint("ENDPOINT", 80, false)
         .credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
 		.build();
 
-// 7. Create client to S3 service 's3.amazonaws.com' at port 80 with TLS security
+// 7. Create client to S3 service 'ENDPOINT' at port 80 with TLS security
 // for authenticated access.
-MinioClient s3Client =
-    MinioClient.builder()
-	    .endpoint("s3.amazonaws.com", 80, true)
+ApiClient s3Client =
+    ApiClient.builder()
+	    .endpoint("ENDPOINT", 80, true)
         .credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
 		.build();
 
-// 8. Create client to S3 service 's3.amazonaws.com' at port 80 with non-TLS security
+// 8. Create client to S3 service 'ENDPOINT' at port 80 with non-TLS security
 // and region 'us-west-1' for authenticated access.
-MinioClient s3Client =
-    MinioClient.builder()
-	    .endpoint("s3.amazonaws.com", 80, false)
+ApiClient s3Client =
+    ApiClient.builder()
+	    .endpoint("ENDPOINT", 80, false)
         .credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
 		.region("us-west-1")
 		.build();
 
-// 9. Create client to S3 service 's3.amazonaws.com' at port 443 with TLS security
+// 9. Create client to S3 service 'ENDPOINT' at port 443 with TLS security
 // and region 'eu-west-2' for authenticated access.
-MinioClient s3Client =
-    MinioClient.builder()
-	    .endpoint("s3.amazonaws.com", 443, true)
+ApiClient s3Client =
+    ApiClient.builder()
+	    .endpoint("ENDPOINT", 443, true)
 		.credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY").
 		.region("eu-west-2")
 		.build();
 
-// 10. Create client to S3 service 's3.amazonaws.com' at port 443 with TLS security,
+// 10. Create client to S3 service 'ENDPOINT' at port 443 with TLS security,
 // region 'eu-central-1' and custom HTTP client for authenticated access.
-MinioClient s3Client =
-    MinioClient.builder()
-	    .endpoint("s3.amazonaws.com", 443, true)
+ApiClient s3Client =
+    ApiClient.builder()
+	    .endpoint("ENDPOINT", 443, true)
         .credentials("YOUR-ACCESSKEYID", "YOUR-SECRETACCESSKEY")
 		.region("eu-central-1")
 		.httpClient(customHttpClient)
@@ -228,7 +151,7 @@ All APIs throw below exceptions in addition to specific to API.
 
 <a name="bucketExists"></a>
 ### bucketExists(BucketExistsArgs args)
-`public boolean bucketExists(BucketExistsArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#bucketExists-io.minio.BucketExistsArgs-)_
+`public boolean bucketExists(BucketExistsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#bucketExists-com.ionoscloud.s3.BucketExistsArgs-)_
 
 Checks if a bucket exists.
 
@@ -245,7 +168,7 @@ __Example__
 ```java
 // Check whether 'my-bucketname' exists or not.
 boolean found =
-  minioClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
+  apiClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
 if (found) {
   System.out.println("my-bucketname exists");
 } else {
@@ -255,7 +178,7 @@ if (found) {
 
 <a name="deleteBucketEncryption"></a>
 ### deleteBucketEncryption(DeleteBucketEncryptionArgs args)
-`private void deleteBucketEncryption(DeleteBucketEncryptionArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#deleteBucketEncryption-io.minio.DeleteBucketEncryptionArgs-)_
+`private void deleteBucketEncryption(DeleteBucketEncryptionArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteBucketEncryption-com.ionoscloud.s3.DeleteBucketEncryptionArgs-)_
 
 Deletes encryption configuration of a bucket.
 
@@ -266,13 +189,13 @@ __Parameters__
 
 __Example__
 ```java
-minioClient.deleteBucketEncryption(
+apiClient.deleteBucketEncryption(
     DeleteBucketEncryptionArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="deleteBucketLifecycle"></a>
 ### deleteBucketLifecycle(DeleteBucketLifecycleArgs args)
-`private void deleteBucketLifecycle(DeleteBucketLifecycleArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#deleteBucketLifecycle-io.minio.DeleteBucketLifecycleArgs-)_
+`private void deleteBucketLifecycle(DeleteBucketLifecycleArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteBucketLifecycle-com.ionoscloud.s3.DeleteBucketLifecycleArgs-)_
 
 Deletes lifecycle configuration of a bucket.
 
@@ -283,13 +206,13 @@ __Parameters__
 
 __Example__
 ```java
-minioClient.deleteBucketLifecycle(
+apiClient.deleteBucketLifecycle(
     DeleteBucketLifecycleArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="deleteBucketTags"></a>
 ### deleteBucketTags(DeleteBucketTagsArgs args)
-`private void deleteBucketTags(DeleteBucketTagsArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#deleteBucketTags-io.minio.DeleteBucketTagsArgs-)_
+`private void deleteBucketTags(DeleteBucketTagsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteBucketTags-com.ionoscloud.s3.DeleteBucketTagsArgs-)_
 
 Deletes tags of a bucket.
 
@@ -300,12 +223,12 @@ __Parameters__
 
 __Example__
 ```java
-minioClient.deleteBucketTags(DeleteBucketTagsArgs.builder().bucket("my-bucketname").build());
+apiClient.deleteBucketTags(DeleteBucketTagsArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="deleteBucketPolicy"></a>
 ### deleteBucketPolicy(DeleteBucketPolicyArgs args)
-`private void deleteBucketPolicy(DeleteBucketPolicyArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#deleteBucketPolicy-io.minio.DeleteBucketPolicyArgs-)_
+`private void deleteBucketPolicy(DeleteBucketPolicyArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteBucketPolicy-com.ionoscloud.s3.DeleteBucketPolicyArgs-)_
 
 Deletes bucket policy configuration of a bucket.
 
@@ -316,12 +239,12 @@ __Parameters__
 
 __Example__
 ```java
-minioClient.deleteBucketPolicy(DeleteBucketPolicyArgs.builder().bucket("my-bucketname").build());
+apiClient.deleteBucketPolicy(DeleteBucketPolicyArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="deleteBucketReplication"></a>
 ### deleteBucketReplication(DeleteBucketReplicationArgs args)
-`private void deleteBucketReplication(DeleteBucketReplicationArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#deleteBucketReplication-io.minio.DeleteBucketReplicationArgs-)_
+`private void deleteBucketReplication(DeleteBucketReplicationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteBucketReplication-com.ionoscloud.s3.DeleteBucketReplicationArgs-)_
 
 Deletes bucket replication configuration of a bucket.
 
@@ -332,13 +255,13 @@ __Parameters__
 
 __Example__
 ```java
-minioClient.deleteBucketReplication(
+apiClient.deleteBucketReplication(
     DeleteBucketReplicationArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="deleteBucketNotification"></a>
 ### deleteBucketNotification(DeleteBucketNotificationArgs args)
-`public void deleteBucketNotification(DeleteBucketNotificationArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#deleteBucketNotification-io.minio.DeleteBucketNotificationArgs-)_
+`public void deleteBucketNotification(DeleteBucketNotificationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteBucketNotification-com.ionoscloud.s3.DeleteBucketNotificationArgs-)_
 
 Deletes notification configuration of a bucket.
 
@@ -349,13 +272,13 @@ __Parameters__
 
 __Example__
 ```java
-minioClient.deleteBucketNotification(
+apiClient.deleteBucketNotification(
     DeleteBucketNotificationArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="deleteObjectLockConfiguration"></a>
 ### deleteObjectLockConfiguration(DeleteObjectLockConfigurationArgs args)
-`public void deleteObjectLockConfiguration(DeleteObjectLockConfigurationArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#deleteObjectLockConfiguration-io.minio.DeleteObjectLockConfigurationArgs-)_
+`public void deleteObjectLockConfiguration(DeleteObjectLockConfigurationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteObjectLockConfiguration-com.ionoscloud.s3.DeleteObjectLockConfigurationArgs-)_
 
 Deletes object-lock configuration in a bucket.
 
@@ -366,13 +289,13 @@ __Parameters__
 
 __Example__
 ```java
-minioClient.deleteObjectLockConfiguration(
+apiClient.deleteObjectLockConfiguration(
     DeleteObjectLockConfigurationArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="getBucketEncryption"></a>
 ### getBucketEncryption(GetBucketEncryptionArgs args)
-`public SseConfiguration getBucketEncryption(GetBucketEncryptionArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getBucketEncryption-io.minio.GetBucketEncryptionArgs-)_
+`public SseConfiguration getBucketEncryption(GetBucketEncryptionArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getBucketEncryption-com.ionoscloud.s3.GetBucketEncryptionArgs-)_
 
 Gets encryption configuration of a bucket.
 
@@ -388,13 +311,13 @@ __Parameters__
 __Example__
 ```java
 SseConfiguration config =
-    minioClient.getBucketEncryption(
+    apiClient.getBucketEncryption(
         GetBucketEncryptionArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="getBucketLifecycle"></a>
 ### getBucketLifecycle(GetBucketLifecycleArgs args)
-`public LifecycleConfiguration getBucketLifecycle(GetBucketLifecycleArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getBucketLifecycle-io.minio.GetBucketLifecycleArgs-)_
+`public LifecycleConfiguration getBucketLifecycle(GetBucketLifecycleArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getBucketLifecycle-com.ionoscloud.s3.GetBucketLifecycleArgs-)_
 
 Gets lifecycle configuration of a bucket.
 
@@ -410,14 +333,14 @@ __Parameters__
 __Example__
 ```java
 LifecycleConfiguration config =
-    minioClient.getBucketLifecycle(
+    apiClient.getBucketLifecycle(
 	    GetBucketLifecycleArgs.builder().bucket("my-bucketname").build());
 System.out.println("Lifecycle configuration: " + config);
 ```
 
 <a name="getBucketNotification"></a>
 ### getBucketNotification(GetBucketNotificationArgs args)
-`public NotificationConfiguration getBucketNotification(GetBucketNotificationArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getBucketNotification-io.minio.GetBucketNotificationArgs-)_
+`public NotificationConfiguration getBucketNotification(GetBucketNotificationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getBucketNotification-com.ionoscloud.s3.GetBucketNotificationArgs-)_
 
 Gets notification configuration of a bucket.
 
@@ -433,13 +356,13 @@ __Parameters__
 __Example__
 ```java
 NotificationConfiguration config =
-    minioClient.getBucketNotification(
+    apiClient.getBucketNotification(
 	    GetBucketNotificationArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="getBucketPolicy"></a>
 ### getBucketPolicy(GetBucketPolicyArgs args)
-`public String getBucketPolicy(GetBucketPolicyArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getBucketPolicy-io.minio.GetBucketPolicyArgs-)_
+`public String getBucketPolicy(GetBucketPolicyArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getBucketPolicy-com.ionoscloud.s3.GetBucketPolicyArgs-)_
 
 Gets bucket policy configuration of a bucket.
 
@@ -456,12 +379,12 @@ __Parameters__
 __Example__
 ```java
 String config =
-    minioClient.getBucketPolicy(GetBucketPolicyArgs.builder().bucket("my-bucketname").build());
+    apiClient.getBucketPolicy(GetBucketPolicyArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="getBucketReplication"></a>
 ### getBucketReplication(GetBucketReplicationArgs args)
-`public ReplicationConfiguration getBucketReplication(GetBucketReplicationArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getBucketReplication-io.minio.GetBucketReplicationArgs-)_
+`public ReplicationConfiguration getBucketReplication(GetBucketReplicationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getBucketReplication-com.ionoscloud.s3.GetBucketReplicationArgs-)_
 
 Gets bucket replication configuration of a bucket.
 
@@ -478,13 +401,13 @@ __Parameters__
 __Example__
 ```java
 ReplicationConfiguration config =
-    minioClient.getBucketReplication(
+    apiClient.getBucketReplication(
 	    GetBucketReplicationArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="getBucketTags"></a>
 ### getBucketTags(GetBucketTagsArgs args)
-`public Tags getBucketTags(GetBucketTagsArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.htmlgetBucketTags-io.minio.GetBucketTagsArgs-)_
+`public Tags getBucketTags(GetBucketTagsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.htmlgetBucketTags-com.ionoscloud.s3.GetBucketTagsArgs-)_
 
 Gets tags of a bucket.
 
@@ -500,12 +423,12 @@ __Parameters__
 
 __Example__
 ```java
-Tags tags = minioClient.getBucketTags(GetBucketTagsArgs.builder().bucket("my-bucketname").build());
+Tags tags = apiClient.getBucketTags(GetBucketTagsArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="getBucketVersioning"></a>
 ### getBucketVersioning(GetBucketVersioningArgs args)
-`public VersioningConfiguration getBucketVersioning(GetBucketVersioningArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getBucketVersioning-io.minio.GetBucketVersioningArgs-)_
+`public VersioningConfiguration getBucketVersioning(GetBucketVersioningArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getBucketVersioning-com.ionoscloud.s3.GetBucketVersioningArgs-)_
 
 Gets versioning configuration of a bucket.
 
@@ -521,13 +444,13 @@ __Parameters__
 __Example__
 ```java
 VersioningConfiguration config =
-    minioClient.getBucketVersioning(
+    apiClient.getBucketVersioning(
         GetBucketVersioningArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="getObjectLockConfiguration"></a>
 ### getObjectLockConfiguration(GetObjectLockConfigurationArgs args)
-`public ObjectLockConfiguration getObjectLockConfiguration(GetObjectLockConfigurationArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getObjectLockConfiguration-io.minio.GetObjectLockConfigurationArgs-)_
+`public ObjectLockConfiguration getObjectLockConfiguration(GetObjectLockConfigurationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObjectLockConfiguration-com.ionoscloud.s3.GetObjectLockConfigurationArgs-)_
 
 Gets object-lock configuration in a bucket.
 
@@ -544,7 +467,7 @@ __Parameters__
 __Example__
 ```java
 ObjectLockConfiguration config =
-    minioClient.getObjectLockConfiguration(
+    apiClient.getObjectLockConfiguration(
 	    GetObjectLockConfigurationArgs.builder().bucket("my-bucketname").build());
 System.out.println("Mode: " + config.mode());
 System.out.println("Duration: " + config.duration().duration() + " " + config.duration().unit());
@@ -552,7 +475,7 @@ System.out.println("Duration: " + config.duration().duration() + " " + config.du
 
 <a name="listBuckets"></a>
 ### listBuckets()
-`public List<Bucket> listBuckets()` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#listBuckets--)_
+`public List<Bucket> listBuckets()` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#listBuckets--)_
 
 Lists bucket information of all buckets.
 
@@ -562,7 +485,7 @@ Lists bucket information of all buckets.
 
 __Example__
 ```java
-List<Bucket> bucketList = minioClient.listBuckets();
+List<Bucket> bucketList = apiClient.listBuckets();
 for (Bucket bucket : bucketList) {
   System.out.println(bucket.creationDate() + ", " + bucket.name());
 }
@@ -570,7 +493,7 @@ for (Bucket bucket : bucketList) {
 
 <a name="listBuckets"></a>
 ### listBuckets(ListBucketsArgs args)
-`public List<Bucket> listBuckets(ListBucketsArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#listBuckets-io.minio.ListBucketsArgs-)_
+`public List<Bucket> listBuckets(ListBucketsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#listBuckets-com.ionoscloud.s3.ListBucketsArgs-)_
 
 Lists bucket information of all buckets.
 
@@ -586,7 +509,7 @@ __Parameters__
 __Example__
 ```java
 List<Bucket> bucketList =
-    minioClient.listBuckets(ListBuckets.builder().extraHeaders(headers).build());
+    apiClient.listBuckets(ListBuckets.builder().extraHeaders(headers).build());
 for (Bucket bucket : bucketList) {
   System.out.println(bucket.creationDate() + ", " + bucket.name());
 }
@@ -594,7 +517,7 @@ for (Bucket bucket : bucketList) {
 
 <a name="listenBucketNotification"></a>
 ### listenBucketNotification(ListenBucketNotificationArgs args)
-`public CloseableIterator<Result<NotificationRecords>> listenBucketNotification(ListenBucketNotificationArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#listenBucketNotification-io.minio.ListenBucketNotificationArgs-)_
+`public CloseableIterator<Result<NotificationRecords>> listenBucketNotification(ListenBucketNotificationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#listenBucketNotification-com.ionoscloud.s3.ListenBucketNotificationArgs-)_
 
 Listens events of object prefix and suffix of a bucket. The returned closable iterator is lazily evaluated hence its required to iterate to get new records and must be used with try-with-resource to release underneath network resources.
 
@@ -611,7 +534,7 @@ __Example__
 ```java
 String[] events = {"s3:ObjectCreated:*", "s3:ObjectAccessed:*"};
 try (CloseableIterator<Result<NotificationRecords>> ci =
-    minioClient.listenBucketNotification(
+    apiClient.listenBucketNotification(
         ListenBucketNotificationArgs.builder()
             .bucket("bucketName")
             .prefix("")
@@ -630,7 +553,7 @@ try (CloseableIterator<Result<NotificationRecords>> ci =
 
 <a name="listObjects"></a>
 ### listObjects(ListObjectsArgs args)
-`public Iterable<Result<Item>> listObjects(ListObjectsArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#listObjects-io.minio.ListObjectsArgs-)_
+`public Iterable<Result<Item>> listObjects(ListObjectsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#listObjects-com.ionoscloud.s3.ListObjectsArgs-)_
 
 Lists object information of a bucket.
 
@@ -646,15 +569,15 @@ __Parameters__
 __Example__
 ```java
 // Lists objects information.
-Iterable<Result<Item>> results = minioClient.listObjects(
+Iterable<Result<Item>> results = apiClient.listObjects(
     ListObjectsArgs.builder().bucket("my-bucketname").build());
 
 // Lists objects information recursively.
-Iterable<Result<Item>> results = minioClient.listObjects(
+Iterable<Result<Item>> results = apiClient.listObjects(
     ListObjectsArgs.builder().bucket("my-bucketname").recursive(true).build());
 
 // Lists maximum 100 objects information whose names starts with 'E' and after 'ExampleGuide.pdf'.
-Iterable<Result<Item>> results = minioClient.listObjects(
+Iterable<Result<Item>> results = apiClient.listObjects(
     ListObjectsArgs.builder()
         .bucket("my-bucketname")
         .startAfter("ExampleGuide.pdf")
@@ -664,7 +587,7 @@ Iterable<Result<Item>> results = minioClient.listObjects(
 
 // Lists maximum 100 objects information with version whose names starts with 'E' and after
 // 'ExampleGuide.pdf'.
-Iterable<Result<Item>> results = minioClient.listObjects(
+Iterable<Result<Item>> results = apiClient.listObjects(
     ListObjectsArgs.builder()
         .bucket("my-bucketname")
         .startAfter("ExampleGuide.pdf")
@@ -675,7 +598,7 @@ Iterable<Result<Item>> results = minioClient.listObjects(
 ```
 
 ### makeBucket(MakeBucketArgs args)
-`public void makeBucket(MakeBucketArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#makeBucket-io.minio.MakeBucketArgs-)_
+`public void makeBucket(MakeBucketArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#makeBucket-com.ionoscloud.s3.MakeBucketArgs-)_
 
 Creates a bucket with given region and object lock feature enabled.
 
@@ -689,20 +612,20 @@ __Example__
 
 ```java
 // Create bucket with default region.
-minioClient.makeBucket(
+apiClient.makeBucket(
     MakeBucketArgs.builder()
         .bucket("my-bucketname")
         .build());
 
 // Create bucket with specific region.
-minioClient.makeBucket(
+apiClient.makeBucket(
     MakeBucketArgs.builder()
         .bucket("my-bucketname")
         .region("us-west-1")
         .build());
 
 // Create object-lock enabled bucket with specific region.
-minioClient.makeBucket(
+apiClient.makeBucket(
     MakeBucketArgs.builder()
         .bucket("my-bucketname")
         .region("us-west-1")
@@ -712,7 +635,7 @@ minioClient.makeBucket(
 
 <a name="removeBucket"></a>
 ### removeBucket(RemoveBucketArgs args)
-`public void removeBucket(RemoveBucketArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#removeBucket-io.minio.RemoveBucketArgs-)_
+`public void removeBucket(RemoveBucketArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#removeBucket-com.ionoscloud.s3.RemoveBucketArgs-)_
 
 Removes an empty bucket.
 
@@ -724,12 +647,12 @@ __Parameters__
 
 __Example__
 ```java
-minioClient.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+apiClient.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
 ```
 
 <a name="setBucketEncryption"></a>
 ### setBucketEncryption(SetBucketEncryptionArgs args)
-`public void setBucketEncryption(SetBucketEncryptionArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#setBucketEncryption-io.minio.SetBucketEncryptionArgs-)_
+`public void setBucketEncryption(SetBucketEncryptionArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketEncryption-com.ionoscloud.s3.SetBucketEncryptionArgs-)_
 
 Sets encryption configuration of a bucket.
 
@@ -740,13 +663,13 @@ __Parameters__
 
 __Example__
 ```java
-minioClient.setBucketEncryption(
+apiClient.setBucketEncryption(
     SetBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
  ```
 
 <a name="setBucketLifecycle"></a>
 ### setBucketLifecycle(SetBucketLifecycleArgs args)
-`public void setBucketLifecycle(SetBucketLifecycleArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#setBucketLifecycle-io.minio.SetBucketLifecycleArgs-)_
+`public void setBucketLifecycle(SetBucketLifecycleArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketLifecycle-com.ionoscloud.s3.SetBucketLifecycleArgs-)_
 
 Sets lifecycle configuration to a bucket.
 
@@ -779,13 +702,13 @@ rules.add(
         null,
         null));
 LifecycleConfiguration config = new LifecycleConfiguration(rules);
-minioClient.setBucketLifecycle(
+apiClient.setBucketLifecycle(
     SetBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
 ```
 
 <a name="setBucketNotification"></a>
 ### setBucketNotification(SetBucketNotificationArgs args)
-`public void setBucketNotification(SetBucketNotificationArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#setBucketNotification-io.minio.SetBucketNotificationArgs-)_
+`public void setBucketNotification(SetBucketNotificationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketNotification-com.ionoscloud.s3.SetBucketNotificationArgs-)_
 
 Sets notification configuration to a bucket.
 
@@ -802,7 +725,7 @@ eventList.add(EventType.OBJECT_CREATED_PUT);
 eventList.add(EventType.OBJECT_CREATED_COPY);
 
 QueueConfiguration queueConfiguration = new QueueConfiguration();
-queueConfiguration.setQueue("arn:minio:sqs::1:webhook");
+queueConfiguration.setQueue("arn:ionos:sqs::1:webhook");
 queueConfiguration.setEvents(eventList);
 queueConfiguration.setPrefixRule("images");
 queueConfiguration.setSuffixRule("pg");
@@ -813,13 +736,13 @@ queueConfigurationList.add(queueConfiguration);
 NotificationConfiguration config = new NotificationConfiguration();
 config.setQueueConfigurationList(queueConfigurationList);
 
-minioClient.setBucketNotification(
+apiClient.setBucketNotification(
     SetBucketNotificationArgs.builder().bucket("my-bucketname").config(config).build());
 ```
 
 <a name="setBucketPolicy"></a>
 ### setBucketPolicy(SetBucketPolicyArgs args)
-`public void setBucketPolicy(SetBucketPolicyArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#setBucketPolicy-io.minio.SetBucketPolicyArgs-)_
+`public void setBucketPolicy(SetBucketPolicyArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketPolicy-com.ionoscloud.s3.SetBucketPolicyArgs-)_
 
 Sets bucket policy configuration to a bucket.
 
@@ -853,13 +776,13 @@ __Example__
 //     "Version": "2012-10-17"
 // }
 //
-minioClient.setBucketPolicy(
+apiClient.setBucketPolicy(
     SetBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
 ```
 
 <a name="setBucketReplication"></a>
 ### setBucketReplication(SetBucketReplicationArgs args)
-`public void setBucketReplication(SetBucketReplicationArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#setBucketReplication-io.minio.SetBucketReplicationArgs-)_
+`public void setBucketReplication(SetBucketReplicationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketReplication-com.ionoscloud.s3.SetBucketReplicationArgs-)_
 
 Sets bucket replication configuration to a bucket.
 
@@ -894,13 +817,13 @@ rules.add(rule);
 ReplicationConfiguration config =
     new ReplicationConfiguration("REPLACE-WITH-ACTUAL-ROLE", rules);
 
-minioClient.setBucketReplication(
+apiClient.setBucketReplication(
     SetBucketReplicationArgs.builder().bucket("my-bucketname").config(config).build());
 ```
 
 <a name="setBucketTags"></a>
 ### setBucketTags(SetBucketTagsArgs args)
-`public void setBucketTags(SetBucketTagsArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#setBucketTags-io.minio.SetBucketTagsArgs-)_
+`public void setBucketTags(SetBucketTagsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketTags-com.ionoscloud.s3.SetBucketTagsArgs-)_
 
 Sets tags to a bucket.
 
@@ -915,12 +838,12 @@ __Example__
 Map<String, String> map = new HashMap<>();
 map.put("Project", "Project One");
 map.put("User", "jsmith");
-minioClient.setBucketTags(SetBucketTagsArgs.builder().bucket("my-bucketname").tags(map).build());
+apiClient.setBucketTags(SetBucketTagsArgs.builder().bucket("my-bucketname").tags(map).build());
 ```
 
 <a name="setBucketVersioning"></a>
 ### setBucketVersioning(SetBucketVersioningArgs args)
-`public void setBucketVersioning(SetBucketVersioningArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#setBucketVersioning-io.minio.SetBucketVersioningArgs-)_
+`public void setBucketVersioning(SetBucketVersioningArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketVersioning-com.ionoscloud.s3.SetBucketVersioningArgs-)_
 
 Sets versioning configuration of a bucket.
 
@@ -931,13 +854,13 @@ __Parameters__
 
 __Example__
 ```java
-minioClient.setBucketVersioning(
+apiClient.setBucketVersioning(
     SetBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
  ```
 
 <a name="setObjectLockConfiguration"></a>
 ### setObjectLockConfiguration(SetObjectLockConfigurationArgs args)
-`public void setObjectLockConfiguration(SetObjectLockConfigurationArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#setObjectLockConfiguration-io.minio.SetObjectLockConfigurationArgs-)_
+`public void setObjectLockConfiguration(SetObjectLockConfigurationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setObjectLockConfiguration-com.ionoscloud.s3.SetObjectLockConfigurationArgs-)_
 
 Sets object-lock configuration in a bucket.
 
@@ -950,7 +873,7 @@ __Example__
 ```java
 ObjectLockConfiguration config =
     new ObjectLockConfiguration(RetentionMode.COMPLIANCE, new RetentionDurationDays(100));
-minioClient.setObjectLockConfiguration(
+apiClient.setObjectLockConfiguration(
     SetObjectLockConfigurationArgs.builder().bucket("my-bucketname").config(config).build());
 ```
 
@@ -958,7 +881,7 @@ minioClient.setObjectLockConfiguration(
 
 <a name="composeObject"></a>
 ### composeObject(ComposeObjectArgs args)
-`public ObjectWriteResponse composeObject(ComposeObjectArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#composeObject-io.minio.ComposeObjectArgs--)_
+`public ObjectWriteResponse composeObject(ComposeObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#composeObject-com.ionoscloud.s3.ComposeObjectArgs--)_
 
 Creates an object by combining data from different source objects using server-side copy.
 
@@ -982,7 +905,7 @@ sourceObjectList.add(
   ComposeSource.builder().bucket("my-job-bucket").object("my-objectname-part-three").build());
 
 // Create my-bucketname/my-objectname by combining source object list.
-minioClient.composeObject(
+apiClient.composeObject(
   ComposeObjectArgs.builder()
       .bucket("my-bucketname")
       .object("my-objectname")
@@ -993,7 +916,7 @@ minioClient.composeObject(
 // list.
 Map<String, String> userMetadata = new HashMap<>();
 userMetadata.put("My-Project", "Project One");
-minioClient.composeObject(
+apiClient.composeObject(
     ComposeObjectArgs.builder()
       .bucket("my-bucketname")
       .object("my-objectname")
@@ -1003,7 +926,7 @@ minioClient.composeObject(
 
 // Create my-bucketname/my-objectname with user metadata and server-side encryption
 // by combining source object list.
-minioClient.composeObject(
+apiClient.composeObject(
   ComposeObjectArgs.builder()
       .bucket("my-bucketname")
       .object("my-objectname")
@@ -1015,7 +938,7 @@ minioClient.composeObject(
 
 <a name="copyObject"></a>
 ### copyObject(CopyObjectArgs args)
-`public ObjectWriteResponse copyObject(CopyObjectArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#copyObject-io.minio.CopyObjectArgs-)_
+`public ObjectWriteResponse copyObject(CopyObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#copyObject-com.ionoscloud.s3.CopyObjectArgs-)_
 
 Creates an object by server-side copying data from another object.
 
@@ -1033,7 +956,7 @@ __Example__
 ```java
 // Create object "my-objectname" in bucket "my-bucketname" by copying from object
 // "my-objectname" in bucket "my-source-bucketname".
-minioClient.copyObject(
+apiClient.copyObject(
     CopyObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
@@ -1046,7 +969,7 @@ minioClient.copyObject(
 
 // Create object "my-objectname" in bucket "my-bucketname" by copying from object
 // "my-source-objectname" in bucket "my-source-bucketname".
-minioClient.copyObject(
+apiClient.copyObject(
     CopyObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
@@ -1059,7 +982,7 @@ minioClient.copyObject(
 
 // Create object "my-objectname" in bucket "my-bucketname" with SSE-KMS server-side
 // encryption by copying from object "my-objectname" in bucket "my-source-bucketname".
-minioClient.copyObject(
+apiClient.copyObject(
     CopyObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
@@ -1073,7 +996,7 @@ minioClient.copyObject(
 
 // Create object "my-objectname" in bucket "my-bucketname" with SSE-S3 server-side
 // encryption by copying from object "my-objectname" in bucket "my-source-bucketname".
-minioClient.copyObject(
+apiClient.copyObject(
     CopyObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
@@ -1087,7 +1010,7 @@ minioClient.copyObject(
 
 // Create object "my-objectname" in bucket "my-bucketname" with SSE-C server-side encryption
 // by copying from object "my-objectname" in bucket "my-source-bucketname".
-minioClient.copyObject(
+apiClient.copyObject(
     CopyObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
@@ -1101,7 +1024,7 @@ minioClient.copyObject(
 
 // Create object "my-objectname" in bucket "my-bucketname" by copying from SSE-C encrypted
 // object "my-source-objectname" in bucket "my-source-bucketname".
-minioClient.copyObject(
+apiClient.copyObject(
     CopyObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
@@ -1115,7 +1038,7 @@ minioClient.copyObject(
 
 // Create object "my-objectname" in bucket "my-bucketname" with custom headers conditionally
 // by copying from object "my-objectname" in bucket "my-source-bucketname".
-minioClient.copyObject(
+apiClient.copyObject(
     CopyObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
@@ -1131,7 +1054,7 @@ minioClient.copyObject(
 
 <a name="deleteObjectTags"></a>
 ### deleteObjectTags(DeleteObjectTagsArgs args)
-`private void deleteObjectTags(DeleteObjectTagsArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#deleteObjectTags-io.minio.DeleteObjectTagsArgs-)_
+`private void deleteObjectTags(DeleteObjectTagsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteObjectTags-com.ionoscloud.s3.DeleteObjectTagsArgs-)_
 
 Deletes tags of an object.
 
@@ -1142,13 +1065,13 @@ __Parameters__
 
 __Example__
 ```java
-minioClient.deleteObjectTags(
+apiClient.deleteObjectTags(
     DeleteObjectArgs.builder().bucket("my-bucketname").object("my-objectname").build());
 ```
 
 <a name="disableObjectLegalHold"></a>
 ### disableObjectLegalHold(DisableObjectLegalHoldArgs args)
-`public void disableObjectLegalHold(DisableObjectLegalHoldArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#disableObjectLegalHold-io.minio.DisableObjectLegalHoldArgs-)_
+`public void disableObjectLegalHold(DisableObjectLegalHoldArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#disableObjectLegalHold-com.ionoscloud.s3.DisableObjectLegalHoldArgs-)_
 
 Disables legal hold on an object.
 
@@ -1162,7 +1085,7 @@ Disables legal hold on an object.
 
 ```java
 // Disables legal hold on an object.
-minioClient.disableObjectLegalHold(
+apiClient.disableObjectLegalHold(
     DisableObjectLegalHoldArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
@@ -1171,7 +1094,7 @@ minioClient.disableObjectLegalHold(
 
 <a name="enableObjectLegalHold"></a>
 ### enableObjectLegalHold(EnableObjectLegalHoldArgs args)
-`public void enableObjectLegalHold(EnableObjectLegalHoldArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#enableObjectLegalHold-io.minio.EnableObjectLegalHoldArgs-)_
+`public void enableObjectLegalHold(EnableObjectLegalHoldArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#enableObjectLegalHold-com.ionoscloud.s3.EnableObjectLegalHoldArgs-)_
 
 Enables legal hold on an object.
 
@@ -1185,7 +1108,7 @@ Enables legal hold on an object.
  ```java
 
  // Disables legal hold on an object.
-minioClient.enableObjectLegalHold(
+apiClient.enableObjectLegalHold(
     EnableObjectLegalHoldArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
@@ -1194,7 +1117,7 @@ minioClient.enableObjectLegalHold(
 
 <a name="getObject"></a>
 ### getObject(GetObjectArgs args)
-`public InputStream getObject(GetObjectArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getObject-io.minio.GetObjectArgs-)_
+`public InputStream getObject(GetObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObject-com.ionoscloud.s3.GetObjectArgs-)_
 
 Gets data of an object. Returned `InputStream` must be closed after use to release network resources.
 
@@ -1210,7 +1133,7 @@ __Parameters__
 __Example__
 ```java
 // get object given the bucket and object name
-try (InputStream stream = minioClient.getObject(
+try (InputStream stream = apiClient.getObject(
   GetObjectArgs.builder()
   .bucket("my-bucketname")
   .object("my-objectname")
@@ -1219,7 +1142,7 @@ try (InputStream stream = minioClient.getObject(
 }
 
 // get object data from offset
-try (InputStream stream = minioClient.getObject(
+try (InputStream stream = apiClient.getObject(
   GetObjectArgs.builder()
   .bucket("my-bucketname")
   .object("my-objectname")
@@ -1229,7 +1152,7 @@ try (InputStream stream = minioClient.getObject(
 }
 
 // get object data from offset to length
-try (InputStream stream = minioClient.getObject(
+try (InputStream stream = apiClient.getObject(
   GetObjectArgs.builder()
   .bucket("my-bucketname")
   .object("my-objectname")
@@ -1240,7 +1163,7 @@ try (InputStream stream = minioClient.getObject(
 }
 
 // get data of an SSE-C encrypted object
-try (InputStream stream = minioClient.getObject(
+try (InputStream stream = apiClient.getObject(
   GetObjectArgs.builder()
   .bucket("my-bucketname")
   .object("my-objectname")
@@ -1250,7 +1173,7 @@ try (InputStream stream = minioClient.getObject(
 }
 
 // get object data from offset to length of an SSE-C encrypted object
-try (InputStream stream = minioClient.getObject(
+try (InputStream stream = apiClient.getObject(
   GetObjectArgs.builder()
   .bucket("my-bucketname")
   .object("my-objectname")
@@ -1264,7 +1187,7 @@ try (InputStream stream = minioClient.getObject(
 
 <a name="downloadObject"></a>
 ### downloadObject(DownloadObjectArgs args)
-`public void downloadObject(DownloadObjectArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getObject-io.minio.DownloadObjectArgs-)_
+`public void downloadObject(DownloadObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObject-com.ionoscloud.s3.DownloadObjectArgs-)_
 
 Downloads data of an object to file.
 
@@ -1276,7 +1199,7 @@ __Parameters__
 __Example__
 ```java
 // Download object given the bucket, object name and output file name
-minioClient.downloadObject(
+apiClient.downloadObject(
   DownloadObjectArgs.builder()
   .bucket("my-bucketname")
   .object("my-objectname")
@@ -1284,7 +1207,7 @@ minioClient.downloadObject(
   .build());
 
 // Download server-side encrypted object in bucket to given file name
-minioClient.downloadObject(
+apiClient.downloadObject(
   DownloadObjectArgs.builder()
   .bucket("my-bucketname")
   .object("my-objectname")
@@ -1295,7 +1218,7 @@ minioClient.downloadObject(
 
  <a name="getObjectRetention"></a>
 ### getObjectRetention(GetObjectRetentionArgs args)
-`public Retention getObjectRetention(GetObjectRetentionArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getObjectRetention-io.minio.GetObjectRetentionArgs-)_
+`public Retention getObjectRetention(GetObjectRetentionArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObjectRetention-com.ionoscloud.s3.GetObjectRetentionArgs-)_
 
 Gets retention configuration of an object.
 
@@ -1313,7 +1236,7 @@ Gets retention configuration of an object.
  ```java
 // Object with version id.
 Retention retention =
-    minioClient.getObjectRetention(
+    apiClient.getObjectRetention(
         GetObjectRetentionArgs.builder()
             .bucket("my-bucketname")
             .object("my-objectname")
@@ -1324,7 +1247,7 @@ System.out.println("mode: " + retention.mode() + "until: " + retention.retainUnt
 
 <a name="getObjectTags"></a>
 ### getObjectTags(GetObjectTagsArgs args)
-`public Tags getObjectTags(GetObjectTagsArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getObjectTags-io.minio.GetObjectTagsArgs-)_
+`public Tags getObjectTags(GetObjectTagsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObjectTags-com.ionoscloud.s3.GetObjectTagsArgs-)_
 
 Gets tags of an object.
 
@@ -1340,13 +1263,13 @@ __Parameters__
 
 __Example__
 ```java
-Tags tags = minioClient.getObjectTags(
+Tags tags = apiClient.getObjectTags(
     GetObjectTagsArgs.builder().bucket("my-bucketname").object("my-objectname").build());
 ```
 
  <a name="getPresignedObjectUrl"></a>
 ### getPresignedObjectUrl(GetPresignedObjectUrlArgs args)
-`public String getPresignedObjectUrl(GetPresignedObjectUrlArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getPresignedObjectUrl-io.minio.GetPresignedObjectUrlArgs-)_
+`public String getPresignedObjectUrl(GetPresignedObjectUrlArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getPresignedObjectUrl-com.ionoscloud.s3.GetPresignedObjectUrlArgs-)_
 
 Gets presigned URL of an object for HTTP method, expiry time and custom request parameters.
 
@@ -1370,7 +1293,7 @@ Map<String, String> reqParams = new HashMap<String, String>();
 reqParams.put("response-content-type", "application/json");
 
 String url =
-    minioClient.getPresignedObjectUrl(
+    apiClient.getPresignedObjectUrl(
         GetPresignedObjectUrlArgs.builder()
             .method(Method.GET)
             .bucket("my-bucketname")
@@ -1383,7 +1306,7 @@ System.out.println(url);
 // Get presigned URL string to upload 'my-objectname' in 'my-bucketname'
 // with an expiration of 1 day.
 String url =
-    minioClient.getPresignedObjectUrl(
+    apiClient.getPresignedObjectUrl(
         GetPresignedObjectUrlArgs.builder()
             .method(Method.PUT)
             .bucket("my-bucketname")
@@ -1401,7 +1324,7 @@ Map<String, String> reqParams = new HashMap<String, String>();
 reqParams.put("response-content-type", "application/json");
 
 String url =
-    minioClient.getPresignedObjectUrl(
+    apiClient.getPresignedObjectUrl(
         GetPresignedObjectUrlArgs.builder()
             .method(Method.HEAD)
             .bucket("my-bucketname")
@@ -1414,7 +1337,7 @@ System.out.println(url);
 
  <a name="isObjectLegalHoldEnabled"></a>
 ### isObjectLegalHoldEnabled(IsObjectLegalHoldEnabledArgs args)
-`public boolean isObjectLegalHoldEnabled(IsObjectLegalHoldEnabledArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#isObjectLegalHoldEnabled-io.minio.IsObjectLegalHoldEnabledArgs-)_
+`public boolean isObjectLegalHoldEnabled(IsObjectLegalHoldEnabledArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#isObjectLegalHoldEnabled-com.ionoscloud.s3.IsObjectLegalHoldEnabledArgs-)_
 
 Returns true if legal hold is enabled on an object.
 
@@ -1448,7 +1371,7 @@ else {
 
 <a name="getPresignedPostFormData"></a>
 ### getPresignedPostFormData(PostPolicy policy)
-`public Map<String,String> getPresignedPostFormData(PostPolicy policy)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#getPresignedPostFormData-io.minio.PostPolicy-)_
+`public Map<String,String> getPresignedPostFormData(PostPolicy policy)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getPresignedPostFormData-com.ionoscloud.s3.PostPolicy-)_
 
 Gets form-data of [PostPolicy] of an object to upload its data using POST method.
 
@@ -1475,7 +1398,7 @@ policy.addStartsWithCondition("Content-Type", "image/");
 // Add condition that 'content-length-range' is between 64kiB to 10MiB.
 policy.addContentLengthRangeCondition(64 * 1024, 10 * 1024 * 1024);
 
-Map<String, String> formData = minioClient.getPresignedPostFormData(policy);
+Map<String, String> formData = apiClient.getPresignedPostFormData(policy);
 
 // Upload an image using POST object with form-data.
 MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
@@ -1492,7 +1415,7 @@ multipartBuilder.addFormDataPart(
 
 Request request =
     new Request.Builder()
-        .url("https://play.min.io/my-bucketname")
+        .url("<url>")
         .post(multipartBuilder.build())
         .build();
 OkHttpClient httpClient = new OkHttpClient().newBuilder().build();
@@ -1506,7 +1429,7 @@ if (response.isSuccessful()) {
 
 <a name="putObject"></a>
 ### putObject(PutObjectArgs args)
-`public ObjectWriteResponse putObject(PutObjectArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#putObject-io.minio.PutObjectArgs-)_
+`public ObjectWriteResponse putObject(PutObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putObject-com.ionoscloud.s3.PutObjectArgs-)_
 
 Uploads given stream as object in bucket.
 
@@ -1522,21 +1445,21 @@ __Parameters__
 __Example__
 ```java
 // Upload known sized input stream.
-minioClient.putObject(
+apiClient.putObject(
     PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
             inputStream, size, -1)
         .contentType("video/mp4")
         .build());
 
 // Upload unknown sized input stream.
-minioClient.putObject(
+apiClient.putObject(
     PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
             inputStream, -1, 10485760)
         .contentType("video/mp4")
         .build());
 
 // Create object ends with '/' (also called as folder or directory).
-minioClient.putObject(
+apiClient.putObject(
     PutObjectArgs.builder().bucket("my-bucketname").object("path/to/").stream(
             new ByteArrayInputStream(new byte[] {}), 0, -1)
         .build());
@@ -1546,7 +1469,7 @@ Map<String, String> headers = new HashMap<>();
 headers.put("X-Amz-Storage-Class", "REDUCED_REDUNDANCY");
 Map<String, String> userMetadata = new HashMap<>();
 userMetadata.put("My-Project", "Project One");
-minioClient.putObject(
+apiClient.putObject(
     PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
             inputStream, size, -1)
         .headers(headers)
@@ -1554,7 +1477,7 @@ minioClient.putObject(
         .build());
 
 // Upload input stream with server-side encryption.
-minioClient.putObject(
+apiClient.putObject(
     PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
             inputStream, size, -1)
         .sse(sse)
@@ -1563,7 +1486,7 @@ minioClient.putObject(
 
 <a name="uploadObject"></a>
 ### uploadObject(UploadObjectArgs args)
-`public void uploadObject(UploadObjectArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#uploadObject-io.minio.UploadObjectArgs-)_
+`public void uploadObject(UploadObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#uploadObject-com.ionoscloud.s3.UploadObjectArgs-)_
 
 Uploads contents from a file as object in bucket.
 
@@ -1575,12 +1498,12 @@ __Parameters__
 __Example__
 ```java
 // Upload an JSON file.
-minioClient.uploadObject(
+apiClient.uploadObject(
     UploadObjectArgs.builder()
         .bucket("my-bucketname").object("my-objectname").filename("person.json").build());
 
 // Upload a video file.
-minioClient.uploadObject(
+apiClient.uploadObject(
     UploadObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
@@ -1591,7 +1514,7 @@ minioClient.uploadObject(
 
 <a name="uploadSnowballObjects"></a>
 ### uploadSnowballObjects(UploadSnowballObjectsArgs args)
-`public void uploadSnowballObjects(UploadSnowballObjectsArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#uploadSnowballObjects-io.minio.UploadSnowballObjectsArgs-)_
+`public void uploadSnowballObjects(UploadSnowballObjectsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#uploadSnowballObjects-com.ionoscloud.s3.UploadSnowballObjectsArgs-)_
 
 Uploads multiple objects in a single put call. It is done by creating intermediate TAR file optionally compressed which is uploaded to S3 service.
 
@@ -1615,13 +1538,13 @@ objects.add(
         new ByteArrayInputStream("java".getBytes(StandardCharsets.UTF_8)),
         4,
         null));
-minioClient.uploadSnowballObjects(
+apiClient.uploadSnowballObjects(
     UploadSnowballObjectsArgs.builder().bucket("my-bucketname").objects(objects).build());
 ```
 
 <a name="removeObject"></a>
 ### removeObject(RemoveObjectArgs args)
-`public void removeObject(RemoveObjectArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#removeObject-io.minio.RemoveObjectArgs-)_
+`public void removeObject(RemoveObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#removeObject-com.ionoscloud.s3.RemoveObjectArgs-)_
 
 Removes an object.
 
@@ -1633,11 +1556,11 @@ __Parameters__
 __Example__
 ```java
 // Remove object.
-minioClient.removeObject(
+apiClient.removeObject(
     RemoveObjectArgs.builder().bucket("my-bucketname").object("my-objectname").build());
 
 // Remove versioned object.
-minioClient.removeObject(
+apiClient.removeObject(
     RemoveObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-versioned-objectname")
@@ -1645,7 +1568,7 @@ minioClient.removeObject(
         .build());
 
 // Remove versioned object bypassing Governance mode.
-minioClient.removeObject(
+apiClient.removeObject(
     RemoveObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-versioned-objectname")
@@ -1656,7 +1579,7 @@ minioClient.removeObject(
 
 <a name="removeObjects"></a>
 ### removeObjects(RemoveObjectsArgs args)
-`public Iterable<Result<DeleteError>> removeObjects(RemoveObjectsArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#removeObjects-io.minio.RemoveObjectsArgs-)_
+`public Iterable<Result<DeleteError>> removeObjects(RemoveObjectsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#removeObjects-com.ionoscloud.s3.RemoveObjectsArgs-)_
 
 Removes multiple objects lazily. Its required to iterate the returned Iterable to perform removal.
 
@@ -1676,7 +1599,7 @@ objects.add(new DeleteObject("my-objectname1"));
 objects.add(new DeleteObject("my-objectname2"));
 objects.add(new DeleteObject("my-objectname3"));
 Iterable<Result<DeleteError>> results =
-    minioClient.removeObjects(
+    apiClient.removeObjects(
         RemoveObjectsArgs.builder().bucket("my-bucketname").objects(objects).build());
 for (Result<DeleteError> result : results) {
   DeleteError error = result.get();
@@ -1687,7 +1610,7 @@ for (Result<DeleteError> result : results) {
 
 <a name="restoreObject"></a>
 ### restoreObject(RestoreObjectArgs args)
-`public void restoreObject(RestoreObjectArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#restoreObject-io.minio.RestoreObjectArgs-)_
+`public void restoreObject(RestoreObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#restoreObject-com.ionoscloud.s3.RestoreObjectArgs-)_
 
 Restores an object.
 
@@ -1699,7 +1622,7 @@ __Parameters__
 __Example__
 ```java
 // Restore object.
-minioClient.restoreObject(
+apiClient.restoreObject(
     RestoreObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
@@ -1707,7 +1630,7 @@ minioClient.restoreObject(
         .build());
 
 // Restore versioned object.
-minioClient.restoreObject(
+apiClient.restoreObject(
     RestoreObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-versioned-objectname")
@@ -1718,7 +1641,7 @@ minioClient.restoreObject(
 
  <a name="selectObjectContent"></a>
 ### selectObjectContent(SelectObjectContentArgs args)
-`public SelectResponseStream selectObjectContent(SelectObjectContentArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#selectObjectContent-io.minio.SelectObjectContentArgs-)_
+`public SelectResponseStream selectObjectContent(SelectObjectContentArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#selectObjectContent-com.ionoscloud.s3.SelectObjectContentArgs-)_
 
 Selects content of a object by SQL expression.
 
@@ -1738,7 +1661,7 @@ String sqlExpression = "select * from S3Object";
 InputSerialization is = new InputSerialization(null, false, null, null, FileHeaderInfo.USE, null, null, null);
 OutputSerialization os = new OutputSerialization(null, null, null, QuoteFields.ASNEEDED, null);
 SelectResponseStream stream =
-    minioClient.selectObjectContent(
+    apiClient.selectObjectContent(
         SelectObjectContentArgs.builder()
             .bucket("my-bucketname")
             .object("my-objectName")
@@ -1762,7 +1685,7 @@ stream.close();
 
 <a name="setObjectRetention"></a>
 ### setObjectRetention(SetObjectRetentionArgs args)
-`public void setObjectLockRetention(SetObjectRetentionArgs)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#setObjectRetention-io.minio.SetObjectRetentionArgs-)_
+`public void setObjectLockRetention(SetObjectRetentionArgs)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setObjectRetention-com.ionoscloud.s3.SetObjectRetentionArgs-)_
 
 Sets retention configuration to an object.
 
@@ -1775,7 +1698,7 @@ Sets retention configuration to an object.
  __Example__
 ```java
 Retention retention = new Retention(RetentionMode.COMPLIANCE, ZonedDateTime.now().plusYears(1));
-minioClient.setObjectRetention(
+apiClient.setObjectRetention(
     SetObjectRetentionArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
@@ -1786,7 +1709,7 @@ minioClient.setObjectRetention(
 
 <a name="setObjectTags"></a>
 ### setObjectTags(SetObjectTagsArgs args)
-`public void setObjectTags(SetObjectTagsArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#setObjectTags-io.minio.SetObjectTagsArgs-)_
+`public void setObjectTags(SetObjectTagsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setObjectTags-com.ionoscloud.s3.SetObjectTagsArgs-)_
 
 Sets tags to an object.
 
@@ -1801,13 +1724,13 @@ __Example__
 Map<String, String> map = new HashMap<>();
 map.put("Project", "Project One");
 map.put("User", "jsmith");
-minioClient.setObjectTags(
+apiClient.setObjectTags(
     SetObjectTagsArgs.builder().bucket("my-bucketname").object("my-objectname").tags(map).build());
 ```
 
 <a name="statObject"></a>
 ### statObject(StatObjectArgs args)
-`public ObjectStat statObject(StatObjectArgs args)` _[[Javadoc]](http://minio.github.io/minio-java/io/minio/MinioClient.html#statObject-io.minio.StatObjectArgs-)_
+`public ObjectStat statObject(StatObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#statObject-com.ionoscloud.s3.StatObjectArgs-)_
 
 Gets object information and metadata of an object.
 
@@ -1824,12 +1747,12 @@ __Example__
 ```java
 // Get information of an object.
 ObjectStat objectStat =
-    minioClient.statObject(
+    apiClient.statObject(
         StatObjectArgs.builder().bucket("my-bucketname").object("my-objectname").build());
 
 // Get information of SSE-C encrypted object.
 ObjectStat objectStat =
-    minioClient.statObject(
+    apiClient.statObject(
         StatObjectArgs.builder()
             .bucket("my-bucketname")
             .object("my-objectname")
@@ -1838,7 +1761,7 @@ ObjectStat objectStat =
 
 // Get information of a versioned object.
 ObjectStat objectStat =
-    minioClient.statObject(
+    apiClient.statObject(
         StatObjectArgs.builder()
             .bucket("my-bucketname")
             .object("my-objectname")
@@ -1847,7 +1770,7 @@ ObjectStat objectStat =
 
 // Get information of a SSE-C encrypted versioned object.
 ObjectStat objectStat =
-    minioClient.statObject(
+    apiClient.statObject(
         StatObjectArgs.builder()
             .bucket("my-bucketname")
             .object("my-objectname")
@@ -1857,95 +1780,95 @@ ObjectStat objectStat =
 ```
 
 ## 5. Explore Further
-- [Build your own Photo API Service - Full Application Example ](https://github.com/minio/minio-java-rest-example)
-- [Complete JavaDoc](http://minio.github.io/minio-java/)
+- [Build your own Photo API Service - Full Application Example ](https://github.com/ionos-cloud/sdk-java-s3-rest-example)
+- [Complete JavaDoc](http://github.com/ionos-cloud/sdk-java-s3/)
 
-[constructor-1]: http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-
-[constructor-2]: http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.net.URL-
-[constructor-3]: http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-okhttp3.HttpUrl-
-[constructor-4]: http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-java.lang.String-java.lang.String-
-[constructor-5]: http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-int-java.lang.String-java.lang.String-
-[constructor-6]: http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-java.lang.String-java.lang.String-boolean-
-[constructor-7]: http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-int-java.lang.String-java.lang.String-java.lang.String-boolean-
-[constructor-8]: http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-okhttp3.HttpUrl-java.lang.String-java.lang.String-
-[constructor-9]: http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.net.URL-java.lang.String-java.lang.String-
-[constructor-10]: http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-java.lang.String-java.lang.String-java.lang.String-
-[constructor-11]: http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-int-java.lang.String-java.lang.String-java.lang.String-boolean-
-[constructor-12]: http://minio.github.io/minio-java/io/minio/MinioClient.html#MinioClient-java.lang.String-java.lang.Integer-java.lang.String-java.lang.String-java.lang.String-java.lang.Boolean-okhttp3.OkHttpClient-
-[NotificationConfiguration]: http://minio.github.io/minio-java/io/minio/messages/NotificationConfiguration.html
-[ObjectLockConfiguration]: http://minio.github.io/minio-java/io/minio/messages/ObjectLockConfiguration.html
-[Bucket]: http://minio.github.io/minio-java/io/minio/messages/Bucket.html
-[CloseableIterator]: http://minio.github.io/minio-java/io/minio/CloseableIterator.html
-[Result]: http://minio.github.io/minio-java/io/minio/Result.html
-[NotificationRecords]: http://minio.github.io/minio-java/io/minio/messages/NotificationRecords.html
-[Upload]: http://minio.github.io/minio-java/io/minio/messages/Upload.html
-[Item]: http://minio.github.io/minio-java/io/minio/messages/Item.html
-[ComposeSource]: http://minio.github.io/minio-java/io/minio/ComposeSource.html
-[ServerSideEncryption]: http://minio.github.io/minio-java/io/minio/ServerSideEncryption.html
-[ServerSideEncryptionCustomerKey]: http://minio.github.io/minio-java/io/minio/ServerSideEncryptionCustomerKey.html
-[CopyConditions]: http://minio.github.io/minio-java/io/minio/CopyConditions.html
-[PostPolicy]: http://minio.github.io/minio-java/io/minio/PostPolicy.html
-[PutObjectOptions]: http://minio.github.io/minio-java/io/minio/PutObjectOptions.html
-[InputSerialization]: http://minio.github.io/minio-java/io/minio/messages/InputSerialization.html
-[OutputSerialization]: http://minio.github.io/minio-java/io/minio/messages/OutputSerialization.html
-[Retention]: http://minio.github.io/minio-java/io/minio/messages/Retention.html
-[ObjectStat]: http://minio.github.io/minio-java/io/minio/ObjectStat.html
-[DeleteError]: http://minio.github.io/minio-java/io/minio/messages/DeleteError.html
-[SelectResponseStream]: http://minio.github.io/minio-java/io/minio/SelectResponseStream.html
-[MakeBucketArgs]: http://minio.github.io/minio-java/io/minio/MakeBucketArgs.html
-[ListObjectsArgs]: http://minio.github.io/minio-java/io/minio/ListObjectsArgs.html
-[RemoveBucketArgs]: http://minio.github.io/minio-java/io/minio/RemoveBucketArgs.html
-[SetObjectRetentionArgs]: http://minio.github.io/minio-java/io/minio/SetObjectRetentionArgs.html
-[GetObjectRetentionArgs]: http://minio.github.io/minio-java/io/minio/GetObjectRetentionArgs.html
-[Method]: http://minio.github.io/minio-java/io/minio/http/Method.html
-[StatObjectArgs]: http://minio.github.io/minio-java/io/minio/StatObjectArgs.html
-[RemoveObjectArgs]: http://minio.github.io/minio-java/io/minio/RemoveObjectArgs.html
-[SseConfiguration]: http://minio.github.io/minio-java/io/minio/messages/SseConfiguration.html
-[DeleteBucketEncryptionArgs]: http://minio.github.io/minio-java/io/minio/DeleteBucketEncryptionArgs.html
-[GetBucketEncryptionArgs]: http://minio.github.io/minio-java/io/minio/GetBucketEncryptionArgs.html
-[SetBucketEncryptionArgs]: http://minio.github.io/minio-java/io/minio/SetBucketEncryptionArgs.html
-[Tags]: http://minio.github.io/minio-java/io/minio/messages/Tags.html
-[DeleteBucketTagsArgs]: http://minio.github.io/minio-java/io/minio/DeleteBucketTagsArgs.html
-[GetBucketTagsArgs]: http://minio.github.io/minio-java/io/minio/GetBucketTagsArgs.html
-[SetBucketTagsArgs]: http://minio.github.io/minio-java/io/minio/SetBucketTagsArgs.html
-[DeleteObjectTagsArgs]: http://minio.github.io/minio-java/io/minio/DeleteObjectTagsArgs.html
-[GetObjectTagsArgs]: http://minio.github.io/minio-java/io/minio/GetObjectTagsArgs.html
-[SetObjectTagsArgs]: http://minio.github.io/minio-java/io/minio/SetObjectTagsArgs.html
-[LifecycleConfiguration]: http://minio.github.io/minio-java/io/minio/messages/LifecycleConfiguration.html
-[DeleteBucketLifecycleArgs]: http://minio.github.io/minio-java/io/minio/DeleteBucketLifecycleArgs.html
-[GetBucketLifecycleArgs]: http://minio.github.io/minio-java/io/minio/GetBucketLifecycleArgs.html
-[SetBucketLifecycleArgs]: http://minio.github.io/minio-java/io/minio/SetBucketLifecycleArgs.html
-[GetBucketPolicyArgs]: http://minio.github.io/minio-java/io/minio/GetBucketPolicyArgs.html
-[SetBucketPolicyArgs]: http://minio.github.io/minio-java/io/minio/SetBucketPolicyArgs.html
-[DeleteBucketPolicyArgs]: http://minio.github.io/minio-java/io/minio/DeleteBucketPolicyArgs.html
-[GetObjectArgs]: http://minio.github.io/minio-java/io/minio/GetObjectArgs.html
-[DownloadObjectArgs]: http://minio.github.io/minio-java/io/minio/DownloadObjectArgs.html
-[BucketExistsArgs]: http://minio.github.io/minio-java/io/minio/BucketExistsArgs.html
-[EnableObjectLegalHoldArgs]: http://minio.github.io/minio-java/io/minio/EnableObjectLegalHoldArgs.html
-[DisableObjectLegalHoldArgs]: http://minio.github.io/minio-java/io/minio/DisableObjectLegalHoldArgs.html
-[IsObjectLegalHoldEnabledArgs]: http://minio.github.io/minio-java/io/minio/IsObjectLegalHoldEnabledArgs.html
-[DeleteBucketNotificationArgs]: http://minio.github.io/minio-java/io/minio/DeleteBucketNotificationArgs.html
-[GetBucketNotificationArgs]: http://minio.github.io/minio-java/io/minio/GetBucketNotificationArgs.html
-[SetBucketNotificationArgs]: http://minio.github.io/minio-java/io/minio/SetBucketNotificationArgs.html
-[ListenBucketNotificationArgs]: http://minio.github.io/minio-java/io/minio/ListenBucketNotificationArgs.html
-[SelectObjectContentArgs]: http://minio.github.io/minio-java/io/minio/SelectObjectContentArgs.html
-[GetObjectLockConfigurationArgs]: http://minio.github.io/minio-java/io/minio/GetObjectLockConfigurationArgs.html
-[SetObjectLockConfigurationArgs]: http://minio.github.io/minio-java/io/minio/SetObjectLockConfigurationArgs.html
-[DeleteObjectLockConfigurationArgs]: http://minio.github.io/minio-java/io/minio/DeleteObjectLockConfigurationArgs.html
-[GetPresignedObjectUrlArgs]: http://minio.github.io/minio-java/io/minio/GetPresignedObjectUrlArgs.html
-[RemoveObjectsArgs]: http://minio.github.io/minio-java/io/minio/RemoveObjectsArgs.html
-[CopyObjectArgs]: http://minio.github.io/minio-java/io/minio/CopyObjectArgs.html
-[PutObjectArgs]: http://minio.github.io/minio-java/io/minio/PutObjectArgs.html
-[UploadObjectArgs]: http://minio.github.io/minio-java/io/minio/UploadObjectArgs.html
-[UploadSnowballObjectsArgs]: http://minio.github.io/minio-java/io/minio/UploadSnowballObjectsArgs.html
-[ComposeObjectArgs]: http://minio.github.io/minio-java/io/minio/ComposeObjectArgs.html
-[ObjectWriteResponse]: http://minio.github.io/minio-java/io/minio/ObjectWriteResponse.html
-[ListBucketsArgs]: http://minio.github.io/minio-java/io/minio/ListBucketsArgs.html
-[DeleteBucketReplicationArgs]: http://minio.github.io/minio-java/io/minio/DeleteBucketReplicationArgs.html
-[GetBucketReplicationArgs]: http://minio.github.io/minio-java/io/minio/GetBucketReplicationArgs.html
-[SetBucketReplicationArgs]: http://minio.github.io/minio-java/io/minio/SetBucketReplicationArgs.html
-[ReplicationConfiguration]: http://minio.github.io/minio-java/io/minio/messages/ReplicationConfiguration.html
-[VersioningConfiguration]: http://minio.github.io/minio-java/io/minio/messages/VersioningConfiguration.html
-[GetBucketVersioningArgs]: http://minio.github.io/minio-java/io/minio/GetBucketVersioningArgs.html
-[SetBucketVersioningArgs]: http://minio.github.io/minio-java/io/minio/SetBucketVersioningArgs.html
-[RestoreObjectArgs]: http://minio.github.io/minio-java/io/minio/RestoreObjectArgs.html
+[constructor-1]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-
+[constructor-2]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.net.URL-
+[constructor-3]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-okhttp3.HttpUrl-
+[constructor-4]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-java.lang.String-java.lang.String-
+[constructor-5]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-int-java.lang.String-java.lang.String-
+[constructor-6]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-java.lang.String-java.lang.String-boolean-
+[constructor-7]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-int-java.lang.String-java.lang.String-java.lang.String-boolean-
+[constructor-8]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-okhttp3.HttpUrl-java.lang.String-java.lang.String-
+[constructor-9]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.net.URL-java.lang.String-java.lang.String-
+[constructor-10]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-java.lang.String-java.lang.String-java.lang.String-
+[constructor-11]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-int-java.lang.String-java.lang.String-java.lang.String-boolean-
+[constructor-12]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#ApiClient-java.lang.String-java.lang.Integer-java.lang.String-java.lang.String-java.lang.String-java.lang.Boolean-okhttp3.OkHttpClient-
+[NotificationConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/NotificationConfiguration.html
+[ObjectLockConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/ObjectLockConfiguration.html
+[Bucket]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/Bucket.html
+[CloseableIterator]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3CloseableIterator.html
+[Result]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3Result.html
+[NotificationRecords]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/NotificationRecords.html
+[Upload]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/Upload.html
+[Item]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/Item.html
+[ComposeSource]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ComposeSource.html
+[ServerSideEncryption]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ServerSideEncryption.html
+[ServerSideEncryptionCustomerKey]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ServerSideEncryptionCustomerKey.html
+[CopyConditions]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3CopyConditions.html
+[PostPolicy]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PostPolicy.html
+[PutObjectOptions]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutObjectOptions.html
+[InputSerialization]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/InputSerialization.html
+[OutputSerialization]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/OutputSerialization.html
+[Retention]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/Retention.html
+[ObjectStat]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ObjectStat.html
+[DeleteError]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/DeleteError.html
+[SelectResponseStream]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SelectResponseStream.html
+[MakeBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3MakeBucketArgs.html
+[ListObjectsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ListObjectsArgs.html
+[RemoveBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3RemoveBucketArgs.html
+[SetObjectRetentionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetObjectRetentionArgs.html
+[GetObjectRetentionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectRetentionArgs.html
+[Method]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3http/Method.html
+[StatObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3StatObjectArgs.html
+[RemoveObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3RemoveObjectArgs.html
+[SseConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/SseConfiguration.html
+[DeleteBucketEncryptionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketEncryptionArgs.html
+[GetBucketEncryptionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketEncryptionArgs.html
+[SetBucketEncryptionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketEncryptionArgs.html
+[Tags]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/Tags.html
+[DeleteBucketTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketTagsArgs.html
+[GetBucketTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketTagsArgs.html
+[SetBucketTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketTagsArgs.html
+[DeleteObjectTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteObjectTagsArgs.html
+[GetObjectTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectTagsArgs.html
+[SetObjectTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetObjectTagsArgs.html
+[LifecycleConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/LifecycleConfiguration.html
+[DeleteBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketLifecycleArgs.html
+[GetBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketLifecycleArgs.html
+[SetBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketLifecycleArgs.html
+[GetBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketPolicyArgs.html
+[SetBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketPolicyArgs.html
+[DeleteBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketPolicyArgs.html
+[GetObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectArgs.html
+[DownloadObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DownloadObjectArgs.html
+[BucketExistsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3BucketExistsArgs.html
+[EnableObjectLegalHoldArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3EnableObjectLegalHoldArgs.html
+[DisableObjectLegalHoldArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DisableObjectLegalHoldArgs.html
+[IsObjectLegalHoldEnabledArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3IsObjectLegalHoldEnabledArgs.html
+[DeleteBucketNotificationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketNotificationArgs.html
+[GetBucketNotificationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketNotificationArgs.html
+[SetBucketNotificationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketNotificationArgs.html
+[ListenBucketNotificationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ListenBucketNotificationArgs.html
+[SelectObjectContentArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SelectObjectContentArgs.html
+[GetObjectLockConfigurationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectLockConfigurationArgs.html
+[SetObjectLockConfigurationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetObjectLockConfigurationArgs.html
+[DeleteObjectLockConfigurationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteObjectLockConfigurationArgs.html
+[GetPresignedObjectUrlArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetPresignedObjectUrlArgs.html
+[RemoveObjectsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3RemoveObjectsArgs.html
+[CopyObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3CopyObjectArgs.html
+[PutObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutObjectArgs.html
+[UploadObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3UploadObjectArgs.html
+[UploadSnowballObjectsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3UploadSnowballObjectsArgs.html
+[ComposeObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ComposeObjectArgs.html
+[ObjectWriteResponse]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ObjectWriteResponse.html
+[ListBucketsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ListBucketsArgs.html
+[DeleteBucketReplicationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketReplicationArgs.html
+[GetBucketReplicationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketReplicationArgs.html
+[SetBucketReplicationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketReplicationArgs.html
+[ReplicationConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/ReplicationConfiguration.html
+[VersioningConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/VersioningConfiguration.html
+[GetBucketVersioningArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketVersioningArgs.html
+[SetBucketVersioningArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketVersioningArgs.html
+[RestoreObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3RestoreObjectArgs.html

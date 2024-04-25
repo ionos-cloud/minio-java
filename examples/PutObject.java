@@ -1,26 +1,12 @@
-/*
- * MinIO Java SDK for Amazon S3 Compatible Cloud Storage, (C) 2015 MinIO, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
-import io.minio.ServerSideEncryption;
-import io.minio.ServerSideEncryptionCustomerKey;
-import io.minio.ServerSideEncryptionKms;
-import io.minio.ServerSideEncryptionS3;
-import io.minio.errors.MinioException;
+
+import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.PutObjectArgs;
+import com.ionoscloud.s3.ServerSideEncryption;
+import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
+import com.ionoscloud.s3.ServerSideEncryptionKms;
+import com.ionoscloud.s3.ServerSideEncryptionS3;
+import com.ionoscloud.s3.errors.ApiException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -30,20 +16,20 @@ import java.util.Map;
 import javax.crypto.KeyGenerator;
 
 public class PutObject {
-  /** MinioClient.putObject() example. */
+  /** ApiClient.putObject() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      /* play.min.io for test and development. */
-      MinioClient minioClient =
-          MinioClient.builder()
-              .endpoint("https://play.min.io")
-              .credentials("Q3AM3UQ867SPQQA43P2F", "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG")
+      
+      ApiClient apiClient =
+          ApiClient.builder()
+              .endpoint(System.getenv("IONOS_API_URL"))
+              .credentials(System.getenv("IONOS_ACCESS_KEY"), System.getenv("IONOS_SECRET_KEY"))
               .build();
 
       /* Amazon S3: */
-      // MinioClient minioClient =
-      //     MinioClient.builder()
+      // ApiClient apiClient =
+      //     ApiClient.builder()
       //         .endpoint("https://s3.amazonaws.com")
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
@@ -80,7 +66,7 @@ public class PutObject {
         ByteArrayInputStream bais = new ByteArrayInputStream(builder.toString().getBytes("UTF-8"));
 
         // Create object 'my-objectname' in 'my-bucketname' with content from the input stream.
-        minioClient.putObject(
+        apiClient.putObject(
             PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
                     bais, bais.available(), -1)
                 .build());
@@ -100,7 +86,7 @@ public class PutObject {
 
         // Create encrypted object 'my-objectname' using SSE-C in 'my-bucketname' with content from
         // the input stream.
-        minioClient.putObject(
+        apiClient.putObject(
             PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
                     bais, bais.available(), -1)
                 .sse(ssec)
@@ -119,7 +105,7 @@ public class PutObject {
 
         // Create encrypted object 'my-objectname' using SSE-KMS in 'my-bucketname' with content
         // from the input stream.
-        minioClient.putObject(
+        apiClient.putObject(
             PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
                     bais, bais.available(), -1)
                 .sse(sseKms)
@@ -136,7 +122,7 @@ public class PutObject {
 
         // Create encrypted object 'my-objectname' using SSE-S3 in 'my-bucketname' with content
         // from the input stream.
-        minioClient.putObject(
+        apiClient.putObject(
             PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
                     bais, bais.available(), -1)
                 .sse(sseS3)
@@ -163,7 +149,7 @@ public class PutObject {
         // Create object 'my-objectname' with user metadata and other properties in 'my-bucketname'
         // with content
         // from the input stream.
-        minioClient.putObject(
+        apiClient.putObject(
             PutObjectArgs.builder().bucket("my-bucketname").object("my-objectname").stream(
                     bais, bais.available(), -1)
                 .headers(headers)
@@ -175,13 +161,13 @@ public class PutObject {
 
       {
         // Create object name ending with '/' (mostly called folder or directory).
-        minioClient.putObject(
+        apiClient.putObject(
             PutObjectArgs.builder().bucket("my-bucketname").object("path/to/").stream(
                     new ByteArrayInputStream(new byte[] {}), 1, -1)
                 .build());
         System.out.println("path/to/ is created successfully");
       }
-    } catch (MinioException e) {
+    } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
   }

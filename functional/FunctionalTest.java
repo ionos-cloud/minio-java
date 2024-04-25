@@ -1,129 +1,113 @@
-/*
- * MinIO Java SDK for Amazon S3 Compatible Cloud Storage,
- * (C) 2015-2021 MinIO, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.CREATE;
 
 import com.google.common.io.BaseEncoding;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import io.minio.BucketExistsArgs;
-import io.minio.CloseableIterator;
-import io.minio.ComposeObjectArgs;
-import io.minio.ComposeSource;
-import io.minio.CopyObjectArgs;
-import io.minio.CopySource;
-import io.minio.DeleteBucketEncryptionArgs;
-import io.minio.DeleteBucketLifecycleArgs;
-import io.minio.DeleteBucketNotificationArgs;
-import io.minio.DeleteBucketPolicyArgs;
-import io.minio.DeleteBucketReplicationArgs;
-import io.minio.DeleteBucketTagsArgs;
-import io.minio.DeleteObjectLockConfigurationArgs;
-import io.minio.DeleteObjectTagsArgs;
-import io.minio.Directive;
-import io.minio.DisableObjectLegalHoldArgs;
-import io.minio.DownloadObjectArgs;
-import io.minio.EnableObjectLegalHoldArgs;
-import io.minio.GetBucketEncryptionArgs;
-import io.minio.GetBucketLifecycleArgs;
-import io.minio.GetBucketNotificationArgs;
-import io.minio.GetBucketPolicyArgs;
-import io.minio.GetBucketReplicationArgs;
-import io.minio.GetBucketTagsArgs;
-import io.minio.GetBucketVersioningArgs;
-import io.minio.GetObjectArgs;
-import io.minio.GetObjectLockConfigurationArgs;
-import io.minio.GetObjectRetentionArgs;
-import io.minio.GetObjectTagsArgs;
-import io.minio.GetPresignedObjectUrlArgs;
-import io.minio.IsObjectLegalHoldEnabledArgs;
-import io.minio.ListObjectsArgs;
-import io.minio.ListenBucketNotificationArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.ObjectWriteResponse;
-import io.minio.PostPolicy;
-import io.minio.PutObjectArgs;
-import io.minio.RemoveBucketArgs;
-import io.minio.RemoveObjectArgs;
-import io.minio.RemoveObjectsArgs;
-import io.minio.Result;
-import io.minio.SelectObjectContentArgs;
-import io.minio.SelectResponseStream;
-import io.minio.ServerSideEncryption;
-import io.minio.ServerSideEncryptionCustomerKey;
-import io.minio.ServerSideEncryptionKms;
-import io.minio.ServerSideEncryptionS3;
-import io.minio.SetBucketEncryptionArgs;
-import io.minio.SetBucketLifecycleArgs;
-import io.minio.SetBucketNotificationArgs;
-import io.minio.SetBucketPolicyArgs;
-import io.minio.SetBucketReplicationArgs;
-import io.minio.SetBucketTagsArgs;
-import io.minio.SetBucketVersioningArgs;
-import io.minio.SetObjectLockConfigurationArgs;
-import io.minio.SetObjectRetentionArgs;
-import io.minio.SetObjectTagsArgs;
-import io.minio.SnowballObject;
-import io.minio.StatObjectArgs;
-import io.minio.StatObjectResponse;
-import io.minio.Time;
-import io.minio.UploadObjectArgs;
-import io.minio.UploadSnowballObjectsArgs;
-import io.minio.Xml;
-import io.minio.admin.MinioAdminClient;
-import io.minio.errors.ErrorResponseException;
-import io.minio.http.HttpUtils;
-import io.minio.http.Method;
-import io.minio.messages.AndOperator;
-import io.minio.messages.Bucket;
-import io.minio.messages.DeleteMarkerReplication;
-import io.minio.messages.DeleteObject;
-import io.minio.messages.Event;
-import io.minio.messages.EventType;
-import io.minio.messages.Expiration;
-import io.minio.messages.FileHeaderInfo;
-import io.minio.messages.InputSerialization;
-import io.minio.messages.LifecycleConfiguration;
-import io.minio.messages.LifecycleRule;
-import io.minio.messages.NotificationConfiguration;
-import io.minio.messages.NotificationRecords;
-import io.minio.messages.ObjectLockConfiguration;
-import io.minio.messages.OutputSerialization;
-import io.minio.messages.QueueConfiguration;
-import io.minio.messages.QuoteFields;
-import io.minio.messages.ReplicationConfiguration;
-import io.minio.messages.ReplicationDestination;
-import io.minio.messages.ReplicationRule;
-import io.minio.messages.Retention;
-import io.minio.messages.RetentionDuration;
-import io.minio.messages.RetentionDurationDays;
-import io.minio.messages.RetentionDurationYears;
-import io.minio.messages.RetentionMode;
-import io.minio.messages.RuleFilter;
-import io.minio.messages.SseAlgorithm;
-import io.minio.messages.SseConfiguration;
-import io.minio.messages.Stats;
-import io.minio.messages.Status;
-import io.minio.messages.Tags;
-import io.minio.messages.VersioningConfiguration;
+import com.ionoscloud.s3.BucketExistsArgs;
+import com.ionoscloud.s3.CloseableIterator;
+import com.ionoscloud.s3.ComposeObjectArgs;
+import com.ionoscloud.s3.ComposeSource;
+import com.ionoscloud.s3.CopyObjectArgs;
+import com.ionoscloud.s3.CopySource;
+import com.ionoscloud.s3.DeleteBucketEncryptionArgs;
+import com.ionoscloud.s3.DeleteBucketLifecycleArgs;
+import com.ionoscloud.s3.DeleteBucketNotificationArgs;
+import com.ionoscloud.s3.DeleteBucketPolicyArgs;
+import com.ionoscloud.s3.DeleteBucketReplicationArgs;
+import com.ionoscloud.s3.DeleteBucketTagsArgs;
+import com.ionoscloud.s3.DeleteObjectLockConfigurationArgs;
+import com.ionoscloud.s3.DeleteObjectTagsArgs;
+import com.ionoscloud.s3.Directive;
+import com.ionoscloud.s3.DisableObjectLegalHoldArgs;
+import com.ionoscloud.s3.DownloadObjectArgs;
+import com.ionoscloud.s3.EnableObjectLegalHoldArgs;
+import com.ionoscloud.s3.GetBucketEncryptionArgs;
+import com.ionoscloud.s3.GetBucketLifecycleArgs;
+import com.ionoscloud.s3.GetBucketNotificationArgs;
+import com.ionoscloud.s3.GetBucketPolicyArgs;
+import com.ionoscloud.s3.GetBucketReplicationArgs;
+import com.ionoscloud.s3.GetBucketTagsArgs;
+import com.ionoscloud.s3.GetBucketVersioningArgs;
+import com.ionoscloud.s3.GetObjectArgs;
+import com.ionoscloud.s3.GetObjectLockConfigurationArgs;
+import com.ionoscloud.s3.GetObjectRetentionArgs;
+import com.ionoscloud.s3.GetObjectTagsArgs;
+import com.ionoscloud.s3.GetPresignedObjectUrlArgs;
+import com.ionoscloud.s3.IsObjectLegalHoldEnabledArgs;
+import com.ionoscloud.s3.ListObjectsArgs;
+import com.ionoscloud.s3.ListenBucketNotificationArgs;
+import com.ionoscloud.s3.MakeBucketArgs;
+import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.ObjectWriteResponse;
+import com.ionoscloud.s3.PostPolicy;
+import com.ionoscloud.s3.PutObjectArgs;
+import com.ionoscloud.s3.RemoveBucketArgs;
+import com.ionoscloud.s3.RemoveObjectArgs;
+import com.ionoscloud.s3.RemoveObjectsArgs;
+import com.ionoscloud.s3.Result;
+import com.ionoscloud.s3.SelectObjectContentArgs;
+import com.ionoscloud.s3.SelectResponseStream;
+import com.ionoscloud.s3.ServerSideEncryption;
+import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
+import com.ionoscloud.s3.ServerSideEncryptionKms;
+import com.ionoscloud.s3.ServerSideEncryptionS3;
+import com.ionoscloud.s3.SetBucketEncryptionArgs;
+import com.ionoscloud.s3.SetBucketLifecycleArgs;
+import com.ionoscloud.s3.SetBucketNotificationArgs;
+import com.ionoscloud.s3.SetBucketPolicyArgs;
+import com.ionoscloud.s3.SetBucketReplicationArgs;
+import com.ionoscloud.s3.SetBucketTagsArgs;
+import com.ionoscloud.s3.SetBucketVersioningArgs;
+import com.ionoscloud.s3.SetObjectLockConfigurationArgs;
+import com.ionoscloud.s3.SetObjectRetentionArgs;
+import com.ionoscloud.s3.SetObjectTagsArgs;
+import com.ionoscloud.s3.SnowballObject;
+import com.ionoscloud.s3.StatObjectArgs;
+import com.ionoscloud.s3.StatObjectResponse;
+import com.ionoscloud.s3.Time;
+import com.ionoscloud.s3.UploadObjectArgs;
+import com.ionoscloud.s3.UploadSnowballObjectsArgs;
+import com.ionoscloud.s3.Xml;
+import com.ionoscloud.s3.errors.ErrorResponseException;
+import com.ionoscloud.s3.http.HttpUtils;
+import com.ionoscloud.s3.http.Method;
+import com.ionoscloud.s3.messages.AndOperator;
+import com.ionoscloud.s3.messages.Bucket;
+import com.ionoscloud.s3.messages.DeleteMarkerReplication;
+import com.ionoscloud.s3.messages.DeleteObject;
+import com.ionoscloud.s3.messages.Event;
+import com.ionoscloud.s3.messages.EventType;
+import com.ionoscloud.s3.messages.Expiration;
+import com.ionoscloud.s3.messages.FileHeaderInfo;
+import com.ionoscloud.s3.messages.InputSerialization;
+import com.ionoscloud.s3.messages.LifecycleConfiguration;
+import com.ionoscloud.s3.messages.LifecycleRule;
+import com.ionoscloud.s3.messages.NotificationConfiguration;
+import com.ionoscloud.s3.messages.NotificationRecords;
+import com.ionoscloud.s3.messages.ObjectLockConfiguration;
+import com.ionoscloud.s3.messages.OutputSerialization;
+import com.ionoscloud.s3.messages.QueueConfiguration;
+import com.ionoscloud.s3.messages.QuoteFields;
+import com.ionoscloud.s3.messages.ReplicationConfiguration;
+import com.ionoscloud.s3.messages.ReplicationDestination;
+import com.ionoscloud.s3.messages.ReplicationRule;
+import com.ionoscloud.s3.messages.Retention;
+import com.ionoscloud.s3.messages.RetentionDuration;
+import com.ionoscloud.s3.messages.RetentionDurationDays;
+import com.ionoscloud.s3.messages.RetentionDurationYears;
+import com.ionoscloud.s3.messages.RetentionMode;
+import com.ionoscloud.s3.messages.RuleFilter;
+import com.ionoscloud.s3.messages.SseAlgorithm;
+import com.ionoscloud.s3.messages.SseConfiguration;
+import com.ionoscloud.s3.messages.Stats;
+import com.ionoscloud.s3.messages.Status;
+import com.ionoscloud.s3.messages.Tags;
+import com.ionoscloud.s3.messages.VersioningConfiguration;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -155,16 +139,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okio.BufferedSink;
-import okio.Okio;
 import org.junit.Assert;
 
 @SuppressFBWarnings(
     value = "REC",
     justification = "Allow catching super class Exception since it's tests")
 public class FunctionalTest {
-  private static final String OS = System.getProperty("os.name").toLowerCase(Locale.US);
-  private static final String MINIO_BINARY;
   private static final String PASS = "PASS";
   private static final String FAILED = "FAIL";
   private static final String IGNORED = "NA";
@@ -189,21 +169,13 @@ public class FunctionalTest {
   private static String replicationSrcBucket = null;
   private static String replicationRole = null;
   private static String replicationBucketArn = null;
-  private static MinioClient client = null;
-  private static TestMinioAdminClient adminClientTests;
+  private static ApiClient client = null;
 
   private static ServerSideEncryptionCustomerKey ssec = null;
   private static ServerSideEncryption sseS3 = new ServerSideEncryptionS3();
   private static ServerSideEncryption sseKms = null;
 
   static {
-    String binaryName = "minio";
-    if (OS.contains("windows")) {
-      binaryName = "minio.exe";
-    }
-
-    MINIO_BINARY = binaryName;
-
     try {
       KeyGenerator keyGen = KeyGenerator.getInstance("AES");
       keyGen.init(256);
@@ -275,7 +247,7 @@ public class FunctionalTest {
 
   /** Generate random name. */
   public static String getRandomName() {
-    return "minio-java-test-" + new BigInteger(32, random).toString(32);
+    return "ionoscloud-java-test-" + new BigInteger(32, random).toString(32);
   }
 
   /** Returns byte array contains all data in given InputStream. */
@@ -1431,13 +1403,13 @@ public class FunctionalTest {
 
     testListObjects(
         "[bucket, prefix]",
-        ListObjectsArgs.builder().bucket(getRandomName()).prefix("minio").build(),
+        ListObjectsArgs.builder().bucket(getRandomName()).prefix("ionoscloud").build(),
         3,
         0);
 
     testListObjects(
         "[bucket, prefix, recursive]",
-        ListObjectsArgs.builder().bucket(getRandomName()).prefix("minio").recursive(true).build(),
+        ListObjectsArgs.builder().bucket(getRandomName()).prefix("ionoscloud").recursive(true).build(),
         3,
         0);
 
@@ -1456,7 +1428,7 @@ public class FunctionalTest {
 
     testListObjects(
         "[bucket, prefix, recursive, 1050 objects]",
-        ListObjectsArgs.builder().bucket(getRandomName()).prefix("minio").recursive(true).build(),
+        ListObjectsArgs.builder().bucket(getRandomName()).prefix("ionoscloud").recursive(true).build(),
         1050,
         0);
 
@@ -2656,7 +2628,7 @@ public class FunctionalTest {
                 .build());
 
         // Check empty retention.
-        // Enable below test when minio server release has a fix.
+        // Enable below test when the server release has a fix.
         // testGetObjectRetention(
         //     SetObjectRetentionArgs.builder()
         //         .bucket(bucketNameWithLock)
@@ -3780,100 +3752,10 @@ public class FunctionalTest {
   public static void runTests() throws Exception {
     runBucketTests();
     runObjectTests();
-    adminClientTests.runAdminTests();
-  }
-
-  public static boolean downloadMinio() throws IOException {
-    String url = "https://dl.min.io/server/minio/release/";
-    if (OS.contains("linux")) {
-      url += "linux-amd64/minio";
-    } else if (OS.contains("windows")) {
-      url += "windows-amd64/minio.exe";
-    } else if (OS.contains("mac")) {
-      url += "darwin-amd64/minio";
-    } else {
-      System.out.println("unknown operating system " + OS);
-      return false;
-    }
-
-    File file = new File(MINIO_BINARY);
-    if (file.exists()) {
-      return true;
-    }
-
-    System.out.println("downloading " + MINIO_BINARY + " binary");
-
-    Request.Builder requestBuilder = new Request.Builder();
-    Request request = requestBuilder.url(HttpUrl.parse(url)).method("GET", null).build();
-    OkHttpClient transport = newHttpClient();
-    Response response = transport.newCall(request).execute();
-
-    try {
-      if (!response.isSuccessful()) {
-        System.out.println("failed to download binary " + MINIO_BINARY);
-        return false;
-      }
-
-      BufferedSink bufferedSink = Okio.buffer(Okio.sink(new File(MINIO_BINARY)));
-      bufferedSink.writeAll(response.body().source());
-      bufferedSink.flush();
-      bufferedSink.close();
-    } finally {
-      response.close();
-    }
-
-    if (!OS.contains("windows")) {
-      file.setExecutable(true);
-    }
-
-    return true;
-  }
-
-  public static Process runMinio(boolean tls) throws Exception {
-    File binaryPath = new File(new File(System.getProperty("user.dir")), MINIO_BINARY);
-    ProcessBuilder pb;
-    if (tls) {
-      pb =
-          new ProcessBuilder(
-              binaryPath.getPath(),
-              "server",
-              "--address",
-              ":9001",
-              "--certs-dir",
-              ".cfg/certs",
-              ".d{1...4}");
-    } else {
-      pb = new ProcessBuilder(binaryPath.getPath(), "server", ".d{1...4}");
-    }
-
-    Map<String, String> env = pb.environment();
-    env.put("MINIO_ROOT_USER", "minio");
-    env.put("MINIO_ROOT_PASSWORD", "minio123");
-    env.put("MINIO_CI_CD", "1");
-    // echo -n abcdefghijklmnopqrstuvwxyzABCDEF | base64 -
-    env.put("MINIO_KMS_SECRET_KEY", "my-minio-key:YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXpBQkNERUY=");
-    env.put("MINIO_NOTIFY_WEBHOOK_ENABLE_miniojavatest", "on");
-    env.put("MINIO_NOTIFY_WEBHOOK_ENDPOINT_miniojavatest", "http://example.org/");
-    sqsArn = "arn:minio:sqs::miniojavatest:webhook";
-
-    pb.redirectErrorStream(true);
-    pb.redirectOutput(ProcessBuilder.Redirect.to(new File(MINIO_BINARY + ".log")));
-
-    if (tls) {
-      System.out.println("starting minio server in TLS");
-    } else {
-      System.out.println("starting minio server");
-    }
-    Process p = pb.start();
-    Thread.sleep(10 * 1000); // wait for 10 seconds to do real start.
-    return p;
   }
 
   public static void runEndpointTests(boolean automated) throws Exception {
-    client = MinioClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
-    MinioAdminClient adminClient =
-        MinioAdminClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
-    adminClientTests = new TestMinioAdminClient(adminClient, mintEnv);
+    client = ApiClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
     // Enable trace for debugging.
     // client.traceOn(System.out);
     if (!mintEnv) System.out.println(">>> Running tests:");
@@ -3882,15 +3764,8 @@ public class FunctionalTest {
     if (automated) {
       // Run tests on TLS endpoint
       client =
-          MinioClient.builder().endpoint(endpointTLS).credentials(accessKey, secretKey).build();
+          ApiClient.builder().endpoint(endpointTLS).credentials(accessKey, secretKey).build();
       client.ignoreCertCheck();
-      adminClient =
-          MinioAdminClient.builder()
-              .endpoint(endpointTLS)
-              .credentials(accessKey, secretKey)
-              .build();
-      adminClient.ignoreCertCheck();
-      adminClientTests = new TestMinioAdminClient(adminClient, mintEnv);
       // Enable trace for debugging.
       // client.traceOn(System.out);
       if (!mintEnv) System.out.println(">>> Running tests on TLS endpoint:");
@@ -3903,22 +3778,15 @@ public class FunctionalTest {
       System.out.println(">>> Running tests for region:");
       isQuickTest = true;
       isSecureEndpoint = endpoint.toLowerCase(Locale.US).contains("https://");
-      // Get new bucket name to avoid minio azure gateway failure.
+      // Get new bucket name to avoid gateway failure.
       bucketName = getRandomName();
       bucketNameWithLock = getRandomName();
       client =
-          MinioClient.builder()
+          ApiClient.builder()
               .endpoint(endpoint)
               .credentials(accessKey, secretKey)
               .region(region)
               .build();
-      adminClient =
-          MinioAdminClient.builder()
-              .endpoint(endpoint)
-              .credentials(accessKey, secretKey)
-              .region(region)
-              .build();
-      adminClientTests = new TestMinioAdminClient(adminClient, mintEnv);
       FunctionalTest.runTests();
     }
   }
@@ -3936,52 +3804,24 @@ public class FunctionalTest {
         dataFile6Mb = Paths.get(dataDir, "datafile-6-MB");
       }
     }
-    replicationSrcBucket = System.getenv("MINIO_JAVA_TEST_REPLICATION_SRC_BUCKET");
-    replicationRole = System.getenv("MINIO_JAVA_TEST_REPLICATION_ROLE");
-    replicationBucketArn = System.getenv("MINIO_JAVA_TEST_REPLICATION_BUCKET_ARN");
+    replicationSrcBucket = System.getenv("IONOS_JAVA_TEST_REPLICATION_SRC_BUCKET");
+    replicationRole = System.getenv("IONOS_JAVA_TEST_REPLICATION_ROLE");
+    replicationBucketArn = System.getenv("IONOS_JAVA_TEST_REPLICATION_BUCKET_ARN");
 
-    Process minioProcess = null;
-    Process minioProcessTLS = null;
+    Process ionosProcess = null;
+    Process ionosProcessTLS = null;
 
     boolean automated = true;
-    String kmsKeyName = "my-minio-key";
+    String kmsKeyName = "my-ionos-key";
     if (args.length != 4) {
-      endpoint = "http://localhost:9000";
-      endpointTLS = "https://localhost:9001";
-      accessKey = "minio";
-      secretKey = "minio123";
-      region = "us-east-1";
-
-      if (!downloadMinio()) {
-        System.out.println("usage: FunctionalTest <ENDPOINT> <ACCESSKEY> <SECRETKEY> <REGION>");
-        System.exit(-1);
-      }
-
-      minioProcess = runMinio(false);
-      try {
-        int exitValue = minioProcess.exitValue();
-        System.out.println("minio server process exited with " + exitValue);
-        System.out.println("usage: FunctionalTest <ENDPOINT> <ACCESSKEY> <SECRETKEY> <REGION>");
-        System.exit(-1);
-      } catch (IllegalThreadStateException e) {
-        ignore();
-      }
-
-      minioProcessTLS = runMinio(true);
-      try {
-        int exitValue = minioProcessTLS.exitValue();
-        System.out.println("minio server process exited with " + exitValue);
-        System.out.println("usage: FunctionalTest <ENDPOINT> <ACCESSKEY> <SECRETKEY> <REGION>");
-        System.exit(-1);
-      } catch (IllegalThreadStateException e) {
-        ignore();
-      }
+      System.out.println("usage: FunctionalTest <ENDPOINT> <ACCESSKEY> <SECRETKEY> <REGION>");
+      System.exit(-1);
     } else {
-      kmsKeyName = System.getenv("MINIO_JAVA_TEST_KMS_KEY_NAME");
+      kmsKeyName = System.getenv("IONOS_JAVA_TEST_KMS_KEY_NAME");
       if (kmsKeyName == null) {
         kmsKeyName = System.getenv("MINT_KEY_ID");
       }
-      sqsArn = System.getenv("MINIO_JAVA_TEST_SQS_ARN");
+      sqsArn = System.getenv("IONOS_JAVA_TEST_SQS_ARN");
       endpoint = args[0];
       accessKey = args[1];
       secretKey = args[2];
@@ -4005,11 +3845,11 @@ public class FunctionalTest {
       }
       exitValue = -1;
     } finally {
-      if (minioProcess != null) {
-        minioProcess.destroy();
+      if (ionosProcess != null) {
+        ionosProcess.destroy();
       }
-      if (minioProcessTLS != null) {
-        minioProcessTLS.destroy();
+      if (ionosProcessTLS != null) {
+        ionosProcessTLS.destroy();
       }
     }
 
