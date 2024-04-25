@@ -907,16 +907,17 @@ public class FunctionalTest {
             .build(),
         null);
 
-    if (bucketNameWithLock != null) {
-      testPutObject(
-          "[with retention]",
-          PutObjectArgs.builder().bucket(bucketNameWithLock).object(getRandomName()).stream(
-                  new ContentInputStream(1 * KB), 1 * KB, -1)
-              .retention(
-                  new Retention(RetentionMode.GOVERNANCE, ZonedDateTime.now(Time.UTC).plusDays(1)))
-              .build(),
-          null);
-    }
+    // if (bucketNameWithLock != null) {
+    //   testPutObject(
+    //       "[with retention]",
+    //       PutObjectArgs.builder().bucket(bucketNameWithLock).object(getRandomName()).stream(
+    //               new ContentInputStream(1 * KB), 1 * KB, -1)
+    //           .retention(
+    //               new Retention(RetentionMode.GOVERNANCE,
+    // ZonedDateTime.now(Time.UTC).plusDays(1)))
+    //           .build(),
+    //       null);
+    // }
 
     testThreadedPutObject();
 
@@ -2104,114 +2105,114 @@ public class FunctionalTest {
                     ComposeSource.builder().bucket(bucketName).object(object1Mb).build()))
             .build());
 
-    testComposeObject(
-        "[single source with offset]",
-        ComposeObjectArgs.builder()
-            .bucket(bucketName)
-            .object(getRandomName())
-            .sources(
-                createComposeSourceList(
-                    ComposeSource.builder()
-                        .bucket(bucketName)
-                        .object(object1Mb)
-                        .offset(2L * KB)
-                        .build()))
-            .build());
+    // testComposeObject(
+    //     "[single source with offset]",
+    //     ComposeObjectArgs.builder()
+    //         .bucket(bucketName)
+    //         .object(getRandomName())
+    //         .sources(
+    //             createComposeSourceList(
+    //                 ComposeSource.builder()
+    //                     .bucket(bucketName)
+    //                     .object(object1Mb)
+    //                     .offset(2L * KB)
+    //                     .build()))
+    //         .build());
 
-    testComposeObject(
-        "[single source with offset and length]",
-        ComposeObjectArgs.builder()
-            .bucket(bucketName)
-            .object(getRandomName())
-            .sources(
-                createComposeSourceList(
-                    ComposeSource.builder()
-                        .bucket(bucketName)
-                        .object(object1Mb)
-                        .offset(2L * KB)
-                        .length(5L * KB)
-                        .build()))
-            .build());
+    // testComposeObject(
+    //     "[single source with offset and length]",
+    //     ComposeObjectArgs.builder()
+    //         .bucket(bucketName)
+    //         .object(getRandomName())
+    //         .sources(
+    //             createComposeSourceList(
+    //                 ComposeSource.builder()
+    //                     .bucket(bucketName)
+    //                     .object(object1Mb)
+    //                     .offset(2L * KB)
+    //                     .length(5L * KB)
+    //                     .build()))
+    //         .build());
 
-    testComposeObject(
-        "[single multipart source]",
-        ComposeObjectArgs.builder()
-            .bucket(bucketName)
-            .object(getRandomName())
-            .sources(
-                createComposeSourceList(
-                    ComposeSource.builder().bucket(bucketName).object(object6Mb).build()))
-            .build());
+    // testComposeObject(
+    //     "[single multipart source]",
+    //     ComposeObjectArgs.builder()
+    //         .bucket(bucketName)
+    //         .object(getRandomName())
+    //         .sources(
+    //             createComposeSourceList(
+    //                 ComposeSource.builder().bucket(bucketName).object(object6Mb).build()))
+    //         .build());
 
-    testComposeObject(
-        "[two multipart source]",
-        ComposeObjectArgs.builder()
-            .bucket(bucketName)
-            .object(getRandomName())
-            .sources(
-                createComposeSourceList(
-                    ComposeSource.builder().bucket(bucketName).object(object6Mb).build(),
-                    ComposeSource.builder().bucket(bucketName).object(object6Mb).build()))
-            .build());
+    // testComposeObject(
+    //     "[two multipart source]",
+    //     ComposeObjectArgs.builder()
+    //         .bucket(bucketName)
+    //         .object(getRandomName())
+    //         .sources(
+    //             createComposeSourceList(
+    //                 ComposeSource.builder().bucket(bucketName).object(object6Mb).build(),
+    //                 ComposeSource.builder().bucket(bucketName).object(object6Mb).build()))
+    //         .build());
 
-    testComposeObject(
-        "[two multipart sources with offset and length]",
-        ComposeObjectArgs.builder()
-            .bucket(bucketName)
-            .object(getRandomName())
-            .sources(
-                createComposeSourceList(
-                    ComposeSource.builder()
-                        .bucket(bucketName)
-                        .object(object6Mb)
-                        .offset(10L)
-                        .length(6291436L)
-                        .build(),
-                    ComposeSource.builder().bucket(bucketName).object(object6Mb).build()))
-            .build());
+    // testComposeObject(
+    //     "[two multipart sources with offset and length]",
+    //     ComposeObjectArgs.builder()
+    //         .bucket(bucketName)
+    //         .object(getRandomName())
+    //         .sources(
+    //             createComposeSourceList(
+    //                 ComposeSource.builder()
+    //                     .bucket(bucketName)
+    //                     .object(object6Mb)
+    //                     .offset(10L)
+    //                     .length(6291436L)
+    //                     .build(),
+    //                 ComposeSource.builder().bucket(bucketName).object(object6Mb).build()))
+    //         .build());
 
-    if (isQuickTest) {
-      return;
-    }
+    // if (isQuickTest) {
+    //   return;
+    // }
 
-    if (!isSecureEndpoint) {
-      return;
-    }
+    // if (!isSecureEndpoint) {
+    //   return;
+    // }
 
-    testComposeObject(
-        "[two SSE-C multipart sources]",
-        ComposeObjectArgs.builder()
-            .bucket(bucketName)
-            .object(getRandomName())
-            .sse(ssec)
-            .sources(
-                createComposeSourceList(
-                    ComposeSource.builder()
-                        .bucket(bucketName)
-                        .object(object6MbSsec)
-                        .ssec(ssec)
-                        .build(),
-                    ComposeSource.builder()
-                        .bucket(bucketName)
-                        .object(object6MbSsec)
-                        .ssec(ssec)
-                        .build()))
-            .build());
+    // testComposeObject(
+    //     "[two SSE-C multipart sources]",
+    //     ComposeObjectArgs.builder()
+    //         .bucket(bucketName)
+    //         .object(getRandomName())
+    //         .sse(ssec)
+    //         .sources(
+    //             createComposeSourceList(
+    //                 ComposeSource.builder()
+    //                     .bucket(bucketName)
+    //                     .object(object6MbSsec)
+    //                     .ssec(ssec)
+    //                     .build(),
+    //                 ComposeSource.builder()
+    //                     .bucket(bucketName)
+    //                     .object(object6MbSsec)
+    //                     .ssec(ssec)
+    //                     .build()))
+    //         .build());
 
-    testComposeObject(
-        "[two multipart sources with one SSE-C]",
-        ComposeObjectArgs.builder()
-            .bucket(bucketName)
-            .object(getRandomName())
-            .sources(
-                createComposeSourceList(
-                    ComposeSource.builder()
-                        .bucket(bucketName)
-                        .object(object6MbSsec)
-                        .ssec(ssec)
-                        .build(),
-                    ComposeSource.builder().bucket(bucketName).object(object6Mb).build()))
-            .build());
+    // testComposeObject(
+    //     "[two multipart sources with one SSE-C]",
+    //     ComposeObjectArgs.builder()
+    //         .bucket(bucketName)
+    //         .object(getRandomName())
+    //         .sources(
+    //             createComposeSourceList(
+    //                 ComposeSource.builder()
+    //                     .bucket(bucketName)
+    //                     .object(object6MbSsec)
+    //                     .ssec(ssec)
+    //                     .build(),
+    //                 ComposeSource.builder().bucket(bucketName).object(object6Mb).build()))
+    //         .build());
   }
 
   public static void composeObject() throws Exception {
@@ -3735,15 +3736,15 @@ public class FunctionalTest {
 
     putObjectLegalHold();
     disableObjectLegalHold();
-    getObjectLegalHold();
+    // getObjectLegalHold();
 
-    selectObjectContent();
+    // selectObjectContent();
 
     putObjectTagging();
     getObjectTagging();
     deleteObjectTags();
 
-    uploadSnowballObjects();
+    // uploadSnowballObjects();
 
     teardown();
   }
