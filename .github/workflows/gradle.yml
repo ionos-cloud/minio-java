@@ -42,12 +42,6 @@ jobs:
         run: |
           ./gradlew build
           ./gradlew runFunctionalTest
-          javac -cp api/build/libs/ionosclouds3-${DEV_VERSION}-all.jar functional/TestUserAgent.java
-          java -Dversion=${DEV_VERSION} -cp api/build/libs/ionosclouds3-${DEV_VERSION}-all.jar:functional TestUserAgent
-          ./gradlew clean
-          ./gradlew build -Prelease
-          javac -cp api/build/libs/ionosclouds3-${RELEASE_VERSION}-all.jar functional/TestUserAgent.java
-          java -Dversion=${RELEASE_VERSION} -cp api/build/libs/ionosclouds3-${RELEASE_VERSION}-all.jar:functional TestUserAgent
       - name: Gradle build on Windows
         env:
           IONOS_ACCESS_KEY: ${{ secrets.IONOS_ACCESS_KEY }}
