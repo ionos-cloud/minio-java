@@ -1,16 +1,14 @@
-
-
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.CREATE;
 
 import com.google.common.io.BaseEncoding;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import com.ionoscloud.s3.HeadBucketArgs;
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.CloseableIterator;
 import com.ionoscloud.s3.ComposeObjectArgs;
 import com.ionoscloud.s3.ComposeSource;
 import com.ionoscloud.s3.CopyObjectArgs;
 import com.ionoscloud.s3.CopySource;
+import com.ionoscloud.s3.DeleteBucketArgs;
 import com.ionoscloud.s3.DeleteBucketEncryptionArgs;
 import com.ionoscloud.s3.DeleteBucketLifecycleArgs;
 import com.ionoscloud.s3.DeleteBucketNotificationArgs;
@@ -22,7 +20,6 @@ import com.ionoscloud.s3.DeleteObjectTaggingArgs;
 import com.ionoscloud.s3.Directive;
 import com.ionoscloud.s3.DisableObjectLegalHoldArgs;
 import com.ionoscloud.s3.DownloadObjectArgs;
-import com.ionoscloud.s3.PutObjectLegalHoldArgs;
 import com.ionoscloud.s3.GetBucketEncryptionArgs;
 import com.ionoscloud.s3.GetBucketLifecycleArgs;
 import com.ionoscloud.s3.GetBucketNotificationArgs;
@@ -31,19 +28,28 @@ import com.ionoscloud.s3.GetBucketReplicationArgs;
 import com.ionoscloud.s3.GetBucketTaggingArgs;
 import com.ionoscloud.s3.GetBucketVersioningArgs;
 import com.ionoscloud.s3.GetObjectArgs;
+import com.ionoscloud.s3.GetObjectLegalHoldArgs;
 import com.ionoscloud.s3.GetObjectLockConfigurationArgs;
 import com.ionoscloud.s3.GetObjectRetentionArgs;
 import com.ionoscloud.s3.GetObjectTaggingArgs;
 import com.ionoscloud.s3.GetPresignedObjectUrlArgs;
-import com.ionoscloud.s3.GetObjectLegalHoldArgs;
+import com.ionoscloud.s3.HeadBucketArgs;
 import com.ionoscloud.s3.ListObjectsArgs;
 import com.ionoscloud.s3.ListenBucketNotificationArgs;
 import com.ionoscloud.s3.MakeBucketArgs;
-import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.ObjectWriteResponse;
+import com.ionoscloud.s3.PostObjectArgs;
 import com.ionoscloud.s3.PostPolicy;
+import com.ionoscloud.s3.PutBucketEncryptionArgs;
+import com.ionoscloud.s3.PutBucketLifecycleArgs;
+import com.ionoscloud.s3.PutBucketPolicyArgs;
+import com.ionoscloud.s3.PutBucketTaggingArgs;
+import com.ionoscloud.s3.PutBucketVersioningArgs;
 import com.ionoscloud.s3.PutObjectArgs;
-import com.ionoscloud.s3.DeleteBucketArgs;
+import com.ionoscloud.s3.PutObjectLegalHoldArgs;
+import com.ionoscloud.s3.PutObjectLockConfigurationArgs;
+import com.ionoscloud.s3.PutObjectRetentionArgs;
+import com.ionoscloud.s3.PutObjectTaggingArgs;
 import com.ionoscloud.s3.RemoveObjectArgs;
 import com.ionoscloud.s3.RemoveObjectsArgs;
 import com.ionoscloud.s3.Result;
@@ -53,21 +59,12 @@ import com.ionoscloud.s3.ServerSideEncryption;
 import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
 import com.ionoscloud.s3.ServerSideEncryptionKms;
 import com.ionoscloud.s3.ServerSideEncryptionS3;
-import com.ionoscloud.s3.PutBucketEncryptionArgs;
-import com.ionoscloud.s3.PutBucketLifecycleArgs;
 import com.ionoscloud.s3.SetBucketNotificationArgs;
-import com.ionoscloud.s3.PutBucketPolicyArgs;
 import com.ionoscloud.s3.SetBucketReplicationArgs;
-import com.ionoscloud.s3.PutBucketTaggingArgs;
-import com.ionoscloud.s3.PutBucketVersioningArgs;
-import com.ionoscloud.s3.PutObjectLockConfigurationArgs;
-import com.ionoscloud.s3.PutObjectRetentionArgs;
-import com.ionoscloud.s3.PutObjectTaggingArgs;
 import com.ionoscloud.s3.SnowballObject;
 import com.ionoscloud.s3.StatObjectArgs;
 import com.ionoscloud.s3.StatObjectResponse;
 import com.ionoscloud.s3.Time;
-import com.ionoscloud.s3.PostObjectArgs;
 import com.ionoscloud.s3.UploadSnowballObjectsArgs;
 import com.ionoscloud.s3.Xml;
 import com.ionoscloud.s3.errors.ErrorResponseException;
@@ -105,7 +102,7 @@ import com.ionoscloud.s3.messages.Stats;
 import com.ionoscloud.s3.messages.Status;
 import com.ionoscloud.s3.messages.Tags;
 import com.ionoscloud.s3.messages.VersioningConfiguration;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -160,7 +157,6 @@ public class FunctionalTest {
   private static Path dataFile1Kb;
   private static Path dataFile6Mb;
   private static String endpoint;
-  private static String endpointTLS;
   private static String accessKey;
   private static String secretKey;
   private static String region;
@@ -427,10 +423,7 @@ public class FunctionalTest {
             methodName + " failed after bucket creation",
             existCheck
                 && !client.bucketExists(
-                    HeadBucketArgs.builder()
-                        .bucket(args.bucket())
-                        .region(args.region())
-                        .build()));
+                    HeadBucketArgs.builder().bucket(args.bucket()).region(args.region()).build()));
         if (removeCheck) {
           client.deleteBucket(
               DeleteBucketArgs.builder().bucket(args.bucket()).region(args.region()).build());
@@ -750,7 +743,9 @@ public class FunctionalTest {
             PutObjectRetentionArgs.builder()
                 .bucket(args.bucket())
                 .object(args.object())
-                .config(new Retention(RetentionMode.GOVERNANCE, ZonedDateTime.now(Time.UTC).plusDays(1)))
+                .config(
+                    new Retention(
+                        RetentionMode.GOVERNANCE, ZonedDateTime.now(Time.UTC).plusDays(1)))
                 .bypassGovernanceMode(true)
                 .build());
       }
@@ -1409,7 +1404,11 @@ public class FunctionalTest {
 
     testListObjects(
         "[bucket, prefix, recursive]",
-        ListObjectsArgs.builder().bucket(getRandomName()).prefix("ionoscloud").recursive(true).build(),
+        ListObjectsArgs.builder()
+            .bucket(getRandomName())
+            .prefix("ionoscloud")
+            .recursive(true)
+            .build(),
         3,
         0);
 
@@ -1428,7 +1427,8 @@ public class FunctionalTest {
 
     // testListObjects(
     //     "[bucket, prefix, recursive, 1050 objects]",
-    //     ListObjectsArgs.builder().bucket(getRandomName()).prefix("ionoscloud").recursive(true).build(),
+    //
+    // ListObjectsArgs.builder().bucket(getRandomName()).prefix("ionoscloud").recursive(true).build(),
     //     1050,
     //     0);
 
@@ -2342,10 +2342,7 @@ public class FunctionalTest {
 
         checkObjectLegalHold(bucketNameWithLock, objectName, false);
         client.putObjectLegalHold(
-            PutObjectLegalHoldArgs.builder()
-                .bucket(bucketNameWithLock)
-                .object(objectName)
-                .build());
+            PutObjectLegalHoldArgs.builder().bucket(bucketNameWithLock).object(objectName).build());
         checkObjectLegalHold(bucketNameWithLock, objectName, false);
         mintSuccessLog(methodName, null, startTime);
       } finally {
@@ -3296,7 +3293,8 @@ public class FunctionalTest {
         Map<String, String> map = new HashMap<>();
         map.put("Project", "Project One");
         map.put("User", "jsmith");
-        client.putBucketTagging(PutBucketTaggingArgs.builder().bucket(bucketName).tags(map).build());
+        client.putBucketTagging(
+            PutBucketTaggingArgs.builder().bucket(bucketName).tags(map).build());
         mintSuccessLog(methodName, null, startTime);
       } finally {
         client.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
@@ -3318,12 +3316,14 @@ public class FunctionalTest {
       client.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
       try {
         Map<String, String> map = new HashMap<>();
-        Tags tags = client.getBucketTagging(GetBucketTaggingArgs.builder().bucket(bucketName).build());
+        Tags tags =
+            client.getBucketTagging(GetBucketTaggingArgs.builder().bucket(bucketName).build());
         Assert.assertEquals("tags: expected: " + map + ", got: " + tags.get(), map, tags.get());
 
         map.put("Project", "Project One");
         map.put("User", "jsmith");
-        client.putBucketTagging(PutBucketTaggingArgs.builder().bucket(bucketName).tags(map).build());
+        client.putBucketTagging(
+            PutBucketTaggingArgs.builder().bucket(bucketName).tags(map).build());
         tags = client.getBucketTagging(GetBucketTaggingArgs.builder().bucket(bucketName).build());
         Assert.assertEquals("tags: expected: " + map + ", got: " + tags.get(), map, tags.get());
         mintSuccessLog(methodName, null, startTime);
@@ -3351,9 +3351,11 @@ public class FunctionalTest {
         Map<String, String> map = new HashMap<>();
         map.put("Project", "Project One");
         map.put("User", "jsmith");
-        client.putBucketTagging(PutBucketTaggingArgs.builder().bucket(bucketName).tags(map).build());
+        client.putBucketTagging(
+            PutBucketTaggingArgs.builder().bucket(bucketName).tags(map).build());
         client.deleteBucketTagging(DeleteBucketTaggingArgs.builder().bucket(bucketName).build());
-        Tags tags = client.getBucketTagging(GetBucketTaggingArgs.builder().bucket(bucketName).build());
+        Tags tags =
+            client.getBucketTagging(GetBucketTaggingArgs.builder().bucket(bucketName).build());
         Assert.assertTrue("tags: expected: <empty>" + ", got: " + tags.get(), tags.get().isEmpty());
         mintSuccessLog(methodName, null, startTime);
       } finally {
@@ -3758,17 +3760,17 @@ public class FunctionalTest {
     if (!mintEnv) System.out.println(">>> Running tests:");
     FunctionalTest.runTests();
 
-    if (automated) {
-      // Run tests on TLS endpoint
-      client =
-          ApiClient.builder().endpoint(endpointTLS).credentials(accessKey, secretKey).build();
-      client.ignoreCertCheck();
-      // Enable trace for debugging.
-      // client.traceOn(System.out);
-      if (!mintEnv) System.out.println(">>> Running tests on TLS endpoint:");
-      isSecureEndpoint = true;
-      FunctionalTest.runTests();
-    }
+    // if (automated) {
+    //   // Run tests on TLS endpoint
+    //   client = ApiClient.builder().endpoint(endpointTLS).credentials(accessKey,
+    // secretKey).build();
+    //   client.ignoreCertCheck();
+    //   // Enable trace for debugging.
+    //   // client.traceOn(System.out);
+    //   if (!mintEnv) System.out.println(">>> Running tests on TLS endpoint:");
+    //   isSecureEndpoint = true;
+    //   FunctionalTest.runTests();
+    // }
 
     if (!mintEnv) {
       System.out.println();

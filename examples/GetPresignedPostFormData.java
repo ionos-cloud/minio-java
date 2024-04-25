@@ -1,5 +1,3 @@
-
-
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.PostPolicy;
 import com.ionoscloud.s3.errors.ApiException;
@@ -20,7 +18,7 @@ public class GetPresignedPostFormData {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      
+
       ApiClient apiClient =
           ApiClient.builder()
               .endpoint(System.getenv("IONOS_API_URL"))
@@ -61,11 +59,7 @@ public class GetPresignedPostFormData {
       multipartBuilder.addFormDataPart(
           "file", "my-objectname", RequestBody.create(new File("Pictures/avatar.png"), null));
 
-      Request request =
-          new Request.Builder()
-              .url("<url>")
-              .post(multipartBuilder.build())
-              .build();
+      Request request = new Request.Builder().url("<url>").post(multipartBuilder.build()).build();
       OkHttpClient httpClient = new OkHttpClient().newBuilder().build();
       Response response = httpClient.newCall(request).execute();
       if (response.isSuccessful()) {

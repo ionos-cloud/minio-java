@@ -1,7 +1,5 @@
-
-
-import com.ionoscloud.s3.GetObjectArgs;
 import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.GetObjectArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +12,7 @@ public class GetPartialObject {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      
+
       ApiClient apiClient =
           ApiClient.builder()
               .endpoint(System.getenv("IONOS_API_URL"))

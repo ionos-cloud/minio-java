@@ -1,7 +1,5 @@
-
-
-import com.ionoscloud.s3.ListObjectsArgs;
 import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.ListObjectsArgs;
 import com.ionoscloud.s3.Result;
 import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.Item;
@@ -14,7 +12,7 @@ public class ListObjects {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      
+
       ApiClient apiClient =
           ApiClient.builder()
               .endpoint(System.getenv("IONOS_API_URL"))
