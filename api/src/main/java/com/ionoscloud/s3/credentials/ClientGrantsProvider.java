@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3.credentials;
 
 import java.util.function.Supplier;
@@ -12,9 +10,7 @@ import org.simpleframework.xml.Namespace;
 import org.simpleframework.xml.Path;
 import org.simpleframework.xml.Root;
 
-/**
- * Credential provider
- */
+/** Credential provider */
 public class ClientGrantsProvider extends WebIdentityClientGrantsProvider {
   public ClientGrantsProvider(
       @Nonnull Supplier<Jwt> supplier,

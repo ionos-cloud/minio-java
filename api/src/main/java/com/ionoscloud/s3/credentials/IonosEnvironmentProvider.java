@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3.credentials;
 
 /** Credential provider using IONOS server specific environment variables. */

@@ -1,9 +1,7 @@
-
-
 package com.ionoscloud.s3.http;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import com.ionoscloud.s3.org.apache.commons.validator.routines.InetAddressValidator;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;

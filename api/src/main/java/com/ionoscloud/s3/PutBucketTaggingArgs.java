@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3;
 
 import com.ionoscloud.s3.messages.Tags;

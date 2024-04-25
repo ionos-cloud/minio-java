@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3;
 
 import java.io.IOException;

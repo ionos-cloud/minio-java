@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3;
 
 import java.io.IOException;
@@ -57,7 +55,6 @@ public enum SdkProperties {
   }
 
   public String getDefaultUserAgent() {
-    return "ionos-cloud-sdk-java-s3-ionoscloud/"
-        + getVersion();
+    return "ionos-cloud-sdk-java-s3-ionoscloud/" + getVersion();
   }
 }

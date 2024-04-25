@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3.messages;
 
 import com.fasterxml.jackson.annotation.JsonCreator;

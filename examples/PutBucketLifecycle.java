@@ -44,6 +44,7 @@ public class PutBucketLifecycle {
               "rule2",
               null,
               null,
+              null,
               null));
       LifecycleConfiguration config = new LifecycleConfiguration(rules);
 

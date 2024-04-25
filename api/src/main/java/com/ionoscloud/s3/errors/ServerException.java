@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3.errors;
 
 /** Thrown to indicate that S3 service returning HTTP server error. */

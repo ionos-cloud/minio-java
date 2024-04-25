@@ -1,10 +1,8 @@
-
-
 package com.ionoscloud.s3;
 
 import com.google.common.io.ByteStreams;
-import com.ionoscloud.s3.errors.InternalException;
 import com.ionoscloud.s3.errors.ApiException;
+import com.ionoscloud.s3.errors.InternalException;
 import com.ionoscloud.s3.messages.Progress;
 import com.ionoscloud.s3.messages.Stats;
 import java.io.ByteArrayInputStream;
@@ -108,8 +106,7 @@ public class SelectResponseStream extends InputStream {
     }
 
     if (headerMap.get(":message-type").equals("error")) {
-      throw new ApiException(
-          headerMap.get(":error-code") + ":" + headerMap.get(":error-message"));
+      throw new ApiException(headerMap.get(":error-code") + ":" + headerMap.get(":error-message"));
     }
 
     if (headerMap.get(":event-type").equals("End")) {

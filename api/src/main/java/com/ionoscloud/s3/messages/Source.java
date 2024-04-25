@@ -1,12 +1,8 @@
-
-
 package com.ionoscloud.s3.messages;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Helper class to denote client information causes this event.
- */
+/** Helper class to denote client information causes this event. */
 @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(
     value = "UwF",
     justification = "Everything in this class is initialized by JSON unmarshalling.")

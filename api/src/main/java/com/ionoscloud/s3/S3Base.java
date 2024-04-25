@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -12,7 +10,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import com.ionoscloud.s3.credentials.Credentials;
 import com.ionoscloud.s3.credentials.Provider;
 import com.ionoscloud.s3.errors.ErrorResponseException;
@@ -44,6 +41,7 @@ import com.ionoscloud.s3.messages.LocationConstraint;
 import com.ionoscloud.s3.messages.NotificationRecords;
 import com.ionoscloud.s3.messages.Part;
 import com.ionoscloud.s3.messages.Prefix;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3.errors;
 
 /** Base Exception class for all sdk exceptions. */

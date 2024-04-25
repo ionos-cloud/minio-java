@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3;
 
 import com.google.common.collect.Multimap;
