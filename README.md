@@ -23,7 +23,7 @@ dependencies {
 ```
 
 ## JAR download
-The latest JAR can be downloaded from [here](https://repo1.maven.org/maven2/com/ionoscloud/s3ionos-cloud-sdk-s3/1.0.0/)
+The latest JAR can be downloaded from [here](https://repo1.maven.org/maven2/com/ionoscloud/s3/ionos-cloud-sdk-s3/1.0.0)
 
 ## Quick Start Example - File Uploader
 This example program connects to an object storage server, makes a bucket on the server and then uploads a file to the bucket.
@@ -106,9 +106,6 @@ $ mc ls play/asiatrip/
 
 ## Feature Reference
 
-The ionos-cloud-sdk-dbaas-mariadb SDK for JAVA aims to offer access to all resources in the IONOS Container Registry API and also offers some additional features that make the integration easier:
- - authentication for API calls
- - handling of asynchronous requests
 
 ## FAQ
 
