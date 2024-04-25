@@ -23,6 +23,9 @@ import com.ionoscloud.s3.messages.Retention;
 import com.ionoscloud.s3.messages.SseConfiguration;
 import com.ionoscloud.s3.messages.Tags;
 import com.ionoscloud.s3.messages.VersioningConfiguration;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -2489,6 +2492,14 @@ public class ApiClient {
 
     public ApiClient build() {
       ApiAsyncClient asyncClient = asyncClientBuilder.build();
+
+      if (System.getenv("IONOS_DEBUG_FILE") != null) {
+        try{
+          asyncClient.traceOn(new FileOutputStream(System.getenv("IONOS_DEBUG_FILE")));
+        } catch (FileNotFoundException e) {
+          
+        }
+      }
       return new ApiClient(asyncClient);
     }
   }
