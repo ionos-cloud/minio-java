@@ -1,1 +1,1 @@
-include 'adminapi', 'api', 'examples', 'functional'
+include 'api', 'examples', 'functional'
