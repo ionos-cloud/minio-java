@@ -1,7 +1,7 @@
 
 
 import com.ionoscloud.s3.ApiClient;
-import com.ionoscloud.s3.SetBucketTagsArgs;
+import com.ionoscloud.s3.PutObjectTaggingArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -9,8 +9,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SetBucketTags {
-  /** ApiClient.setBucketTags() example. */
+public class PutObjectTagging {
+  /** ApiClient.putObjectTagging() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
@@ -31,8 +31,12 @@ public class SetBucketTags {
       Map<String, String> map = new HashMap<>();
       map.put("Project", "Project One");
       map.put("User", "jsmith");
-      apiClient.setBucketTags(
-          SetBucketTagsArgs.builder().bucket("my-bucketname").tags(map).build());
+      apiClient.putObjectTagging(
+          PutObjectTaggingArgs.builder()
+              .bucket("my-bucketname")
+              .object("my-objectname")
+              .tags(map)
+              .build());
     } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }

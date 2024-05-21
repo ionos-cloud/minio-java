@@ -1,15 +1,15 @@
 
 
 import com.ionoscloud.s3.ApiClient;
-import com.ionoscloud.s3.SetBucketEncryptionArgs;
+import com.ionoscloud.s3.PutBucketEncryptionArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.SseConfiguration;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class SetBucketEncryption {
-  /** ApiClient.setBucketEncryption() example. */
+public class PutBucketEncryption {
+  /** ApiClient.putBucketEncryption() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
@@ -27,8 +27,8 @@ public class SetBucketEncryption {
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
 
-      apiClient.setBucketEncryption(
-          SetBucketEncryptionArgs.builder()
+      apiClient.putBucketEncryption(
+          PutBucketEncryptionArgs.builder()
               .bucket("my-bucketname")
               .config(SseConfiguration.newConfigWithSseS3Rule())
               .build());

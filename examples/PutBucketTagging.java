@@ -1,15 +1,18 @@
 
-import com.ionoscloud.s3.EnableObjectLegalHoldArgs;
+
 import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.PutBucketTaggingArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
-public class EnableObjectLegalHold {
-  /** ApiClient.enableObjectLegalHold() example. */
+public class PutBucketTagging {
+  /** ApiClient.putBucketTagging() example. */
   public static void main(String[] args)
-      throws IOException, NoSuchAlgorithmException, InvalidKeyException, IllegalArgumentException {
+      throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
       
       ApiClient apiClient =
@@ -25,15 +28,11 @@ public class EnableObjectLegalHold {
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
 
-      // Enable object legal hold.
-      apiClient.enableObjectLegalHold(
-          EnableObjectLegalHoldArgs.builder()
-              .bucket("my-bucketname")
-              .object("my-objectname")
-              .versionId("object-versionId")
-              .build());
-
-      System.out.println("Legal hold enabled on object successfully ");
+      Map<String, String> map = new HashMap<>();
+      map.put("Project", "Project One");
+      map.put("User", "jsmith");
+      apiClient.putBucketTagging(
+          PutBucketTaggingArgs.builder().bucket("my-bucketname").tags(map).build());
     } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }

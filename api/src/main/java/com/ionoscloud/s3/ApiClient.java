@@ -813,7 +813,7 @@ public class ApiClient {
    *
    * <pre>Example:{@code
    * boolean found =
-   *      apiClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
+   *      apiClient.bucketExists(HeadBucketArgs.builder().bucket("my-bucketname").build());
    * if (found) {
    *   System.out.println("my-bucketname exists");
    * } else {
@@ -821,7 +821,7 @@ public class ApiClient {
    * }
    * }</pre>
    *
-   * @param args {@link BucketExistsArgs} object.
+   * @param args {@link HeadBucketArgs} object.
    * @return boolean - True if the bucket exists.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
@@ -833,7 +833,7 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public boolean bucketExists(BucketExistsArgs args)
+  public boolean bucketExists(HeadBucketArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
@@ -901,11 +901,11 @@ public class ApiClient {
    * Sets versioning configuration of a bucket.
    *
    * <pre>Example:{@code
-   * apiClient.setBucketVersioning(
-   *     SetBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
+   * apiClient.putBucketVersioning(
+   *     PutBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
-   * @param args {@link SetBucketVersioningArgs} object.
+   * @param args {@link PutBucketVersioningArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -916,12 +916,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setBucketVersioning(SetBucketVersioningArgs args)
+  public void putBucketVersioning(PutBucketVersioningArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setBucketVersioning(args).get();
+      asyncClient.putBucketVersioning(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -970,11 +970,11 @@ public class ApiClient {
    * <pre>Example:{@code
    * ObjectLockConfiguration config = new ObjectLockConfiguration(
    *     RetentionMode.COMPLIANCE, new RetentionDurationDays(100));
-   * apiClient.setObjectLockConfiguration(
-   *     SetObjectLockConfigurationArgs.builder().bucket("my-bucketname").config(config).build());
+   * apiClient.putObjectLockConfiguration(
+   *     PutObjectLockConfigurationArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
-   * @param args {@link SetObjectLockConfigurationArgs} object.
+   * @param args {@link PutObjectLockConfigurationArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -985,12 +985,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setObjectLockConfiguration(SetObjectLockConfigurationArgs args)
+  public void putObjectLockConfiguration(PutObjectLockConfigurationArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setObjectLockConfiguration(args).get();
+      asyncClient.putObjectLockConfiguration(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -1074,8 +1074,8 @@ public class ApiClient {
    * <pre>Example:{@code
    *  Retention retention = new Retention(
    *       RetentionMode.COMPLIANCE, ZonedDateTime.now().plusYears(1));
-   *  apiClient.setObjectRetention(
-   *      SetObjectRetentionArgs.builder()
+   *  apiClient.putObjectRetention(
+   *      PutObjectRetentionArgs.builder()
    *          .bucket("my-bucketname")
    *          .object("my-objectname")
    *          .config(config)
@@ -1083,7 +1083,7 @@ public class ApiClient {
    *          .build());
    * }</pre>
    *
-   * @param args {@link SetObjectRetentionArgs} object.
+   * @param args {@link PutObjectRetentionArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1094,12 +1094,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setObjectRetention(SetObjectRetentionArgs args)
+  public void putObjectRetention(PutObjectRetentionArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setObjectRetention(args).get();
+      asyncClient.putObjectRetention(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -1151,15 +1151,15 @@ public class ApiClient {
    * Enables legal hold on an object.
    *
    * <pre>Example:{@code
-   * apiClient.enableObjectLegalHold(
-   *    EnableObjectLegalHoldArgs.builder()
+   * apiClient.putObjectLegalHold(
+   *    PutObjectLegalHoldArgs.builder()
    *        .bucket("my-bucketname")
    *        .object("my-objectname")
    *        .versionId("object-versionId")
    *        .build());
    * }</pre>
    *
-   * @param args {@link EnableObjectLegalHoldArgs} object.
+   * @param args {@link PutObjectLegalHoldArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1170,12 +1170,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void enableObjectLegalHold(EnableObjectLegalHoldArgs args)
+  public void putObjectLegalHold(PutObjectLegalHoldArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.enableObjectLegalHold(args).get();
+      asyncClient.putObjectLegalHold(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -1224,8 +1224,8 @@ public class ApiClient {
    *
    * <pre>Example:{@code
    * boolean status =
-   *     s3Client.isObjectLegalHoldEnabled(
-   *        IsObjectLegalHoldEnabledArgs.builder()
+   *     s3Client.getObjectLegalHold(
+   *        GetObjectLegalHoldArgs.builder()
    *             .bucket("my-bucketname")
    *             .object("my-objectname")
    *             .versionId("object-versionId")
@@ -1237,7 +1237,7 @@ public class ApiClient {
    *  }
    * }</pre>
    *
-   * args {@link IsObjectLegalHoldEnabledArgs} object.
+   * args {@link GetObjectLegalHoldArgs} object.
    *
    * @return boolean - True if legal hold is enabled.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
@@ -1250,12 +1250,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public boolean isObjectLegalHoldEnabled(IsObjectLegalHoldEnabledArgs args)
+  public boolean getObjectLegalHold(GetObjectLegalHoldArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      return asyncClient.isObjectLegalHoldEnabled(args).get();
+      return asyncClient.getObjectLegalHold(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -1268,10 +1268,10 @@ public class ApiClient {
    * Removes an empty bucket using arguments
    *
    * <pre>Example:{@code
-   * apiClient.removeBucket(RemoveBucketArgs.builder().bucket("my-bucketname").build());
+   * apiClient.deleteBucket(DeleteBucketArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
-   * @param args {@link RemoveBucketArgs} bucket.
+   * @param args {@link DeleteBucketArgs} bucket.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1282,12 +1282,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void removeBucket(RemoveBucketArgs args)
+  public void deleteBucket(DeleteBucketArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.removeBucket(args).get();
+      asyncClient.deleteBucket(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -1370,13 +1370,13 @@ public class ApiClient {
    *
    * <pre>Example:{@code
    * // Upload an JSON file.
-   * apiClient.uploadObject(
-   *     UploadObjectArgs.builder()
+   * apiClient.postObject(
+   *     PostObjectArgs.builder()
    *         .bucket("my-bucketname").object("my-objectname").filename("person.json").build());
    *
    * // Upload a video file.
-   * apiClient.uploadObject(
-   *     UploadObjectArgs.builder()
+   * apiClient.postObject(
+   *     PostObjectArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
    *         .filename("my-video.avi")
@@ -1384,7 +1384,7 @@ public class ApiClient {
    *         .build());
    * }</pre>
    *
-   * @param args {@link UploadObjectArgs} object.
+   * @param args {@link PostObjectArgs} object.
    * @return {@link ObjectWriteResponse} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
@@ -1396,12 +1396,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public ObjectWriteResponse uploadObject(UploadObjectArgs args)
+  public ObjectWriteResponse postObject(PostObjectArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      return asyncClient.uploadObject(args).get();
+      return asyncClient.postObject(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -1471,11 +1471,11 @@ public class ApiClient {
    * //     "Version": "2012-10-17"
    * // }
    * //
-   * apiClient.setBucketPolicy(
-   *     SetBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
+   * apiClient.putBucketPolicy(
+   *     PutBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
    * }</pre>
    *
-   * @param args {@link SetBucketPolicyArgs} object.
+   * @param args {@link PutBucketPolicyArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1486,12 +1486,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setBucketPolicy(SetBucketPolicyArgs args)
+  public void putBucketPolicy(PutBucketPolicyArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setBucketPolicy(args).get();
+      asyncClient.putBucketPolicy(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -1546,11 +1546,11 @@ public class ApiClient {
    *         null,
    *         null));
    * LifecycleConfiguration config = new LifecycleConfiguration(rules);
-   * apiClient.setBucketLifecycle(
-   *     SetBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
+   * apiClient.putBucketLifecycle(
+   *     PutBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
-   * @param args {@link SetBucketLifecycleArgs} object.
+   * @param args {@link PutBucketLifecycleArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1561,12 +1561,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setBucketLifecycle(SetBucketLifecycleArgs args)
+  public void putBucketLifecycle(PutBucketLifecycleArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setBucketLifecycle(args).get();
+      asyncClient.putBucketLifecycle(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -1981,11 +1981,11 @@ public class ApiClient {
    * Sets encryption configuration of a bucket.
    *
    * <pre>Example:{@code
-   * apiClient.setBucketEncryption(
-   *     SetBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
+   * apiClient.putBucketEncryption(
+   *     PutBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
    * }</pre>
    *
-   * @param args {@link SetBucketEncryptionArgs} object.
+   * @param args {@link PutBucketEncryptionArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -1996,12 +1996,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setBucketEncryption(SetBucketEncryptionArgs args)
+  public void putBucketEncryption(PutBucketEncryptionArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setBucketEncryption(args).get();
+      asyncClient.putBucketEncryption(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -2081,10 +2081,10 @@ public class ApiClient {
    *
    * <pre>Example:{@code
    * Tags tags =
-   *     apiClient.getBucketTags(GetBucketTagsArgs.builder().bucket("my-bucketname").build());
+   *     apiClient.getBucketTagging(GetBucketTaggingArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
-   * @param args {@link GetBucketTagsArgs} object.
+   * @param args {@link GetBucketTaggingArgs} object.
    * @return {@link Tags} - Tags.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
@@ -2096,12 +2096,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public Tags getBucketTags(GetBucketTagsArgs args)
+  public Tags getBucketTagging(GetBucketTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      return asyncClient.getBucketTags(args).get();
+      return asyncClient.getBucketTagging(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -2117,11 +2117,11 @@ public class ApiClient {
    * Map<String, String> map = new HashMap<>();
    * map.put("Project", "Project One");
    * map.put("User", "jsmith");
-   * apiClient.setBucketTags(
-   *     SetBucketTagsArgs.builder().bucket("my-bucketname").tags(map).build());
+   * apiClient.putBucketTagging(
+   *     PutBucketTaggingArgs.builder().bucket("my-bucketname").tags(map).build());
    * }</pre>
    *
-   * @param args {@link SetBucketTagsArgs} object.
+   * @param args {@link PutBucketTaggingArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2132,12 +2132,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setBucketTags(SetBucketTagsArgs args)
+  public void putBucketTagging(PutBucketTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setBucketTags(args).get();
+      asyncClient.putBucketTagging(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -2149,10 +2149,10 @@ public class ApiClient {
    * Deletes tags of a bucket.
    *
    * <pre>Example:{@code
-   * apiClient.deleteBucketTags(DeleteBucketTagsArgs.builder().bucket("my-bucketname").build());
+   * apiClient.deleteBucketTagging(DeleteBucketTaggingArgs.builder().bucket("my-bucketname").build());
    * }</pre>
    *
-   * @param args {@link DeleteBucketTagsArgs} object.
+   * @param args {@link DeleteBucketTaggingArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2163,12 +2163,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void deleteBucketTags(DeleteBucketTagsArgs args)
+  public void deleteBucketTagging(DeleteBucketTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.deleteBucketTags(args).get();
+      asyncClient.deleteBucketTagging(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -2181,11 +2181,11 @@ public class ApiClient {
    *
    * <pre>Example:{@code
    * Tags tags =
-   *     apiClient.getObjectTags(
-   *         GetObjectTagsArgs.builder().bucket("my-bucketname").object("my-objectname").build());
+   *     apiClient.getObjectTagging(
+   *         GetObjectTaggingArgs.builder().bucket("my-bucketname").object("my-objectname").build());
    * }</pre>
    *
-   * @param args {@link GetObjectTagsArgs} object.
+   * @param args {@link GetObjectTaggingArgs} object.
    * @return {@link Tags} - Tags.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
@@ -2197,12 +2197,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public Tags getObjectTags(GetObjectTagsArgs args)
+  public Tags getObjectTagging(GetObjectTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      return asyncClient.getObjectTags(args).get();
+      return asyncClient.getObjectTagging(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -2218,15 +2218,15 @@ public class ApiClient {
    * Map<String, String> map = new HashMap<>();
    * map.put("Project", "Project One");
    * map.put("User", "jsmith");
-   * apiClient.setObjectTags(
-   *     SetObjectTagsArgs.builder()
+   * apiClient.putObjectTagging(
+   *     PutObjectTaggingArgs.builder()
    *         .bucket("my-bucketname")
    *         .object("my-objectname")
    *         .tags((map)
    *         .build());
    * }</pre>
    *
-   * @param args {@link SetObjectTagsArgs} object.
+   * @param args {@link PutObjectTaggingArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2237,12 +2237,12 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void setObjectTags(SetObjectTagsArgs args)
+  public void putObjectTagging(PutObjectTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {
     try {
-      asyncClient.setObjectTags(args).get();
+      asyncClient.putObjectTagging(args).get();
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     } catch (ExecutionException e) {
@@ -2255,10 +2255,10 @@ public class ApiClient {
    *
    * <pre>Example:{@code
    * apiClient.deleteObjectTags(
-   *     DeleteObjectTags.builder().bucket("my-bucketname").object("my-objectname").build());
+   *     DeleteObjectTagging.builder().bucket("my-bucketname").object("my-objectname").build());
    * }</pre>
    *
-   * @param args {@link DeleteObjectTagsArgs} object.
+   * @param args {@link DeleteObjectTaggingArgs} object.
    * @throws ErrorResponseException thrown to indicate S3 service returned an error response.
    * @throws InsufficientDataException thrown to indicate not enough data available in InputStream.
    * @throws InternalException thrown to indicate internal library error.
@@ -2269,7 +2269,7 @@ public class ApiClient {
    * @throws NoSuchAlgorithmException thrown to indicate missing of MD5 or SHA-256 digest library.
    * @throws XmlParserException thrown to indicate XML parsing error.
    */
-  public void deleteObjectTags(DeleteObjectTagsArgs args)
+  public void deleteObjectTags(DeleteObjectTaggingArgs args)
       throws ErrorResponseException, InsufficientDataException, InternalException,
           InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException,
           ServerException, XmlParserException {

@@ -17,29 +17,29 @@ ApiClient apiClient =
 | [`deleteBucketLifecycle`](#deleteBucketLifecycle)                 | [`deleteObjectTags`](#deleteObjectTags)                 |
 | [`deleteBucketNotification`](#deleteBucketNotification)           | [`disableObjectLegalHold`](#disableObjectLegalHold)     |
 | [`deleteBucketPolicy`](#deleteBucketPolicy)                       | [`downloadObject`](#downloadObject)                     |
-| [`deleteBucketReplication`](#deleteBucketReplication)             | [`enableObjectLegalHold`](#enableObjectLegalHold)       |
-| [`deleteBucketTags`](#deleteBucketTags)                           | [`getObject`](#getObject)                               |
+| [`deleteBucketReplication`](#deleteBucketReplication)             | [`putObjectLegalHold`](#putObjectLegalHold)       |
+| [`deleteBucketTagging`](#deleteBucketTagging)                           | [`getObject`](#getObject)                               |
 | [`deleteObjectLockConfiguration`](#deleteObjectLockConfiguration) | [`getObjectRetention`](#getObjectRetention)             |
-| [`getBucketEncryption`](#getBucketEncryption)                     | [`getObjectTags`](#getObjectTags)                       |
+| [`getBucketEncryption`](#getBucketEncryption)                     | [`getObjectTagging`](#getObjectTagging)                       |
 | [`getBucketLifecycle`](#getBucketLifecycle)                       | [`getPresignedObjectUrl`](#getPresignedObjectUrl)       |
 | [`getBucketNotification`](#getBucketNotification)                 | [`getPresignedPostFormData`](#getPresignedPostFormData) |
-| [`getBucketPolicy`](#getBucketPolicy)                             | [`isObjectLegalHoldEnabled`](#isObjectLegalHoldEnabled) |
+| [`getBucketPolicy`](#getBucketPolicy)                             | [`getObjectLegalHold`](#getObjectLegalHold) |
 | [`getBucketReplication`](#getBucketReplication)                   | [`listObjects`](#listObjects)                           |
-| [`getBucketTags`](#getBucketTags)                                 | [`putObject`](#putObject)                               |
+| [`getBucketTagging`](#getBucketTagging)                                 | [`putObject`](#putObject)                               |
 | [`getBucketVersioning`](#getBucketVersioning)                     | [`removeObject`](#removeObject)                         |
 | [`getObjectLockConfiguration`](#getObjectLockConfiguration)       | [`removeObjects`](#removeObjects)                       |
 | [`listBuckets`](#listBuckets)                                     | [`restoreObject`](#restoreObject)                       |
 | [`listenBucketNotification`](#listenBucketNotification)           | [`selectObjectContent`](#selectObjectContent)           |
-| [`makeBucket`](#makeBucket)                                       | [`setObjectRetention`](#setObjectRetention)             |
-| [`removeBucket`](#removeBucket)                                   | [`setObjectTags`](#setObjectTags)                       |
-| [`setBucketEncryption`](#setBucketEncryption)                     | [`statObject`](#statObject)                             |
-| [`setBucketLifecycle`](#setBucketLifecycle)                       | [`uploadObject`](#uploadObject)                         |
+| [`makeBucket`](#makeBucket)                                       | [`putObjectRetention`](#putObjectRetention)             |
+| [`deleteBucket`](#deleteBucket)                                   | [`putObjectTagging`](#putObjectTagging)                       |
+| [`putBucketEncryption`](#putBucketEncryption)                     | [`statObject`](#statObject)                             |
+| [`putBucketLifecycle`](#putBucketLifecycle)                       | [`postObject`](#postObject)                         |
 | [`setBucketNotification`](#setBucketNotification)                 | [`uploadSnowballObjects`](#uploadSnowballObjects)       |
-| [`setBucketPolicy`](#setBucketPolicy)                             |                                                         |
+| [`putBucketPolicy`](#putBucketPolicy)                             |                                                         |
 | [`setBucketReplication`](#setBucketReplication)                   |                                                         |
-| [`setBucketTags`](#setBucketTags)                                 |                                                         |
-| [`setBucketVersioning`](#setBucketVersioning)                     |                                                         |
-| [`setObjectLockConfiguration`](#setObjectLockConfiguration)       |                                                         |
+| [`putBucketTagging`](#putBucketTagging)                                 |                                                         |
+| [`putBucketVersioning`](#putBucketVersioning)                     |                                                         |
+| [`putObjectLockConfiguration`](#putObjectLockConfiguration)       |                                                         |
 
 ## 1. Client Builder
 
@@ -150,15 +150,15 @@ All APIs throw below exceptions in addition to specific to API.
 ## 2. Bucket operations
 
 <a name="bucketExists"></a>
-### bucketExists(BucketExistsArgs args)
-`public boolean bucketExists(BucketExistsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#bucketExists-com.ionoscloud.s3.BucketExistsArgs-)_
+### bucketExists(HeadBucketArgs args)
+`public boolean bucketExists(HeadBucketArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#bucketExists-com.ionoscloud.s3.HeadBucketArgs-)_
 
 Checks if a bucket exists.
 
 __Parameters__
 | Parameter      | Type                 | Description    |
 |:---------------|:---------------------|:---------------|
-| ``bucketName`` | _[BucketExistsArgs]_ | Arguments.     |
+| ``bucketName`` | _[HeadBucketArgs]_ | Arguments.     |
 
 | Returns                                |
 |:---------------------------------------|
@@ -168,7 +168,7 @@ __Example__
 ```java
 // Check whether 'my-bucketname' exists or not.
 boolean found =
-  apiClient.bucketExists(BucketExistsArgs.builder().bucket("my-bucketname").build());
+  apiClient.bucketExists(HeadBucketArgs.builder().bucket("my-bucketname").build());
 if (found) {
   System.out.println("my-bucketname exists");
 } else {
@@ -210,20 +210,20 @@ apiClient.deleteBucketLifecycle(
     DeleteBucketLifecycleArgs.builder().bucket("my-bucketname").build());
 ```
 
-<a name="deleteBucketTags"></a>
-### deleteBucketTags(DeleteBucketTagsArgs args)
-`private void deleteBucketTags(DeleteBucketTagsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteBucketTags-com.ionoscloud.s3.DeleteBucketTagsArgs-)_
+<a name="deleteBucketTagging"></a>
+### deleteBucketTagging(DeleteBucketTaggingArgs args)
+`private void deleteBucketTagging(DeleteBucketTaggingArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteBucketTagging-com.ionoscloud.s3.DeleteBucketTaggingArgs-)_
 
 Deletes tags of a bucket.
 
 __Parameters__
 | Parameter | Type                     | Description |
 |:----------|:-------------------------|:------------|
-| ``args``  | _[DeleteBucketTagsArgs]_ | Arguments.  |
+| ``args``  | _[DeleteBucketTaggingArgs]_ | Arguments.  |
 
 __Example__
 ```java
-apiClient.deleteBucketTags(DeleteBucketTagsArgs.builder().bucket("my-bucketname").build());
+apiClient.deleteBucketTagging(DeleteBucketTaggingArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="deleteBucketPolicy"></a>
@@ -405,16 +405,16 @@ ReplicationConfiguration config =
 	    GetBucketReplicationArgs.builder().bucket("my-bucketname").build());
 ```
 
-<a name="getBucketTags"></a>
-### getBucketTags(GetBucketTagsArgs args)
-`public Tags getBucketTags(GetBucketTagsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.htmlgetBucketTags-com.ionoscloud.s3.GetBucketTagsArgs-)_
+<a name="getBucketTagging"></a>
+### getBucketTagging(GetBucketTaggingArgs args)
+`public Tags getBucketTagging(GetBucketTaggingArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.htmlgetBucketTagging-com.ionoscloud.s3.GetBucketTaggingArgs-)_
 
 Gets tags of a bucket.
 
 __Parameters__
 | Parameter | Type                  | Description |
 |:----------|:----------------------|:------------|
-| ``args``  | _[GetBucketTagsArgs]_ | Arguments.  |
+| ``args``  | _[GetBucketTaggingArgs]_ | Arguments.  |
 
 
 | Returns          |
@@ -423,7 +423,7 @@ __Parameters__
 
 __Example__
 ```java
-Tags tags = apiClient.getBucketTags(GetBucketTagsArgs.builder().bucket("my-bucketname").build());
+Tags tags = apiClient.getBucketTagging(GetBucketTaggingArgs.builder().bucket("my-bucketname").build());
 ```
 
 <a name="getBucketVersioning"></a>
@@ -633,9 +633,9 @@ apiClient.makeBucket(
         .build());
 ```
 
-<a name="removeBucket"></a>
-### removeBucket(RemoveBucketArgs args)
-`public void removeBucket(RemoveBucketArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#removeBucket-com.ionoscloud.s3.RemoveBucketArgs-)_
+<a name="deleteBucket"></a>
+### deleteBucket(DeleteBucketArgs args)
+`public void deleteBucket(DeleteBucketArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteBucket-com.ionoscloud.s3.DeleteBucketArgs-)_
 
 Removes an empty bucket.
 
@@ -643,40 +643,40 @@ __Parameters__
 
 | Parameter    | Type                 | Description     |
 |:-------------|:---------------------|:----------------|
-| ``args``     | _[RemoveBucketArgs]_ | Arguments.      |
+| ``args``     | _[DeleteBucketArgs]_ | Arguments.      |
 
 __Example__
 ```java
-apiClient.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+apiClient.deleteBucket(DeleteBucketArgs.builder().bucket(bucketName).build());
 ```
 
-<a name="setBucketEncryption"></a>
-### setBucketEncryption(SetBucketEncryptionArgs args)
-`public void setBucketEncryption(SetBucketEncryptionArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketEncryption-com.ionoscloud.s3.SetBucketEncryptionArgs-)_
+<a name="putBucketEncryption"></a>
+### putBucketEncryption(PutBucketEncryptionArgs args)
+`public void putBucketEncryption(PutBucketEncryptionArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putBucketEncryption-com.ionoscloud.s3.PutBucketEncryptionArgs-)_
 
 Sets encryption configuration of a bucket.
 
 __Parameters__
 | Parameter | Type                        | Description |
 |:----------|:----------------------------|:------------|
-| ``args``  | _[SetBucketEncryptionArgs]_ | Arguments.  |
+| ``args``  | _[PutBucketEncryptionArgs]_ | Arguments.  |
 
 __Example__
 ```java
-apiClient.setBucketEncryption(
-    SetBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
+apiClient.putBucketEncryption(
+    PutBucketEncryptionArgs.builder().bucket("my-bucketname").config(config).build());
  ```
 
-<a name="setBucketLifecycle"></a>
-### setBucketLifecycle(SetBucketLifecycleArgs args)
-`public void setBucketLifecycle(SetBucketLifecycleArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketLifecycle-com.ionoscloud.s3.SetBucketLifecycleArgs-)_
+<a name="putBucketLifecycle"></a>
+### putBucketLifecycle(PutBucketLifecycleArgs args)
+`public void putBucketLifecycle(PutBucketLifecycleArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putBucketLifecycle-com.ionoscloud.s3.PutBucketLifecycleArgs-)_
 
 Sets lifecycle configuration to a bucket.
 
 __Parameters__
 | Parameter | Type                       | Description |
 |:----------|:---------------------------|:------------|
-| ``args``  | _[SetBucketLifecycleArgs]_ | Arguments.  |
+| ``args``  | _[PutBucketLifecycleArgs]_ | Arguments.  |
 
 __Example__
 ```java
@@ -702,8 +702,8 @@ rules.add(
         null,
         null));
 LifecycleConfiguration config = new LifecycleConfiguration(rules);
-apiClient.setBucketLifecycle(
-    SetBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
+apiClient.putBucketLifecycle(
+    PutBucketLifecycleArgs.builder().bucket("my-bucketname").config(config).build());
 ```
 
 <a name="setBucketNotification"></a>
@@ -740,9 +740,9 @@ apiClient.setBucketNotification(
     SetBucketNotificationArgs.builder().bucket("my-bucketname").config(config).build());
 ```
 
-<a name="setBucketPolicy"></a>
-### setBucketPolicy(SetBucketPolicyArgs args)
-`public void setBucketPolicy(SetBucketPolicyArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketPolicy-com.ionoscloud.s3.SetBucketPolicyArgs-)_
+<a name="putBucketPolicy"></a>
+### putBucketPolicy(PutBucketPolicyArgs args)
+`public void putBucketPolicy(PutBucketPolicyArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putBucketPolicy-com.ionoscloud.s3.PutBucketPolicyArgs-)_
 
 Sets bucket policy configuration to a bucket.
 
@@ -750,7 +750,7 @@ __Parameters__
 
 | Parameter | Type                    | Description |
 |:----------|:------------------------|:------------|
-| ``args``  | _[SetBucketPolicyArgs]_ | Arguments.  |
+| ``args``  | _[PutBucketPolicyArgs]_ | Arguments.  |
 
 __Example__
 ```java
@@ -776,8 +776,8 @@ __Example__
 //     "Version": "2012-10-17"
 // }
 //
-apiClient.setBucketPolicy(
-    SetBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
+apiClient.putBucketPolicy(
+    PutBucketPolicyArgs.builder().bucket("my-bucketname").config(policyJson).build());
 ```
 
 <a name="setBucketReplication"></a>
@@ -821,9 +821,9 @@ apiClient.setBucketReplication(
     SetBucketReplicationArgs.builder().bucket("my-bucketname").config(config).build());
 ```
 
-<a name="setBucketTags"></a>
-### setBucketTags(SetBucketTagsArgs args)
-`public void setBucketTags(SetBucketTagsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketTags-com.ionoscloud.s3.SetBucketTagsArgs-)_
+<a name="putBucketTagging"></a>
+### putBucketTagging(PutBucketTaggingArgs args)
+`public void putBucketTagging(PutBucketTaggingArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putBucketTagging-com.ionoscloud.s3.PutBucketTaggingArgs-)_
 
 Sets tags to a bucket.
 
@@ -831,50 +831,50 @@ __Parameters__
 
 | Parameter | Type                  | Description |
 |:----------|:----------------------|:------------|
-| ``args``  | _[SetBucketTagsArgs]_ | Arguments.  |
+| ``args``  | _[PutBucketTaggingArgs]_ | Arguments.  |
 
 __Example__
 ```java
 Map<String, String> map = new HashMap<>();
 map.put("Project", "Project One");
 map.put("User", "jsmith");
-apiClient.setBucketTags(SetBucketTagsArgs.builder().bucket("my-bucketname").tags(map).build());
+apiClient.putBucketTagging(PutBucketTaggingArgs.builder().bucket("my-bucketname").tags(map).build());
 ```
 
-<a name="setBucketVersioning"></a>
-### setBucketVersioning(SetBucketVersioningArgs args)
-`public void setBucketVersioning(SetBucketVersioningArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setBucketVersioning-com.ionoscloud.s3.SetBucketVersioningArgs-)_
+<a name="putBucketVersioning"></a>
+### putBucketVersioning(PutBucketVersioningArgs args)
+`public void putBucketVersioning(PutBucketVersioningArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putBucketVersioning-com.ionoscloud.s3.PutBucketVersioningArgs-)_
 
 Sets versioning configuration of a bucket.
 
 __Parameters__
 | Parameter | Type                        | Description |
 |:----------|:----------------------------|:------------|
-| ``args``  | _[SetBucketVersioningArgs]_ | Arguments.  |
+| ``args``  | _[PutBucketVersioningArgs]_ | Arguments.  |
 
 __Example__
 ```java
-apiClient.setBucketVersioning(
-    SetBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
+apiClient.putBucketVersioning(
+    PutBucketVersioningArgs.builder().bucket("my-bucketname").config(config).build());
  ```
 
-<a name="setObjectLockConfiguration"></a>
-### setObjectLockConfiguration(SetObjectLockConfigurationArgs args)
-`public void setObjectLockConfiguration(SetObjectLockConfigurationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setObjectLockConfiguration-com.ionoscloud.s3.SetObjectLockConfigurationArgs-)_
+<a name="putObjectLockConfiguration"></a>
+### putObjectLockConfiguration(PutObjectLockConfigurationArgs args)
+`public void putObjectLockConfiguration(PutObjectLockConfigurationArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putObjectLockConfiguration-com.ionoscloud.s3.PutObjectLockConfigurationArgs-)_
 
 Sets object-lock configuration in a bucket.
 
 __Parameters__
 | Parameter | Type                               | Description |
 |:----------|:-----------------------------------|:------------|
-| ``args``  | _[SetObjectLockConfigurationArgs]_ | Arguments.  |
+| ``args``  | _[PutObjectLockConfigurationArgs]_ | Arguments.  |
 
 __Example__
 ```java
 ObjectLockConfiguration config =
     new ObjectLockConfiguration(RetentionMode.COMPLIANCE, new RetentionDurationDays(100));
-apiClient.setObjectLockConfiguration(
-    SetObjectLockConfigurationArgs.builder().bucket("my-bucketname").config(config).build());
+apiClient.putObjectLockConfiguration(
+    PutObjectLockConfigurationArgs.builder().bucket("my-bucketname").config(config).build());
 ```
 
 ## 3. Object operations
@@ -1053,15 +1053,15 @@ apiClient.copyObject(
 ```
 
 <a name="deleteObjectTags"></a>
-### deleteObjectTags(DeleteObjectTagsArgs args)
-`private void deleteObjectTags(DeleteObjectTagsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteObjectTags-com.ionoscloud.s3.DeleteObjectTagsArgs-)_
+### deleteObjectTags(DeleteObjectTaggingArgs args)
+`private void deleteObjectTags(DeleteObjectTaggingArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#deleteObjectTags-com.ionoscloud.s3.DeleteObjectTaggingArgs-)_
 
 Deletes tags of an object.
 
 __Parameters__
 | Parameter | Type                     | Description |
 |:----------|:-------------------------|:------------|
-| ``args``  | _[DeleteObjectTagsArgs]_ | Arguments.  |
+| ``args``  | _[DeleteObjectTaggingArgs]_ | Arguments.  |
 
 __Example__
 ```java
@@ -1092,9 +1092,9 @@ apiClient.disableObjectLegalHold(
         .build());
 ```
 
-<a name="enableObjectLegalHold"></a>
-### enableObjectLegalHold(EnableObjectLegalHoldArgs args)
-`public void enableObjectLegalHold(EnableObjectLegalHoldArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#enableObjectLegalHold-com.ionoscloud.s3.EnableObjectLegalHoldArgs-)_
+<a name="putObjectLegalHold"></a>
+### putObjectLegalHold(PutObjectLegalHoldArgs args)
+`public void putObjectLegalHold(PutObjectLegalHoldArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putObjectLegalHold-com.ionoscloud.s3.PutObjectLegalHoldArgs-)_
 
 Enables legal hold on an object.
 
@@ -1102,14 +1102,14 @@ Enables legal hold on an object.
 
 | Parameter      | Type                          | Description  |
 |:---------------|:------------------------------|:-------------|
-| ``args``       | _[EnableObjectLegalHoldArgs]_ | Argumments.  |
+| ``args``       | _[PutObjectLegalHoldArgs]_ | Argumments.  |
 
  __Example__
  ```java
 
  // Disables legal hold on an object.
-apiClient.enableObjectLegalHold(
-    EnableObjectLegalHoldArgs.builder()
+apiClient.putObjectLegalHold(
+    PutObjectLegalHoldArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
         .build());
@@ -1245,16 +1245,16 @@ Retention retention =
 System.out.println("mode: " + retention.mode() + "until: " + retention.retainUntilDate());
 ```
 
-<a name="getObjectTags"></a>
-### getObjectTags(GetObjectTagsArgs args)
-`public Tags getObjectTags(GetObjectTagsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObjectTags-com.ionoscloud.s3.GetObjectTagsArgs-)_
+<a name="getObjectTagging"></a>
+### getObjectTagging(GetObjectTaggingArgs args)
+`public Tags getObjectTagging(GetObjectTaggingArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObjectTagging-com.ionoscloud.s3.GetObjectTaggingArgs-)_
 
 Gets tags of an object.
 
 __Parameters__
 | Parameter | Type                  | Description |
 |:----------|:----------------------|:------------|
-| ``args``  | _[GetObjectTagsArgs]_ | Arguments.  |
+| ``args``  | _[GetObjectTaggingArgs]_ | Arguments.  |
 
 
 | Returns          |
@@ -1263,8 +1263,8 @@ __Parameters__
 
 __Example__
 ```java
-Tags tags = apiClient.getObjectTags(
-    GetObjectTagsArgs.builder().bucket("my-bucketname").object("my-objectname").build());
+Tags tags = apiClient.getObjectTagging(
+    GetObjectTaggingArgs.builder().bucket("my-bucketname").object("my-objectname").build());
 ```
 
  <a name="getPresignedObjectUrl"></a>
@@ -1335,9 +1335,9 @@ String url =
 System.out.println(url);
 ```
 
- <a name="isObjectLegalHoldEnabled"></a>
-### isObjectLegalHoldEnabled(IsObjectLegalHoldEnabledArgs args)
-`public boolean isObjectLegalHoldEnabled(IsObjectLegalHoldEnabledArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#isObjectLegalHoldEnabled-com.ionoscloud.s3.IsObjectLegalHoldEnabledArgs-)_
+ <a name="getObjectLegalHold"></a>
+### getObjectLegalHold(GetObjectLegalHoldArgs args)
+`public boolean getObjectLegalHold(GetObjectLegalHoldArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#getObjectLegalHold-com.ionoscloud.s3.GetObjectLegalHoldArgs-)_
 
 Returns true if legal hold is enabled on an object.
 
@@ -1345,7 +1345,7 @@ Returns true if legal hold is enabled on an object.
 
 | Parameter | Type                             | Description  |
 |:----------|:---------------------------------|:-------------|
-| ``args``  | _[IsObjectLegalHoldEnabledArgs]_ | Arguments.   |
+| ``args``  | _[GetObjectLegalHoldArgs]_ | Arguments.   |
 
 
 | Returns                                    |
@@ -1356,8 +1356,8 @@ Returns true if legal hold is enabled on an object.
 
 ```java
 boolean status =
-    s3Client.isObjectLegalHoldEnabled(
-       IsObjectLegalHoldEnabledArgs.builder()
+    s3Client.getObjectLegalHold(
+       GetObjectLegalHoldArgs.builder()
             .bucket("my-bucketname")
             .object("my-objectname")
             .versionId("object-versionId")
@@ -1484,27 +1484,27 @@ apiClient.putObject(
         .build());
 ```
 
-<a name="uploadObject"></a>
-### uploadObject(UploadObjectArgs args)
-`public void uploadObject(UploadObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#uploadObject-com.ionoscloud.s3.UploadObjectArgs-)_
+<a name="postObject"></a>
+### postObject(PostObjectArgs args)
+`public void postObject(PostObjectArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#postObject-com.ionoscloud.s3.PostObjectArgs-)_
 
 Uploads contents from a file as object in bucket.
 
 __Parameters__
 | Parameter | Type                 | Description |
 |:----------|:---------------------|:------------|
-| ``args``  | _[UploadObjectArgs]_ | Arguments.  |
+| ``args``  | _[PostObjectArgs]_ | Arguments.  |
 
 __Example__
 ```java
 // Upload an JSON file.
-apiClient.uploadObject(
-    UploadObjectArgs.builder()
+apiClient.postObject(
+    PostObjectArgs.builder()
         .bucket("my-bucketname").object("my-objectname").filename("person.json").build());
 
 // Upload a video file.
-apiClient.uploadObject(
-    UploadObjectArgs.builder()
+apiClient.postObject(
+    PostObjectArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
         .filename("my-video.avi")
@@ -1683,9 +1683,9 @@ System.out.println("bytes returned: " + stats.bytesReturned());
 stream.close();
 ```
 
-<a name="setObjectRetention"></a>
-### setObjectRetention(SetObjectRetentionArgs args)
-`public void setObjectLockRetention(SetObjectRetentionArgs)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setObjectRetention-com.ionoscloud.s3.SetObjectRetentionArgs-)_
+<a name="putObjectRetention"></a>
+### putObjectRetention(PutObjectRetentionArgs args)
+`public void setObjectLockRetention(PutObjectRetentionArgs)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putObjectRetention-com.ionoscloud.s3.PutObjectRetentionArgs-)_
 
 Sets retention configuration to an object.
 
@@ -1693,13 +1693,13 @@ Sets retention configuration to an object.
 
 | Parameter        | Type                       | Description  |
 |:-----------------|:---------------------------|:-------------|
-| ``args``         | _[SetObjectRetentionArgs]_ | Arguments.   |
+| ``args``         | _[PutObjectRetentionArgs]_ | Arguments.   |
 
  __Example__
 ```java
 Retention retention = new Retention(RetentionMode.COMPLIANCE, ZonedDateTime.now().plusYears(1));
-apiClient.setObjectRetention(
-    SetObjectRetentionArgs.builder()
+apiClient.putObjectRetention(
+    PutObjectRetentionArgs.builder()
         .bucket("my-bucketname")
         .object("my-objectname")
         .config(retention)
@@ -1707,9 +1707,9 @@ apiClient.setObjectRetention(
         .build());
 ```
 
-<a name="setObjectTags"></a>
-### setObjectTags(SetObjectTagsArgs args)
-`public void setObjectTags(SetObjectTagsArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#setObjectTags-com.ionoscloud.s3.SetObjectTagsArgs-)_
+<a name="putObjectTagging"></a>
+### putObjectTagging(PutObjectTaggingArgs args)
+`public void putObjectTagging(PutObjectTaggingArgs args)` _[[Javadoc]](http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ApiClient.html#putObjectTagging-com.ionoscloud.s3.PutObjectTaggingArgs-)_
 
 Sets tags to an object.
 
@@ -1717,15 +1717,15 @@ __Parameters__
 
 | Parameter | Type                  | Description |
 |:----------|:----------------------|:------------|
-| ``args``  | _[SetObjectTagsArgs]_ | Arguments.  |
+| ``args``  | _[PutObjectTaggingArgs]_ | Arguments.  |
 
 __Example__
 ```java
 Map<String, String> map = new HashMap<>();
 map.put("Project", "Project One");
 map.put("User", "jsmith");
-apiClient.setObjectTags(
-    SetObjectTagsArgs.builder().bucket("my-bucketname").object("my-objectname").tags(map).build());
+apiClient.putObjectTagging(
+    PutObjectTaggingArgs.builder().bucket("my-bucketname").object("my-objectname").tags(map).build());
 ```
 
 <a name="statObject"></a>
@@ -1817,8 +1817,8 @@ ObjectStat objectStat =
 [SelectResponseStream]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SelectResponseStream.html
 [MakeBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3MakeBucketArgs.html
 [ListObjectsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ListObjectsArgs.html
-[RemoveBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3RemoveBucketArgs.html
-[SetObjectRetentionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetObjectRetentionArgs.html
+[DeleteBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketArgs.html
+[PutObjectRetentionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutObjectRetentionArgs.html
 [GetObjectRetentionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectRetentionArgs.html
 [Method]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3http/Method.html
 [StatObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3StatObjectArgs.html
@@ -1826,40 +1826,40 @@ ObjectStat objectStat =
 [SseConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/SseConfiguration.html
 [DeleteBucketEncryptionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketEncryptionArgs.html
 [GetBucketEncryptionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketEncryptionArgs.html
-[SetBucketEncryptionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketEncryptionArgs.html
+[PutBucketEncryptionArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutBucketEncryptionArgs.html
 [Tags]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/Tags.html
-[DeleteBucketTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketTagsArgs.html
-[GetBucketTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketTagsArgs.html
-[SetBucketTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketTagsArgs.html
-[DeleteObjectTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteObjectTagsArgs.html
-[GetObjectTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectTagsArgs.html
-[SetObjectTagsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetObjectTagsArgs.html
+[DeleteBucketTaggingArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketTaggingArgs.html
+[GetBucketTaggingArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketTaggingArgs.html
+[PutBucketTaggingArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutBucketTaggingArgs.html
+[DeleteObjectTaggingArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteObjectTaggingArgs.html
+[GetObjectTaggingArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectTaggingArgs.html
+[PutObjectTaggingArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutObjectTaggingArgs.html
 [LifecycleConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/LifecycleConfiguration.html
 [DeleteBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketLifecycleArgs.html
 [GetBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketLifecycleArgs.html
-[SetBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketLifecycleArgs.html
+[PutBucketLifecycleArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutBucketLifecycleArgs.html
 [GetBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketPolicyArgs.html
-[SetBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketPolicyArgs.html
+[PutBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutBucketPolicyArgs.html
 [DeleteBucketPolicyArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketPolicyArgs.html
 [GetObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectArgs.html
 [DownloadObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DownloadObjectArgs.html
-[BucketExistsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3BucketExistsArgs.html
-[EnableObjectLegalHoldArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3EnableObjectLegalHoldArgs.html
+[HeadBucketArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3HeadBucketArgs.html
+[PutObjectLegalHoldArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutObjectLegalHoldArgs.html
 [DisableObjectLegalHoldArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DisableObjectLegalHoldArgs.html
-[IsObjectLegalHoldEnabledArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3IsObjectLegalHoldEnabledArgs.html
+[GetObjectLegalHoldArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectLegalHoldArgs.html
 [DeleteBucketNotificationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteBucketNotificationArgs.html
 [GetBucketNotificationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketNotificationArgs.html
 [SetBucketNotificationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketNotificationArgs.html
 [ListenBucketNotificationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ListenBucketNotificationArgs.html
 [SelectObjectContentArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SelectObjectContentArgs.html
 [GetObjectLockConfigurationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetObjectLockConfigurationArgs.html
-[SetObjectLockConfigurationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetObjectLockConfigurationArgs.html
+[PutObjectLockConfigurationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutObjectLockConfigurationArgs.html
 [DeleteObjectLockConfigurationArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3DeleteObjectLockConfigurationArgs.html
 [GetPresignedObjectUrlArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetPresignedObjectUrlArgs.html
 [RemoveObjectsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3RemoveObjectsArgs.html
 [CopyObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3CopyObjectArgs.html
 [PutObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutObjectArgs.html
-[UploadObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3UploadObjectArgs.html
+[PostObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PostObjectArgs.html
 [UploadSnowballObjectsArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3UploadSnowballObjectsArgs.html
 [ComposeObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ComposeObjectArgs.html
 [ObjectWriteResponse]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3ObjectWriteResponse.html
@@ -1870,5 +1870,5 @@ ObjectStat objectStat =
 [ReplicationConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/ReplicationConfiguration.html
 [VersioningConfiguration]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3messages/VersioningConfiguration.html
 [GetBucketVersioningArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3GetBucketVersioningArgs.html
-[SetBucketVersioningArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3SetBucketVersioningArgs.html
+[PutBucketVersioningArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3PutBucketVersioningArgs.html
 [RestoreObjectArgs]: http://github.com/ionos-cloud/sdk-java-s3/com/ionoscloud/s3RestoreObjectArgs.html

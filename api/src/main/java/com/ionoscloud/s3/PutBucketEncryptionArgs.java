@@ -6,10 +6,10 @@ import com.ionoscloud.s3.messages.SseConfiguration;
 import java.util.Objects;
 
 /**
- * Argument class of {@link ApiAsyncClient#setBucketEncryption} and {@link
- * ApiClient#setBucketEncryption}.
+ * Argument class of {@link ApiAsyncClient#putBucketEncryption} and {@link
+ * ApiClient#putBucketEncryption}.
  */
-public class SetBucketEncryptionArgs extends BucketArgs {
+public class PutBucketEncryptionArgs extends BucketArgs {
   private SseConfiguration config;
 
   public SseConfiguration config() {
@@ -20,13 +20,13 @@ public class SetBucketEncryptionArgs extends BucketArgs {
     return new Builder();
   }
 
-  /** Argument builder of {@link SetBucketEncryptionArgs}. */
-  public static final class Builder extends BucketArgs.Builder<Builder, SetBucketEncryptionArgs> {
+  /** Argument builder of {@link PutBucketEncryptionArgs}. */
+  public static final class Builder extends BucketArgs.Builder<Builder, PutBucketEncryptionArgs> {
     private void validateConfig(SseConfiguration config) {
       validateNotNull(config, "encryption configuration");
     }
 
-    protected void validate(SetBucketEncryptionArgs args) {
+    protected void validate(PutBucketEncryptionArgs args) {
       super.validate(args);
       validateConfig(args.config);
     }
@@ -41,9 +41,9 @@ public class SetBucketEncryptionArgs extends BucketArgs {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof SetBucketEncryptionArgs)) return false;
+    if (!(o instanceof PutBucketEncryptionArgs)) return false;
     if (!super.equals(o)) return false;
-    SetBucketEncryptionArgs that = (SetBucketEncryptionArgs) o;
+    PutBucketEncryptionArgs that = (PutBucketEncryptionArgs) o;
     return Objects.equals(config, that.config);
   }
 

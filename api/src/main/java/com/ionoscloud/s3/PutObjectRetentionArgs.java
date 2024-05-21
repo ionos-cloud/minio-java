@@ -6,10 +6,10 @@ import com.ionoscloud.s3.messages.Retention;
 import java.util.Objects;
 
 /**
- * Argument class of {@link ApiAsyncClient#setObjectRetention} and {@link
- * ApiClient#setObjectRetention}.
+ * Argument class of {@link ApiAsyncClient#putObjectRetention} and {@link
+ * ApiClient#putObjectRetention}.
  */
-public class SetObjectRetentionArgs extends ObjectVersionArgs {
+public class PutObjectRetentionArgs extends ObjectVersionArgs {
   private Retention config;
   private boolean bypassGovernanceMode;
 
@@ -25,14 +25,14 @@ public class SetObjectRetentionArgs extends ObjectVersionArgs {
     return new Builder();
   }
 
-  /** Argument builder of {@link SetObjectRetentionArgs}. */
+  /** Argument builder of {@link PutObjectRetentionArgs}. */
   public static final class Builder
-      extends ObjectVersionArgs.Builder<Builder, SetObjectRetentionArgs> {
+      extends ObjectVersionArgs.Builder<Builder, PutObjectRetentionArgs> {
     private void validateConfig(Retention config) {
       validateNotNull(config, "retention configuration");
     }
 
-    protected void validate(SetObjectRetentionArgs args) {
+    protected void validate(PutObjectRetentionArgs args) {
       super.validate(args);
       validateConfig(args.config);
     }
@@ -52,9 +52,9 @@ public class SetObjectRetentionArgs extends ObjectVersionArgs {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof SetObjectRetentionArgs)) return false;
+    if (!(o instanceof PutObjectRetentionArgs)) return false;
     if (!super.equals(o)) return false;
-    SetObjectRetentionArgs that = (SetObjectRetentionArgs) o;
+    PutObjectRetentionArgs that = (PutObjectRetentionArgs) o;
     return bypassGovernanceMode == that.bypassGovernanceMode && Objects.equals(config, that.config);
   }
 

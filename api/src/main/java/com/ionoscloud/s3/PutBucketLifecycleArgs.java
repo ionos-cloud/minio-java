@@ -6,10 +6,10 @@ import com.ionoscloud.s3.messages.LifecycleConfiguration;
 import java.util.Objects;
 
 /**
- * Argument class of {@link ApiAsyncClient#setBucketLifecycle} and {@link
- * ApiClient#setBucketLifecycle}.
+ * Argument class of {@link ApiAsyncClient#putBucketLifecycle} and {@link
+ * ApiClient#putBucketLifecycle}.
  */
-public class SetBucketLifecycleArgs extends BucketArgs {
+public class PutBucketLifecycleArgs extends BucketArgs {
   private LifecycleConfiguration config;
 
   public LifecycleConfiguration config() {
@@ -20,13 +20,13 @@ public class SetBucketLifecycleArgs extends BucketArgs {
     return new Builder();
   }
 
-  /** Argument builder of {@link SetBucketLifecycleArgs}. */
-  public static final class Builder extends BucketArgs.Builder<Builder, SetBucketLifecycleArgs> {
+  /** Argument builder of {@link PutBucketLifecycleArgs}. */
+  public static final class Builder extends BucketArgs.Builder<Builder, PutBucketLifecycleArgs> {
     private void validateConfig(LifecycleConfiguration config) {
       validateNotNull(config, "lifecycle configuration");
     }
 
-    protected void validate(SetBucketLifecycleArgs args) {
+    protected void validate(PutBucketLifecycleArgs args) {
       super.validate(args);
       validateConfig(args.config);
     }
@@ -41,9 +41,9 @@ public class SetBucketLifecycleArgs extends BucketArgs {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof SetBucketLifecycleArgs)) return false;
+    if (!(o instanceof PutBucketLifecycleArgs)) return false;
     if (!super.equals(o)) return false;
-    SetBucketLifecycleArgs that = (SetBucketLifecycleArgs) o;
+    PutBucketLifecycleArgs that = (PutBucketLifecycleArgs) o;
     return Objects.equals(config, that.config);
   }
 

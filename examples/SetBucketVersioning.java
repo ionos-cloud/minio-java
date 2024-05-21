@@ -1,15 +1,15 @@
 
 
 import com.ionoscloud.s3.ApiClient;
-import com.ionoscloud.s3.SetBucketVersioningArgs;
+import com.ionoscloud.s3.PutBucketVersioningArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.VersioningConfiguration;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class SetBucketVersioning {
-  /** ApiClient.setBucketVersioning() example. */
+public class PutBucketVersioning {
+  /** ApiClient.putBucketVersioning() example. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
@@ -28,16 +28,16 @@ public class SetBucketVersioning {
       //         .build();
 
       // Enable versioning on 'my-bucketname'.
-      apiClient.setBucketVersioning(
-          SetBucketVersioningArgs.builder()
+      apiClient.putBucketVersioning(
+          PutBucketVersioningArgs.builder()
               .bucket("my-bucketname")
               .config(new VersioningConfiguration(VersioningConfiguration.Status.ENABLED, null))
               .build());
       System.out.println("Bucket versioning is enabled successfully");
 
       // Suspend versioning on 'my-bucketname'.
-      apiClient.setBucketVersioning(
-          SetBucketVersioningArgs.builder()
+      apiClient.putBucketVersioning(
+          PutBucketVersioningArgs.builder()
               .bucket("my-bucketname")
               .config(new VersioningConfiguration(VersioningConfiguration.Status.SUSPENDED, null))
               .build());

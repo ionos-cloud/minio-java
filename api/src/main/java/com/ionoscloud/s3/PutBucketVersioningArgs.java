@@ -6,10 +6,10 @@ import com.ionoscloud.s3.messages.VersioningConfiguration;
 import java.util.Objects;
 
 /**
- * Argument class of {@link ApiAsyncClient#setBucketVersioning} and {@link
- * ApiClient#setBucketVersioning}.
+ * Argument class of {@link ApiAsyncClient#putBucketVersioning} and {@link
+ * ApiClient#putBucketVersioning}.
  */
-public class SetBucketVersioningArgs extends BucketArgs {
+public class PutBucketVersioningArgs extends BucketArgs {
   private VersioningConfiguration config;
 
   public VersioningConfiguration config() {
@@ -20,13 +20,13 @@ public class SetBucketVersioningArgs extends BucketArgs {
     return new Builder();
   }
 
-  /** Argument builder of {@link SetBucketVersioningArgs}. */
-  public static final class Builder extends BucketArgs.Builder<Builder, SetBucketVersioningArgs> {
+  /** Argument builder of {@link PutBucketVersioningArgs}. */
+  public static final class Builder extends BucketArgs.Builder<Builder, PutBucketVersioningArgs> {
     private void validateConfig(VersioningConfiguration config) {
       validateNotNull(config, "versioning configuration");
     }
 
-    protected void validate(SetBucketVersioningArgs args) {
+    protected void validate(PutBucketVersioningArgs args) {
       super.validate(args);
       validateConfig(args.config);
     }
@@ -41,9 +41,9 @@ public class SetBucketVersioningArgs extends BucketArgs {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof SetBucketVersioningArgs)) return false;
+    if (!(o instanceof PutBucketVersioningArgs)) return false;
     if (!super.equals(o)) return false;
-    SetBucketVersioningArgs that = (SetBucketVersioningArgs) o;
+    PutBucketVersioningArgs that = (PutBucketVersioningArgs) o;
     return Objects.equals(config, that.config);
   }
 

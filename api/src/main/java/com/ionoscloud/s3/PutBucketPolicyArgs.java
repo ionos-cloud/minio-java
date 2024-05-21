@@ -5,10 +5,10 @@ package com.ionoscloud.s3;
 import java.util.Objects;
 
 /**
- * Argument class of {@link ApiAsyncClient#setBucketPolicy} and {@link
- * ApiClient#setBucketPolicy}.
+ * Argument class of {@link ApiAsyncClient#putBucketPolicy} and {@link
+ * ApiClient#putBucketPolicy}.
  */
-public class SetBucketPolicyArgs extends BucketArgs {
+public class PutBucketPolicyArgs extends BucketArgs {
   private String config;
 
   public String config() {
@@ -19,14 +19,14 @@ public class SetBucketPolicyArgs extends BucketArgs {
     return new Builder();
   }
 
-  /** Argument builder of {@link SetBucketPolicyArgs}. */
-  public static final class Builder extends BucketArgs.Builder<Builder, SetBucketPolicyArgs> {
+  /** Argument builder of {@link PutBucketPolicyArgs}. */
+  public static final class Builder extends BucketArgs.Builder<Builder, PutBucketPolicyArgs> {
     private void validateConfig(String config) {
       validateNotNull(config, "policy configuration");
     }
 
     @Override
-    protected void validate(SetBucketPolicyArgs args) {
+    protected void validate(PutBucketPolicyArgs args) {
       super.validate(args);
       validateConfig(args.config);
     }
@@ -41,9 +41,9 @@ public class SetBucketPolicyArgs extends BucketArgs {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof SetBucketPolicyArgs)) return false;
+    if (!(o instanceof PutBucketPolicyArgs)) return false;
     if (!super.equals(o)) return false;
-    SetBucketPolicyArgs that = (SetBucketPolicyArgs) o;
+    PutBucketPolicyArgs that = (PutBucketPolicyArgs) o;
     return Objects.equals(config, that.config);
   }
 

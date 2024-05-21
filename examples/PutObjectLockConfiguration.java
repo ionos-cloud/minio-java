@@ -1,16 +1,17 @@
 
 
 import com.ionoscloud.s3.ApiClient;
-import com.ionoscloud.s3.SetObjectTagsArgs;
+import com.ionoscloud.s3.PutObjectLockConfigurationArgs;
 import com.ionoscloud.s3.errors.ApiException;
+import com.ionoscloud.s3.messages.ObjectLockConfiguration;
+import com.ionoscloud.s3.messages.RetentionDurationDays;
+import com.ionoscloud.s3.messages.RetentionMode;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
-public class SetObjectTags {
-  /** ApiClient.setObjectTags() example. */
+public class PutObjectLockConfiguration {
+  /** ApiClient.putObjectLockConfiguration() exanple. */
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
@@ -28,15 +29,17 @@ public class SetObjectTags {
       //         .credentials("YOUR-ACCESSKEY", "YOUR-SECRETACCESSKEY")
       //         .build();
 
-      Map<String, String> map = new HashMap<>();
-      map.put("Project", "Project One");
-      map.put("User", "jsmith");
-      apiClient.setObjectTags(
-          SetObjectTagsArgs.builder()
-              .bucket("my-bucketname")
-              .object("my-objectname")
-              .tags(map)
+      // Declaring config with Retention mode as Compliance and duration as 100 days
+      ObjectLockConfiguration config =
+          new ObjectLockConfiguration(RetentionMode.COMPLIANCE, new RetentionDurationDays(100));
+
+      apiClient.putObjectLockConfiguration(
+          PutObjectLockConfigurationArgs.builder()
+              .bucket("my-lock-enabled-bucketname")
+              .config(config)
               .build());
+
+      System.out.println("object-lock configuration is set successfully");
     } catch (ApiException e) {
       System.out.println("Error occurred: " + e);
     }
