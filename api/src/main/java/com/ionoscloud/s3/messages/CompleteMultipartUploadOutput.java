@@ -23,7 +23,7 @@ public class CompleteMultipartUploadOutput {
   @Element(name = "Key")
   private String object;
 
-  @Element(name = "ETag")
+  @Element(name = "ETag", required = false)
   private String etag;
 
   @Element(name = "ChecksumCRC32", required = false)

@@ -23,6 +23,9 @@ public class LifecycleRule {
   @Element(name = "ID", required = false)
   private String id;
 
+  @Element(name = "Prefix", required = false)
+  private String prefix;
+
   @Element(name = "NoncurrentVersionExpiration", required = false)
   private NoncurrentVersionExpiration noncurrentVersionExpiration;
 
@@ -43,6 +46,7 @@ public class LifecycleRule {
       @Nullable @Element(name = "Expiration", required = false) Expiration expiration,
       @Nonnull @Element(name = "Filter", required = false) RuleFilter filter,
       @Nullable @Element(name = "ID", required = false) String id,
+      @Nullable @Element(name = "Prefix", required = false) String prefix,
       @Nullable @Element(name = "NoncurrentVersionExpiration", required = false)
           NoncurrentVersionExpiration noncurrentVersionExpiration,
       @Nullable @Element(name = "NoncurrentVersionTransition", required = false)
@@ -67,8 +71,9 @@ public class LifecycleRule {
 
     this.abortIncompleteMultipartUpload = abortIncompleteMultipartUpload;
     this.expiration = expiration;
-    this.filter = Objects.requireNonNull(filter, "Filter must not be null");
+    this.filter = filter;
     this.id = id;
+    this.prefix = prefix;
     this.noncurrentVersionExpiration = noncurrentVersionExpiration;
     this.noncurrentVersionTransition = noncurrentVersionTransition;
     this.status = Objects.requireNonNull(status, "Status must not be null");
@@ -89,6 +94,10 @@ public class LifecycleRule {
 
   public String id() {
     return this.id;
+  }
+
+  public String prefix() {
+    return this.prefix;
   }
 
   public NoncurrentVersionExpiration noncurrentVersionExpiration() {
