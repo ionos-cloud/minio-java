@@ -1,9 +1,7 @@
-
-
 package com.ionoscloud.s3.errors;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import com.ionoscloud.s3.messages.ErrorResponse;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import okhttp3.Request;
 import okhttp3.Response;
 

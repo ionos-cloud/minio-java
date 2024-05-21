@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3.errors;
 
 /** Thrown to indicate that received bucket policy is larger than 20KiB size. */

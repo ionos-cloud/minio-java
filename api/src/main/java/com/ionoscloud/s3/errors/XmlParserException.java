@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3.errors;
 
 /** Thrown to indicate that error at XML marshalling or unmarshalling. */

@@ -1,7 +1,5 @@
-
-
-import com.ionoscloud.s3.GetObjectRetentionArgs;
 import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.GetObjectRetentionArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.messages.Retention;
 import java.io.IOException;
@@ -13,7 +11,7 @@ public class GetObjectRetention {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException, IllegalArgumentException {
     try {
-      
+
       ApiClient apiClient =
           ApiClient.builder()
               .endpoint(System.getenv("IONOS_API_URL"))

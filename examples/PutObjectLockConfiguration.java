@@ -1,5 +1,3 @@
-
-
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.PutObjectLockConfigurationArgs;
 import com.ionoscloud.s3.errors.ApiException;
@@ -15,7 +13,7 @@ public class PutObjectLockConfiguration {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      
+
       ApiClient apiClient =
           ApiClient.builder()
               .endpoint(System.getenv("IONOS_API_URL"))

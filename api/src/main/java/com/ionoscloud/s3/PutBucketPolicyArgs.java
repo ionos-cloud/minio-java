@@ -1,12 +1,9 @@
-
-
 package com.ionoscloud.s3;
 
 import java.util.Objects;
 
 /**
- * Argument class of {@link ApiAsyncClient#putBucketPolicy} and {@link
- * ApiClient#putBucketPolicy}.
+ * Argument class of {@link ApiAsyncClient#putBucketPolicy} and {@link ApiClient#putBucketPolicy}.
  */
 public class PutBucketPolicyArgs extends BucketArgs {
   private String config;

@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3.credentials;
 
 import java.io.IOException;
@@ -19,9 +17,7 @@ import org.simpleframework.xml.Namespace;
 import org.simpleframework.xml.Path;
 import org.simpleframework.xml.Root;
 
-/**
- * Credential provider
- */
+/** Credential provider */
 public class CertificateIdentityProvider extends AssumeRoleBaseProvider {
   private static final RequestBody EMPTY_BODY =
       RequestBody.create(new byte[] {}, MediaType.parse("application/octet-stream"));

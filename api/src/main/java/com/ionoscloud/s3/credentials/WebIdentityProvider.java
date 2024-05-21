@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3.credentials;
 
 import java.util.function.Supplier;

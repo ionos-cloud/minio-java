@@ -1,5 +1,3 @@
-
-
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.StatObjectArgs;
 import com.ionoscloud.s3.StatObjectResponse;

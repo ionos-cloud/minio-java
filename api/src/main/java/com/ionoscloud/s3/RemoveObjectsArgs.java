@@ -1,14 +1,10 @@
-
-
 package com.ionoscloud.s3;
 
 import com.ionoscloud.s3.messages.DeleteObject;
 import java.util.LinkedList;
 import java.util.Objects;
 
-/**
- * Argument class of {@link ApiAsyncClient#removeObjects} and {@link ApiClient#removeObjects}.
- */
+/** Argument class of {@link ApiAsyncClient#removeObjects} and {@link ApiClient#removeObjects}. */
 public class RemoveObjectsArgs extends BucketArgs {
   private boolean bypassGovernanceMode;
   private Iterable<DeleteObject> objects = new LinkedList<>();

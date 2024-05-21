@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3.messages;
 
 /** Description the first line of input in CSV object. */

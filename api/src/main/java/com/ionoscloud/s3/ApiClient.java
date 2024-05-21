@@ -1,8 +1,5 @@
-
-
 package com.ionoscloud.s3;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import com.ionoscloud.s3.credentials.Provider;
 import com.ionoscloud.s3.errors.BucketPolicyTooLargeException;
 import com.ionoscloud.s3.errors.ErrorResponseException;
@@ -23,9 +20,7 @@ import com.ionoscloud.s3.messages.Retention;
 import com.ionoscloud.s3.messages.SseConfiguration;
 import com.ionoscloud.s3.messages.Tags;
 import com.ionoscloud.s3.messages.VersioningConfiguration;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -2493,13 +2488,10 @@ public class ApiClient {
     public ApiClient build() {
       ApiAsyncClient asyncClient = asyncClientBuilder.build();
 
-      if (System.getenv("IONOS_DEBUG_FILE") != null) {
-        try{
-          asyncClient.traceOn(new FileOutputStream(System.getenv("IONOS_DEBUG_FILE")));
-        } catch (FileNotFoundException e) {
-          
-        }
+      if (System.getenv("IONOS_DEBUG") != null) {
+        asyncClient.traceOn(System.out);
       }
+
       return new ApiClient(asyncClient);
     }
   }

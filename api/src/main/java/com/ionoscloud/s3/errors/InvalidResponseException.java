@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3.errors;
 
 /** Thrown to indicate that non-xml response thrown from server. */

@@ -1,7 +1,5 @@
-
-
-import com.ionoscloud.s3.GetPresignedObjectUrlArgs;
 import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.GetPresignedObjectUrlArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import com.ionoscloud.s3.http.Method;
 import java.io.IOException;
@@ -13,7 +11,7 @@ public class PresignedGetObject {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      
+
       ApiClient apiClient =
           ApiClient.builder()
               .endpoint(System.getenv("IONOS_API_URL"))

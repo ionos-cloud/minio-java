@@ -1,8 +1,6 @@
-
-
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.CopyObjectArgs;
 import com.ionoscloud.s3.CopySource;
-import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.ServerSideEncryption;
 import com.ionoscloud.s3.ServerSideEncryptionCustomerKey;
 import com.ionoscloud.s3.ServerSideEncryptionKms;
@@ -20,7 +18,7 @@ public class CopyObject {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      
+
       ApiClient apiClient =
           ApiClient.builder()
               .endpoint(System.getenv("IONOS_API_URL"))

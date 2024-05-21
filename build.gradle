@@ -257,30 +257,28 @@ project(':functional') {
         mainClass = 'FunctionalTest'
         classpath = sourceSets.main.runtimeClasspath
 
-        ext.endpoint = '<endpoint>'
+        ext.endpoint = System.getenv().getOrDefault('IONOS_ENDPOINT', "https://s3.eu-central-1.sre.ionos.cloud")
         if (rootProject.hasProperty('endpoint')) {
             ext.endpoint = rootProject.properties['endpoint']
         }
 
-        ext.accessKey = 'Q3AM3UQ867SPQQA43P2F'
+        ext.accessKey = System.getenv('IONOS_ACCESS_KEY')
         if (project.properties.containsKey('accessKey')) {
             ext.accessKey = rootProject.properties['accessKey']
         }
 
-        ext.secretKey = 'zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG'
+        ext.secretKey = System.getenv('IONOS_SECRET_KEY')
         if (project.properties.containsKey('secretKey')) {
             ext.secretKey = rootProject.properties['secretKey']
         }
 
-        ext.region = 'us-east-1'
+        ext.region = System.getenv().getOrDefault('IONOS_REGION', "eu-central-1") 
         if (project.properties.containsKey('region')) {
             ext.region = rootProject.properties['region']
         }
 
         maxHeapSize = "4096m"
         jvmArgs "-Xms256m"
-        if (rootProject.hasProperty('endpoint')) {
-            args = [ext.endpoint, ext.accessKey, ext.secretKey, ext.region]
-        }
+        args = [ext.endpoint, ext.accessKey, ext.secretKey, ext.region]
     }
 }

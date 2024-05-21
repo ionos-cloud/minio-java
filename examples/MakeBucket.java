@@ -1,8 +1,6 @@
-
-
+import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.HeadBucketArgs;
 import com.ionoscloud.s3.MakeBucketArgs;
-import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -13,7 +11,7 @@ public class MakeBucket {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      
+
       ApiClient apiClient =
           ApiClient.builder()
               .endpoint(System.getenv("IONOS_API_URL"))
@@ -34,8 +32,7 @@ public class MakeBucket {
       }
 
       // Create bucket 'my-bucketname-in-eu' in 'eu-west-1' region if it doesn't exist.
-      if (!apiClient.bucketExists(
-          HeadBucketArgs.builder().bucket("my-bucketname-in-eu").build())) {
+      if (!apiClient.bucketExists(HeadBucketArgs.builder().bucket("my-bucketname-in-eu").build())) {
         apiClient.makeBucket(
             MakeBucketArgs.builder().bucket("my-bucketname-in-eu").region("eu-west-1").build());
         System.out.println("my-bucketname-in-eu is created successfully");

@@ -1,5 +1,5 @@
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import com.ionoscloud.s3.*;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.file.*;
 
 @SuppressFBWarnings(
@@ -22,11 +22,7 @@ class PutObjectRunnable implements Runnable {
     try {
       traceBuffer.append("[" + filename + "]: threaded put object\n");
       client.postObject(
-          PostObjectArgs.builder()
-              .bucket(bucketName)
-              .object(filename)
-              .filename(filename)
-              .build());
+          PostObjectArgs.builder().bucket(bucketName).object(filename).filename(filename).build());
       traceBuffer.append("[" + filename + "]: delete file\n");
       Files.delete(Paths.get(filename));
       traceBuffer.append("[" + filename + "]: delete object\n");

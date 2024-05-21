@@ -1,7 +1,5 @@
-
-
-import com.ionoscloud.s3.HeadBucketArgs;
 import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.HeadBucketArgs;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;

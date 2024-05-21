@@ -1,5 +1,3 @@
-
-
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.PutObjectRetentionArgs;
 import com.ionoscloud.s3.Time;
@@ -16,7 +14,7 @@ public class PutObjectRetention {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException, IllegalArgumentException {
     try {
-      
+
       ApiClient apiClient =
           ApiClient.builder()
               .endpoint(System.getenv("IONOS_API_URL"))

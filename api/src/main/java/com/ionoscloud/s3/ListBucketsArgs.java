@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3;
 
 /** Argument class of {@link ApiAsyncClient#listBuckets} and {@link ApiClient#listBuckets}. */

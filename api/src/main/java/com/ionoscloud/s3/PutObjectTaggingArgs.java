@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3;
 
 import com.ionoscloud.s3.messages.Tags;
@@ -21,7 +19,8 @@ public class PutObjectTaggingArgs extends ObjectVersionArgs {
   }
 
   /** Argument builder of {@link PutObjectTaggingArgs}. */
-  public static final class Builder extends ObjectVersionArgs.Builder<Builder, PutObjectTaggingArgs> {
+  public static final class Builder
+      extends ObjectVersionArgs.Builder<Builder, PutObjectTaggingArgs> {
     private void validateTags(Tags tags) {
       validateNotNull(tags, "tags");
     }

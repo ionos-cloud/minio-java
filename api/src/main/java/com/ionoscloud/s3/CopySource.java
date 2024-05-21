@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3;
 
 /** A source object defintion for {@link CopyObjectArgs}. */

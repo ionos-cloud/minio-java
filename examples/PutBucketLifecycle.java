@@ -1,5 +1,3 @@
-
-
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.PutBucketLifecycleArgs;
 import com.ionoscloud.s3.errors.ApiException;
@@ -20,7 +18,7 @@ public class PutBucketLifecycle {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      
+
       ApiClient apiClient =
           ApiClient.builder()
               .endpoint(System.getenv("IONOS_API_URL"))
@@ -42,6 +40,7 @@ public class PutBucketLifecycle {
               new Expiration((ZonedDateTime) null, 365, null),
               new RuleFilter("logs/"),
               "rule2",
+              null,
               null,
               null,
               null));

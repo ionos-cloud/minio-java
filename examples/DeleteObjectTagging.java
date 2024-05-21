@@ -1,7 +1,5 @@
-
-
-import com.ionoscloud.s3.DeleteObjectTaggingArgs;
 import com.ionoscloud.s3.ApiClient;
+import com.ionoscloud.s3.DeleteObjectTaggingArgs;
 import com.ionoscloud.s3.errors.ApiException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -12,7 +10,7 @@ public class DeleteObjectTagging {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      
+
       ApiClient apiClient =
           ApiClient.builder()
               .endpoint(System.getenv("IONOS_API_URL"))
@@ -27,7 +25,10 @@ public class DeleteObjectTagging {
       //         .build();
 
       apiClient.deleteObjectTags(
-          DeleteObjectTaggingArgs.builder().bucket("my-bucketname").object("my-objectname").build());
+          DeleteObjectTaggingArgs.builder()
+              .bucket("my-bucketname")
+              .object("my-objectname")
+              .build());
       System.out.println("Object tags deleted successfully");
     } catch (ApiException e) {
       System.out.println("Error occurred: " + e);

@@ -1,5 +1,3 @@
-
-
 import com.ionoscloud.s3.ApiClient;
 import com.ionoscloud.s3.PutObjectArgs;
 import com.ionoscloud.s3.ServerSideEncryption;
@@ -20,7 +18,7 @@ public class PutObject {
   public static void main(String[] args)
       throws IOException, NoSuchAlgorithmException, InvalidKeyException {
     try {
-      
+
       ApiClient apiClient =
           ApiClient.builder()
               .endpoint(System.getenv("IONOS_API_URL"))

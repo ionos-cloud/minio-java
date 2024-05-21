@@ -20,10 +20,7 @@ public class ApiClientWithAssumeRoleProvider {
             null);
 
     ApiClient apiClient =
-        ApiClient.builder()
-            .endpoint("<endpoint>")
-            .credentialsProvider(provider)
-            .build();
+        ApiClient.builder().endpoint("<endpoint>").credentialsProvider(provider).build();
 
     // Get information of an object.
     StatObjectResponse stat =

@@ -1,5 +1,3 @@
-
-
 package com.ionoscloud.s3;
 
 import java.io.FilterInputStream;
@@ -7,9 +5,9 @@ import java.io.InputStream;
 import okhttp3.Headers;
 
 /**
- * Response class of {@link ApiAsyncClient#getObject} and {@link ApiClient#getObject}. This
- * class is {@link InputStream} interface compatible and it must be closed after use to release
- * underneath network resources.
+ * Response class of {@link ApiAsyncClient#getObject} and {@link ApiClient#getObject}. This class is
+ * {@link InputStream} interface compatible and it must be closed after use to release underneath
+ * network resources.
  */
 public class GetObjectResponse extends FilterInputStream {
   private GenericResponse response;

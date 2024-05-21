@@ -1,9 +1,7 @@
-
-
 package com.ionoscloud.s3;
 
-import com.ionoscloud.s3.errors.InvalidResponseException;
 import com.ionoscloud.s3.errors.ApiException;
+import com.ionoscloud.s3.errors.InvalidResponseException;
 import com.ionoscloud.s3.http.Method;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -135,8 +133,7 @@ public class ApiClientTest {
     Assert.assertEquals(
         "https://mybucket.s3.dualstack.ca-central-1.amazonaws.com/myobject", url.split("\\?")[0]);
 
-    client =
-        ApiClient.builder().endpoint("https://s3-accelerate.dualstack.amazonaws.com").build();
+    client = ApiClient.builder().endpoint("https://s3-accelerate.dualstack.amazonaws.com").build();
     url =
         client.getPresignedObjectUrl(
             GetPresignedObjectUrlArgs.builder()
@@ -204,8 +201,7 @@ public class ApiClientTest {
     Assert.assertEquals(
         "https://s3.dualstack.ca-central-1.amazonaws.com/mybucket/myobject", url.split("\\?")[0]);
 
-    client =
-        ApiClient.builder().endpoint("https://s3-accelerate.dualstack.amazonaws.com").build();
+    client = ApiClient.builder().endpoint("https://s3-accelerate.dualstack.amazonaws.com").build();
     client.disableVirtualStyleEndpoint();
     url =
         client.getPresignedObjectUrl(
