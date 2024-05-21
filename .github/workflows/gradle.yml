@@ -2,8 +2,7 @@ name: Java CI
 
 on:
   pull_request:
-    branches:
-    - master
+    types: [ opened, synchronize, reopened, ready_for_review ]
   push:
     branches:
     - master
@@ -36,17 +35,17 @@ jobs:
           echo "DEV_VERSION=$(./gradlew properties | awk '/^version:/ { print $2 }')" >> $GITHUB_ENV
           echo "RELEASE_VERSION=$(./gradlew properties -Prelease | awk '/^version:/ { print $2 }')" >> $GITHUB_ENV
       - name: Gradle build on Ununtu
+        env:
+          IONOS_ACCESS_KEY: ${{ secrets.IONOS_ACCESS_KEY }}
+          IONOS_SECRET_KEY: ${{ secrets.IONOS_SECRET_KEY }}
         if: matrix.os == 'ubuntu-latest'
         run: |
           ./gradlew build
           ./gradlew runFunctionalTest
-          javac -cp api/build/libs/ionosclouds3-${DEV_VERSION}-all.jar functional/TestUserAgent.java
-          java -Dversion=${DEV_VERSION} -cp api/build/libs/ionosclouds3-${DEV_VERSION}-all.jar:functional TestUserAgent
-          ./gradlew clean
-          ./gradlew build -Prelease
-          javac -cp api/build/libs/ionosclouds3-${RELEASE_VERSION}-all.jar functional/TestUserAgent.java
-          java -Dversion=${RELEASE_VERSION} -cp api/build/libs/ionosclouds3-${RELEASE_VERSION}-all.jar:functional TestUserAgent
       - name: Gradle build on Windows
+        env:
+          IONOS_ACCESS_KEY: ${{ secrets.IONOS_ACCESS_KEY }}
+          IONOS_SECRET_KEY: ${{ secrets.IONOS_SECRET_KEY }}
         if: matrix.os == 'windows-latest'
         run: |
           $Env:Path += ';.'
