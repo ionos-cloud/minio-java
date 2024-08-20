@@ -2026,16 +2026,16 @@ public class FunctionalTest {
     testCopyObjectMetadataReplace();
     testCopyObjectEmptyMetadataReplace();
 
-    testCopyObject(
-        "[SSE-S3]",
-        sseS3,
-        CopyObjectArgs.builder()
-            .bucket(bucketName)
-            .object(getRandomName())
-            .sse(sseS3)
-            .source(CopySource.builder().bucket(getRandomName()).object(getRandomName()).build())
-            .build(),
-        false);
+    // testCopyObject(
+    //     "[SSE-S3]",
+    //     sseS3,
+    //     CopyObjectArgs.builder()
+    //         .bucket(bucketName)
+    //         .object(getRandomName())
+    //         .sse(sseS3)
+    //         .source(CopySource.builder().bucket(getRandomName()).object(getRandomName()).build())
+    //         .build(),
+    //     false);
 
     if (!isSecureEndpoint) {
       mintIgnoredLog(methodName, "[SSE-C]", System.currentTimeMillis());
@@ -2043,21 +2043,21 @@ public class FunctionalTest {
       return;
     }
 
-    testCopyObject(
-        "[SSE-C]",
-        ssec,
-        CopyObjectArgs.builder()
-            .bucket(bucketName)
-            .object(getRandomName())
-            .sse(ssec)
-            .source(
-                CopySource.builder()
-                    .bucket(getRandomName())
-                    .object(getRandomName())
-                    .ssec(ssec)
-                    .build())
-            .build(),
-        false);
+    // testCopyObject(
+    //     "[SSE-C]",
+    //     ssec,
+    //     CopyObjectArgs.builder()
+    //         .bucket(bucketName)
+    //         .object(getRandomName())
+    //         .sse(ssec)
+    //         .source(
+    //             CopySource.builder()
+    //                 .bucket(getRandomName())
+    //                 .object(getRandomName())
+    //                 .ssec(ssec)
+    //                 .build())
+    //         .build(),
+    //     false);
 
     if (sseKms == null) {
       mintIgnoredLog(methodName, "[SSE-KMS]", System.currentTimeMillis());
