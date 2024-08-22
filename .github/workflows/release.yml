@@ -51,11 +51,10 @@ jobs:
           ./gradlew signMavenJavaPublication publish \
           -Psigning.secretKeyRingFile=secring.gpg \
           -Psigning.password=${{ secrets.GPG_KEY_PASSWORD }} -Psigning.keyId=${{ secrets.GPG_KEY_ID }} \
-          -Pmvn.credentials.username=${{ secrets.NEXUS_REPOSITORY_USERNAME }} \
-          -Pmvn.credentials.password=${{ secrets.NEXUS_REPOSITORY_PASSWORD }}
+          -PnexusUsername=${{ secrets.NEXUS_REPOSITORY_USERNAME }} \
+          -PnexusPassword=${{ secrets.NEXUS_REPOSITORY_PASSWORD }}
           if [[ "${{ github.event.inputs.version }}" != *"SNAPSHOT"* ]]; then
-            ./gradlew nexusStagingRelease \
-            -Poss-releases.username=${{ secrets.NEXUS_REPOSITORY_USERNAME }} \
-            -Poss-releases.password=${{ secrets.NEXUS_REPOSITORY_PASSWORD }} \
-            -Poss-releases.url=https://oss.sonatype.org/index.html#stagingRepositories
+            ./gradlew closeAndReleaseRepository \
+            -PnexusUsername=${{ secrets.NEXUS_REPOSITORY_USERNAME }} \
+            -PnexusPassword=${{ secrets.NEXUS_REPOSITORY_PASSWORD }}
           fi

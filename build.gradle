@@ -8,6 +8,7 @@ plugins {
   id "io.codearte.nexus-staging" version "0.30.0"
   id "de.marcphilipp.nexus-publish" version "0.4.0"
   id "com.diffplug.spotless" version "6.13.0"
+  id 'signing'
 }
 
 /*
@@ -93,8 +94,8 @@ subprojects {
 
     check.dependsOn localeTest
 
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 
     spotless {
         java {
@@ -194,14 +195,12 @@ project(':api') {
     }
 
     signing {
-        if (project.properties.containsKey('signing.keyId')) {
-            sign publishing.publications.mavenJava
-        }
+        sign publishing.publications.mavenJava
     }
 
     nexusStaging {
         packageGroup = group
-        stagingProfileId = '9b746c9f8abc1'
+        stagingProfileId = '49b3953364a00'
         username = project.properties['nexusUsername']
         password = project.properties['nexusPassword']
     }
