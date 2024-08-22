@@ -1,0 +1,61 @@
+name: Java CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: version to publish (e.g. 1.2.3)
+        required: true
+
+jobs:
+  all:
+    name: Test and release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Check limited Guava usage
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          if grep --with-filename --line-number --no-messages --recursive --exclude-dir=.github "com.google.common.base.Objects" .; then
+            echo "Error: use java.util.Objects instead of com.google.common.base.Objects"
+            exit 1
+          fi
+      
+      - name: Setup java ${{ matrix.java-version }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java-version }}
+      
+      - name: Set environment variables
+        run: |
+          echo "DEV_VERSION=$(./gradlew properties | awk '/^version:/ { print $2 }')" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$(./gradlew properties -Prelease | awk '/^version:/ { print $2 }')" >> $GITHUB_ENV
+      
+      - name: Gradle build on Ununtu
+        env:
+          IONOS_ACCESS_KEY: ${{ secrets.IONOS_ACCESS_KEY }}
+          IONOS_SECRET_KEY: ${{ secrets.IONOS_SECRET_KEY }}
+        run: |
+          ./gradlew build
+          ./gradlew runFunctionalTest
+      
+      - name: Create Java release of the S3 SDK version ${{ github.event.inputs.version }}
+        shell: bash
+        run: |
+          echo "${{ secrets.GPG_KEYRING }}" | base64 --decode > secring.gpg
+          chmod +x gradlew
+          ./gradlew clean build
+          ./gradlew signMavenJavaPublication publish \
+          -Psigning.secretKeyRingFile=secring.gpg \
+          -Psigning.password=${{ secrets.GPG_KEY_PASSWORD }} -Psigning.keyId=${{ secrets.GPG_KEY_ID }} \
+          -Pmvn.credentials.username=${{ secrets.NEXUS_REPOSITORY_USERNAME }} \
+          -Pmvn.credentials.password=${{ secrets.NEXUS_REPOSITORY_PASSWORD }}
+          if [[ "${{ github.event.inputs.version }}" != *"SNAPSHOT"* ]]; then
+            ./gradlew nexusStagingRelease \
+            -Poss-releases.username=${{ secrets.NEXUS_REPOSITORY_USERNAME }} \
+            -Poss-releases.password=${{ secrets.NEXUS_REPOSITORY_PASSWORD }} \
+            -Poss-releases.url=https://oss.sonatype.org/index.html#stagingRepositories
+          fi

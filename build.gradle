@@ -18,7 +18,7 @@ apply plugin: "de.marcphilipp.nexus-publish"
 
 allprojects {
     group = 'com.ionoscloud.s3'
-    version = '8.5.10'
+    version = '1.0.0-SNAPSHOT'
     if (!project.hasProperty('release')) {
         version += '-DEV'
     }
@@ -116,7 +116,7 @@ project(':api') {
     apply plugin: 'com.github.johnrengelman.shadow'
     apply plugin: "de.marcphilipp.nexus-publish"
 
-    archivesBaseName = 'ionosclouds3'
+    archivesBaseName = 'ionos-cloud-sdk-s3'
 
     jar {
         manifest {
@@ -162,7 +162,7 @@ project(':api') {
                 artifactId archivesBaseName
                 from components.java
                 pom {
-                    name = 'ionosclouds3'
+                    name = 's3'
                     packaging = 'jar'
                     description = 'IONOS Java SDK for Amazon S3 Compatible Cloud Storage'
                     url = 'https://github.com/ionos-cloud/sdk-java-s3'
