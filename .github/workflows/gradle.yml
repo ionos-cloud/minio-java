@@ -36,7 +36,7 @@ jobs:
           echo "RELEASE_VERSION=$(./gradlew properties -Prelease | awk '/^version:/ { print $2 }')" >> $GITHUB_ENV
       - name: Gradle build on Ununtu
         env:
-          IONOS_ACCESS_KEY: ${{ secrets.IONOS_ACCESS_KEY }}
+          IONOS_S3_ACCESS_KEY: ${{ secrets.IONOS_S3_ACCESS_KEY }}
           IONOS_S3_SECRET_KEY: ${{ secrets.IONOS_S3_SECRET_KEY }}
         if: matrix.os == 'ubuntu-latest'
         run: |
@@ -44,7 +44,7 @@ jobs:
           ./gradlew runFunctionalTest
       - name: Gradle build on Windows
         env:
-          IONOS_ACCESS_KEY: ${{ secrets.IONOS_ACCESS_KEY }}
+          IONOS_S3_ACCESS_KEY: ${{ secrets.IONOS_S3_ACCESS_KEY }}
           IONOS_S3_SECRET_KEY: ${{ secrets.IONOS_S3_SECRET_KEY }}
         if: matrix.os == 'windows-latest'
         run: |
