@@ -262,12 +262,12 @@ project(':functional') {
             ext.endpoint = rootProject.properties['endpoint']
         }
 
-        ext.accessKey = System.getenv('IONOS_ACCESS_KEY')
+        ext.accessKey = System.getenv('IONOS_S3_ACCESS_KEY')
         if (project.properties.containsKey('accessKey')) {
             ext.accessKey = rootProject.properties['accessKey']
         }
 
-        ext.secretKey = System.getenv('IONOS_SECRET_KEY')
+        ext.secretKey = System.getenv('IONOS_S3_SECRET_KEY')
         if (project.properties.containsKey('secretKey')) {
             ext.secretKey = rootProject.properties['secretKey']
         }
