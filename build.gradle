@@ -201,15 +201,15 @@ project(':api') {
     nexusStaging {
         packageGroup = group
         stagingProfileId = '49b3953364a00'
-        username = project.properties['nexusUsername']
-        password = project.properties['nexusPassword']
+        username = project.properties['ossrhToken']
+        password = project.properties['ossrhTokenPassword']
     }
 
     nexusPublishing {
         repositories {
             sonatype {
-                username = project.properties['nexusUsername']
-                password = project.properties['nexusPassword']
+                username = project.properties['ossrhToken']
+                password = project.properties['ossrhTokenPassword']
             }
         }
     }
