@@ -8,6 +8,7 @@ plugins {
   id "io.codearte.nexus-staging" version "0.30.0"
   id "de.marcphilipp.nexus-publish" version "0.4.0"
   id "com.diffplug.spotless" version "6.13.0"
+  id 'signing'
 }
 
 /*
@@ -18,7 +19,7 @@ apply plugin: "de.marcphilipp.nexus-publish"
 
 allprojects {
     group = 'com.ionoscloud.s3'
-    version = '8.5.10'
+    version = '1.0.0-SNAPSHOT'
     if (!project.hasProperty('release')) {
         version += '-DEV'
     }
@@ -116,7 +117,7 @@ project(':api') {
     apply plugin: 'com.github.johnrengelman.shadow'
     apply plugin: "de.marcphilipp.nexus-publish"
 
-    archivesBaseName = 'ionosclouds3'
+    archivesBaseName = 'ionos-cloud-sdk-s3'
 
     jar {
         manifest {
@@ -162,7 +163,7 @@ project(':api') {
                 artifactId archivesBaseName
                 from components.java
                 pom {
-                    name = 'ionosclouds3'
+                    name = 's3'
                     packaging = 'jar'
                     description = 'IONOS Java SDK for Amazon S3 Compatible Cloud Storage'
                     url = 'https://github.com/ionos-cloud/sdk-java-s3'
@@ -194,14 +195,12 @@ project(':api') {
     }
 
     signing {
-        if (project.properties.containsKey('signing.keyId')) {
-            sign publishing.publications.mavenJava
-        }
+        sign publishing.publications.mavenJava
     }
 
     nexusStaging {
         packageGroup = group
-        stagingProfileId = '9b746c9f8abc1'
+        stagingProfileId = '49b3953364a00'
         username = project.properties['nexusUsername']
         password = project.properties['nexusPassword']
     }
