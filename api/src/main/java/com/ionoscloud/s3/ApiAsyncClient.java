@@ -109,7 +109,7 @@ import org.xerial.snappy.SnappyFramedOutputStream;
  * ApiAsyncClient apiAsyncClient =
  *     ApiAsyncClient.builder()
  *         .endpoint(System.getenv("IONOS_API_URL"))
- *         .credentials(System.getenv("IONOS_ACCESS_KEY"), System.getenv("IONOS_SECRET_KEY"))
+ *         .credentials(System.getenv("IONOS_S3_ACCESS_KEY"), System.getenv("IONOS_S3_SECRET_KEY"))
  *         .build();
  * }</pre>
  */
